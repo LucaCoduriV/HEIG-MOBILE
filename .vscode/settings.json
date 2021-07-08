@@ -1,0 +1,11 @@
+{
+    "[dart]": {
+        "editor.defaultFormatter": "Dart-Code.dart-code",
+        "editor.formatOnSave": true
+    },
+    "prettier.printWidth": 100,
+    "editor.wordWrapColumn": 100,
+    "dart.lineLength": 80,
+    "dart.previewFlutterUiGuides": true,
+    "dart.previewFlutterUiGuidesCustomTracking": true
+}
