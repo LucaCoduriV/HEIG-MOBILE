@@ -9,9 +9,11 @@ void main() async {
   load();
   String username = env['USERNAME'].toString();
   String password = env['PASSWORD'].toString();
+  String ip = env['SERVER_IP'].toString();
+  String port = env['PORT'].toString();
   group("Notes", () {
     test("should be fetched", () async {
-      final ApiController api = ApiController();
+      final ApiController api = ApiController.withIp(ip, port);
 
       Bulletin bulletin = await api.fetchNotes(username, password);
       debugPrint(bulletin.toString());
@@ -21,7 +23,7 @@ void main() async {
 
   group("Horaires", () {
     test("should be fetched", () async {
-      final ApiController api = ApiController();
+      final ApiController api = ApiController.withIp(ip, port);
 
       Horaires horaires = await api.fetchHoraires(username, password);
       debugPrint(horaires.toString());

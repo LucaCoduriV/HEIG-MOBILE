@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:heig_front/controllers/navigator_controller.dart';
 import 'package:heig_front/widgets/my_drawer.dart';
 import 'package:heig_front/widgets/screens/horaires_screen.dart';
@@ -6,7 +7,8 @@ import 'package:heig_front/widgets/screens/notes_screen.dart';
 import 'package:vrouter/vrouter.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  await dotenv.load();
   runApp(
     VRouter(
       debugShowCheckedModeBanner: false, // VRouter acts as a MaterialApp
