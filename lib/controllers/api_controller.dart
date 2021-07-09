@@ -29,17 +29,15 @@ class ApiController {
   Future<Horaires> fetchHoraires(String username, String password) async {
     Response res =
         await dio.get("/horaires?username=$username&password=$password");
-    List<dynamic> json = res.data;
     List<HeureDeCours> horaires =
-        json.map((e) => HeureDeCours.fromJson(e)).toList();
+        res.data.map((e) => HeureDeCours.fromJson(e)).toList();
     return Horaires(semestre: 2, annee: 2020, horaires: horaires);
   }
 
   Future<Bulletin> fetchNotes(String username, String password) async {
     Response res =
         await dio.get("/notes?username=$username&password=$password");
-    List<dynamic> json = res.data;
-    List<Branche> notes = json.map((e) => Branche.fromJson(e)).toList();
+    List<Branche> notes = res.data.map((e) => Branche.fromJson(e)).toList();
     log(Bulletin(notes).toString());
     return Bulletin(notes);
   }
