@@ -21,10 +21,15 @@ class HeureDeCours {
     return HeureDeCours(
       nom: json['nom'],
       debut: json['debut'],
-      periodes: json['periode'],
-      jour: json['jour'],
+      periodes: json['periodes'],
+      jour: JourSemaine.values[json['jour']],
       prof: json['prof'],
       salle: json['salle'],
     );
+  }
+
+  @override
+  String toString() {
+    return "HeureDeCours(${this.nom}, ${this.debut}, ${this.periodes} périodes, ${this.jour}, ${this.prof}, ${this.salle})";
   }
 }

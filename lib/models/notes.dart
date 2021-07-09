@@ -10,4 +10,9 @@ class Note {
   factory Note.fromJson(Map<String, dynamic> json) {
     return Note(json['nom'], json['note']);
   }
+
+  @override
+  String toString() {
+    return "${note.toString()}";
+  }
 }

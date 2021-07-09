@@ -1,14 +1,14 @@
-import 'notes.dart';
+import 'branche.dart';
 
 class Bulletin {
-  late List<Note> bulletin;
+  late List<Branche> notes;
 
   Bulletin(bulletin) {
-    this.bulletin = bulletin ?? [];
+    this.notes = bulletin ?? [];
   }
 
   @override
   String toString() {
-    return "nombre de notes: ${bulletin.length}";
+    return "nombre de branches: ${notes.length}, ${notes.toString()}";
   }
 }

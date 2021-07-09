@@ -12,6 +12,6 @@ class Horaires {
 
   @override
   String toString() {
-    return "$semestre, $annee, nombre de cours: ${horaires.length}";
+    return "$semestre, $annee, nombre de cours: ${horaires.length}, ${horaires.toString()}";
   }
 }
