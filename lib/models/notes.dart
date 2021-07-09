@@ -8,6 +8,6 @@ class Notes {
   }
 
   factory Notes.fromJson(Map<String, dynamic> json) {
-    return Notes(json['nom'] as String, json['note'] as double);
+    return Notes(json['nom'], json['note']);
   }
 }
