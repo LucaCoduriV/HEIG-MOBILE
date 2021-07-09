@@ -7,6 +7,11 @@ class Horaires {
 
   Horaires({required this.semestre, required this.annee, horaires}) {
     // je sais pas si c'est la meilleur manière de faire
-    this.horaires = horaires == null ? [] : horaires;
+    this.horaires = horaires ?? [];
+  }
+
+  @override
+  String toString() {
+    return "$semestre, $annee, nombre de cours: ${horaires.length}";
   }
 }

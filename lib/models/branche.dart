@@ -4,8 +4,8 @@ import 'notes.dart';
 
 class Branche {
   final String nom;
-  List<Notes> cours = [];
-  List<Notes> laboratoire = [];
+  List<Note> cours = [];
+  List<Note> laboratoire = [];
   double moyenne = 1.0;
 
   Branche(nom, {cours, laboratoire, moyenne}) : nom = nom {
