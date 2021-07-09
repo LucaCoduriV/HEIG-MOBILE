@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heig_front/utils/navigator_controller.dart';
+import 'package:heig_front/controllers/navigator_controller.dart';
 
 class MyDrawer extends StatefulWidget {
   final Widget child;

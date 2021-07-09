@@ -20,7 +20,11 @@ class ApiController {
     dio = Dio(options);
   }
 
-  Future<Response> fetchHoraires() {}
+  Future<Response> fetchHoraires(String username, String password) {
+    return dio.get("/horaires?username=$username&password=$password");
+  }
 
-  Future<Response> fetchNotes() {}
+  Future<Response> fetchNotes(String username, String password) {
+    return dio.get("/notes?username=$username&password=$password");
+  }
 }

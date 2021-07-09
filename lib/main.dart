@@ -1,4 +1,4 @@
-import 'package:heig_front/utils/navigator_controller.dart';
+import 'package:heig_front/controllers/navigator_controller.dart';
 import 'package:heig_front/widgets/my_drawer.dart';
 import 'package:heig_front/widgets/screens/horaires_screen.dart';
 import 'package:heig_front/widgets/screens/login_screen.dart';
@@ -7,10 +7,6 @@ import 'package:vrouter/vrouter.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  final String notes = 'notes';
-  final String horaire = 'horaires';
-  final String login = '/login';
-
   runApp(
     VRouter(
       debugShowCheckedModeBanner: false, // VRouter acts as a MaterialApp
@@ -42,7 +38,7 @@ void main() {
         ),
         // This redirect every unknown routes to /login
         VRouteRedirector(
-          redirectTo: login,
+          redirectTo: "/${NavigatorController.login}",
           path: r':_(.*)', // .* is a regexp which matching every paths
         ),
       ],
