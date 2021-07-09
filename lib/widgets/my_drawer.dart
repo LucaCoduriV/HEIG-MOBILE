@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:vrouter/vrouter.dart';
 
-class MyDrawer extends StatelessWidget {
+class MyDrawer extends StatefulWidget {
   final Widget child;
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   MyDrawer({Key? key, required this.child}) : super(key: key);
 
   @override
+  State<MyDrawer> createState() => _MyDrawerState();
+}
+
+class _MyDrawerState extends State<MyDrawer> {
+  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text('HEIG Front'),
       ),
-      body: child,
+      body: widget.child,
       drawer: Drawer(
-        key: _scaffoldKey,
         child: ListView(
           children: <Widget>[
             ListTile(
