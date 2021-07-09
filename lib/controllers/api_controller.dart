@@ -38,7 +38,6 @@ class ApiController {
     Response res =
         await dio.get("/notes?username=$username&password=$password");
     List<Branche> notes = res.data.map((e) => Branche.fromJson(e)).toList();
-    log(Bulletin(notes).toString());
     return Bulletin(notes);
   }
 }
