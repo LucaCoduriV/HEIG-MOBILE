@@ -13,4 +13,13 @@ class Branche {
     this.laboratoire = laboratoire;
     this.moyenne = moyenne;
   }
+
+  factory Branche.fromJson(Map<String, dynamic> json) {
+    return Branche(
+      json['nom'],
+      cours: json['cours'],
+      laboratoire: json['laboratoire'],
+      moyenne: json['moyenne'],
+    );
+  }
 }
