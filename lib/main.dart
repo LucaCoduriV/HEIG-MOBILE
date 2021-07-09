@@ -1,3 +1,4 @@
+import 'package:heig_front/utils/navigator_controller.dart';
 import 'package:heig_front/widgets/my_drawer.dart';
 import 'package:heig_front/widgets/screens/horaires_screen.dart';
 import 'package:heig_front/widgets/screens/login_screen.dart';
@@ -22,19 +23,19 @@ void main() {
       logs: VLogs.info, // Defines which logs to show, info is the default
       routes: [
         VWidget(
-          path: login,
+          path: "/${NavigatorController.login}",
           widget: LoginScreen(),
         ),
         VNester(
-          path: '/home',
+          path: "/${NavigatorController.home}",
           widgetBuilder: (child) => MyDrawer(child: child),
           nestedRoutes: [
             VWidget(
-              path: notes,
+              path: NavigatorController.notes,
               widget: NotesScreen(),
             ), // path '/home/profile'
             VWidget(
-              path: horaire,
+              path: NavigatorController.horaires,
               widget: HorairesScreen(),
             ), // path '/home/settings'
           ],

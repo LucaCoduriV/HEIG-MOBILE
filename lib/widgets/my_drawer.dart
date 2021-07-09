@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vrouter/vrouter.dart';
+import 'package:heig_front/utils/navigator_controller.dart';
 
 class MyDrawer extends StatefulWidget {
   final Widget child;
@@ -28,14 +28,14 @@ class _MyDrawerState extends State<MyDrawer> {
               title: Text('Notes'),
               onTap: () {
                 _scaffoldKey.currentState?.openEndDrawer();
-                VRouter.of(context).to("/home/notes");
+                NavigatorController.toNotes(context);
               },
             ),
             ListTile(
               title: Text('Horaire'),
               onTap: () {
                 _scaffoldKey.currentState?.openEndDrawer();
-                VRouter.of(context).to("/home/horaires");
+                NavigatorController.toHoraires(context);
               },
             ),
           ],
