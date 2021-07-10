@@ -5,6 +5,7 @@ import 'package:heig_front/models/bulletin.dart';
 import 'package:heig_front/models/heure_de_cours.dart';
 import 'package:heig_front/models/horaires.dart';
 
+/// Cette classe permet de récupérer les données traitées depuis l'API
 class ApiController {
   late Dio dio;
   late String serverIp;

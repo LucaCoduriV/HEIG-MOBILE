@@ -4,11 +4,13 @@ import 'package:heig_front/controllers/api_controller.dart';
 import 'package:heig_front/models/bulletin.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+/// Cette classe permet de distribuer et mettre à jours les données concernant le bulletin
 class BulletinProvider extends ChangeNotifier {
   late Bulletin _bulletin;
   var box = Hive.box('heig');
 
   BulletinProvider() {
+    // Les données sont récupérée dans le localstorage
     Bulletin hiveBulletin = box.get('bulletin', defaultValue: Bulletin([]));
     _bulletin = hiveBulletin;
   }
@@ -17,15 +19,9 @@ class BulletinProvider extends ChangeNotifier {
     return _bulletin;
   }
 
+  /// Récupère le bulletin depuis l'API et informe les views que ça a été mis à jour
   Future<void> fetchBulletin(String username, String password) async {
     _bulletin = await GetIt.I<ApiController>().fetchNotes(username, password);
     notifyListeners();
-  }
-
-  Stream<Bulletin> getBulletinStream(String username, String password) async* {
-    yield _bulletin;
-    _bulletin = await GetIt.I<ApiController>().fetchNotes(username, password);
-    if (_bulletin != null) box.put('bulletin', _bulletin);
-    yield _bulletin;
   }
 }

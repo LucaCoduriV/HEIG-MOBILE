@@ -14,18 +14,24 @@ class NotesScreen extends StatelessWidget {
     Bulletin bulletin = context.watch<BulletinProvider>().bulletin;
 
     return Center(
-      child: ListView.builder(
-        itemCount: bulletin.branches.length,
-        itemBuilder: (context, index) {
-          List<Branche> branches = bulletin.branches;
-          return BrancheButton(
-            title: branches[index].nom,
-            onPress: () {
-              NavigatorController.toNoteDetails(context, index);
-            },
-          );
-        },
-      ),
+      child: buildButtons(bulletin),
+    );
+  }
+
+  Widget buildButtons(Bulletin bulletin) {
+    if (bulletin.branches.length == 0)
+      return Text("Aucune notes, veuillez rafraichir.");
+    return ListView.builder(
+      itemCount: bulletin.branches.length,
+      itemBuilder: (context, index) {
+        List<Branche> branches = bulletin.branches;
+        return BrancheButton(
+          title: branches[index].nom,
+          onPress: () {
+            NavigatorController.toNoteDetails(context, index);
+          },
+        );
+      },
     );
   }
 }
