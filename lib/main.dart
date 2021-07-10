@@ -1,7 +1,7 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/controllers/api_controller.dart';
-import 'package:heig_front/controllers/branche_provider.dart';
+import 'package:heig_front/controllers/bulletin_provider.dart';
 import 'package:heig_front/controllers/navigator_controller.dart';
 import 'package:heig_front/models/branche.dart';
 import 'package:heig_front/models/bulletin.dart';
@@ -16,6 +16,7 @@ import 'package:heig_front/widgets/screens/notes_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vrouter/vrouter.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 Future<void> setup() async {
   await dotenv.load();
@@ -54,7 +55,10 @@ void main() async {
           nestedRoutes: [
             VNester(
               path: NavigatorController.notes,
-              widgetBuilder: (child) => child,
+              widgetBuilder: (child) => ChangeNotifierProvider.value(
+                value: GetIt.I<BulletinProvider>(),
+                child: child,
+              ),
               nestedRoutes: [
                 VWidget(
                   path: null,

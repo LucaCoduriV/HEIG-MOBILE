@@ -31,7 +31,8 @@ dependencies:
     hive_flutter: ^1.1.0 # gestion du localstorage
     dio: ^4.0.0 # gestion des requêtes http
     flutter_dotenv: ^5.0.0 # .env
-    get_it: ^7.1.4 # gestion des singleton
+    get_it: ^7.1.4 # gestion des singletons
+    provider: ^5.0.0 # state manager
     flutter:
         sdk: flutter
 

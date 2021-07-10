@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/controllers/branche_provider.dart';
+import 'package:heig_front/controllers/bulletin_provider.dart';
 import 'package:heig_front/controllers/navigator_controller.dart';
 import 'package:heig_front/models/branche.dart';
 import 'package:heig_front/models/bulletin.dart';
@@ -14,7 +14,7 @@ class NotesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: StreamBuilder(
-        stream: GetIt.I<BulletinProvider>().getBulletin(
+        stream: GetIt.I<BulletinProvider>().getBulletinStream(
             dotenv.env['USERNAME'].toString(),
             dotenv.env['PASSWORD'].toString()),
         builder: (context, snapshot) {
