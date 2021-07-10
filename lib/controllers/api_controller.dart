@@ -48,4 +48,13 @@ class ApiController {
     List<Branche> notes = json.map((e) => Branche.fromJson(e)).toList();
     return Bulletin(notes);
   }
+
+  Future<bool> login(String username, String password) async {
+    try {
+      await dio.get("/login?username=$username&password=$password");
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
 }

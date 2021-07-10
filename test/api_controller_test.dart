@@ -31,4 +31,22 @@ void main() async {
       expect(horaires.horaires.length, greaterThan(0));
     });
   });
+
+  group("Login", () {
+    test("should return true", () async {
+      final ApiController api = ApiController.withIp(ip, port);
+
+      bool connected = await api.login(username, password);
+
+      expect(connected, true);
+    });
+
+    test("should return false", () async {
+      final ApiController api = ApiController.withIp(ip, port);
+
+      bool connected = await api.login("wrong", "wrong");
+
+      expect(connected, false);
+    });
+  });
 }
