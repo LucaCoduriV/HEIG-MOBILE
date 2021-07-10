@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get_it/get_it.dart';
+import 'package:heig_front/controllers/bulletin_provider.dart';
 import 'package:heig_front/controllers/navigator_controller.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -19,6 +22,22 @@ class _MyDrawerState extends State<MyDrawer> {
       key: _scaffoldKey,
       appBar: AppBar(
         title: Text('HEIG Front'),
+        actions: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: GestureDetector(
+              onTap: () {
+                GetIt.I<BulletinProvider>().fetchBulletin(
+                    dotenv.env['USERNAME'].toString(),
+                    dotenv.env['PASSWORD'].toString());
+              },
+              child: Icon(
+                Icons.refresh,
+                size: 26.0,
+              ),
+            ),
+          ),
+        ],
       ),
       body: widget.child,
       drawer: Drawer(

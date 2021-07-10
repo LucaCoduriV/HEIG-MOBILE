@@ -13,7 +13,9 @@ class BulletinProvider extends ChangeNotifier {
     _bulletin = hiveBulletin;
   }
 
-  Bulletin get bulletin => _bulletin;
+  Bulletin get bulletin {
+    return _bulletin;
+  }
 
   Future<void> fetchBulletin(String username, String password) async {
     _bulletin = await GetIt.I<ApiController>().fetchNotes(username, password);
