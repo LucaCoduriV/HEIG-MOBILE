@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:heig_front/controllers/bulletin_provider.dart';
+import 'package:heig_front/models/bulletin.dart';
+import 'package:heig_front/models/notes.dart';
 import 'package:vrouter/vrouter.dart';
 
 class NotesDetails extends StatelessWidget {
@@ -6,8 +10,49 @@ class NotesDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(VRouter.of(context).pathParameters['id'].toString()),
+    int id = int.parse(VRouter.of(context).pathParameters['id'].toString());
+    Bulletin bulletin = GetIt.I<BulletinProvider>().bulletin;
+    List<Note> notesCours = bulletin.branches[id].cours;
+    List<Note> notesLabo = bulletin.branches[id].laboratoire;
+
+    return Column(
+      children: [
+        Text(bulletin.branches[id].nom),
+        Text("Cours"),
+        DataTable(
+          columns: <DataColumn>[
+            DataColumn(
+              label: Text(
+                'Note',
+                style: TextStyle(fontStyle: FontStyle.italic),
+              ),
+            ),
+          ],
+          rows: getDatas(notesCours),
+        ),
+        Text("Laboratroires"),
+        DataTable(
+          columns: <DataColumn>[
+            DataColumn(
+              label: Text(
+                'Note',
+                style: TextStyle(fontStyle: FontStyle.italic),
+              ),
+            ),
+          ],
+          rows: getDatas(notesLabo),
+        ),
+      ],
     );
+  }
+
+  List<DataRow> getDatas(List<Note> notes) {
+    return notes.map((e) {
+      return DataRow(
+        cells: <DataCell>[
+          DataCell(Text(e.note.toString())),
+        ],
+      );
+    }).toList();
   }
 }
