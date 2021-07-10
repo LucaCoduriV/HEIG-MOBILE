@@ -12,7 +12,7 @@ import 'package:heig_front/widgets/my_drawer.dart';
 import 'package:heig_front/widgets/screens/horaires_screen.dart';
 import 'package:heig_front/widgets/screens/login_screen.dart';
 import 'package:heig_front/widgets/screens/notes_details.dart';
-import 'package:heig_front/widgets/screens/notes_screen.dart';
+import 'package:heig_front/widgets/screens/bulletin_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vrouter/vrouter.dart';
 import 'package:flutter/material.dart';
