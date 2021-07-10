@@ -7,7 +7,11 @@ import 'package:hive_flutter/hive_flutter.dart';
 class AuthController extends ChangeNotifier {
   late String _username;
   late String _password;
-  bool isConnected = false;
+  late bool _isConnected;
+
+  var box = Hive.box('heig');
+
+  get isConnected => _isConnected;
 
   set username(String username) {
     var box = Hive.box('heig');
@@ -21,26 +25,31 @@ class AuthController extends ChangeNotifier {
     box.put('password', password);
   }
 
+  String get username => _username;
+  String get password => _password;
+
   AuthController() {
     // Récupérer le nom et le mot de passe de l'utilisateur
-    var box = Hive.box('heig');
     this._username = box.get('username', defaultValue: "");
     this._password = box.get('password', defaultValue: "");
+    this._isConnected = box.get('isConnected', defaultValue: false);
   }
 
   Future<bool> login() async {
     //ajouter la connection + le localstorage
-    isConnected = await GetIt.I<ApiController>().login(_username, _password);
+    _isConnected = await GetIt.I<ApiController>().login(_username, _password);
+    box.put('isConnected', _isConnected);
     notifyListeners();
-    return isConnected;
+    return _isConnected;
   }
 
   Future<void> logout() async {
     // supprimer la connection + le localstorage
-    var box = Hive.box('heig');
     box.delete('username');
     box.delete('password');
-    isConnected = false;
+    box.delete('bulletin');
+    box.put('isConnected', _isConnected);
+    _isConnected = false;
     notifyListeners();
     return;
   }

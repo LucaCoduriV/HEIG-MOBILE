@@ -1,6 +1,7 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/controllers/api_controller.dart';
+import 'package:heig_front/controllers/auth_controller.dart';
 import 'package:heig_front/controllers/bulletin_provider.dart';
 import 'package:heig_front/controllers/navigator_controller.dart';
 import 'package:heig_front/models/branche.dart';
@@ -30,6 +31,7 @@ Future<void> setup() async {
 
   GetIt.I.registerSingleton<BulletinProvider>(BulletinProvider());
   GetIt.I.registerSingleton<ApiController>(ApiController());
+  GetIt.I.registerSingleton<AuthController>(AuthController());
 }
 
 void main() async {
@@ -45,34 +47,55 @@ void main() async {
       mode: VRouterMode.history, // Remove the '#' from the url
       logs: VLogs.info, // Defines which logs to show, info is the default
       routes: [
-        VWidget(
-          path: "/${NavigatorController.login}",
-          widget: LoginScreen(),
+        VGuard(
+          beforeEnter: (vRedirector) async {
+            debugPrint(GetIt.I<AuthController>().isConnected.toString());
+            if (GetIt.I<AuthController>().isConnected) {
+              vRedirector.to(
+                  ("/${NavigatorController.home}/${NavigatorController.notes}"));
+            }
+          },
+          stackedRoutes: [
+            VWidget(
+              path: "/${NavigatorController.login}",
+              widget: LoginScreen(),
+            ),
+          ],
         ),
-        VNester(
-          path: "/${NavigatorController.home}",
-          widgetBuilder: (child) => MyDrawer(child: child),
-          nestedRoutes: [
+        VGuard(
+          beforeEnter: (vRedirector) async {
+            debugPrint(GetIt.I<AuthController>().isConnected.toString());
+            if (!GetIt.I<AuthController>().isConnected) {
+              vRedirector.to(("/${NavigatorController.login}"));
+            }
+          },
+          stackedRoutes: [
             VNester(
-              path: NavigatorController.notes,
-              widgetBuilder: (child) => ChangeNotifierProvider.value(
-                value: GetIt.I<BulletinProvider>(),
-                child: child,
-              ),
+              path: "/${NavigatorController.home}",
+              widgetBuilder: (child) => MyDrawer(child: child),
               nestedRoutes: [
-                VWidget(
-                  path: null,
-                  widget: NotesScreen(),
+                VNester(
+                  path: NavigatorController.notes,
+                  widgetBuilder: (child) => ChangeNotifierProvider.value(
+                    value: GetIt.I<BulletinProvider>(),
+                    child: child,
+                  ),
+                  nestedRoutes: [
+                    VWidget(
+                      path: null,
+                      widget: NotesScreen(),
+                    ),
+                    VWidget(
+                      path: ":id",
+                      widget: NotesDetails(),
+                    )
+                  ],
                 ),
                 VWidget(
-                  path: ":id",
-                  widget: NotesDetails(),
-                )
+                  path: NavigatorController.horaires,
+                  widget: HorairesScreen(),
+                ),
               ],
-            ),
-            VWidget(
-              path: NavigatorController.horaires,
-              widget: HorairesScreen(),
             ),
           ],
         ),

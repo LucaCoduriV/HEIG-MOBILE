@@ -23,7 +23,7 @@ class NotesDetails extends StatelessWidget {
           columns: <DataColumn>[
             DataColumn(
               label: Text(
-                'Note',
+                'Notes',
                 style: TextStyle(fontStyle: FontStyle.italic),
               ),
             ),
@@ -35,7 +35,7 @@ class NotesDetails extends StatelessWidget {
           columns: <DataColumn>[
             DataColumn(
               label: Text(
-                'Note',
+                'Notes',
                 style: TextStyle(fontStyle: FontStyle.italic),
               ),
             ),
