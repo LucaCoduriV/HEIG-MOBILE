@@ -3,6 +3,7 @@ import 'package:heig_front/controllers/navigator_controller.dart';
 import 'package:heig_front/widgets/my_drawer.dart';
 import 'package:heig_front/widgets/screens/horaires_screen.dart';
 import 'package:heig_front/widgets/screens/login_screen.dart';
+import 'package:heig_front/widgets/screens/notes_details.dart';
 import 'package:heig_front/widgets/screens/notes_screen.dart';
 import 'package:vrouter/vrouter.dart';
 import 'package:flutter/material.dart';
@@ -28,9 +29,19 @@ void main() async {
           path: "/${NavigatorController.home}",
           widgetBuilder: (child) => MyDrawer(child: child),
           nestedRoutes: [
-            VWidget(
+            VNester(
               path: NavigatorController.notes,
-              widget: NotesScreen(),
+              widgetBuilder: (child) => child,
+              nestedRoutes: [
+                VWidget(
+                  path: null,
+                  widget: NotesScreen(),
+                ),
+                VWidget(
+                  path: ":id",
+                  widget: NotesDetails(),
+                )
+              ],
             ), // path '/home/profile'
             VWidget(
               path: NavigatorController.horaires,
