@@ -1,4 +1,7 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get_it/get_it.dart';
+import 'package:heig_front/controllers/api_controller.dart';
+import 'package:heig_front/controllers/branche_provider.dart';
 import 'package:heig_front/controllers/navigator_controller.dart';
 import 'package:heig_front/widgets/my_drawer.dart';
 import 'package:heig_front/widgets/screens/horaires_screen.dart';
@@ -8,8 +11,14 @@ import 'package:heig_front/widgets/screens/notes_screen.dart';
 import 'package:vrouter/vrouter.dart';
 import 'package:flutter/material.dart';
 
-void main() async {
+Future<void> setup() async {
   await dotenv.load();
+  GetIt.I.registerSingleton<BulletinProvider>(BulletinProvider());
+  GetIt.I.registerSingleton<ApiController>(ApiController());
+}
+
+void main() async {
+  await setup();
   runApp(
     VRouter(
       debugShowCheckedModeBanner: false, // VRouter acts as a MaterialApp
@@ -42,14 +51,13 @@ void main() async {
                   widget: NotesDetails(),
                 )
               ],
-            ), // path '/home/profile'
+            ),
             VWidget(
               path: NavigatorController.horaires,
               widget: HorairesScreen(),
-            ), // path '/home/settings'
+            ),
           ],
         ),
-        // This redirect every unknown routes to /login
         VRouteRedirector(
           redirectTo: "/${NavigatorController.login}",
           path: r':_(.*)', // .* is a regexp which matching every paths

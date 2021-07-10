@@ -17,4 +17,8 @@ class NavigatorController {
   static void toHoraires(context) {
     VRouter.of(context).to("/$home/$horaires");
   }
+
+  static void toNoteDetails(context, int noteId) {
+    VRouter.of(context).to("/$home/$notes/$noteId");
+  }
 }

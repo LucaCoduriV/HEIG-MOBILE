@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:heig_front/controllers/api_controller.dart';
 import 'package:vrouter/vrouter.dart';
 
 class LoginScreen extends StatefulWidget {

@@ -28,9 +28,10 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
     vrouter: ^1.2.0+4
-    hive: ^2.0.4
-    dio: ^4.0.0
-    flutter_dotenv: ^5.0.0
+    hive: ^2.0.4 # gestion du localstorage
+    dio: ^4.0.0 # gestion des requêtes http
+    flutter_dotenv: ^5.0.0 # .env
+    get_it: ^7.1.4 # gestion des singleton
     flutter:
         sdk: flutter
 
@@ -39,7 +40,7 @@ dependencies:
     cupertino_icons: ^1.0.2
 
 dev_dependencies:
-    dotenv: ^3.0.0
+    dotenv: ^3.0.0 # .env pour les units tests
     flutter_test:
         sdk: flutter
 

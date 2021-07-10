@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:heig_front/controllers/api_controller.dart';
+import 'package:get_it/get_it.dart';
+import 'package:heig_front/controllers/branche_provider.dart';
+import 'package:heig_front/controllers/navigator_controller.dart';
+import 'package:heig_front/models/branche.dart';
 import 'package:heig_front/models/bulletin.dart';
 import 'package:heig_front/widgets/branche_button.dart';
-import 'package:vrouter/vrouter.dart';
 
 class NotesScreen extends StatelessWidget {
   const NotesScreen({Key? key}) : super(key: key);
@@ -11,22 +13,24 @@ class NotesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: FutureBuilder(
-        future: ApiController().fetchNotes(dotenv.env['USERNAME'].toString(),
+      child: StreamBuilder(
+        stream: GetIt.I<BulletinProvider>().getBulletin(
+            dotenv.env['USERNAME'].toString(),
             dotenv.env['PASSWORD'].toString()),
         builder: (context, snapshot) {
           if (!snapshot.hasData) return CircularProgressIndicator();
           if (snapshot.hasError) return Text("Error while fetching data");
-          return ListView(
-            children: (snapshot.data as Bulletin)
-                .notes
-                .map((e) => BrancheButton(
-                      title: e.nom,
-                      onPress: () {
-                        VRouter.of(context).to("/horaires/1");
-                      },
-                    ))
-                .toList(),
+          return ListView.builder(
+            itemCount: (snapshot.data as Bulletin).branches.length,
+            itemBuilder: (context, index) {
+              List<Branche> branches = (snapshot.data as Bulletin).branches;
+              return BrancheButton(
+                title: branches[index].nom,
+                onPress: () {
+                  NavigatorController.toNoteDetails(context, index);
+                },
+              );
+            },
           );
         },
       ),
