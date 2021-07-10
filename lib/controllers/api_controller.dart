@@ -8,10 +8,9 @@ import 'package:heig_front/models/horaires.dart';
 class ApiController {
   late Dio dio;
   late String serverIp;
-  static ApiController _instance = ApiController._internal();
 
   factory ApiController() {
-    return _instance;
+    return ApiController._internal();
   }
 
   ApiController.withIp(String ip, String port) {
