@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.heig_front">
+    <uses-permission android:name="android.permission.INTERNET" />
+
    <application
         android:label="heig_front"
         android:icon="@mipmap/ic_launcher">

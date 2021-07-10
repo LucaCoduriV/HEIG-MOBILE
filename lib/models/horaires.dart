@@ -1,8 +1,15 @@
 import 'package:heig_front/models/heure_de_cours.dart';
+import 'package:hive_flutter/adapters.dart';
 
+part 'horaires.g.dart';
+
+@HiveType(typeId: 4)
 class Horaires {
+  @HiveField(0)
   int semestre;
+  @HiveField(1)
   int annee;
+  @HiveField(2)
   late List<HeureDeCours> horaires;
 
   Horaires({required this.semestre, required this.annee, horaires}) {

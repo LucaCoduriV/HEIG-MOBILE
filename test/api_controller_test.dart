@@ -17,7 +17,7 @@ void main() async {
 
       Bulletin bulletin = await api.fetchNotes(username, password);
       debugPrint(bulletin.toString());
-      expect(bulletin.notes.length, greaterThan(0));
+      expect(bulletin.branches.length, greaterThan(0));
     });
   });
 

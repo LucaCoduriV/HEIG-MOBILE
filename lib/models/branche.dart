@@ -1,9 +1,18 @@
+import 'package:hive_flutter/adapters.dart';
+
 import 'notes.dart';
 
+part 'branche.g.dart';
+
+@HiveType(typeId: 2)
 class Branche {
+  @HiveField(0)
   final String nom;
+  @HiveField(1)
   List<Note> cours = [];
+  @HiveField(2)
   List<Note> laboratoire = [];
+  @HiveField(3)
   double moyenne = 1.0;
 
   Branche(nom, {cours, laboratoire, double moyenne = 0.0}) : nom = nom {
