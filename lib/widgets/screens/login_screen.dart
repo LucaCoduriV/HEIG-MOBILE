@@ -34,12 +34,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Container(
                     width: 200,
-                    child: TextField(
+                    child: TextFormField(
+                      validator: validator,
                       decoration: InputDecoration(
                         hintText: 'Enter your name',
                       ),
-                      onChanged: (event) => log(event),
-                      autocorrect: false,
+                      controller: username,
                     ),
                   ),
                 ],
@@ -50,13 +50,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Container(
                     width: 200,
-                    child: TextField(
+                    child: TextFormField(
+                      validator: validator,
                       decoration: InputDecoration(
                         hintText: 'Enter your password',
                       ),
                       obscureText: true,
                       controller: password,
-                      autocorrect: false,
                     ),
                   ),
                 ],
