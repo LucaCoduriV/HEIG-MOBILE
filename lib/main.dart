@@ -33,7 +33,7 @@ Future<void> setup() async {
   GetIt.I.registerSingleton<BulletinProvider>(BulletinProvider());
   GetIt.I.registerSingleton<ApiController>(ApiController());
   GetIt.I.registerSingleton<AuthController>(AuthController());
-  GetIt.I.registerSingleton<DrawerProvider>(DrawerProvider('HEIG Front'));
+  GetIt.I.registerSingleton<DrawerProvider>(DrawerProvider('Notes'));
 }
 
 void main() async {

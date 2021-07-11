@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:heig_front/controllers/env_controller.dart';
 import 'package:heig_front/models/branche.dart';
 import 'package:heig_front/models/bulletin.dart';
 import 'package:heig_front/models/heure_de_cours.dart';
@@ -29,7 +30,7 @@ class ApiController {
 
   factory ApiController._internal() {
     return ApiController.withIp(
-        dotenv.env["SERVER_IP"].toString(), dotenv.env["PORT"].toString());
+        EnvController.getApiIp(), EnvController.getApiPort());
   }
 
   Future<Horaires> fetchHoraires(String username, String password) async {
