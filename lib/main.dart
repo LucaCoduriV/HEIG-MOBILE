@@ -51,6 +51,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Color(0xffda291c),
         accentColor: Color(0xffdf4d52),
+        buttonTheme: ButtonThemeData(
+          buttonColor: Color(0xffda291c),
+          textTheme: ButtonTextTheme.primary,
+        ),
       ),
       debugShowCheckedModeBanner: false, // VRouter acts as a MaterialApp
       buildTransition: (animation1, _, child) => SlideTransition(

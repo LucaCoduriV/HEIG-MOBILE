@@ -73,9 +73,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 50,
                   ),
-                  ElevatedButton(
+                  OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      minimumSize: Size(100, 40),
+                      primary: Colors.teal,
+                      side: BorderSide(
+                        color: Theme.of(context).primaryColor,
+                        width: 1,
+                      ),
+                    ),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         GetIt.I<AuthController>().username = username.text;
@@ -84,7 +92,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           NavigatorController.toNotes(context);
                       }
                     },
-                    child: Text("Login"),
+                    child: Text(
+                      "Login",
+                      style: TextStyle(color: Theme.of(context).primaryColor),
+                    ),
                   ),
                 ],
               ),
