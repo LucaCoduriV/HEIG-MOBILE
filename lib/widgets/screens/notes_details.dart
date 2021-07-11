@@ -31,6 +31,7 @@ class NotesDetails extends StatelessWidget {
                   columns: getColumn(),
                   rows: getDatas(notesCours),
                 ),
+                SizedBox(height: 20),
                 Text(
                   "Laboratroires:",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

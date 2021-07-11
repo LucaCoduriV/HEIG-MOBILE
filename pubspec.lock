@@ -216,6 +216,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_app_name:
+    dependency: "direct dev"
+    description:
+      name: flutter_app_name
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   flutter_dotenv:
     dependency: "direct main"
     description:
@@ -223,13 +230,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.0"
-  flutter_lints:
-    dependency: "direct dev"
-    description:
-      name: flutter_lints
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.3"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -331,13 +331,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.1"
-  lints:
-    dependency: transitive
-    description:
-      name: lints
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
   logging:
     dependency: transitive
     description:
