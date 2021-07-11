@@ -36,8 +36,20 @@ Future<void> setup() async {
 
 void main() async {
   await setup();
-  runApp(
-    VRouter(
+
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return VRouter(
+      theme: ThemeData(
+        primaryColor: Color(0xffda291c),
+        accentColor: Color(0xffdf4d52),
+      ),
       debugShowCheckedModeBanner: false, // VRouter acts as a MaterialApp
       buildTransition: (animation1, _, child) => SlideTransition(
         position: Tween(begin: Offset(1.0, 0.0), end: Offset(0.0, 0.0))
@@ -104,6 +116,6 @@ void main() async {
           path: r':_(.*)', // .* is a regexp which matching every paths
         ),
       ],
-    ),
-  );
+    );
+  }
 }

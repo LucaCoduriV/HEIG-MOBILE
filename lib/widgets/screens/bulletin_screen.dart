@@ -27,6 +27,7 @@ class NotesScreen extends StatelessWidget {
         List<Branche> branches = bulletin.branches;
         return BrancheButton(
           title: branches[index].nom,
+          moyenne: branches[index].moyenne,
           onPress: () {
             NavigatorController.toNoteDetails(context, index);
           },

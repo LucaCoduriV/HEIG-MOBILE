@@ -21,13 +21,21 @@ class NotesDetails extends StatelessWidget {
         Expanded(
           child: ListView(
             children: [
-              Text("Cours"),
+              Text(
+                "Cours:",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
               DataTable(
+                columnSpacing: 30,
                 columns: getColumn(),
                 rows: getDatas(notesCours),
               ),
-              Text("Laboratroires"),
+              Text(
+                "Laboratroires:",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
               DataTable(
+                columnSpacing: 30,
                 columns: getColumn(),
                 rows: getDatas(notesLabo),
               ),
