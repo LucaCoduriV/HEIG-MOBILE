@@ -19,7 +19,7 @@ class NotesDetails extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(20),
             child: ListView(
               children: [
                 Text(
