@@ -20,7 +20,7 @@ class NoteAdapter extends TypeAdapter<Note> {
       fields[0] as String,
       fields[1] as double,
       fields[2] as double,
-      fields[3] as String,
+      fields[3] as double,
     );
   }
 

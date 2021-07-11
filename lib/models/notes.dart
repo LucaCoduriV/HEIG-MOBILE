@@ -11,9 +11,9 @@ class Note {
   @HiveField(2)
   double moyenneClasse = 0;
   @HiveField(3)
-  String coef = "0.0";
+  double coef = 0.0;
 
-  Note(String nom, double note, double moyenneClasse, String coef) {
+  Note(String nom, double note, double moyenneClasse, double coef) {
     this.nom = nom;
     this.note = note;
     this.moyenneClasse = moyenneClasse;

@@ -26,14 +26,14 @@ class Branche {
       json['nom'],
       cours: (json['cours'] as List<dynamic>)
           .map((cours) => new Note(cours['titre'], cours['note'].toDouble(),
-              cours['moyenneClasse'].toDouble(), cours['coef']))
+              cours['moyenneClasse'].toDouble(), cours['coef'].toDouble()))
           .toList(),
       laboratoire: (json['laboratoire'] as List<dynamic>)
           .map((laboratoire) => new Note(
               laboratoire['titre'],
               laboratoire['note'].toDouble(),
               laboratoire['moyenneClasse'].toDouble(),
-              laboratoire['coef']))
+              laboratoire['coef'].toDouble()))
           .toList(),
       moyenne: json['moyenne'].toDouble(),
     );

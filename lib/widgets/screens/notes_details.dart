@@ -71,7 +71,7 @@ class NotesDetails extends StatelessWidget {
         cells: <DataCell>[
           DataCell(Text(e.nom)),
           DataCell(Text(e.moyenneClasse.toString())),
-          DataCell(Text(e.coef)),
+          DataCell(Text("${e.coef.toString()}%")),
           DataCell(Text(e.note.toString())),
         ],
       );
