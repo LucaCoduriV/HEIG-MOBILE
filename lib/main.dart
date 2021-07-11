@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:heig_front/controllers/api_controller.dart';
 import 'package:heig_front/controllers/auth_controller.dart';
 import 'package:heig_front/controllers/bulletin_provider.dart';
+import 'package:heig_front/controllers/drawer_provider.dart';
 import 'package:heig_front/controllers/navigator_controller.dart';
 import 'package:heig_front/models/branche.dart';
 import 'package:heig_front/models/bulletin.dart';
@@ -32,6 +33,7 @@ Future<void> setup() async {
   GetIt.I.registerSingleton<BulletinProvider>(BulletinProvider());
   GetIt.I.registerSingleton<ApiController>(ApiController());
   GetIt.I.registerSingleton<AuthController>(AuthController());
+  GetIt.I.registerSingleton<DrawerProvider>(DrawerProvider('HEIG Front'));
 }
 
 void main() async {
@@ -61,7 +63,6 @@ class MyApp extends StatelessWidget {
       routes: [
         VGuard(
           beforeEnter: (vRedirector) async {
-            debugPrint(GetIt.I<AuthController>().isConnected.toString());
             if (GetIt.I<AuthController>().isConnected) {
               vRedirector.to(
                   ("/${NavigatorController.home}/${NavigatorController.notes}"));
@@ -84,7 +85,9 @@ class MyApp extends StatelessWidget {
           stackedRoutes: [
             VNester(
               path: "/${NavigatorController.home}",
-              widgetBuilder: (child) => MyDrawer(child: child),
+              widgetBuilder: (child) => ChangeNotifierProvider.value(
+                  value: GetIt.I<DrawerProvider>(),
+                  child: MyDrawer(child: child)),
               nestedRoutes: [
                 VNester(
                   path: NavigatorController.notes,
@@ -93,9 +96,15 @@ class MyApp extends StatelessWidget {
                     child: child,
                   ),
                   nestedRoutes: [
-                    VWidget(
-                      path: null,
-                      widget: NotesScreen(),
+                    VGuard(
+                      beforeEnter: (stackedRoutes) async =>
+                          GetIt.I<DrawerProvider>().title = 'Notes',
+                      stackedRoutes: [
+                        VWidget(
+                          path: null,
+                          widget: NotesScreen(),
+                        )
+                      ],
                     ),
                     VWidget(
                       path: ":id",
@@ -103,9 +112,15 @@ class MyApp extends StatelessWidget {
                     )
                   ],
                 ),
-                VWidget(
-                  path: NavigatorController.horaires,
-                  widget: HorairesScreen(),
+                VGuard(
+                  beforeEnter: (stackedRoutes) async =>
+                      GetIt.I<DrawerProvider>().title = 'Horaires',
+                  stackedRoutes: [
+                    VWidget(
+                      path: NavigatorController.horaires,
+                      widget: HorairesScreen(),
+                    )
+                  ],
                 ),
               ],
             ),

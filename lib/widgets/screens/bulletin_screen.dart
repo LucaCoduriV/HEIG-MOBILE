@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:heig_front/controllers/bulletin_provider.dart';
+import 'package:heig_front/controllers/drawer_provider.dart';
 import 'package:heig_front/controllers/navigator_controller.dart';
 import 'package:heig_front/models/branche.dart';
 import 'package:heig_front/models/bulletin.dart';
@@ -30,6 +32,7 @@ class NotesScreen extends StatelessWidget {
           moyenne: branches[index].moyenne,
           onPress: () {
             NavigatorController.toNoteDetails(context, index);
+            GetIt.I<DrawerProvider>().title = bulletin.branches[index].nom;
           },
         );
       },

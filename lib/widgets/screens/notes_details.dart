@@ -17,29 +17,31 @@ class NotesDetails extends StatelessWidget {
 
     return Column(
       children: [
-        Text(bulletin.branches[id].nom),
         Expanded(
-          child: ListView(
-            children: [
-              Text(
-                "Cours:",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              DataTable(
-                columnSpacing: 30,
-                columns: getColumn(),
-                rows: getDatas(notesCours),
-              ),
-              Text(
-                "Laboratroires:",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              DataTable(
-                columnSpacing: 30,
-                columns: getColumn(),
-                rows: getDatas(notesLabo),
-              ),
-            ],
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            child: ListView(
+              children: [
+                Text(
+                  "Cours:",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                DataTable(
+                  columnSpacing: 30,
+                  columns: getColumn(),
+                  rows: getDatas(notesCours),
+                ),
+                Text(
+                  "Laboratroires:",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                DataTable(
+                  columnSpacing: 30,
+                  columns: getColumn(),
+                  rows: getDatas(notesLabo),
+                ),
+              ],
+            ),
           ),
         ),
       ],
