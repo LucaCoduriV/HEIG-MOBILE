@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/controllers/auth_controller.dart';
 import 'package:heig_front/controllers/bulletin_provider.dart';
@@ -29,8 +28,8 @@ class _MyDrawerState extends State<MyDrawer> {
             child: GestureDetector(
               onTap: () {
                 GetIt.I<BulletinProvider>().fetchBulletin(
-                    dotenv.env['USERNAME'].toString(),
-                    dotenv.env['PASSWORD'].toString());
+                    GetIt.I<AuthController>().username,
+                    GetIt.I<AuthController>().password);
               },
               child: Icon(
                 Icons.refresh,

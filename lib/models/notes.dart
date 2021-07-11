@@ -8,14 +8,20 @@ class Note {
   String nom = "";
   @HiveField(1)
   double note = 1;
+  @HiveField(2)
+  double moyenneClasse = 0;
+  @HiveField(3)
+  String coef = "0.0";
 
-  Note(String nom, double note) {
+  Note(String nom, double note, double moyenneClasse, String coef) {
     this.nom = nom;
     this.note = note;
+    this.moyenneClasse = moyenneClasse;
+    this.coef = coef;
   }
 
   factory Note.fromJson(Map<String, dynamic> json) {
-    return Note(json['nom'], json['note']);
+    return Note(json['nom'], json['note'], json['moyenneClasse'], json['coef']);
   }
 
   @override

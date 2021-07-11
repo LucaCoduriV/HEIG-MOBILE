@@ -18,38 +18,60 @@ class NotesDetails extends StatelessWidget {
     return Column(
       children: [
         Text(bulletin.branches[id].nom),
-        Text("Cours"),
-        DataTable(
-          columns: <DataColumn>[
-            DataColumn(
-              label: Text(
-                'Notes',
-                style: TextStyle(fontStyle: FontStyle.italic),
+        Expanded(
+          child: ListView(
+            children: [
+              Text("Cours"),
+              DataTable(
+                columns: getColumn(),
+                rows: getDatas(notesCours),
               ),
-            ),
-          ],
-          rows: getDatas(notesCours),
-        ),
-        Text("Laboratroires"),
-        DataTable(
-          columns: <DataColumn>[
-            DataColumn(
-              label: Text(
-                'Notes',
-                style: TextStyle(fontStyle: FontStyle.italic),
+              Text("Laboratroires"),
+              DataTable(
+                columns: getColumn(),
+                rows: getDatas(notesLabo),
               ),
-            ),
-          ],
-          rows: getDatas(notesLabo),
+            ],
+          ),
         ),
       ],
     );
+  }
+
+  List<DataColumn> getColumn() {
+    return <DataColumn>[
+      DataColumn(
+        label: Text(
+          'Titre',
+        ),
+      ),
+      DataColumn(
+        label: Text(
+          'Moyenne',
+        ),
+      ),
+      DataColumn(
+        label: Text(
+          'coef',
+          style: TextStyle(fontStyle: FontStyle.italic),
+        ),
+      ),
+      DataColumn(
+        label: Text(
+          'Notes',
+          style: TextStyle(fontStyle: FontStyle.italic),
+        ),
+      ),
+    ];
   }
 
   List<DataRow> getDatas(List<Note> notes) {
     return notes.map((e) {
       return DataRow(
         cells: <DataCell>[
+          DataCell(Text(e.nom)),
+          DataCell(Text(e.moyenneClasse.toString())),
+          DataCell(Text(e.coef)),
           DataCell(Text(e.note.toString())),
         ],
       );

@@ -48,8 +48,8 @@ class AuthController extends ChangeNotifier {
     box.delete('username');
     box.delete('password');
     box.delete('bulletin');
-    box.put('isConnected', _isConnected);
     _isConnected = false;
+    box.put('isConnected', _isConnected);
     notifyListeners();
     return;
   }
