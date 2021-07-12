@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/controllers/api_controller.dart';
+import 'package:heig_front/controllers/asymmetric_crypt.dart';
 import 'package:heig_front/models/bulletin.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -21,7 +24,18 @@ class BulletinProvider extends ChangeNotifier {
 
   /// Récupère le bulletin depuis l'API et informe les views que ça a été mis à jour
   Future<void> fetchBulletin(String username, String password) async {
-    _bulletin = await GetIt.I<ApiController>().fetchNotes(username, password);
+    try {
+      String publicKey = await GetIt.I<ApiController>().fetchPublicKey();
+
+      AsymmetricCrypt rsa = new AsymmetricCrypt(publicKey);
+      String encryptedPassword = rsa.encrypt(password);
+
+      _bulletin = await GetIt.I<ApiController>()
+          .fetchNotes(username, encryptedPassword, decrypt: true);
+    } catch (e) {
+      return;
+    }
+
     notifyListeners();
   }
 }

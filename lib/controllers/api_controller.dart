@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:heig_front/controllers/env_controller.dart';
@@ -33,29 +35,48 @@ class ApiController {
         EnvController.getApiIp(), EnvController.getApiPort());
   }
 
-  Future<Horaires> fetchHoraires(String username, String password) async {
-    Response res =
-        await dio.get("/horaires?username=$username&password=$password");
+  Future<Horaires> fetchHoraires(String username, String password,
+      {bool decrypt: false}) async {
+    Response res = await dio.post("/horaires?decrypt=$decrypt",
+        data: jsonEncode({
+          'username': username,
+          'password': password,
+        }));
     List<dynamic> json = res.data;
     List<HeureDeCours> horaires =
         json.map((e) => HeureDeCours.fromJson(e)).toList();
     return Horaires(semestre: 2, annee: 2020, horaires: horaires);
   }
 
-  Future<Bulletin> fetchNotes(String username, String password) async {
-    Response res =
-        await dio.get("/notes?username=$username&password=$password");
+  Future<Bulletin> fetchNotes(String username, String password,
+      {bool decrypt: false}) async {
+    Response res = await dio.post("/notes?decrypt=$decrypt",
+        data: jsonEncode({
+          'username': username,
+          'password': password,
+        }));
     List<dynamic> json = res.data;
     List<Branche> notes = json.map((e) => Branche.fromJson(e)).toList();
     return Bulletin(notes);
   }
 
-  Future<bool> login(String username, String password) async {
+  Future<bool> login(String username, String password,
+      {bool decrypt: false}) async {
     try {
-      await dio.get("/login?username=$username&password=$password");
+      await dio.post(
+        "/login?decrypt=$decrypt",
+        data: jsonEncode({
+          'username': username,
+          'password': password,
+        }),
+      );
     } catch (e) {
       return false;
     }
     return true;
+  }
+
+  Future<String> fetchPublicKey() async {
+    return (await dio.get("/public_key")).data['publicKey'] as String;
   }
 }
