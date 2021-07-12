@@ -30,6 +30,7 @@ class BulletinProvider extends ChangeNotifier {
 
       _bulletin = await GetIt.I<ApiController>()
           .fetchNotes(username, encryptedPassword, decrypt: true);
+      box.put('bulletin', _bulletin);
     } catch (e) {
       return;
     }
