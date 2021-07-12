@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:heig_front/controllers/env_controller.dart';
 import 'package:heig_front/models/branche.dart';
 import 'package:heig_front/models/bulletin.dart';

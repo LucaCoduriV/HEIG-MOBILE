@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/controllers/api_controller.dart';
+import 'package:heig_front/controllers/asymmetric_crypt.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 /// Cette classe permet de gérer le nom et le mot de passe de l'utilisateur
@@ -36,8 +37,13 @@ class AuthController extends ChangeNotifier {
   }
 
   Future<bool> login() async {
+    String publicKey = await GetIt.I<ApiController>().fetchPublicKey();
+
+    AsymmetricCrypt rsa = new AsymmetricCrypt(publicKey);
+    String encryptedPassword = rsa.encrypt(_password);
     //ajouter la connection + le localstorage
-    _isConnected = await GetIt.I<ApiController>().login(_username, _password);
+    _isConnected = await GetIt.I<ApiController>()
+        .login(_username, encryptedPassword, decrypt: true);
     box.put('isConnected', _isConnected);
     notifyListeners();
     return _isConnected;

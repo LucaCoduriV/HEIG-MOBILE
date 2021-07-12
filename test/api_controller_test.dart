@@ -11,6 +11,7 @@ void main() async {
   String password = env['PASSWORD'].toString();
   String ip = env['SERVER_IP_DEV'].toString();
   String port = env['PORT_DEV'].toString();
+
   group("Notes", () {
     test("should be fetched", () async {
       final ApiController api = ApiController.withIp(ip, port);
