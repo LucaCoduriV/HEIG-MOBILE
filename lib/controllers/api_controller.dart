@@ -22,8 +22,8 @@ class ApiController {
 
     BaseOptions options = BaseOptions(
       baseUrl: 'http://$serverIp',
-      connectTimeout: 15000,
-      receiveTimeout: 15000,
+      connectTimeout: 45000,
+      receiveTimeout: 45000,
       responseType: ResponseType.json,
     );
 

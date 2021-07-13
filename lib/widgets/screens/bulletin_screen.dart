@@ -21,7 +21,10 @@ class BulletinScreen extends StatelessWidget {
           GetIt.I<AuthController>().username,
           GetIt.I<AuthController>().password),
       child: Center(
-        child: buildButtons(context, bulletin),
+        child: Container(
+          color: Colors.white,
+          child: buildButtons(context, bulletin),
+        ),
       ),
     );
   }

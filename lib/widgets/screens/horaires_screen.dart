@@ -5,12 +5,9 @@ class HorairesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        color: Colors.red,
-        height: 100,
-        width: 100,
-      ),
+    return Container(
+      color: Colors.white,
+      child: Center(child: Text("Pas disponible")),
     );
   }
 }
