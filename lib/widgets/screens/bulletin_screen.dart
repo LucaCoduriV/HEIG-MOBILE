@@ -30,6 +30,8 @@ class BulletinScreen extends StatelessWidget {
     if (bulletin.branches.length == 0)
       return Text("Aucune notes, glissez vers le bas pour rafraichir.");
     return ListView.builder(
+      physics: BouncingScrollPhysics(),
+      padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
       itemCount: bulletin.branches.length,
       itemBuilder: (context, index) {
         List<Branche> branches = bulletin.branches;
