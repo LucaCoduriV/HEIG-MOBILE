@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:heig_front/controllers/env_controller.dart';
 import 'package:heig_front/models/branche.dart';
 import 'package:heig_front/models/bulletin.dart';
@@ -36,27 +37,38 @@ class ApiController {
 
   Future<Horaires> fetchHoraires(String username, String password,
       {bool decrypt: false}) async {
-    Response res = await dio.post("/horaires?decrypt=$decrypt",
-        data: jsonEncode({
-          'username': username,
-          'password': password,
-        }));
-    List<dynamic> json = res.data;
-    List<HeureDeCours> horaires =
-        json.map((e) => HeureDeCours.fromJson(e)).toList();
-    return Horaires(semestre: 2, annee: 2020, horaires: horaires);
+    try {
+      Response res = await dio.post("/horaires?decrypt=$decrypt",
+          data: jsonEncode({
+            'username': username,
+            'password': password,
+          }));
+
+      List<dynamic> json = res.data;
+      List<HeureDeCours> horaires =
+          json.map((e) => HeureDeCours.fromJson(e)).toList();
+      return Horaires(semestre: 2, annee: 2020, horaires: horaires);
+    } catch (e) {
+      debugPrint(e.toString());
+      throw new Exception("Erreur lors de la récupération des horaires");
+    }
   }
 
   Future<Bulletin> fetchNotes(String username, String password,
       {bool decrypt: false}) async {
-    Response res = await dio.post("/notes?decrypt=$decrypt",
-        data: jsonEncode({
-          'username': username,
-          'password': password,
-        }));
-    List<dynamic> json = res.data;
-    List<Branche> notes = json.map((e) => Branche.fromJson(e)).toList();
-    return Bulletin(notes);
+    try {
+      Response res = await dio.post("/notes?decrypt=$decrypt",
+          data: jsonEncode({
+            'username': username,
+            'password': password,
+          }));
+      List<dynamic> json = res.data;
+      List<Branche> notes = json.map((e) => Branche.fromJson(e)).toList();
+      return Bulletin(notes);
+    } catch (e) {
+      debugPrint(e.toString());
+      throw new Exception("Erreur lors de la récupération des notes");
+    }
   }
 
   Future<bool> login(String username, String password,
@@ -70,12 +82,18 @@ class ApiController {
         }),
       );
     } catch (e) {
+      debugPrint(e.toString());
       return false;
     }
     return true;
   }
 
   Future<String> fetchPublicKey() async {
-    return (await dio.get("/public_key")).data['publicKey'] as String;
+    try {
+      return (await dio.get("/public_key")).data['publicKey'] as String;
+    } catch (e) {
+      debugPrint(e.toString());
+      throw new Exception("Erreur lors de la récupération de la clé public");
+    }
   }
 }

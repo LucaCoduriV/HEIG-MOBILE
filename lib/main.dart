@@ -106,7 +106,7 @@ class MyApp extends StatelessWidget {
                       stackedRoutes: [
                         VWidget(
                           path: null,
-                          widget: NotesScreen(),
+                          widget: BulletinScreen(),
                         )
                       ],
                     ),
