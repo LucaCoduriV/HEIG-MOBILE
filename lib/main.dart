@@ -37,9 +37,13 @@ Future<void> setup() async {
 }
 
 void main() async {
-  await setup();
+  try {
+    await setup();
 
-  runApp(MyApp());
+    runApp(MyApp());
+  } catch (e) {
+    debugPrint(e.toString());
+  }
 }
 
 class MyApp extends StatelessWidget {
