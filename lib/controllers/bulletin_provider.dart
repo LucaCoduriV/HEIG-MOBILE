@@ -37,4 +37,9 @@ class BulletinProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  void emptyBulletin() {
+    _bulletin = new Bulletin([]);
+    notifyListeners();
+  }
 }

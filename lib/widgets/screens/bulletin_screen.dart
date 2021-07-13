@@ -21,20 +21,30 @@ class BulletinScreen extends StatelessWidget {
           GetIt.I<AuthController>().username,
           GetIt.I<AuthController>().password),
       child: Center(
-        child: buildButtons(bulletin),
+        child: buildButtons(context, bulletin),
       ),
     );
   }
 
-  Widget buildButtons(Bulletin bulletin) {
+  Widget buildButtons(context, Bulletin bulletin) {
     if (bulletin.branches.length == 0)
-      return Text("Aucune notes, glissez vers le bas pour rafraichir.");
+      return SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
+        child: Container(
+          child: Center(
+            child: Text("Aucune notes, glissez vers le bas pour rafraichir."),
+          ),
+          height: MediaQuery.of(context).size.height,
+        ),
+      );
+
     return ListView.builder(
       physics: BouncingScrollPhysics(),
       padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
       itemCount: bulletin.branches.length,
       itemBuilder: (context, index) {
         List<Branche> branches = bulletin.branches;
+
         return BrancheButton(
           title: branches[index].nom,
           moyenne: branches[index].moyenne,

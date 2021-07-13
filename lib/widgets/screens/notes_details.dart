@@ -21,6 +21,7 @@ class NotesDetails extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(20),
             child: ListView(
+              physics: BouncingScrollPhysics(),
               children: [
                 Text(
                   "Cours",

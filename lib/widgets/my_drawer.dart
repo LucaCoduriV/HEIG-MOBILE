@@ -40,7 +40,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     },
                   ),
                   ListTile(
-                    title: Text('Horaire'),
+                    title: Text('Horaires'),
                     onTap: () {
                       _scaffoldKey.currentState?.openEndDrawer();
                       NavigatorController.toHoraires(context);

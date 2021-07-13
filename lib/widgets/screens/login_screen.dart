@@ -16,6 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
       new TextEditingController(text: GetIt.I<AuthController>().username);
   TextEditingController password = new TextEditingController();
   var _formKey = GlobalKey<FormState>();
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -86,10 +87,26 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return Dialog(
+                              backgroundColor: Colors.transparent,
+                              elevation: 0,
+                              child: new Center(
+                                child: new CircularProgressIndicator(
+                                    color: Theme.of(context).primaryColor),
+                              ),
+                            );
+                          },
+                        );
                         GetIt.I<AuthController>().username = username.text;
                         GetIt.I<AuthController>().password = password.text;
+
                         if (await GetIt.I<AuthController>().login())
                           NavigatorController.toNotes(context);
+                        Navigator.pop(context);
                       }
                     },
                     child: Text(
