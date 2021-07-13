@@ -111,13 +111,15 @@ class MyApp extends StatelessWidget {
                         VWidget(
                           path: null,
                           widget: BulletinScreen(),
+                          stackedRoutes: [
+                            VWidget(
+                              path: ":id",
+                              widget: NotesDetails(),
+                            )
+                          ],
                         )
                       ],
                     ),
-                    VWidget(
-                      path: ":id",
-                      widget: NotesDetails(),
-                    )
                   ],
                 ),
                 VGuard(

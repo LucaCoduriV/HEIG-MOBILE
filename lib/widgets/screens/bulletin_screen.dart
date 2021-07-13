@@ -40,7 +40,7 @@ class BulletinScreen extends StatelessWidget {
 
     return ListView.builder(
       physics: BouncingScrollPhysics(),
-      padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+      padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
       itemCount: bulletin.branches.length,
       itemBuilder: (context, index) {
         List<Branche> branches = bulletin.branches;
