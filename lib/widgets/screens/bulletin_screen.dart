@@ -17,6 +17,7 @@ class BulletinScreen extends StatelessWidget {
     Bulletin bulletin = context.watch<BulletinProvider>().bulletin;
 
     return RefreshIndicator(
+      key: GetIt.I<GlobalKey<RefreshIndicatorState>>(),
       onRefresh: () => GetIt.I<BulletinProvider>().fetchBulletin(
           GetIt.I<AuthController>().username,
           GetIt.I<AuthController>().password),

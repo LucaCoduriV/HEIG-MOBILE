@@ -23,34 +23,51 @@ class NotesDetails extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             child: ListView(
               physics: BouncingScrollPhysics(),
-              children: [
-                Text(
-                  "Cours",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
-                ),
-                SizedBox(height: 10),
-                DataTable(
-                  columnSpacing: 30,
-                  columns: getColumn(),
-                  rows: getDatas(notesCours),
-                ),
-                SizedBox(height: 40),
-                Text(
-                  "Laboratoires",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
-                ),
-                SizedBox(height: 10),
-                DataTable(
-                  columnSpacing: 30,
-                  columns: getColumn(),
-                  rows: getDatas(notesLabo),
-                ),
-              ],
+              children: getChildren(context, notesCours, notesLabo),
             ),
           ),
         ),
       ],
     );
+  }
+
+  // TODO refactor this fucntion
+  List<Widget> getChildren(
+      context, List<Note> notesCours, List<Note> notesLabo) {
+    List<Widget> cours = [
+      Text(
+        "Cours",
+        style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
+      ),
+      SizedBox(height: 10),
+      DataTable(
+        columnSpacing: 30,
+        columns: getColumn(),
+        rows: getDatas(notesCours),
+      ),
+      SizedBox(height: 40),
+    ];
+    List<Widget> labo = [
+      Text(
+        "Laboratoires",
+        style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
+      ),
+      SizedBox(height: 10),
+      DataTable(
+        columnSpacing: 30,
+        columns: getColumn(),
+        rows: getDatas(notesLabo),
+      ),
+    ];
+    if (notesCours.isNotEmpty && notesLabo.isNotEmpty) {
+      cours.addAll(labo);
+      return cours;
+    } else if (notesCours.isEmpty) {
+      return labo;
+    } else if (notesLabo.isEmpty) {
+      return cours;
+    } else
+      return [Text("Aucune note")];
   }
 
   List<DataColumn> getColumn() {

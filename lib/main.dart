@@ -34,6 +34,8 @@ Future<void> setup() async {
   GetIt.I.registerSingleton<ApiController>(ApiController());
   GetIt.I.registerSingleton<AuthController>(AuthController());
   GetIt.I.registerSingleton<DrawerProvider>(DrawerProvider('Notes'));
+  GetIt.I.registerSingleton<GlobalKey<RefreshIndicatorState>>(
+      GlobalKey<RefreshIndicatorState>());
 }
 
 void main() async {
@@ -110,8 +112,21 @@ class MyApp extends StatelessWidget {
                   ),
                   nestedRoutes: [
                     VGuard(
-                      beforeEnter: (stackedRoutes) async =>
-                          GetIt.I<DrawerProvider>().title = 'Notes',
+                      beforeEnter: (stackedRoutes) async {
+                        GetIt.I<DrawerProvider>().title = 'Notes';
+                        if (GetIt.I<BulletinProvider>()
+                            .bulletin
+                            .branches
+                            .isEmpty) {
+                          Future.delayed(
+                              const Duration(
+                                milliseconds: 500,
+                              ),
+                              () => GetIt.I<GlobalKey<RefreshIndicatorState>>()
+                                  .currentState
+                                  ?.show());
+                        }
+                      },
                       stackedRoutes: [
                         VWidget(
                           path: null,
