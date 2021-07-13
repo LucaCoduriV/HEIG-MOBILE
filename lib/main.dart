@@ -114,18 +114,14 @@ class MyApp extends StatelessWidget {
                     VGuard(
                       beforeEnter: (stackedRoutes) async {
                         GetIt.I<DrawerProvider>().title = 'Notes';
-                        if (GetIt.I<BulletinProvider>()
-                            .bulletin
-                            .branches
-                            .isEmpty) {
-                          Future.delayed(
-                              const Duration(
-                                milliseconds: 500,
-                              ),
-                              () => GetIt.I<GlobalKey<RefreshIndicatorState>>()
-                                  .currentState
-                                  ?.show());
-                        }
+
+                        Future.delayed(
+                            const Duration(
+                              milliseconds: 500,
+                            ),
+                            () => GetIt.I<GlobalKey<RefreshIndicatorState>>()
+                                .currentState
+                                ?.show());
                       },
                       stackedRoutes: [
                         VWidget(
