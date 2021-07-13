@@ -53,8 +53,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return VRouter(
       theme: ThemeData(
+        textSelectionTheme: TextSelectionThemeData(cursorColor: Colors.grey),
         primaryColor: Color(0xffda291c),
         accentColor: Color(0xffdf4d52),
+        inputDecorationTheme: InputDecorationTheme(
+            focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Color(0xffda291c)),
+        )),
         buttonTheme: ButtonThemeData(
           buttonColor: Color(0xffda291c),
           textTheme: ButtonTextTheme.primary,
