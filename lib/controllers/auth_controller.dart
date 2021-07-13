@@ -38,16 +38,23 @@ class AuthController extends ChangeNotifier {
   }
 
   Future<bool> login() async {
-    String publicKey = await GetIt.I<ApiController>().fetchPublicKey();
+    try {
+      String publicKey = await GetIt.I<ApiController>().fetchPublicKey();
 
-    AsymmetricCrypt rsa = new AsymmetricCrypt(publicKey);
-    String encryptedPassword = rsa.encrypt(_password);
-    //ajouter la connection + le localstorage
-    _isConnected = await GetIt.I<ApiController>()
-        .login(_username, encryptedPassword, decrypt: true);
-    box.put('isConnected', _isConnected);
-    notifyListeners();
-    return _isConnected;
+      AsymmetricCrypt rsa = new AsymmetricCrypt(publicKey);
+      String encryptedPassword = rsa.encrypt(_password);
+      //ajouter la connection + le localstorage
+      _isConnected = await GetIt.I<ApiController>()
+          .login(_username, encryptedPassword, decrypt: true);
+      box.put('isConnected', _isConnected);
+      notifyListeners();
+      return _isConnected;
+    } catch (e) {
+      _isConnected = false;
+      box.put('isConnected', _isConnected);
+      notifyListeners();
+      return _isConnected;
+    }
   }
 
   Future<void> logout() async {
