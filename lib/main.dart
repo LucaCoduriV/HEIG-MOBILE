@@ -92,7 +92,6 @@ class MyApp extends StatelessWidget {
         ),
         VGuard(
           beforeEnter: (vRedirector) async {
-            debugPrint(GetIt.I<AuthController>().isConnected.toString());
             if (!GetIt.I<AuthController>().isConnected) {
               vRedirector.to(("/${NavigatorController.login}"));
             }

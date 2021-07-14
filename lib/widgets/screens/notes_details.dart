@@ -34,40 +34,33 @@ class NotesDetails extends StatelessWidget {
   // TODO refactor this fucntion
   List<Widget> getChildren(
       context, List<Note> notesCours, List<Note> notesLabo) {
-    List<Widget> cours = [
-      Text(
-        "Cours",
-        style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
-      ),
-      SizedBox(height: 10),
-      DataTable(
-        columnSpacing: 30,
-        columns: getColumn(),
-        rows: getDatas(notesCours),
-      ),
-      SizedBox(height: 40),
+    return [
+      if (notesCours.isNotEmpty)
+        Text(
+          "Cours",
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
+        ),
+      if (notesCours.isNotEmpty) SizedBox(height: 10),
+      if (notesCours.isNotEmpty)
+        DataTable(
+          columnSpacing: 30,
+          columns: getColumn(),
+          rows: getDatas(notesCours),
+        ),
+      if (notesCours.isNotEmpty) SizedBox(height: 40),
+      if (notesLabo.isNotEmpty)
+        Text(
+          "Laboratoires",
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
+        ),
+      if (notesLabo.isNotEmpty) SizedBox(height: 10),
+      if (notesLabo.isNotEmpty)
+        DataTable(
+          columnSpacing: 30,
+          columns: getColumn(),
+          rows: getDatas(notesLabo),
+        ),
     ];
-    List<Widget> labo = [
-      Text(
-        "Laboratoires",
-        style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
-      ),
-      SizedBox(height: 10),
-      DataTable(
-        columnSpacing: 30,
-        columns: getColumn(),
-        rows: getDatas(notesLabo),
-      ),
-    ];
-    if (notesCours.isNotEmpty && notesLabo.isNotEmpty) {
-      cours.addAll(labo);
-      return cours;
-    } else if (notesCours.isEmpty) {
-      return labo;
-    } else if (notesLabo.isEmpty) {
-      return cours;
-    } else
-      return [Text("Aucune note")];
   }
 
   List<DataColumn> getColumn() {
