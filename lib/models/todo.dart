@@ -15,8 +15,16 @@ class Todo {
   @HiveField(4)
   late DateTime? _date;
 
-  Todo(
-      int id, String title, String description, bool completed, DateTime date) {
+  int get id => _id;
+  String get title => _title;
+  String get description => _description;
+  bool get completed => _completed;
+  DateTime? get date => _date;
+
+  set completed(bool completed) => _completed = completed;
+
+  Todo(int id, String title, String description, bool completed,
+      DateTime? date) {
     _id = id;
     _title = title;
     _description = description;

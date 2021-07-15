@@ -15,8 +15,8 @@ class TodosProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addTodo(
-      int id, String title, String description, bool completed, DateTime date) {
+  void addTodo(int id, String title, String description, bool completed,
+      DateTime? date) {
     _todos.add(Todo(id, title, description, completed, date));
     saveTodos();
   }
@@ -30,6 +30,10 @@ class TodosProvider extends ChangeNotifier {
       int id, String title, String description, bool completed, DateTime date) {
     _todos[id] = Todo(id, title, description, completed, date);
     saveTodos();
+  }
+
+  void completeTodo(int index, bool completed) {
+    _todos[index].completed = completed;
   }
 
   Todo getTodo(int id) {
