@@ -5,16 +5,19 @@ import 'package:heig_front/controllers/auth_controller.dart';
 import 'package:heig_front/controllers/bulletin_provider.dart';
 import 'package:heig_front/controllers/drawer_provider.dart';
 import 'package:heig_front/controllers/navigator_controller.dart';
+import 'package:heig_front/controllers/todos_provider.dart';
 import 'package:heig_front/models/branche.dart';
 import 'package:heig_front/models/bulletin.dart';
 import 'package:heig_front/models/heure_de_cours.dart';
 import 'package:heig_front/models/horaires.dart';
 import 'package:heig_front/models/notes.dart';
+import 'package:heig_front/models/todo.dart';
 import 'package:heig_front/widgets/my_drawer.dart';
 import 'package:heig_front/widgets/screens/horaires_screen.dart';
 import 'package:heig_front/widgets/screens/login_screen.dart';
 import 'package:heig_front/widgets/screens/notes_details.dart';
 import 'package:heig_front/widgets/screens/bulletin_screen.dart';
+import 'package:heig_front/widgets/screens/todos_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vrouter/vrouter.dart';
 import 'package:flutter/material.dart';
@@ -28,12 +31,14 @@ Future<void> setup() async {
   Hive.registerAdapter(HeureDeCoursAdapter());
   Hive.registerAdapter(HorairesAdapter());
   Hive.registerAdapter(NoteAdapter());
+  Hive.registerAdapter(TodoAdapter());
   await Hive.openBox('heig');
 
   GetIt.I.registerSingleton<BulletinProvider>(BulletinProvider());
   GetIt.I.registerSingleton<ApiController>(ApiController());
   GetIt.I.registerSingleton<AuthController>(AuthController());
-  GetIt.I.registerSingleton<DrawerProvider>(DrawerProvider('Notes'));
+  GetIt.I.registerSingleton<DrawerProvider>(DrawerProvider());
+  GetIt.I.registerSingleton<TodosProvider>(TodosProvider());
   GetIt.I.registerSingleton<GlobalKey<RefreshIndicatorState>>(
       GlobalKey<RefreshIndicatorState>());
 }
@@ -103,6 +108,7 @@ class MyApp extends StatelessWidget {
                   value: GetIt.I<DrawerProvider>(),
                   child: MyDrawer(child: child)),
               nestedRoutes: [
+                // /notes
                 VNester(
                   path: NavigatorController.notes,
                   widgetBuilder: (child) => ChangeNotifierProvider.value(
@@ -113,7 +119,7 @@ class MyApp extends StatelessWidget {
                     VGuard(
                       beforeEnter: (stackedRoutes) async {
                         GetIt.I<DrawerProvider>().title = 'Notes';
-
+                        GetIt.I<DrawerProvider>().action = ActionType.NONE;
                         Future.delayed(
                             const Duration(
                               milliseconds: 500,
@@ -137,14 +143,39 @@ class MyApp extends StatelessWidget {
                     ),
                   ],
                 ),
+                // /horaires
                 VGuard(
-                  beforeEnter: (stackedRoutes) async =>
-                      GetIt.I<DrawerProvider>().title = 'Horaires',
+                  beforeEnter: (stackedRoutes) async {
+                    GetIt.I<DrawerProvider>().title = 'Horaires';
+                    GetIt.I<DrawerProvider>().action = ActionType.NONE;
+                  },
                   stackedRoutes: [
                     VWidget(
                       path: NavigatorController.horaires,
                       widget: HorairesScreen(),
                     )
+                  ],
+                ),
+                // /todos
+                VNester(
+                  path: NavigatorController.todos,
+                  widgetBuilder: (child) => ChangeNotifierProvider.value(
+                    value: GetIt.I<TodosProvider>(),
+                    child: child,
+                  ),
+                  nestedRoutes: [
+                    VGuard(
+                      beforeEnter: (stackedRoutes) async {
+                        GetIt.I<DrawerProvider>().title = 'Todos';
+                        GetIt.I<DrawerProvider>().action = ActionType.TODOS;
+                      },
+                      stackedRoutes: [
+                        VWidget(
+                          path: null,
+                          widget: TodosScreen(),
+                        )
+                      ],
+                    ),
                   ],
                 ),
               ],

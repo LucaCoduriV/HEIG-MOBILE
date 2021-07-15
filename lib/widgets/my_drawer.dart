@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:heig_front/controllers/auth_controller.dart';
 import 'package:heig_front/controllers/drawer_provider.dart';
 import 'package:heig_front/controllers/navigator_controller.dart';
+import 'package:heig_front/widgets/todos_dialog.dart';
 import 'package:provider/provider.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -23,6 +24,21 @@ class _MyDrawerState extends State<MyDrawer> {
       key: _scaffoldKey,
       appBar: AppBar(
         title: Text(Provider.of<DrawerProvider>(context, listen: true).title),
+        actions: [
+          if (GetIt.I<DrawerProvider>().action == ActionType.TODOS)
+            IconButton(
+              icon: const Icon(Icons.add),
+              tooltip: 'Add a task',
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return TodosDialog();
+                  },
+                );
+              },
+            )
+        ],
       ),
       body: widget.child,
       drawer: Drawer(
@@ -44,6 +60,13 @@ class _MyDrawerState extends State<MyDrawer> {
                     onTap: () {
                       _scaffoldKey.currentState?.openEndDrawer();
                       NavigatorController.toHoraires(context);
+                    },
+                  ),
+                  ListTile(
+                    title: Text('Todos'),
+                    onTap: () {
+                      _scaffoldKey.currentState?.openEndDrawer();
+                      NavigatorController.toTodos(context);
                     },
                   ),
                 ],
