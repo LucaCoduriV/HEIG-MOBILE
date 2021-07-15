@@ -21,8 +21,8 @@ class TodosProvider extends ChangeNotifier {
     saveTodos();
   }
 
-  void removeTodo(int id) {
-    _todos.removeAt(id);
+  void removeTodo(int index) {
+    _todos.removeAt(index);
     saveTodos();
   }
 

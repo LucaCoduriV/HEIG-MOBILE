@@ -34,7 +34,8 @@ class _TodosDialogState extends State<TodosDialog> {
               ),
               Row(
                 children: [
-                  Text(date.toString()),
+                  Text(
+                      "${date?.day.toString()}/${date?.month.toString()}/${date?.year.toString()}"),
                   OutlinedButton(
                       onPressed: () async {
                         DateTime? _date = await showDatePicker(

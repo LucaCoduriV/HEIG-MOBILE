@@ -16,22 +16,54 @@ class TodosScreen extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         itemCount: todos.length,
         itemBuilder: (context, index) {
-          return Card(
-            child: Column(
-              children: [
-                Text(todos[index].title),
-                Row(
+          DateTime? date = todos[index].date;
+          Todo todo = todos[index];
+          return Dismissible(
+            background: Container(color: Colors.red),
+            key: Key(todo.title),
+            onDismissed: (direction) {
+              GetIt.I<TodosProvider>().removeTodo(index);
+            },
+            child: Card(
+              elevation: 5,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(todos[index].description),
-                    Text(todos[index].date.toString()),
-                    Checkbox(
-                      value: todos[index].completed,
-                      onChanged: (change) =>
-                          GetIt.I<TodosProvider>().completeTodo(index, change!),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          todo.title,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                            "${date?.day.toString()}/${date?.month.toString()}/${date?.year.toString()}"),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(todo.description),
+                          ],
+                        ),
+                        Checkbox(
+                          value: todo.completed,
+                          onChanged: (change) => GetIt.I<TodosProvider>()
+                              .completeTodo(index, change!),
+                        )
+                      ],
                     )
                   ],
-                )
-              ],
+                ),
+              ),
             ),
           );
         },
