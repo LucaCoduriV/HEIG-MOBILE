@@ -17,7 +17,8 @@ class _TodosDialogState extends State<TodosDialog> {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      contentPadding: EdgeInsets.all(10),
+      titlePadding: EdgeInsets.fromLTRB(20, 30, 20, 0),
+      contentPadding: EdgeInsets.all(20),
       backgroundColor: Colors.white,
       title: Text('Ajouter une tache'),
       children: [
@@ -32,7 +33,9 @@ class _TodosDialogState extends State<TodosDialog> {
                 decoration: InputDecoration(hintText: "Description"),
                 controller: description,
               ),
+              SizedBox(height: 5),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                       "${date?.day.toString()}/${date?.month.toString()}/${date?.year.toString()}"),
@@ -47,10 +50,12 @@ class _TodosDialogState extends State<TodosDialog> {
                           date = _date;
                         });
                       },
-                      child: Text("Select date")),
+                      child: Text("Choisir une date")),
                 ],
               ),
+              SizedBox(height: 5),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   OutlinedButton(
                       onPressed: () {

@@ -34,6 +34,7 @@ class TodosProvider extends ChangeNotifier {
 
   void completeTodo(int index, bool completed) {
     _todos[index].completed = completed;
+    notifyListeners();
   }
 
   Todo getTodo(int id) {

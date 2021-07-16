@@ -21,7 +21,7 @@ class TodoAdapter extends TypeAdapter<Todo> {
       fields[1] as String,
       fields[2] as String,
       fields[3] as bool,
-      fields[4] as DateTime,
+      fields[4] as DateTime?,
     );
   }
 
