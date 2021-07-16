@@ -35,6 +35,7 @@ class TodosProvider extends ChangeNotifier {
   void completeTodo(int index, bool completed) {
     _todos[index].completed = completed;
     notifyListeners();
+    saveTodos();
   }
 
   Todo getTodo(int id) {
@@ -47,6 +48,7 @@ class TodosProvider extends ChangeNotifier {
 
   void clearTodos() {
     _todos.clear();
+    saveTodos();
   }
 
   void setTodos(List<Todo> todos) {

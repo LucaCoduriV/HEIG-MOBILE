@@ -38,6 +38,7 @@ class _TaskInfoState extends State<TaskInfo> {
                   Text(
                     todo.title,
                     style: TextStyle(
+                      color: !todo.completed ? Colors.black : Colors.grey,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       decoration: todo.completed
@@ -46,7 +47,11 @@ class _TaskInfoState extends State<TaskInfo> {
                     ),
                   ),
                   Text(
-                      "${date?.day.toString()}/${date?.month.toString()}/${date?.year.toString()}"),
+                    "${date?.day.toString()}/${date?.month.toString()}/${date?.year.toString()}",
+                    style: TextStyle(
+                      color: !todo.completed ? Colors.black : Colors.grey,
+                    ),
+                  ),
                 ],
               ),
               Row(
@@ -55,7 +60,12 @@ class _TaskInfoState extends State<TaskInfo> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(todo.description),
+                      Text(
+                        todo.description,
+                        style: TextStyle(
+                          color: !todo.completed ? Colors.black : Colors.grey,
+                        ),
+                      ),
                     ],
                   ),
                   Checkbox(
