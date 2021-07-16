@@ -48,7 +48,7 @@ class _TaskInfoState extends State<TaskInfo> {
                     ),
                   ),
                   Text(
-                    "${date?.weekday != null ? NOM_JOURS_SEMAINE[date!.weekday].toString() : "?"} ${date?.day.toString()} ${date?.month != null ? NOM_MOIS[date!.month] : "?"} ${date?.year.toString()}",
+                    "${date?.weekday != null ? NOM_JOURS_SEMAINE[date!.weekday] : "?"} ${date?.day} ${date?.month != null ? NOM_MOIS[date!.month] : "?"} ${date?.year}",
                     style: TextStyle(
                       color: !todo.completed ? Colors.black : Colors.grey,
                     ),
