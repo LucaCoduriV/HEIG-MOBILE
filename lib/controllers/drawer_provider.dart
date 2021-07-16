@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 
+enum ActionType {
+  NONE,
+  TODOS,
+}
+
 class DrawerProvider extends ChangeNotifier {
   late String _title;
+  late ActionType _action;
 
-  DrawerProvider(String title) {
-    this._title = title;
+  DrawerProvider() {
+    this._title = "";
+    _action = ActionType.NONE;
   }
 
   set title(title) {
@@ -12,5 +19,11 @@ class DrawerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  get title => _title;
+  set action(ActionType action) {
+    _action = action;
+    notifyListeners();
+  }
+
+  String get title => _title;
+  ActionType get action => _action;
 }

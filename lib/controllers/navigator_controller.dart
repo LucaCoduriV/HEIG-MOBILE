@@ -5,6 +5,7 @@ class NavigatorController {
   static String notes = "notes";
   static String horaires = "horaires";
   static String home = "home";
+  static String todos = "todos";
 
   static void toLogin(context) {
     VRouter.of(context).to("/$home/$login");
@@ -16,6 +17,10 @@ class NavigatorController {
 
   static void toHoraires(context) {
     VRouter.of(context).to("/$home/$horaires");
+  }
+
+  static void toTodos(context) {
+    VRouter.of(context).to("/$home/$todos");
   }
 
   static void toNoteDetails(context, int noteId) {
