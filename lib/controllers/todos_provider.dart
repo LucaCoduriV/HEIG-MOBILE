@@ -18,8 +18,7 @@ class TodosProvider extends ChangeNotifier {
     for (int i = 0; i < _todos.length; i++) {
       Todo todo = _todos[i];
 
-      if (todo.date != null)
-        scheduleNotifaction(i, todo.date!, todo.title, todo.description);
+      scheduleNotifaction(i, todo.date, todo.title, todo.description);
     }
   }
 
@@ -28,11 +27,11 @@ class TodosProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addTodo(int id, String title, String description, bool completed,
-      DateTime? date) {
+  void addTodo(
+      int id, String title, String description, bool completed, DateTime date) {
     _todos.add(Todo(id, title, description, completed, date));
     saveTodos();
-    if (date != null) scheduleNotifaction(id, date, title, description);
+    scheduleNotifaction(id, date, title, description);
   }
 
   void removeTodo(int index) {
@@ -59,6 +58,13 @@ class TodosProvider extends ChangeNotifier {
 
   Todo getTodo(int id) {
     return _todos[id];
+  }
+
+  /// Permet d'avoir toutes les taches pour une semaine
+  List<Todo> getTodosByWeek(DateTime firstDayOfWeek) {
+    _todos.where(
+        (element) => firstDayOfWeek.difference(element.date).inDays <= 7);
+    return [];
   }
 
   List<Todo> getTodos() {

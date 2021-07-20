@@ -125,13 +125,13 @@ class MyApp extends StatelessWidget {
                       beforeEnter: (stackedRoutes) async {
                         GetIt.I<DrawerProvider>().title = 'Notes';
                         GetIt.I<DrawerProvider>().action = ActionType.NONE;
-                        Future.delayed(
-                            const Duration(
-                              milliseconds: 500,
-                            ),
-                            () => GetIt.I<GlobalKey<RefreshIndicatorState>>()
-                                .currentState
-                                ?.show());
+                        // Future.delayed(
+                        //     const Duration(
+                        //       milliseconds: 500,
+                        //     ),
+                        //     () => GetIt.I<GlobalKey<RefreshIndicatorState>>()
+                        //         .currentState
+                        //         ?.show());
                       },
                       stackedRoutes: [
                         VWidget(
