@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/controllers/todos_provider.dart';
 import 'package:heig_front/models/todo.dart';
+import 'package:heig_front/utils/date.dart';
 
 class TaskInfo extends StatefulWidget {
   final Todo todo;
@@ -47,7 +48,7 @@ class _TaskInfoState extends State<TaskInfo> {
                     ),
                   ),
                   Text(
-                    "${date?.day.toString()}/${date?.month.toString()}/${date?.year.toString()}",
+                    "${NOM_JOURS_SEMAINE[date.weekday]} ${date.day} ${NOM_MOIS[date.month]} ${date.year}",
                     style: TextStyle(
                       color: !todo.completed ? Colors.black : Colors.grey,
                     ),

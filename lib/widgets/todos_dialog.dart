@@ -12,7 +12,7 @@ class TodosDialog extends StatefulWidget {
 class _TodosDialogState extends State<TodosDialog> {
   TextEditingController title = new TextEditingController();
   TextEditingController description = new TextEditingController();
-  DateTime? date = new DateTime.now();
+  DateTime date = new DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class _TodosDialogState extends State<TodosDialog> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                      "${date?.day.toString()}/${date?.month.toString()}/${date?.year.toString()}"),
+                      "${date.day.toString()}/${date.month.toString()}/${date.year.toString()}"),
                   OutlinedButton(
                       onPressed: () async {
                         DateTime? _date = await showDatePicker(
@@ -47,7 +47,7 @@ class _TodosDialogState extends State<TodosDialog> {
                             firstDate: DateTime.now(),
                             lastDate: DateTime(2050));
                         setState(() {
-                          date = _date;
+                          date = _date ?? DateTime.now();
                         });
                       },
                       child: Text("Choisir une date")),
