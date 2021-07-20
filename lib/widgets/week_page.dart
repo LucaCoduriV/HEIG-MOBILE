@@ -47,7 +47,7 @@ class WeekPage extends StatelessWidget {
   List<Widget> buildTask(int weekDay) {
     final dailyTasks =
         weekTasks.where((element) => element.date.weekday == weekDay);
-
+    if (dailyTasks.isEmpty) return [Text("Aucune tâche")];
     return dailyTasks.map((e) => TaskInfo(todo: e, index: 0)).toList();
   }
 }
