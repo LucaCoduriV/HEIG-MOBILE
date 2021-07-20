@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:heig_front/models/todo.dart';
 import 'package:heig_front/utils/date.dart';
+import 'package:heig_front/widgets/task_info.dart';
 
 class WeekPage extends StatelessWidget {
-  final List<List<Widget>> weekTasks;
+  final List<Todo> weekTasks;
   final DateTime firstDayOfWeek;
   const WeekPage(
       {Key? key, required this.weekTasks, required this.firstDayOfWeek})
@@ -22,23 +24,30 @@ class WeekPage extends StatelessWidget {
           child: ListView(
             children: [
               Text("Lundi"),
-              ...weekTasks[0],
+              ...buildTask(DateTime.monday),
               Text("Mardi"),
-              ...weekTasks[1],
+              ...buildTask(DateTime.tuesday),
               Text("Mercredi"),
-              ...weekTasks[2],
+              ...buildTask(DateTime.wednesday),
               Text("Jeudi"),
-              ...weekTasks[3],
+              ...buildTask(DateTime.thursday),
               Text("Vendredi"),
-              ...weekTasks[4],
+              ...buildTask(DateTime.friday),
               Text("Samedi"),
-              ...weekTasks[5],
+              ...buildTask(DateTime.saturday),
               Text("Dimanche"),
-              ...weekTasks[6],
+              ...buildTask(DateTime.sunday),
             ],
           ),
         ),
       ],
     );
+  }
+
+  List<Widget> buildTask(int weekDay) {
+    final dailyTasks =
+        weekTasks.where((element) => element.date.weekday == weekDay);
+
+    return dailyTasks.map((e) => TaskInfo(todo: e, index: 0)).toList();
   }
 }

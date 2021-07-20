@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:heig_front/controllers/todos_provider.dart';
-import 'package:heig_front/models/todo.dart';
-import 'package:heig_front/widgets/task_info.dart';
 import 'package:heig_front/widgets/week_page.dart';
 import 'package:provider/provider.dart';
 import 'package:heig_front/utils/date.dart';
@@ -21,7 +19,6 @@ class _TodosScreenState extends State<TodosScreen> {
   void initState() {
     int page =
         DateTime.now().firstDayOfWeek().difference(startYear).inDays ~/ 7;
-    debugPrint(page.toString());
     super.initState();
     controller = PageController(initialPage: page);
   }
@@ -30,7 +27,6 @@ class _TodosScreenState extends State<TodosScreen> {
   Widget build(BuildContext context) {
     final int numberOfWeek = endYear.difference(startYear).inDays ~/ 7;
 
-    List<Todo> todos = context.watch<TodosProvider>().getTodos();
     return Container(
       color: Colors.white,
       child: PageView.builder(
@@ -38,9 +34,11 @@ class _TodosScreenState extends State<TodosScreen> {
         physics: const BouncingScrollPhysics(),
         itemCount: numberOfWeek,
         itemBuilder: (context, index) {
+          final firstDayOfWeek = startYear.add(Duration(days: index * 7));
           return WeekPage(
-            weekTasks: [[], [], [], [], [], [], []],
-            firstDayOfWeek: startYear.add(Duration(days: index * 7)),
+            weekTasks: Provider.of<TodosProvider>(context)
+                .getTodosByWeek(firstDayOfWeek),
+            firstDayOfWeek: firstDayOfWeek,
           );
         },
       ),
