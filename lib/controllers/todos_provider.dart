@@ -62,10 +62,11 @@ class TodosProvider extends ChangeNotifier {
 
   /// Permet d'avoir toutes les taches pour une semaine
   List<Todo> getTodosByWeek(DateTime firstDayOfWeek) {
-    _todos.where((element) =>
-        firstDayOfWeek.difference(element.date).inDays <= 6 &&
-        firstDayOfWeek.difference(element.date).inDays >= 0);
-    return [];
+    return _todos
+        .where((element) =>
+            firstDayOfWeek.difference(element.date).inDays <= 6 &&
+            firstDayOfWeek.difference(element.date).inDays >= 0)
+        .toList();
   }
 
   List<Todo> getTodos() {
