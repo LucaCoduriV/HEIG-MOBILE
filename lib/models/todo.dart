@@ -5,7 +5,7 @@ part 'todo.g.dart';
 @HiveType(typeId: 6)
 class Todo {
   @HiveField(0)
-  late int _id;
+  late String _id;
   @HiveField(1)
   late String _title;
   @HiveField(2)
@@ -15,7 +15,7 @@ class Todo {
   @HiveField(4)
   late DateTime _date;
 
-  int get id => _id;
+  String get id => _id;
   String get title => _title;
   String get description => _description;
   bool get completed => _completed;
@@ -23,8 +23,8 @@ class Todo {
 
   set completed(bool completed) => _completed = completed;
 
-  Todo(
-      int id, String title, String description, bool completed, DateTime date) {
+  Todo(String id, String title, String description, bool completed,
+      DateTime date) {
     _id = id;
     _title = title;
     _description = description;
@@ -34,7 +34,7 @@ class Todo {
 
   factory Todo.fromJson(Map<String, dynamic> json) {
     return Todo(
-      int.parse(json["id"]),
+      json["id"],
       json["title"],
       json["description"],
       json["completed"],

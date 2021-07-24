@@ -171,7 +171,7 @@ class MyApp extends StatelessWidget {
                   nestedRoutes: [
                     VGuard(
                       beforeEnter: (stackedRoutes) async {
-                        GetIt.I<DrawerProvider>().title = 'Todos';
+                        GetIt.I<DrawerProvider>().title = 'Agenda';
                         GetIt.I<DrawerProvider>().action = ActionType.TODOS;
                       },
                       stackedRoutes: [

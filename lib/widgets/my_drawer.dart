@@ -63,7 +63,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     },
                   ),
                   ListTile(
-                    title: Text('Todos'),
+                    title: Text('Agenda'),
                     onTap: () {
                       _scaffoldKey.currentState?.openEndDrawer();
                       NavigatorController.toTodos(context);

@@ -59,8 +59,8 @@ class _TodosDialogState extends State<TodosDialog> {
                 children: [
                   OutlinedButton(
                       onPressed: () {
-                        GetIt.I<TodosProvider>().addTodo(
-                            0, title.text, description.text, false, date);
+                        GetIt.I<TodosProvider>()
+                            .addTodo(title.text, description.text, false, date);
                         Navigator.of(context).pop();
                       },
                       child: Text("Valider")),
