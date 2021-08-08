@@ -10,6 +10,7 @@ class AuthController extends ChangeNotifier {
   late String _username;
   late String _password;
   late bool _isConnected;
+  late int _gapsId;
 
   var box = Hive.box('heig');
 
@@ -29,12 +30,14 @@ class AuthController extends ChangeNotifier {
 
   String get username => _username;
   String get password => _password;
+  int get gapsId => _gapsId;
 
   AuthController() {
     // Récupérer le nom et le mot de passe de l'utilisateur
     this._username = box.get('username', defaultValue: "");
     this._password = box.get('password', defaultValue: "");
     this._isConnected = box.get('isConnected', defaultValue: false);
+    this._gapsId = box.get('gapsId', defaultValue: -1);
   }
 
   Future<bool> login() async {
@@ -44,14 +47,21 @@ class AuthController extends ChangeNotifier {
       AsymmetricCrypt rsa = new AsymmetricCrypt(publicKey);
       String encryptedPassword = rsa.encrypt(_password);
       //ajouter la connection + le localstorage
-      _isConnected = await GetIt.I<ApiController>()
+      _gapsId = await GetIt.I<ApiController>()
           .login(_username, encryptedPassword, decrypt: true);
+
+      _isConnected = _gapsId != -1;
+      box.put('gapsId', gapsId);
       box.put('isConnected', _isConnected);
+
       notifyListeners();
       return _isConnected;
     } catch (e) {
       _isConnected = false;
+
       box.put('isConnected', _isConnected);
+      box.put('gapsId', -1);
+
       notifyListeners();
       return _isConnected;
     }

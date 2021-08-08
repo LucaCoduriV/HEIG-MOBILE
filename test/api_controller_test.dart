@@ -9,14 +9,33 @@ void main() async {
   load();
   String username = env['USERNAME'].toString();
   String password = env['PASSWORD'].toString();
+  int gapsId = int.parse(env['GAPS_ID'].toString());
   String ip = env['SERVER_IP_DEV'].toString();
   String port = env['PORT_DEV'].toString();
+
+  group("Login", () {
+    test("should be greater than -1", () async {
+      final ApiController api = ApiController.withIp(ip, port);
+
+      int id = await api.login(username, password);
+
+      expect(id, greaterThan(-1));
+    });
+
+    test("should return -1", () async {
+      final ApiController api = ApiController.withIp(ip, port);
+
+      int id = await api.login("wrong", "wrong");
+
+      expect(id, -1);
+    });
+  });
 
   group("Notes", () {
     test("should be fetched", () async {
       final ApiController api = ApiController.withIp(ip, port);
 
-      Bulletin bulletin = await api.fetchNotes(username, password);
+      Bulletin bulletin = await api.fetchNotes(username, password, gapsId);
       debugPrint(bulletin.toString());
       expect(bulletin.branches.length, greaterThan(0));
     });
@@ -30,24 +49,6 @@ void main() async {
       debugPrint(horaires.toString());
 
       expect(horaires.horaires.length, greaterThan(0));
-    });
-  });
-
-  group("Login", () {
-    test("should return true", () async {
-      final ApiController api = ApiController.withIp(ip, port);
-
-      bool connected = await api.login(username, password);
-
-      expect(connected, true);
-    });
-
-    test("should return false", () async {
-      final ApiController api = ApiController.withIp(ip, port);
-
-      bool connected = await api.login("wrong", "wrong");
-
-      expect(connected, false);
     });
   });
 }

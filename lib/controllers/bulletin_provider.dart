@@ -21,7 +21,8 @@ class BulletinProvider extends ChangeNotifier {
   }
 
   /// Récupère le bulletin depuis l'API et informe les views que ça a été mis à jour
-  Future<void> fetchBulletin(String username, String password) async {
+  Future<void> fetchBulletin(
+      String username, String password, int gapsId) async {
     try {
       String publicKey = await GetIt.I<ApiController>().fetchPublicKey();
 
@@ -29,7 +30,7 @@ class BulletinProvider extends ChangeNotifier {
       String encryptedPassword = rsa.encrypt(password);
 
       _bulletin = await GetIt.I<ApiController>()
-          .fetchNotes(username, encryptedPassword, decrypt: true);
+          .fetchNotes(username, encryptedPassword, gapsId, decrypt: true);
       box.put('bulletin', _bulletin);
     } catch (e) {
       return;

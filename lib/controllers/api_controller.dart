@@ -54,13 +54,14 @@ class ApiController {
     }
   }
 
-  Future<Bulletin> fetchNotes(String username, String password,
+  Future<Bulletin> fetchNotes(String username, String password, int gapsId,
       {bool decrypt: false}) async {
     try {
       Response res = await dio.post("/notes?decrypt=$decrypt",
           data: jsonEncode({
             'username': username,
             'password': password,
+            'gapsId': gapsId,
           }));
       List<dynamic> json = res.data;
       List<Branche> notes = json.map((e) => Branche.fromJson(e)).toList();
@@ -71,21 +72,21 @@ class ApiController {
     }
   }
 
-  Future<bool> login(String username, String password,
+  Future<int> login(String username, String password,
       {bool decrypt: false}) async {
     try {
-      await dio.post(
+      return (await dio.post(
         "/login?decrypt=$decrypt",
         data: jsonEncode({
           'username': username,
           'password': password,
         }),
-      );
+      ))
+          .data['id'];
     } catch (e) {
       debugPrint(e.toString());
-      return false;
+      return -1;
     }
-    return true;
   }
 
   Future<String> fetchPublicKey() async {

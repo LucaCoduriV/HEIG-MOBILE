@@ -9,8 +9,8 @@ void main() async {
   load();
   String username = env['USERNAME'].toString();
   String password = env['PASSWORD'].toString();
-  String ip = env['SERVER_IP'].toString();
-  String port = env['PORT'].toString();
+  String ip = env['SERVER_IP_DEV'].toString();
+  String port = env['PORT_DEV'].toString();
   await Hive.initFlutter();
   await Hive.openBox('heig');
   GetIt.I.registerSingleton<ApiController>(ApiController.withIp(ip, port));

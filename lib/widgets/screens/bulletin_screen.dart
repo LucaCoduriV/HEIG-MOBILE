@@ -19,8 +19,10 @@ class BulletinScreen extends StatelessWidget {
     return RefreshIndicator(
       key: GetIt.I<GlobalKey<RefreshIndicatorState>>(),
       onRefresh: () => GetIt.I<BulletinProvider>().fetchBulletin(
-          GetIt.I<AuthController>().username,
-          GetIt.I<AuthController>().password),
+        GetIt.I<AuthController>().username,
+        GetIt.I<AuthController>().password,
+        GetIt.I<AuthController>().gapsId,
+      ),
       child: Center(
         child: Container(
           color: Colors.white,
