@@ -13,19 +13,21 @@ import 'package:heig_front/models/horaires.dart';
 import 'package:heig_front/models/notes.dart';
 import 'package:heig_front/models/todo.dart';
 import 'package:heig_front/widgets/my_drawer.dart';
+import 'package:heig_front/widgets/screens/agenda_screen.dart';
 import 'package:heig_front/widgets/screens/horaires_screen.dart';
 import 'package:heig_front/widgets/screens/login_screen.dart';
 import 'package:heig_front/widgets/screens/notes_details.dart';
 import 'package:heig_front/widgets/screens/bulletin_screen.dart';
-import 'package:heig_front/widgets/screens/todos_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vrouter/vrouter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:intl/date_symbol_data_local.dart';
 
 Future<void> setup() async {
+  await initializeDateFormatting("fr_FR");
   await dotenv.load();
   await Hive.initFlutter();
   Hive.registerAdapter(BulletinAdapter());
@@ -177,7 +179,7 @@ class MyApp extends StatelessWidget {
                       stackedRoutes: [
                         VWidget(
                           path: null,
-                          widget: TodosScreen(),
+                          widget: AgendaScreen(), //TodosScreen(),
                         )
                       ],
                     ),

@@ -9,12 +9,11 @@ import 'package:hive_flutter/hive_flutter.dart';
 class AuthController extends ChangeNotifier {
   late String _username;
   late String _password;
-  late bool _isConnected;
   late int _gapsId;
 
   var box = Hive.box('heig');
 
-  get isConnected => _isConnected;
+  bool get isConnected => gapsId != -1;
 
   set username(String username) {
     var box = Hive.box('heig');
@@ -36,7 +35,6 @@ class AuthController extends ChangeNotifier {
     // Récupérer le nom et le mot de passe de l'utilisateur
     this._username = box.get('username', defaultValue: "");
     this._password = box.get('password', defaultValue: "");
-    this._isConnected = box.get('isConnected', defaultValue: false);
     this._gapsId = box.get('gapsId', defaultValue: -1);
   }
 
@@ -50,20 +48,16 @@ class AuthController extends ChangeNotifier {
       _gapsId = await GetIt.I<ApiController>()
           .login(_username, encryptedPassword, decrypt: true);
 
-      _isConnected = _gapsId != -1;
       box.put('gapsId', gapsId);
-      box.put('isConnected', _isConnected);
 
       notifyListeners();
-      return _isConnected;
+      return isConnected;
     } catch (e) {
-      _isConnected = false;
-
-      box.put('isConnected', _isConnected);
+      _gapsId = -1;
       box.put('gapsId', -1);
 
       notifyListeners();
-      return _isConnected;
+      return isConnected;
     }
   }
 
@@ -72,8 +66,8 @@ class AuthController extends ChangeNotifier {
     box.delete('username');
     box.delete('password');
     box.delete('bulletin');
-    _isConnected = false;
-    box.put('isConnected', _isConnected);
+    box.put('gapsId', -1);
+    _gapsId = -1;
     this._password = "";
     GetIt.I<BulletinProvider>().emptyBulletin();
     notifyListeners();

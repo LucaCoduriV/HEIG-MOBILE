@@ -11,7 +11,7 @@ class TodosProvider extends ChangeNotifier {
 
   TodosProvider() {
     FlutterLocalNotificationsPlugin().cancelAll();
-    _todos = box.get('todos', defaultValue: <String, Todo>{});
+    _todos = Map.from(box.get('todos', defaultValue: Map<String, Todo>()));
     setNotificationForAll();
   }
 
@@ -69,6 +69,12 @@ class TodosProvider extends ChangeNotifier {
         .where((element) =>
             element.date.difference(firstDayOfWeek).inDays <= 6 &&
             element.date.difference(firstDayOfWeek).inDays >= 0)
+        .toList();
+  }
+
+  List<Todo> getDailyTodos(DateTime date) {
+    return _todos.values
+        .where((element) => date.day == element.date.day)
         .toList();
   }
 
