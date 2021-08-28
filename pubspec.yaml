@@ -27,7 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-    vrouter: ^1.2.0+4
+    vrouter: ^1.2.0+11
     hive_flutter: ^1.1.0 # gestion du localstorage
     dio: ^4.0.0 # gestion des requêtes http
     flutter_dotenv: ^5.0.0 # .env

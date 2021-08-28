@@ -18,6 +18,7 @@ class _TaskInfoState extends State<TaskInfo> {
     Todo todo = widget.todo;
     DateTime? date = todo.date;
     return Container(
+      padding: EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -35,11 +36,17 @@ class _TaskInfoState extends State<TaskInfo> {
                       : TextDecoration.none,
                 ),
               ),
-              Checkbox(
-                value: todo.completed,
-                onChanged: (change) {
-                  GetIt.I<TodosProvider>().completeTodo(todo.id, change!);
-                },
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                height: 30,
+                child: Checkbox(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  value: todo.completed,
+                  onChanged: (change) {
+                    GetIt.I<TodosProvider>().completeTodo(todo.id, change!);
+                  },
+                ),
               ),
             ],
           ),

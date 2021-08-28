@@ -74,7 +74,10 @@ class TodosProvider extends ChangeNotifier {
 
   List<Todo> getDailyTodos(DateTime date) {
     return _todos.values
-        .where((element) => date.day == element.date.day)
+        .where((element) =>
+            date.day == element.date.day &&
+            date.month == element.date.month &&
+            date.year == element.date.year)
         .toList();
   }
 

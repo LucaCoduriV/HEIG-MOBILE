@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/controllers/todos_provider.dart';
 import 'package:heig_front/models/todo.dart';
+import 'package:heig_front/widgets/task_info.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -15,6 +16,7 @@ class AgendaScreen extends StatefulWidget {
 class _AgendaScreenState extends State<AgendaScreen> {
   CalendarFormat _calendarFormat = CalendarFormat.week;
   DateTime _selectedDay = DateTime.now();
+  DateTime _focusedDay = DateTime.now();
 
   @override
   void initState() {
@@ -35,44 +37,65 @@ class _AgendaScreenState extends State<AgendaScreen> {
             startingDayOfWeek: StartingDayOfWeek.monday,
             firstDay: DateTime.utc(2010, 10, 16),
             lastDay: DateTime.utc(2030, 3, 14),
-            focusedDay: DateTime.now(),
+            focusedDay: _focusedDay,
             calendarFormat: _calendarFormat,
             onFormatChanged: (format) {
               setState(() {
                 _calendarFormat = format;
               });
             },
-            onDaySelected: (day, day2) {
+            onDaySelected: (selectedDay, focusedDay) {
               setState(() {
-                _selectedDay = day;
+                _selectedDay = selectedDay;
+                _focusedDay = focusedDay;
               });
             },
             selectedDayPredicate: (day) {
               return _selectedDay == day;
             },
             eventLoader: (DateTime day) {
-              return Provider.of<TodosProvider>(context).getDailyTodos(day);
+              return Provider.of<TodosProvider>(context)
+                  .getDailyTodos(day)
+                  .where((element) => !element.completed)
+                  .toList();
             },
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: dailyTasks.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 12.0,
-                    vertical: 4.0,
+            child: Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3), // changes position of shadow
                   ),
-                  decoration: BoxDecoration(
-                    border: Border.all(),
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: ListTile(
-                    onTap: () => print('${dailyTasks[index].title}'),
-                    title: Text('${dailyTasks[index].title}'),
-                  ),
-                );
-              },
+                ],
+              ),
+              child: dailyTasks.length != 0
+                  ? ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      itemCount: dailyTasks.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            TaskInfo(todo: dailyTasks[index]),
+                            dailyTasks.length != index + 1
+                                ? Container(
+                                    margin: EdgeInsets.symmetric(vertical: 3),
+                                    height: 1,
+                                    color: Colors.grey,
+                                  )
+                                : SizedBox()
+                          ],
+                        );
+                      },
+                    )
+                  : Text("Aucune tâche"),
             ),
           )
         ],
