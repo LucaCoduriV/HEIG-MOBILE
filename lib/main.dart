@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
     return VRouter(
       theme: ThemeData(
         textSelectionTheme: TextSelectionThemeData(cursorColor: Colors.grey),
-        primaryColor: Color(0xffda291c),
+        primaryColor: Colors.white, //Color(0xffda291c),
         accentColor: Color(0xffdf4d52),
         inputDecorationTheme: InputDecorationTheme(
             focusedBorder: UnderlineInputBorder(

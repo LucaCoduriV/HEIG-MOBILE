@@ -23,7 +23,10 @@ class _MyDrawerState extends State<MyDrawer> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Color(0xFFF9F9FB),
         title: Text(Provider.of<DrawerProvider>(context, listen: true).title),
+        toolbarHeight: 100,
         actions: [
           if (GetIt.I<DrawerProvider>().action == ActionType.TODOS)
             IconButton(
