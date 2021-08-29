@@ -83,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       minimumSize: Size(100, 40),
                       primary: Colors.teal,
                       side: BorderSide(
-                        color: Theme.of(context).primaryColor,
+                        color: Color(0xffda291c),
                         width: 1,
                       ),
                     ),
@@ -119,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     child: Text(
                       "Login",
-                      style: TextStyle(color: Theme.of(context).primaryColor),
+                      style: TextStyle(color: Color(0xffda291c)),
                     ),
                   ),
                 ],

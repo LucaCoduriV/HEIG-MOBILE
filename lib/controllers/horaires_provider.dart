@@ -14,7 +14,7 @@ class HorairesProvider extends ChangeNotifier {
   HorairesProvider() {
     Horaires hiveHoraires = box.get('horaires',
         defaultValue:
-            Horaires(semestre: 2, annee: 2019, horaires: <HeureDeCours>[]));
+            Horaires(semestre: 0, annee: 2021, horaires: <HeureDeCours>[]));
     _horaires = hiveHoraires;
   }
 

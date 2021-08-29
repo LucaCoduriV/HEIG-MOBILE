@@ -52,7 +52,7 @@ class ApiController {
           .map((e) => HeureDeCours.fromJson(e))
           .toList()
           .cast<HeureDeCours>();
-      return Horaires(semestre: 2, annee: 2020, horaires: horaires);
+      return Horaires(semestre: 0, annee: 2021, horaires: horaires);
     } catch (e) {
       debugPrint(e.toString());
       throw new Exception("Erreur lors de la récupération des horaires");
