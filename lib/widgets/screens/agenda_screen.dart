@@ -46,7 +46,7 @@ class _AgendaScreenState extends State<AgendaScreen> {
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                             color: Colors.redAccent,
-                            borderRadius: BorderRadius.circular(30.0)),
+                            borderRadius: BorderRadius.circular(50.0)),
                         child: Text(
                           date.day.toString(),
                           style: TextStyle(color: Colors.white),
@@ -56,7 +56,7 @@ class _AgendaScreenState extends State<AgendaScreen> {
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                             color: Colors.redAccent.shade100,
-                            borderRadius: BorderRadius.circular(30.0)),
+                            borderRadius: BorderRadius.circular(50.0)),
                         child: Text(
                           date.day.toString(),
                           style: TextStyle(color: Colors.white),

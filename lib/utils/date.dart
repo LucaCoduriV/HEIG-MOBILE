@@ -1,28 +1,28 @@
 const List<String> NOM_JOURS_SEMAINE = [
   "inconnu",
-  "lundi",
-  "mardi,",
-  "mercredi",
-  "jeudi",
-  "vendredi",
-  "samedi",
-  "dimanche"
+  "Lundi",
+  "Mardi,",
+  "Mercredi",
+  "Jeudi",
+  "Vendredi",
+  "Samedi",
+  "Dimanche"
 ];
 
 const List<String> NOM_MOIS = [
   "inconnu",
-  "janvier",
-  "février",
-  "mars",
-  "avril",
-  "mai",
-  "juin",
-  "juillet",
-  "aout",
-  "septembre",
-  "octobre",
-  "novembre",
-  "decembre",
+  "Janvier",
+  "Février",
+  "Mars",
+  "Avril",
+  "Mai",
+  "Juin",
+  "Juillet",
+  "Aout",
+  "Septembre",
+  "Octobre",
+  "Novembre",
+  "Decembre",
 ];
 
 extension DateCalc on DateTime {

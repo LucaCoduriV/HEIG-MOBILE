@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/controllers/auth_controller.dart';
+import 'package:heig_front/controllers/bulletin_provider.dart';
 import 'package:heig_front/controllers/drawer_provider.dart';
 import 'package:heig_front/controllers/navigator_controller.dart';
+import 'package:heig_front/utils/date.dart';
 import 'package:heig_front/widgets/todos_dialog.dart';
 import 'package:provider/provider.dart';
 
@@ -40,6 +42,26 @@ class _MyDrawerState extends State<MyDrawer> {
                   },
                 );
               },
+            ),
+          if (GetIt.I<DrawerProvider>().action == ActionType.QUICKINFOS)
+            Container(
+              padding: const EdgeInsets.only(right: 15),
+              child: Center(
+                child: Text.rich(
+                  TextSpan(
+                    text: NOM_JOURS_SEMAINE[DateTime.now().weekday],
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    children: [
+                      TextSpan(
+                          style: TextStyle(fontWeight: FontWeight.normal),
+                          text: " " +
+                              DateTime.now().day.toString() +
+                              " " +
+                              NOM_MOIS[DateTime.now().month])
+                    ],
+                  ),
+                ),
+              ),
             )
         ],
       ),
@@ -51,6 +73,13 @@ class _MyDrawerState extends State<MyDrawer> {
               // ListView contains a group of widgets that scroll inside the drawer
               child: ListView(
                 children: <Widget>[
+                  ListTile(
+                    title: Text('Home'),
+                    onTap: () {
+                      _scaffoldKey.currentState?.openEndDrawer();
+                      NavigatorController.toQuickInfos(context);
+                    },
+                  ),
                   ListTile(
                     title: Text('Notes'),
                     onTap: () {

@@ -2,7 +2,7 @@ import 'package:hive_flutter/adapters.dart';
 
 part 'todo.g.dart';
 
-@HiveType(typeId: 6)
+@HiveType(typeId: 7)
 class Todo {
   @HiveField(0)
   late String _id;

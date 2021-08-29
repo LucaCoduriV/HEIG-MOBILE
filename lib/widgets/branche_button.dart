@@ -13,20 +13,7 @@ class BrancheButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Expanded(
-              child: buildButton(),
-            ),
-          ],
-        ),
-        SizedBox(
-          height: 5,
-        )
-      ],
-    );
+    return buildButton();
   }
 
   Widget buildButton() {
@@ -34,39 +21,36 @@ class BrancheButton extends StatelessWidget {
       onTap: onPress,
       child: Container(
         child: buildButtonContent(),
-        height: 100,
+        height: 70,
         margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
         padding: EdgeInsets.all(15),
         decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 5,
-              blurRadius: 7,
-              offset: Offset(0, 3), // changes position of shadow
-            ),
-          ],
+          color: moyenne < 4 ? Color(0xFFFEF5F6) : Color(0xFFF4FEF8),
+          borderRadius: BorderRadius.circular(10),
         ),
       ),
     );
   }
 
   Widget buildButtonContent() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(title, style: TextStyle(fontSize: 16)),
-            Row(
-              children: [
-                Text("Moyenne: $moyenne"),
-                SizedBox(width: 10),
-                Icon(Icons.arrow_forward_ios_rounded),
-              ],
-            )
+            Text(title,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+            Text("Moyenne: $moyenne",
+                style: TextStyle(fontWeight: FontWeight.w300)),
+          ],
+        ),
+        Row(
+          children: [
+            SizedBox(width: 10),
+            Icon(Icons.arrow_forward_ios_rounded),
           ],
         )
       ],

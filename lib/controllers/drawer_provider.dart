@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 enum ActionType {
   NONE,
   TODOS,
+  Notes,
+  QUICKINFOS,
 }
 
 class DrawerProvider extends ChangeNotifier {

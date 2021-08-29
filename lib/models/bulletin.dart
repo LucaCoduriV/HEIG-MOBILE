@@ -8,9 +8,12 @@ part 'bulletin.g.dart';
 class Bulletin {
   @HiveField(0)
   late List<Branche> branches;
+  @HiveField(1)
+  late int year;
 
-  Bulletin(List<Branche>? branches) {
+  Bulletin(List<Branche>? branches, {int year = 2020}) {
     this.branches = branches ?? [];
+    this.year = year;
   }
 
   @override

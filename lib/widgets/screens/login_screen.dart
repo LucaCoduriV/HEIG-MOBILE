@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/controllers/auth_controller.dart';
 import 'package:heig_front/controllers/navigator_controller.dart';
+import 'package:heig_front/controllers/user_provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
       'assets/images/logo.svg',
       semanticsLabel: 'HEIG Logo',
       width: 100,
-      color: Theme.of(context).primaryColor,
+      color: Color(0xffda291c), //Theme.of(context).primaryColor,
     );
 
     return Scaffold(
@@ -96,7 +97,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               elevation: 0,
                               child: new Center(
                                 child: new CircularProgressIndicator(
-                                    color: Theme.of(context).primaryColor),
+                                  color: Color(0xffda291c),
+                                ), //Theme.of(context).primaryColor),
                               ),
                             );
                           },
@@ -104,8 +106,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         GetIt.I<AuthController>().username = username.text;
                         GetIt.I<AuthController>().password = password.text;
 
-                        if (await GetIt.I<AuthController>().login())
+                        if (await GetIt.I<AuthController>().login()) {
                           NavigatorController.toNotes(context);
+                          GetIt.I.get<UserProvider>().fetchUser(username.text,
+                              password.text, GetIt.I<AuthController>().gapsId);
+                        }
+
                         Navigator.pop(context);
                       }
                     },

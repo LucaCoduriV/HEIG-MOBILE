@@ -18,15 +18,18 @@ class BulletinAdapter extends TypeAdapter<Bulletin> {
     };
     return Bulletin(
       (fields[0] as List?)?.cast<Branche>(),
+      year: fields[1] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, Bulletin obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.branches);
+      ..write(obj.branches)
+      ..writeByte(1)
+      ..write(obj.year);
   }
 
   @override

@@ -6,6 +6,7 @@ import 'package:heig_front/controllers/bulletin_provider.dart';
 import 'package:heig_front/controllers/drawer_provider.dart';
 import 'package:heig_front/controllers/navigator_controller.dart';
 import 'package:heig_front/controllers/todos_provider.dart';
+import 'package:heig_front/controllers/user_provider.dart';
 import 'package:heig_front/models/branche.dart';
 import 'package:heig_front/models/bulletin.dart';
 import 'package:heig_front/models/heure_de_cours.dart';
@@ -14,6 +15,7 @@ import 'package:heig_front/models/notes.dart';
 import 'package:heig_front/models/todo.dart';
 import 'package:heig_front/widgets/my_drawer.dart';
 import 'package:heig_front/widgets/screens/agenda_screen.dart';
+import 'package:heig_front/widgets/screens/home_screen.dart';
 import 'package:heig_front/widgets/screens/horaires_screen.dart';
 import 'package:heig_front/widgets/screens/login_screen.dart';
 import 'package:heig_front/widgets/screens/notes_details.dart';
@@ -43,6 +45,7 @@ Future<void> setup() async {
   GetIt.I.registerSingleton<AuthController>(AuthController());
   GetIt.I.registerSingleton<DrawerProvider>(DrawerProvider());
   GetIt.I.registerSingleton<TodosProvider>(TodosProvider());
+  GetIt.I.registerSingleton<UserProvider>(UserProvider());
   GetIt.I.registerSingleton<GlobalKey<RefreshIndicatorState>>(
       GlobalKey<RefreshIndicatorState>());
 
@@ -92,7 +95,7 @@ class MyApp extends StatelessWidget {
           beforeEnter: (vRedirector) async {
             if (GetIt.I<AuthController>().isConnected) {
               vRedirector.to(
-                  ("/${NavigatorController.home}/${NavigatorController.notes}"));
+                  ("/${NavigatorController.home}/${NavigatorController.quickInfos}"));
             }
           },
           stackedRoutes: [
@@ -112,9 +115,43 @@ class MyApp extends StatelessWidget {
             VNester(
               path: "/${NavigatorController.home}",
               widgetBuilder: (child) => ChangeNotifierProvider.value(
-                  value: GetIt.I<DrawerProvider>(),
-                  child: MyDrawer(child: child)),
+                value: GetIt.I<DrawerProvider>(),
+                child: MyDrawer(child: child),
+              ),
               nestedRoutes: [
+                //quickInfos
+                VNester(
+                  path: NavigatorController.quickInfos,
+                  widgetBuilder: (child) => MultiProvider(
+                    providers: [
+                      ChangeNotifierProvider.value(
+                        value: GetIt.I<BulletinProvider>(),
+                      ),
+                      ChangeNotifierProvider.value(
+                        value: GetIt.I<UserProvider>(),
+                      ),
+                      ChangeNotifierProvider.value(
+                        value: GetIt.I<TodosProvider>(),
+                      ),
+                    ],
+                    child: child,
+                  ),
+                  nestedRoutes: [
+                    VGuard(
+                      beforeEnter: (stackedRoutes) async {
+                        GetIt.I<DrawerProvider>().title = '';
+                        GetIt.I<DrawerProvider>().action =
+                            ActionType.QUICKINFOS;
+                      },
+                      stackedRoutes: [
+                        VWidget(
+                          path: null,
+                          widget: HomeScreen(),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
                 // /notes
                 VNester(
                   path: NavigatorController.notes,
@@ -126,14 +163,14 @@ class MyApp extends StatelessWidget {
                     VGuard(
                       beforeEnter: (stackedRoutes) async {
                         GetIt.I<DrawerProvider>().title = 'Notes';
-                        GetIt.I<DrawerProvider>().action = ActionType.NONE;
-                        // Future.delayed(
-                        //     const Duration(
-                        //       milliseconds: 500,
-                        //     ),
-                        //     () => GetIt.I<GlobalKey<RefreshIndicatorState>>()
-                        //         .currentState
-                        //         ?.show());
+                        GetIt.I<DrawerProvider>().action = ActionType.Notes;
+                        Future.delayed(
+                            const Duration(
+                              milliseconds: 500,
+                            ),
+                            () => GetIt.I<GlobalKey<RefreshIndicatorState>>()
+                                .currentState
+                                ?.show());
                       },
                       stackedRoutes: [
                         VWidget(

@@ -6,9 +6,14 @@ class NavigatorController {
   static String horaires = "horaires";
   static String home = "home";
   static String todos = "todos";
+  static String quickInfos = "quickinfos";
 
   static void toLogin(context) {
     VRouter.of(context).to("/$home/$login");
+  }
+
+  static void toQuickInfos(context) {
+    VRouter.of(context).to("/$home/$quickInfos");
   }
 
   static void toNotes(context) {

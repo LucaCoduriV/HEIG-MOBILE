@@ -7,6 +7,7 @@ import 'package:heig_front/models/branche.dart';
 import 'package:heig_front/models/bulletin.dart';
 import 'package:heig_front/models/heure_de_cours.dart';
 import 'package:heig_front/models/horaires.dart';
+import 'package:heig_front/models/user.dart';
 
 /// Cette classe permet de récupérer les données traitées depuis l'API
 class ApiController {
@@ -55,17 +56,18 @@ class ApiController {
   }
 
   Future<Bulletin> fetchNotes(String username, String password, int gapsId,
-      {bool decrypt: false}) async {
+      {int year = 2020, bool decrypt: false}) async {
     try {
       Response res = await dio.post("/notes?decrypt=$decrypt",
           data: jsonEncode({
             'username': username,
             'password': password,
             'gapsId': gapsId,
+            'year': year,
           }));
       List<dynamic> json = res.data;
       List<Branche> notes = json.map((e) => Branche.fromJson(e)).toList();
-      return Bulletin(notes);
+      return Bulletin(notes, year: year);
     } catch (e) {
       debugPrint(e.toString());
       throw new Exception("Erreur lors de la récupération des notes");
@@ -86,6 +88,27 @@ class ApiController {
     } catch (e) {
       debugPrint(e.toString());
       return -1;
+    }
+  }
+
+  Future<User> fetchUser(String username, String password, int gapsId,
+      {bool decrypt: false}) async {
+    try {
+      Response response = await dio.post(
+        "/user?decrypt=$decrypt",
+        data: jsonEncode({
+          'username': username,
+          'password': password,
+          'gapsId': gapsId,
+        }),
+      );
+      Map<String, dynamic> json = response.data;
+
+      return User.fromJson(json);
+    } catch (e) {
+      debugPrint(e.toString());
+      throw new Exception(
+          "Erreur lors de la récupération des informations de l'utilisateur");
     }
   }
 
