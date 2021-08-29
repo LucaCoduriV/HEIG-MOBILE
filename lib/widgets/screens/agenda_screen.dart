@@ -27,6 +27,7 @@ class _AgendaScreenState extends State<AgendaScreen> {
   Widget build(BuildContext context) {
     List<Todo> dailyTasks =
         Provider.of<TodosProvider>(context).getDailyTodos(_selectedDay);
+    dailyTasks.sort((a, b) => a.date.compareTo(b.date));
 
     return Container(
       color: Color(0xFFF9F9FB),

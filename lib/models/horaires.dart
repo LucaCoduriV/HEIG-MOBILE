@@ -12,9 +12,9 @@ class Horaires {
   @HiveField(2)
   late List<HeureDeCours> horaires;
 
-  Horaires({required this.semestre, required this.annee, horaires}) {
+  Horaires({required this.semestre, required this.annee, required horaires}) {
     // je sais pas si c'est la meilleur manière de faire
-    this.horaires = horaires ?? [];
+    this.horaires = horaires;
   }
 
   @override

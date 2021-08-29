@@ -8,7 +8,7 @@ part of 'todo.dart';
 
 class TodoAdapter extends TypeAdapter<Todo> {
   @override
-  final int typeId = 6;
+  final int typeId = 7;
 
   @override
   Todo read(BinaryReader reader) {

@@ -12,6 +12,7 @@ class TodosProvider extends ChangeNotifier {
   TodosProvider() {
     FlutterLocalNotificationsPlugin().cancelAll();
     _todos = Map.from(box.get('todos', defaultValue: Map<String, Todo>()));
+
     setNotificationForAll();
   }
 

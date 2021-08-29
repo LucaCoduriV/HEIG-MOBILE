@@ -36,18 +36,22 @@ class ApiController {
         EnvController.getApiIp(), EnvController.getApiPort());
   }
 
-  Future<Horaires> fetchHoraires(String username, String password,
+  Future<Horaires> fetchHoraires(String username, String password, int gapsId,
       {bool decrypt: false}) async {
     try {
       Response res = await dio.post("/horaires?decrypt=$decrypt",
           data: jsonEncode({
             'username': username,
             'password': password,
+            'gapsId': gapsId,
           }));
 
-      List<dynamic> json = res.data;
-      List<HeureDeCours> horaires =
-          json.map((e) => HeureDeCours.fromJson(e)).toList();
+      Map<String, dynamic> json = res.data;
+      List<dynamic> horairesJson = json["VEVENT"];
+      List<HeureDeCours> horaires = horairesJson
+          .map((e) => HeureDeCours.fromJson(e))
+          .toList()
+          .cast<HeureDeCours>();
       return Horaires(semestre: 2, annee: 2020, horaires: horaires);
     } catch (e) {
       debugPrint(e.toString());

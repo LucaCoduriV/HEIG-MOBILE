@@ -45,7 +45,7 @@ void main() async {
     test("should be fetched", () async {
       final ApiController api = ApiController.withIp(ip, port);
 
-      Horaires horaires = await api.fetchHoraires(username, password);
+      Horaires horaires = await api.fetchHoraires(username, password, 16746);
       debugPrint(horaires.toString());
 
       expect(horaires.horaires.length, greaterThan(0));

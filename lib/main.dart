@@ -4,6 +4,7 @@ import 'package:heig_front/controllers/api_controller.dart';
 import 'package:heig_front/controllers/auth_controller.dart';
 import 'package:heig_front/controllers/bulletin_provider.dart';
 import 'package:heig_front/controllers/drawer_provider.dart';
+import 'package:heig_front/controllers/horaires_provider.dart';
 import 'package:heig_front/controllers/navigator_controller.dart';
 import 'package:heig_front/controllers/todos_provider.dart';
 import 'package:heig_front/controllers/user_provider.dart';
@@ -46,6 +47,7 @@ Future<void> setup() async {
   GetIt.I.registerSingleton<DrawerProvider>(DrawerProvider());
   GetIt.I.registerSingleton<TodosProvider>(TodosProvider());
   GetIt.I.registerSingleton<UserProvider>(UserProvider());
+  GetIt.I.registerSingleton<HorairesProvider>(HorairesProvider());
   GetIt.I.registerSingleton<GlobalKey<RefreshIndicatorState>>(
       GlobalKey<RefreshIndicatorState>());
 
@@ -133,6 +135,9 @@ class MyApp extends StatelessWidget {
                       ChangeNotifierProvider.value(
                         value: GetIt.I<TodosProvider>(),
                       ),
+                      ChangeNotifierProvider.value(
+                        value: GetIt.I<HorairesProvider>(),
+                      ),
                     ],
                     child: child,
                   ),
@@ -194,10 +199,18 @@ class MyApp extends StatelessWidget {
                     GetIt.I<DrawerProvider>().action = ActionType.NONE;
                   },
                   stackedRoutes: [
-                    VWidget(
-                      path: NavigatorController.horaires,
-                      widget: HorairesScreen(),
-                    )
+                    VNester(
+                        path: NavigatorController.horaires,
+                        widgetBuilder: (child) => ChangeNotifierProvider.value(
+                              value: GetIt.I<HorairesProvider>(),
+                              child: child,
+                            ),
+                        nestedRoutes: [
+                          VWidget(
+                            path: null,
+                            widget: HorairesScreen(),
+                          )
+                        ])
                   ],
                 ),
                 // /todos
