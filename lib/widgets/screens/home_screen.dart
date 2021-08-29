@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:heig_front/controllers/api_controller.dart';
 import 'package:heig_front/controllers/auth_controller.dart';
 import 'package:heig_front/controllers/horaires_provider.dart';
+import 'package:heig_front/controllers/navigator_controller.dart';
 import 'package:heig_front/controllers/todos_provider.dart';
 import 'package:heig_front/controllers/user_provider.dart';
 import 'package:heig_front/models/heure_de_cours.dart';
@@ -99,10 +100,7 @@ class HomeScreen extends StatelessWidget {
                         InkWell(
                           child: Text("Tous"),
                           onTap: () {
-                            GetIt.I.get<UserProvider>().fetchUser(
-                                GetIt.I.get<AuthController>().username,
-                                GetIt.I.get<AuthController>().password,
-                                GetIt.I.get<AuthController>().gapsId);
+                            NavigatorController.toHoraires(context);
                           },
                         ),
                       ],
@@ -129,32 +127,34 @@ class HomeScreen extends StatelessWidget {
                         : Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [Text("Pas de tâche")],
+                            children: [const Text("Pas de cours")],
                           ),
                   ),
                   SizedBox(height: 10),
                   Container(
-                    padding: EdgeInsets.only(left: 10, right: 10),
+                    padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text.rich(
                           TextSpan(
                             text: "Vos tâches",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                             children: [
                               TextSpan(
                                 text: " (${t.length})",
-                                style: TextStyle(fontWeight: FontWeight.w300),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w300),
                               ),
                             ],
                           ),
                         ),
                         InkWell(
-                            child: Text("Tous"),
-                            onTap: () {
-                              GetIt.I.get<HorairesProvider>().fetchHoraires();
-                            }),
+                          child: const Text("Tous"),
+                          onTap: () {
+                            NavigatorController.toTodos(context);
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -166,7 +166,7 @@ class HomeScreen extends StatelessWidget {
                             itemCount: t.length,
                             scrollDirection: Axis.horizontal,
                             separatorBuilder: (context, index) {
-                              return SizedBox(width: 10);
+                              return const SizedBox(width: 10);
                             },
                             itemBuilder: (context, index) {
                               return TacheWidget(
@@ -179,7 +179,7 @@ class HomeScreen extends StatelessWidget {
                         : Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [Text("Pas de tâche")],
+                            children: [const Text("Pas de tâche")],
                           ),
                   ),
                 ],

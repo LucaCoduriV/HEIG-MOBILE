@@ -25,7 +25,7 @@ class BrancheButton extends StatelessWidget {
         margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
         padding: EdgeInsets.all(15),
         decoration: BoxDecoration(
-          color: moyenne < 4 ? Color(0xFFFEF5F6) : Color(0xFFF4FEF8),
+          color: Colors.grey.shade200,
           borderRadius: BorderRadius.circular(10),
         ),
       ),
@@ -43,8 +43,20 @@ class BrancheButton extends StatelessWidget {
           children: [
             Text(title,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-            Text("Moyenne: $moyenne",
-                style: TextStyle(fontWeight: FontWeight.w300)),
+            Row(children: [
+              Container(
+                height: 10,
+                width: 10,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color:
+                      moyenne < 4 ? Colors.red.shade100 : Colors.green.shade200,
+                ),
+              ),
+              SizedBox(width: 5),
+              Text("Moyenne: $moyenne",
+                  style: TextStyle(fontWeight: FontWeight.w300))
+            ]),
           ],
         ),
         Row(

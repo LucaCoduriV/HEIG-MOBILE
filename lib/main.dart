@@ -103,7 +103,7 @@ class MyApp extends StatelessWidget {
           stackedRoutes: [
             VWidget(
               path: "/${NavigatorController.login}",
-              widget: LoginScreen(),
+              widget: const LoginScreen(),
             ),
           ],
         ),
@@ -151,7 +151,7 @@ class MyApp extends StatelessWidget {
                       stackedRoutes: [
                         VWidget(
                           path: null,
-                          widget: HomeScreen(),
+                          widget: const HomeScreen(),
                         )
                       ],
                     ),
@@ -184,7 +184,7 @@ class MyApp extends StatelessWidget {
                           stackedRoutes: [
                             VWidget(
                               path: ":id",
-                              widget: NotesDetails(),
+                              widget: const NotesDetails(),
                             )
                           ],
                         )
@@ -195,6 +195,7 @@ class MyApp extends StatelessWidget {
                 // /horaires
                 VGuard(
                   beforeEnter: (stackedRoutes) async {
+                    GetIt.I.get<HorairesProvider>().fetchHoraires();
                     GetIt.I<DrawerProvider>().title = 'Horaires';
                     GetIt.I<DrawerProvider>().action = ActionType.NONE;
                   },
@@ -208,7 +209,7 @@ class MyApp extends StatelessWidget {
                         nestedRoutes: [
                           VWidget(
                             path: null,
-                            widget: HorairesScreen(),
+                            widget: const HorairesScreen(),
                           )
                         ])
                   ],
@@ -229,7 +230,7 @@ class MyApp extends StatelessWidget {
                       stackedRoutes: [
                         VWidget(
                           path: null,
-                          widget: AgendaScreen(), //TodosScreen(),
+                          widget: const AgendaScreen(), //TodosScreen(),
                         )
                       ],
                     ),

@@ -26,7 +26,8 @@ class TacheWidget extends StatelessWidget {
       width: 150,
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-        color: Colors.red.shade100,
+        color:
+            leftDays.inDays < 2 ? Colors.red.shade100 : Colors.green.shade200,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -42,7 +43,7 @@ class TacheWidget extends StatelessWidget {
                 height: 8,
                 width: 8,
                 decoration: BoxDecoration(
-                  color: Colors.red,
+                  color: leftDays.inDays < 2 ? Colors.red : Colors.green,
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
