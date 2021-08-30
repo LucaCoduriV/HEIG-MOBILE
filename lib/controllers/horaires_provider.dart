@@ -5,6 +5,7 @@ import 'package:heig_front/controllers/auth_controller.dart';
 import 'package:heig_front/models/heure_de_cours.dart';
 import 'package:heig_front/models/horaires.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:rrule/rrule.dart';
 
 class HorairesProvider extends ChangeNotifier {
   late Horaires _horaires;
@@ -13,8 +14,7 @@ class HorairesProvider extends ChangeNotifier {
 
   HorairesProvider() {
     Horaires hiveHoraires = box.get('horaires',
-        defaultValue:
-            Horaires(semestre: 0, annee: 2021, horaires: <HeureDeCours>[]));
+        defaultValue: Horaires(0, 2021, <HeureDeCours>[], ""));
     _horaires = hiveHoraires;
   }
 
@@ -35,7 +35,10 @@ class HorairesProvider extends ChangeNotifier {
 
   List<HeureDeCours> getDailyClasses(DateTime day) {
     List<HeureDeCours> h = _horaires.horaires
-        .where((h) => h.debut.weekday == day.weekday)
+        .where((h) =>
+            h.debut.day == day.day &&
+            h.debut.month == day.month &&
+            h.debut.year == day.year)
         .toList();
     h.sort((a, b) => a.debut.compareTo(b.debut));
     return h;

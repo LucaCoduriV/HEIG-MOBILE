@@ -16,10 +16,12 @@ class TacheWidget extends StatelessWidget {
         start.month == DateTime.now().month &&
         start.year == DateTime.now().year) {
       remainingTime = 'Aujourd\'hui';
-    } else {
+    } else if (leftDays.inDays >= 0) {
       remainingTime = leftDays.inDays < 1
           ? 'Dans ${leftDays.inHours} heures'
           : 'Dans ${leftDays.inDays} jours';
+    } else {
+      remainingTime = 'En retard';
     }
 
     return Container(

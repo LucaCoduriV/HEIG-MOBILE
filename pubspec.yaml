@@ -39,6 +39,7 @@ dependencies:
     uuid: ^3.0.4
     table_calendar: ^3.0.2
     intl: ^0.17.0
+    rrule: ^0.2.3
     flutter:
         sdk: flutter
 

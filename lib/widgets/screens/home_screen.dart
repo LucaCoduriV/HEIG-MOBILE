@@ -117,11 +117,12 @@ class HomeScreen extends StatelessWidget {
                             itemCount: h.length,
                             itemBuilder: (context, index) {
                               return HeureDeCoursWidget(
-                                  h[index].debut,
-                                  h[index].fin,
-                                  h[index].nom,
-                                  h[index].prof,
-                                  h[index].salle);
+                                h[index].debut,
+                                h[index].fin,
+                                h[index].nom,
+                                h[index].salle,
+                                h[index].prof,
+                              );
                             },
                           )
                         : Row(

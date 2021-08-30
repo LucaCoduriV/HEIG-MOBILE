@@ -48,11 +48,22 @@ class ApiController {
 
       Map<String, dynamic> json = res.data;
       List<dynamic> horairesJson = json["VEVENT"];
+      List<dynamic> calendarJson = json["VCALENDAR"];
+
+      final Map<String, dynamic> rrule0 =
+          Map<String, dynamic>.from(calendarJson[0]);
+      final List<dynamic> rrule1 = rrule0["VTIMEZONE"];
+      final Map<String, dynamic> rrule2 = Map<String, dynamic>.from(rrule1[0]);
+      final List<dynamic> rrule3 = rrule2["STANDARD"];
+      final Map<String, dynamic> rrule4 = Map<String, dynamic>.from(rrule3[0]);
+      final String rrule = rrule4['RRULE'];
+
       List<HeureDeCours> horaires = horairesJson
           .map((e) => HeureDeCours.fromJson(e))
           .toList()
           .cast<HeureDeCours>();
-      return Horaires(semestre: 0, annee: 2021, horaires: horaires);
+      debugPrint("RRULE:" + rrule);
+      return Horaires(0, 2021, horaires, "RRULE:" + rrule);
     } catch (e) {
       debugPrint(e.toString());
       throw new Exception("Erreur lors de la récupération des horaires");

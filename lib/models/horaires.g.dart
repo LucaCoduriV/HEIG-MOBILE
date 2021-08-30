@@ -17,22 +17,25 @@ class HorairesAdapter extends TypeAdapter<Horaires> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Horaires(
-      semestre: fields[0] as int,
-      annee: fields[1] as int,
-      horaires: fields[2] as dynamic,
+      fields[0] as int,
+      fields[1] as int,
+      (fields[2] as List).cast<HeureDeCours>(),
+      fields[3] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, Horaires obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.semestre)
       ..writeByte(1)
       ..write(obj.annee)
       ..writeByte(2)
-      ..write(obj.horaires);
+      ..write(obj.horaires)
+      ..writeByte(3)
+      ..write(obj.rrule);
   }
 
   @override

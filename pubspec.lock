@@ -541,6 +541,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  rrule:
+    dependency: "direct main"
+    description:
+      name: rrule
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.3"
   shelf:
     dependency: transitive
     description:
@@ -616,6 +623,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  supercharged_dart:
+    dependency: transitive
+    description:
+      name: supercharged_dart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   table_calendar:
     dependency: "direct main"
     description:
