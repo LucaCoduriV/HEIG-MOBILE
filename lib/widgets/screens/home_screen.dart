@@ -53,7 +53,7 @@ class HomeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Salut Luca",
+                        "Salut ${Provider.of<UserProvider>(context).user.firstname}",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 25),
                       ),
