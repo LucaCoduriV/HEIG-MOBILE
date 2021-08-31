@@ -108,7 +108,8 @@ class _HorairesScreenState extends State<HorairesScreen> {
                           ? ListView.separated(
                               separatorBuilder: (context, index) =>
                                   SizedBox(height: 20),
-                              physics: BouncingScrollPhysics(),
+                              physics: AlwaysScrollableScrollPhysics(
+                                  parent: BouncingScrollPhysics()),
                               itemCount: coursJour.length,
                               itemBuilder: (context, index) {
                                 return HeureDeCoursWidget(

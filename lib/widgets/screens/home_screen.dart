@@ -107,6 +107,8 @@ class HomeScreen extends StatelessWidget {
                   Expanded(
                     child: h.length != 0
                         ? ListView.separated(
+                            physics: AlwaysScrollableScrollPhysics(
+                                parent: BouncingScrollPhysics()),
                             padding: EdgeInsets.symmetric(horizontal: 20),
                             separatorBuilder: (context, index) {
                               return SizedBox(height: 10);
@@ -159,6 +161,8 @@ class HomeScreen extends StatelessWidget {
                   Expanded(
                     child: t.length != 0
                         ? ListView.separated(
+                            physics: AlwaysScrollableScrollPhysics(
+                                parent: BouncingScrollPhysics()),
                             padding: EdgeInsets.symmetric(
                                 vertical: 30, horizontal: 20),
                             itemCount: t.length,
