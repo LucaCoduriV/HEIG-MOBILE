@@ -46,12 +46,14 @@ class Horaires {
 
       for (int i = 0; i < startDate.length; i++) {
         fin.add(HeureDeCours(
-            debut: startDate[i],
-            fin: endDate[i],
-            nom: element.nom,
-            prof: element.prof,
-            salle: element.salle,
-            uid: element.uid));
+          element.nom,
+          startDate[i],
+          endDate[i],
+          element.prof,
+          element.salle,
+          element.uid,
+          element.rrule,
+        ));
       }
     });
 

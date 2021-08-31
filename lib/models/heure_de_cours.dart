@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:intl/intl.dart';
 
 part 'heure_de_cours.g.dart';
 
@@ -18,15 +16,11 @@ class HeureDeCours {
   String salle;
   @HiveField(5)
   String uid;
+  @HiveField(6)
+  String? rrule;
 
-  HeureDeCours({
-    required this.nom,
-    required this.debut,
-    required this.fin,
-    required this.prof,
-    required this.salle,
-    required this.uid,
-  });
+  HeureDeCours(this.nom, this.debut, this.fin, this.prof, this.salle, this.uid,
+      this.rrule);
 
   factory HeureDeCours.fromJson(Map<String, dynamic> json) {
     String startString = (json['DTSTART;TZID=Europe/Zurich'] as String);
@@ -47,13 +41,14 @@ class HeureDeCours {
     int endSecond = int.parse(endString.substring(13, 15));
 
     return HeureDeCours(
-      nom: json['SUMMARY'],
-      debut: DateTime(
+      json['SUMMARY'],
+      DateTime(
           startYear, startMonth, startDay, startHour, startMinute, startSecond),
-      fin: DateTime(endYear, endMonth, endDay, endHour, endMinute, endSecond),
-      prof: 'Professeur inconnu',
-      salle: json['LOCATION'],
-      uid: json['UID'],
+      DateTime(endYear, endMonth, endDay, endHour, endMinute, endSecond),
+      'Professeur inconnu',
+      json['LOCATION'],
+      json['UID'],
+      json['RRULE'],
     );
   }
 

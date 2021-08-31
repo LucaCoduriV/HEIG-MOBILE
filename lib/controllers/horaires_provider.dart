@@ -5,7 +5,6 @@ import 'package:heig_front/controllers/auth_controller.dart';
 import 'package:heig_front/models/heure_de_cours.dart';
 import 'package:heig_front/models/horaires.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:rrule/rrule.dart';
 
 class HorairesProvider extends ChangeNotifier {
   late Horaires _horaires;

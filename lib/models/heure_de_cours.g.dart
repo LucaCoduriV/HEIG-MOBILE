@@ -17,19 +17,20 @@ class HeureDeCoursAdapter extends TypeAdapter<HeureDeCours> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return HeureDeCours(
-      nom: fields[0] as String,
-      debut: fields[1] as DateTime,
-      fin: fields[2] as DateTime,
-      prof: fields[3] as String,
-      salle: fields[4] as String,
-      uid: fields[5] as String,
+      fields[0] as String,
+      fields[1] as DateTime,
+      fields[2] as DateTime,
+      fields[3] as String,
+      fields[4] as String,
+      fields[5] as String,
+      fields[6] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, HeureDeCours obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.nom)
       ..writeByte(1)
@@ -41,7 +42,9 @@ class HeureDeCoursAdapter extends TypeAdapter<HeureDeCours> {
       ..writeByte(4)
       ..write(obj.salle)
       ..writeByte(5)
-      ..write(obj.uid);
+      ..write(obj.uid)
+      ..writeByte(6)
+      ..write(obj.rrule);
   }
 
   @override
