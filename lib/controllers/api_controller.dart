@@ -62,7 +62,6 @@ class ApiController {
           .map((e) => HeureDeCours.fromJson(e))
           .toList()
           .cast<HeureDeCours>();
-      debugPrint("RRULE:" + rrule);
       return Horaires(0, 2021, horaires, "RRULE:" + rrule);
     } catch (e) {
       debugPrint(e.toString());

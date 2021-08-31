@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:heig_front/models/heure_de_cours.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -15,49 +17,45 @@ class Horaires {
   late List<HeureDeCours> horaires;
   @HiveField(3)
   String rrule = "";
+  @HiveField(4)
+  late final List<HeureDeCours> horairesRRule;
 
-  Horaires(this.semestre, this.annee, this.horaires, this.rrule);
+  Horaires(this.semestre, this.annee, this.horaires, this.rrule) {
+    horairesRRule = getRRuleDates();
+  }
 
-  List<HeureDeCours> getHoraireRRule() {
-    final RecurrenceRule parsedRRule =
-        RecurrenceRule.fromString("RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=SU");
-    List<HeureDeCours> fin = [];
+  List<HeureDeCours> getRRuleDates() {
+    final List<HeureDeCours> data = [];
+    int test = 0;
+    try {
+      horaires.forEach((element) {
+        test++;
+        if (element.rrule != null && element.rrule != "") {
+          final RecurrenceRule parsedRRule =
+              RecurrenceRule.fromString("RRULE:" + element.rrule!);
+          List<DateTime> startArray =
+              parsedRRule.getAllInstances(start: element.debut.toUtc());
 
-    RruleL10nEn.create().then((value) {
-      debugPrint(parsedRRule.toText(l10n: value));
-    });
+          List<DateTime> endArray =
+              parsedRRule.getAllInstances(start: element.fin.toUtc());
 
-    horaires.forEach((element) {
-      final startDate = parsedRRule
-          .getInstances(
-            start: element.debut.toUtc(),
-            after: element.debut.toUtc(),
-            before: DateTime.utc(2023, 3, 14),
-          )
-          .toList();
-
-      final endDate = parsedRRule
-          .getInstances(
-            start: element.fin.toUtc(),
-            after: element.fin.toUtc(),
-            before: DateTime.utc(2023, 3, 14).toUtc(),
-          )
-          .toList();
-
-      for (int i = 0; i < startDate.length; i++) {
-        fin.add(HeureDeCours(
-          element.nom,
-          startDate[i],
-          endDate[i],
-          element.prof,
-          element.salle,
-          element.uid,
-          element.rrule,
-        ));
-      }
-    });
-
-    return fin;
+          for (int i = 0; i < startArray.length; i++) {
+            try {
+              data.add(HeureDeCours(element.nom, startArray[i], endArray[i],
+                  element.prof, element.salle, element.uid, element.rrule));
+            } catch (e) {
+              log("error!");
+            }
+          }
+        } else {
+          data.add(element);
+        }
+      });
+    } catch (e) {
+      log(e.toString());
+    }
+    debugPrint(test.toString());
+    return data;
   }
 
   @override

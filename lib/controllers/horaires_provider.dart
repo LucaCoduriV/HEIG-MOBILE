@@ -33,7 +33,7 @@ class HorairesProvider extends ChangeNotifier {
   }
 
   List<HeureDeCours> getDailyClasses(DateTime day) {
-    List<HeureDeCours> h = _horaires.horaires
+    List<HeureDeCours> h = _horaires.horairesRRule
         .where((h) =>
             h.debut.day == day.day &&
             h.debut.month == day.month &&
