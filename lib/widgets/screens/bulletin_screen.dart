@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/controllers/auth_controller.dart';
 import 'package:heig_front/controllers/bulletin_provider.dart';
 import 'package:heig_front/controllers/drawer_provider.dart';
 import 'package:heig_front/controllers/navigator_controller.dart';
@@ -51,9 +50,6 @@ class BulletinScreen extends StatelessWidget {
             builder: (context, constraints) => RefreshIndicator(
               key: GetIt.I<GlobalKey<RefreshIndicatorState>>(),
               onRefresh: () => GetIt.I<BulletinProvider>().fetchBulletin(
-                GetIt.I<AuthController>().username,
-                GetIt.I<AuthController>().password,
-                GetIt.I<AuthController>().gapsId,
                 year: GetIt.I<BulletinProvider>().year,
               ),
               child: buildButtons(context, bulletin, constraints),

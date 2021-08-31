@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:hive_flutter/adapters.dart';
 
 part 'user.g.dart';
 
 @HiveType(typeId: 8)
-class User extends ChangeNotifier {
+class User {
   @HiveField(0)
   late String firstname;
   @HiveField(1)

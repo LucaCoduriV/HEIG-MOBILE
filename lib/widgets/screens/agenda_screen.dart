@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:heig_front/controllers/todos_provider.dart';
 import 'package:heig_front/models/todo.dart';
 import 'package:heig_front/widgets/task_info.dart';

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/controllers/auth_controller.dart';
-import 'package:heig_front/controllers/bulletin_provider.dart';
 import 'package:heig_front/controllers/drawer_provider.dart';
-import 'package:heig_front/controllers/horaires_provider.dart';
 import 'package:heig_front/controllers/navigator_controller.dart';
 import 'package:heig_front/utils/date.dart';
 import 'package:heig_front/widgets/todos_dialog.dart';
@@ -92,7 +90,6 @@ class _MyDrawerState extends State<MyDrawer> {
                     title: Text('Horaires'),
                     onTap: () {
                       _scaffoldKey.currentState?.openEndDrawer();
-                      GetIt.I.get<HorairesProvider>().fetchHoraires();
                       NavigatorController.toHoraires(context);
                     },
                   ),

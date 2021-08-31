@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:heig_front/controllers/api_controller.dart';
-import 'package:heig_front/controllers/auth_controller.dart';
 import 'package:heig_front/controllers/horaires_provider.dart';
 import 'package:heig_front/controllers/navigator_controller.dart';
 import 'package:heig_front/controllers/todos_provider.dart';

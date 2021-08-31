@@ -34,6 +34,7 @@ class UserProvider extends ChangeNotifier {
     try {
       _user = await ApiController().fetchUser(username, password, gapsId);
       debugPrint(_user.toString());
+      box.put("user", _user);
       notifyListeners();
       return true;
     } catch (e) {

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/controllers/api_controller.dart';
 import 'package:heig_front/controllers/asymmetric_crypt.dart';
+import 'package:heig_front/controllers/auth_controller.dart';
 import 'package:heig_front/models/bulletin.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -14,7 +15,7 @@ class BulletinProvider extends ChangeNotifier {
   BulletinProvider() {
     // Les données sont récupérée dans le localstorage
     Bulletin hiveBulletin = box.get('bulletin', defaultValue: Bulletin([]));
-    int year = box.get('year', defaultValue: 2020);
+    int year = box.get('year', defaultValue: 2021);
     _bulletin = hiveBulletin;
     _year = year;
   }
@@ -34,10 +35,13 @@ class BulletinProvider extends ChangeNotifier {
   }
 
   /// Récupère le bulletin depuis l'API et informe les views que ça a été mis à jour
-  Future<void> fetchBulletin(String username, String password, int gapsId,
-      {year = 2020}) async {
+  Future<void> fetchBulletin({year = 2020}) async {
+    AuthController auth = GetIt.I.get<AuthController>();
     try {
       String publicKey = await GetIt.I<ApiController>().fetchPublicKey();
+      final username = auth.username;
+      final password = auth.password;
+      final gapsId = auth.gapsId;
 
       AsymmetricCrypt rsa = new AsymmetricCrypt(publicKey);
       String encryptedPassword = rsa.encrypt(password);

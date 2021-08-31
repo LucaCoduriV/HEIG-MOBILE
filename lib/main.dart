@@ -14,6 +14,7 @@ import 'package:heig_front/models/heure_de_cours.dart';
 import 'package:heig_front/models/horaires.dart';
 import 'package:heig_front/models/notes.dart';
 import 'package:heig_front/models/todo.dart';
+import 'package:heig_front/models/user.dart';
 import 'package:heig_front/widgets/my_drawer.dart';
 import 'package:heig_front/widgets/screens/agenda_screen.dart';
 import 'package:heig_front/widgets/screens/home_screen.dart';
@@ -39,6 +40,7 @@ Future<void> setup() async {
   Hive.registerAdapter(HorairesAdapter());
   Hive.registerAdapter(NoteAdapter());
   Hive.registerAdapter(TodoAdapter());
+  Hive.registerAdapter(UserAdapter());
   await Hive.openBox('heig');
 
   GetIt.I.registerSingleton<BulletinProvider>(BulletinProvider());

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:heig_front/models/todo.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:timezone/timezone.dart' as tz;
 import 'package:uuid/uuid.dart';
 
 class TodosProvider extends ChangeNotifier {

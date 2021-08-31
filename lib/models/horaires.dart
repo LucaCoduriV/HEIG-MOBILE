@@ -18,7 +18,7 @@ class Horaires {
   @HiveField(3)
   String rrule = "";
   @HiveField(4)
-  late final List<HeureDeCours> horairesRRule;
+  late List<HeureDeCours> horairesRRule;
 
   Horaires(this.semestre, this.annee, this.horaires, this.rrule) {
     horairesRRule = getRRuleDates();

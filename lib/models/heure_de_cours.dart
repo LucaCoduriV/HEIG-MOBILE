@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:rrule/rrule.dart';
 
 part 'heure_de_cours.g.dart';
 

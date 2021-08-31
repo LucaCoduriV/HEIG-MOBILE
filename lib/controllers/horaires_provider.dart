@@ -23,6 +23,7 @@ class HorairesProvider extends ChangeNotifier {
       _horaires = await GetIt.I
           .get<ApiController>()
           .fetchHoraires(auth.username, auth.password, auth.gapsId);
+      box.put('horaires', _horaires);
       notifyListeners();
       return true;
     } catch (e) {

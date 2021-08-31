@@ -66,6 +66,8 @@ class AuthController extends ChangeNotifier {
     box.delete('username');
     box.delete('password');
     box.delete('bulletin');
+    box.delete('user');
+    box.delete('horaires');
     box.put('gapsId', -1);
     _gapsId = -1;
     this._password = "";

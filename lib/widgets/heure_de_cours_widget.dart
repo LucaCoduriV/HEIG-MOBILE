@@ -27,10 +27,11 @@ class HeureDeCoursWidget extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("${start.hour}:${start.minute}",
+                Text(
+                    "${start.hour}:${start.minute}${start.minute == 0 ? '0' : ''}",
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 Text("-"),
-                Text("${end.hour}:${end.minute}",
+                Text("${end.hour}:${end.minute}${end.minute == 0 ? '0' : ''}",
                     style: TextStyle(fontWeight: FontWeight.bold)),
               ],
             ),
