@@ -30,12 +30,10 @@ class UserProvider extends ChangeNotifier {
   Future<bool> fetchUser() async {
     final auth = GetIt.I.get<AuthController>();
     try {
-      final publicKey = await GetIt.I<AuthController>().publicKey;
-      String encryptedPassword = publicKey.encrypt(auth.password);
+      final password = await GetIt.I<AuthController>().encryptedPassword;
 
-      _user = await ApiController().fetchUser(
-          auth.username, encryptedPassword, auth.gapsId,
-          decrypt: true);
+      _user = await ApiController()
+          .fetchUser(auth.username, password, auth.gapsId, decrypt: true);
       box.put("user", _user);
       notifyListeners();
       return true;

@@ -11,9 +11,9 @@ class AuthController extends ChangeNotifier {
   late String _password;
   late int _gapsId;
 
-  Future<AsymmetricCrypt> get publicKey async {
+  Future<String> get encryptedPassword async {
     String publicKey = await GetIt.I<ApiController>().fetchPublicKey();
-    return new AsymmetricCrypt(publicKey);
+    return AsymmetricCrypt(publicKey).encrypt(_password);
   }
 
   var box = Hive.box('heig');
@@ -45,10 +45,10 @@ class AuthController extends ChangeNotifier {
 
   Future<bool> login() async {
     try {
-      String encryptedPassword = (await publicKey).encrypt(_password);
+      String password = await encryptedPassword;
       //ajouter la connection + le localstorage
       _gapsId = await GetIt.I<ApiController>()
-          .login(_username, encryptedPassword, decrypt: true);
+          .login(_username, password, decrypt: true);
 
       box.put('gapsId', gapsId);
 

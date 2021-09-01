@@ -38,11 +38,10 @@ class BulletinProvider extends ChangeNotifier {
   Future<void> fetchBulletin({year = 2020}) async {
     AuthController auth = GetIt.I.get<AuthController>();
     try {
-      final publicKey = await GetIt.I<AuthController>().publicKey;
-      String encryptedPassword = publicKey.encrypt(auth.password);
+      final password = await GetIt.I<AuthController>().encryptedPassword;
 
       _bulletin = await GetIt.I<ApiController>().fetchNotes(
-          auth.username, encryptedPassword, auth.gapsId,
+          auth.username, password, auth.gapsId,
           year: year, decrypt: true);
       box.put('bulletin', _bulletin);
     } catch (e) {
