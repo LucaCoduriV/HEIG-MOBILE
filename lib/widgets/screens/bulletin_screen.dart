@@ -14,6 +14,7 @@ class BulletinScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Bulletin bulletin = context.watch<BulletinProvider>().bulletin;
+    bool loading = context.watch<BulletinProvider>().loading;
 
     return Column(
       children: [
@@ -31,9 +32,7 @@ class BulletinScreen extends StatelessWidget {
               iconSize: 24,
               onChanged: (int? newValue) {
                 GetIt.I<BulletinProvider>().year = newValue;
-                GetIt.I<GlobalKey<RefreshIndicatorState>>()
-                    .currentState
-                    ?.show();
+                GetIt.I<BulletinProvider>().fetchBulletin();
               },
               items: <int>[2020, 2021, 2022, 2023]
                   .map<DropdownMenuItem<int>>((int value) {
@@ -46,14 +45,27 @@ class BulletinScreen extends StatelessWidget {
           ],
         ),
         Expanded(
-          child: LayoutBuilder(
-            builder: (context, constraints) => RefreshIndicator(
-              key: GetIt.I<GlobalKey<RefreshIndicatorState>>(),
-              onRefresh: () => GetIt.I<BulletinProvider>().fetchBulletin(
-                year: GetIt.I<BulletinProvider>().year,
+          child: Column(
+            children: [
+              if (loading)
+                Center(
+                  child: LinearProgressIndicator(
+                    color: Colors.red,
+                    backgroundColor: Colors.grey,
+                  ),
+                ),
+              Expanded(
+                child: LayoutBuilder(
+                  builder: (context, constraints) => RefreshIndicator(
+                    color: Colors.red,
+                    key: GetIt.I<GlobalKey<RefreshIndicatorState>>(),
+                    onRefresh: () =>
+                        GetIt.I<BulletinProvider>().fetchBulletin(),
+                    child: buildButtons(context, bulletin, constraints),
+                  ),
+                ),
               ),
-              child: buildButtons(context, bulletin, constraints),
-            ),
+            ],
           ),
         ),
       ],

@@ -10,6 +10,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 class BulletinProvider extends ChangeNotifier {
   late Bulletin _bulletin;
   late int _year;
+  bool loading = false;
   var box = Hive.box('heig');
 
   BulletinProvider() {
@@ -35,19 +36,21 @@ class BulletinProvider extends ChangeNotifier {
   }
 
   /// Récupère le bulletin depuis l'API et informe les views que ça a été mis à jour
-  Future<void> fetchBulletin({year = 2020}) async {
+  Future<void> fetchBulletin() async {
+    loading = true;
+    notifyListeners();
     AuthController auth = GetIt.I.get<AuthController>();
     try {
-      final password = await GetIt.I<AuthController>().encryptedPassword;
+      final password = await auth.encryptedPassword;
 
       _bulletin = await GetIt.I<ApiController>().fetchNotes(
           auth.username, password, auth.gapsId,
-          year: year, decrypt: true);
+          year: _year, decrypt: true);
       box.put('bulletin', _bulletin);
     } catch (e) {
       return;
     }
-
+    loading = false;
     notifyListeners();
   }
 

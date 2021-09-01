@@ -112,8 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           NavigatorController.toQuickInfos(context);
                           GetIt.I.get<UserProvider>().fetchUser();
                           GetIt.I.get<HorairesProvider>().fetchHoraires();
-                          GetIt.I.get<BulletinProvider>().fetchBulletin(
-                              year: GetIt.I<BulletinProvider>().year);
+                          GetIt.I.get<BulletinProvider>().fetchBulletin();
                         }
 
                         Navigator.pop(context);
