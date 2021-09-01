@@ -20,9 +20,12 @@ class HorairesProvider extends ChangeNotifier {
   Future<bool> fetchHoraires() async {
     AuthController auth = GetIt.I.get<AuthController>();
     try {
-      _horaires = await GetIt.I
-          .get<ApiController>()
-          .fetchHoraires(auth.username, auth.password, auth.gapsId);
+      final publicKey = await GetIt.I<AuthController>().publicKey;
+      String encryptedPassword = publicKey.encrypt(auth.password);
+
+      _horaires = await GetIt.I.get<ApiController>().fetchHoraires(
+          auth.username, encryptedPassword, auth.gapsId,
+          decrypt: true);
       box.put('horaires', _horaires);
       notifyListeners();
       return true;

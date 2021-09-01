@@ -12,10 +12,7 @@ class UserProvider extends ChangeNotifier {
   UserProvider() {
     _user = box.get('user', defaultValue: User("", "", "", "", "", "", ""));
     if (_user.avatarUrl == "" && GetIt.I.get<AuthController>().isConnected)
-      fetchUser(
-          GetIt.I.get<AuthController>().username,
-          GetIt.I.get<AuthController>().password,
-          GetIt.I.get<AuthController>().gapsId);
+      fetchUser();
   }
 
   User get user => _user;
@@ -30,10 +27,15 @@ class UserProvider extends ChangeNotifier {
     return "";
   }
 
-  Future<bool> fetchUser(String username, String password, int gapsId) async {
+  Future<bool> fetchUser() async {
+    final auth = GetIt.I.get<AuthController>();
     try {
-      _user = await ApiController().fetchUser(username, password, gapsId);
-      debugPrint(_user.toString());
+      final publicKey = await GetIt.I<AuthController>().publicKey;
+      String encryptedPassword = publicKey.encrypt(auth.password);
+
+      _user = await ApiController().fetchUser(
+          auth.username, encryptedPassword, auth.gapsId,
+          decrypt: true);
       box.put("user", _user);
       notifyListeners();
       return true;
