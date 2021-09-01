@@ -16,59 +16,63 @@ class BulletinScreen extends StatelessWidget {
     Bulletin bulletin = context.watch<BulletinProvider>().bulletin;
     bool loading = context.watch<BulletinProvider>().loading;
 
-    return Column(
-      children: [
-        Row(
-          children: [
-            SizedBox(width: 20),
-            Text("Année",
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 17)),
-            SizedBox(width: 10),
-            DropdownButton<int>(
-              style:
-                  TextStyle(backgroundColor: Colors.white, color: Colors.black),
-              value: Provider.of<BulletinProvider>(context).year,
-              icon: const Icon(Icons.arrow_downward),
-              iconSize: 24,
-              onChanged: (int? newValue) {
-                GetIt.I<BulletinProvider>().year = newValue;
-                GetIt.I<BulletinProvider>().fetchBulletin();
-              },
-              items: <int>[2020, 2021, 2022, 2023]
-                  .map<DropdownMenuItem<int>>((int value) {
-                return DropdownMenuItem<int>(
-                  value: value,
-                  child: Text(value.toString() + "-" + (value + 1).toString()),
-                );
-              }).toList(),
-            ),
-          ],
-        ),
-        Expanded(
-          child: Column(
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: [
+          Row(
             children: [
-              if (loading)
-                Center(
-                  child: LinearProgressIndicator(
-                    color: Colors.red,
-                    backgroundColor: Colors.grey,
-                  ),
-                ),
-              Expanded(
-                child: LayoutBuilder(
-                  builder: (context, constraints) => RefreshIndicator(
-                    color: Colors.red,
-                    key: GetIt.I<GlobalKey<RefreshIndicatorState>>(),
-                    onRefresh: () =>
-                        GetIt.I<BulletinProvider>().fetchBulletin(),
-                    child: buildButtons(context, bulletin, constraints),
-                  ),
-                ),
+              SizedBox(width: 20),
+              Text("Année",
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 17)),
+              SizedBox(width: 10),
+              DropdownButton<int>(
+                style: TextStyle(
+                    backgroundColor: Colors.white, color: Colors.black),
+                value: Provider.of<BulletinProvider>(context).year,
+                icon: const Icon(Icons.arrow_downward),
+                iconSize: 24,
+                onChanged: (int? newValue) {
+                  GetIt.I<BulletinProvider>().year = newValue;
+                  GetIt.I<BulletinProvider>().fetchBulletin();
+                },
+                items: <int>[2020, 2021, 2022, 2023]
+                    .map<DropdownMenuItem<int>>((int value) {
+                  return DropdownMenuItem<int>(
+                    value: value,
+                    child:
+                        Text(value.toString() + "-" + (value + 1).toString()),
+                  );
+                }).toList(),
               ),
             ],
           ),
-        ),
-      ],
+          Expanded(
+            child: Column(
+              children: [
+                if (loading)
+                  Center(
+                    child: LinearProgressIndicator(
+                      color: Colors.red,
+                      backgroundColor: Colors.grey,
+                    ),
+                  ),
+                Expanded(
+                  child: LayoutBuilder(
+                    builder: (context, constraints) => RefreshIndicator(
+                      color: Colors.red,
+                      key: GetIt.I<GlobalKey<RefreshIndicatorState>>(),
+                      onRefresh: () =>
+                          GetIt.I<BulletinProvider>().fetchBulletin(),
+                      child: buildButtons(context, bulletin, constraints),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 

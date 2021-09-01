@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/controllers/auth_controller.dart';
 import 'package:heig_front/controllers/drawer_provider.dart';
@@ -18,6 +19,9 @@ class MyDrawer extends StatefulWidget {
 
 class _MyDrawerState extends State<MyDrawer> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  final image =
+      Image(image: AssetImage('assets/images/logo-bar.png'), height: 70);
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +76,35 @@ class _MyDrawerState extends State<MyDrawer> {
               // ListView contains a group of widgets that scroll inside the drawer
               child: ListView(
                 children: <Widget>[
+                  DrawerHeader(
+                    padding: EdgeInsets.zero,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          height: double.infinity,
+                          color: Colors.blue,
+                          child: image,
+                        ),
+                        SizedBox(width: 10),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("HAUTE ÉCOLE", style: TextStyle(fontSize: 15)),
+                            Text("D'INGÉNIERIE ET DE GESTION",
+                                style: TextStyle(fontSize: 15)),
+                            Text("DU CANTON DE VAUD",
+                                style: TextStyle(fontSize: 15)),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
                   ListTile(
+                    leading: Icon(Icons.home),
                     title: Text('Home'),
                     onTap: () {
                       _scaffoldKey.currentState?.openEndDrawer();
@@ -80,6 +112,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     },
                   ),
                   ListTile(
+                    leading: Icon(Icons.list),
                     title: Text('Notes'),
                     onTap: () {
                       _scaffoldKey.currentState?.openEndDrawer();
@@ -87,6 +120,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     },
                   ),
                   ListTile(
+                    leading: Icon(Icons.timer),
                     title: Text('Horaires'),
                     onTap: () {
                       _scaffoldKey.currentState?.openEndDrawer();
@@ -94,6 +128,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     },
                   ),
                   ListTile(
+                    leading: Icon(Icons.calendar_today),
                     title: Text('Agenda'),
                     onTap: () {
                       _scaffoldKey.currentState?.openEndDrawer();
