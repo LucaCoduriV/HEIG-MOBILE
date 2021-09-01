@@ -32,11 +32,19 @@ class HomeScreen extends StatelessWidget {
                 flex: 2,
                 child: Container(
                   margin: EdgeInsets.only(left: 20),
-                  child: CircleAvatar(
-                    foregroundImage: NetworkImage(
-                      Provider.of<UserProvider>(context).getAvatarUrl,
+                  child: Container(
+                    padding: EdgeInsets.all(3),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.red.shade200,
                     ),
-                    radius: 50,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.grey,
+                      foregroundImage: NetworkImage(
+                        Provider.of<UserProvider>(context).getAvatarUrl,
+                      ),
+                      radius: 50,
+                    ),
                   ),
                 ),
               ),
