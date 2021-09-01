@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/controllers/api_controller.dart';
-import 'package:heig_front/controllers/asymmetric_crypt.dart';
 import 'package:heig_front/controllers/auth_controller.dart';
 import 'package:heig_front/models/bulletin.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -16,7 +15,7 @@ class BulletinProvider extends ChangeNotifier {
   BulletinProvider() {
     // Les données sont récupérée dans le localstorage
     Bulletin hiveBulletin = box.get('bulletin', defaultValue: Bulletin([]));
-    int year = box.get('year', defaultValue: 2021);
+    int year = box.get('year', defaultValue: DateTime.now().year);
     _bulletin = hiveBulletin;
     _year = year;
   }

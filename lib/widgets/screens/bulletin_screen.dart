@@ -15,6 +15,7 @@ class BulletinScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Bulletin bulletin = context.watch<BulletinProvider>().bulletin;
     bool loading = context.watch<BulletinProvider>().loading;
+    final thisYear = DateTime.now().year;
 
     return Container(
       color: Colors.white,
@@ -36,7 +37,7 @@ class BulletinScreen extends StatelessWidget {
                   GetIt.I<BulletinProvider>().year = newValue;
                   GetIt.I<BulletinProvider>().fetchBulletin();
                 },
-                items: <int>[2020, 2021, 2022, 2023]
+                items: <int>[thisYear - 2, thisYear - 1, thisYear, thisYear + 1]
                     .map<DropdownMenuItem<int>>((int value) {
                   return DropdownMenuItem<int>(
                     value: value,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/controllers/auth_controller.dart';
 import 'package:heig_front/controllers/drawer_provider.dart';
@@ -93,10 +92,11 @@ class _MyDrawerState extends State<MyDrawer> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("HAUTE ÉCOLE", style: TextStyle(fontSize: 15)),
-                            Text("D'INGÉNIERIE ET DE GESTION",
+                            const Text("HAUTE ÉCOLE",
                                 style: TextStyle(fontSize: 15)),
-                            Text("DU CANTON DE VAUD",
+                            const Text("D'INGÉNIERIE ET DE GESTION",
+                                style: TextStyle(fontSize: 15)),
+                            const Text("DU CANTON DE VAUD",
                                 style: TextStyle(fontSize: 15)),
                           ],
                         )
@@ -104,32 +104,33 @@ class _MyDrawerState extends State<MyDrawer> {
                     ),
                   ),
                   ListTile(
-                    leading: Icon(Icons.home),
-                    title: Text('Home'),
+                    leading: Icon(Icons.home, color: Colors.red.shade500),
+                    title: const Text('Home'),
                     onTap: () {
                       _scaffoldKey.currentState?.openEndDrawer();
                       NavigatorController.toQuickInfos(context);
                     },
                   ),
                   ListTile(
-                    leading: Icon(Icons.list),
-                    title: Text('Notes'),
+                    leading: Icon(Icons.list, color: Colors.red.shade500),
+                    title: const Text('Notes'),
                     onTap: () {
                       _scaffoldKey.currentState?.openEndDrawer();
                       NavigatorController.toNotes(context);
                     },
                   ),
                   ListTile(
-                    leading: Icon(Icons.timer),
-                    title: Text('Horaires'),
+                    leading: Icon(Icons.timer, color: Colors.red.shade500),
+                    title: const Text('Horaires'),
                     onTap: () {
                       _scaffoldKey.currentState?.openEndDrawer();
                       NavigatorController.toHoraires(context);
                     },
                   ),
                   ListTile(
-                    leading: Icon(Icons.calendar_today),
-                    title: Text('Agenda'),
+                    leading:
+                        Icon(Icons.calendar_today, color: Colors.red.shade500),
+                    title: const Text('Agenda'),
                     onTap: () {
                       _scaffoldKey.currentState?.openEndDrawer();
                       NavigatorController.toTodos(context);
