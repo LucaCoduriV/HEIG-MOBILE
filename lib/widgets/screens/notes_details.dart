@@ -71,6 +71,7 @@ class NotesDetails extends StatelessWidget {
         ),
       ),
       DataColumn(
+        numeric: true,
         label: Text(
           'Moyenne',
         ),
@@ -82,6 +83,7 @@ class NotesDetails extends StatelessWidget {
         ),
       ),
       DataColumn(
+        numeric: true,
         label: Text(
           'Notes',
           style: TextStyle(fontStyle: FontStyle.italic),
@@ -94,7 +96,17 @@ class NotesDetails extends StatelessWidget {
     return notes.map((e) {
       return DataRow(
         cells: <DataCell>[
-          DataCell(Text(e.nom)),
+          DataCell(
+            Container(
+              width: 80,
+              child: SingleChildScrollView(
+                child: Text(
+                  e.nom,
+                  overflow: TextOverflow.clip,
+                ),
+              ),
+            ),
+          ),
           DataCell(Text(e.moyenneClasse.toString())),
           DataCell(Text("${e.coef.toString()}%")),
           DataCell(Text(e.note.toString())),
