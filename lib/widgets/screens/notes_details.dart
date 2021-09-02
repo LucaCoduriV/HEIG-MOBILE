@@ -3,7 +3,9 @@ import 'package:get_it/get_it.dart';
 import 'package:heig_front/controllers/bulletin_provider.dart';
 import 'package:heig_front/models/bulletin.dart';
 import 'package:heig_front/models/notes.dart';
+import 'package:heig_front/widgets/chart.dart';
 import 'package:vrouter/vrouter.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 class NotesDetails extends StatelessWidget {
   const NotesDetails({Key? key}) : super(key: key);
@@ -42,6 +44,15 @@ class NotesDetails extends StatelessWidget {
         ),
       if (notesCours.isNotEmpty) SizedBox(height: 10),
       if (notesCours.isNotEmpty)
+        Container(
+          padding: EdgeInsets.only(right: 20),
+          height: 200,
+          color: Colors.red,
+          width: double.infinity,
+          child: Chart(notesCours.map((e) => e.note).toList(),
+              notesCours.map((e) => e.moyenneClasse).toList()),
+        ),
+      if (notesCours.isNotEmpty)
         DataTable(
           columnSpacing: 30,
           columns: getColumn(),
@@ -54,6 +65,13 @@ class NotesDetails extends StatelessWidget {
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
         ),
       if (notesLabo.isNotEmpty) SizedBox(height: 10),
+      if (notesLabo.isNotEmpty)
+        Container(
+          height: 200,
+          width: double.infinity,
+          child: Chart(notesLabo.map((e) => e.note).toList(),
+              notesLabo.map((e) => e.moyenneClasse).toList()),
+        ),
       if (notesLabo.isNotEmpty)
         DataTable(
           columnSpacing: 30,
