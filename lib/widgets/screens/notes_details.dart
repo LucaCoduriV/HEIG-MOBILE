@@ -47,7 +47,6 @@ class NotesDetails extends StatelessWidget {
         Container(
           padding: EdgeInsets.only(right: 20),
           height: 200,
-          color: Colors.red,
           width: double.infinity,
           child: Chart(notesCours.map((e) => e.note).toList(),
               notesCours.map((e) => e.moyenneClasse).toList()),
@@ -67,6 +66,7 @@ class NotesDetails extends StatelessWidget {
       if (notesLabo.isNotEmpty) SizedBox(height: 10),
       if (notesLabo.isNotEmpty)
         Container(
+          padding: EdgeInsets.only(right: 20),
           height: 200,
           width: double.infinity,
           child: Chart(notesLabo.map((e) => e.note).toList(),
