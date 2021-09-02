@@ -41,4 +41,10 @@ class UserProvider extends ChangeNotifier {
       return false;
     }
   }
+
+  void clearUser() {
+    _user = User("", "", "", "", "", "", "");
+    box.put("user", _user);
+    notifyListeners();
+  }
 }
