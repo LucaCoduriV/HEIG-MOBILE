@@ -90,21 +90,33 @@ class NotesDetails extends StatelessWidget {
       ),
       DataColumn(
         numeric: true,
-        label: Text(
-          'Moyenne',
+        label: Row(
+          children: [
+            Text(
+              'Moy.',
+            ),
+            Container(color: Colors.red, height: 10, width: 5)
+          ],
         ),
       ),
       DataColumn(
         label: Text(
-          'coef',
+          'coef.',
           style: TextStyle(fontStyle: FontStyle.italic),
         ),
       ),
       DataColumn(
         numeric: true,
-        label: Text(
-          'Notes',
-          style: TextStyle(fontStyle: FontStyle.italic),
+        label: Row(
+          children: [
+            Text(
+              'Notes',
+            ),
+            SizedBox(
+              width: 2,
+            ),
+            Container(color: Colors.cyan, height: 10, width: 5)
+          ],
         ),
       ),
     ];
@@ -116,8 +128,10 @@ class NotesDetails extends StatelessWidget {
         cells: <DataCell>[
           DataCell(
             Container(
-              width: 80,
+              width: 100,
               child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
                 child: Text(
                   e.nom,
                   overflow: TextOverflow.clip,
