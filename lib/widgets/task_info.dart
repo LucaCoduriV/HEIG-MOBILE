@@ -38,7 +38,7 @@ class _TaskInfoState extends State<TaskInfo> {
 
         return result;
       },
-      key: Key(todo.id),
+      key: Key(todo.id.toString()),
       direction: DismissDirection.endToStart,
       background: Container(
         decoration: BoxDecoration(

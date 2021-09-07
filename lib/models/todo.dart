@@ -5,7 +5,7 @@ part 'todo.g.dart';
 @HiveType(typeId: 7)
 class Todo {
   @HiveField(0)
-  late String _id;
+  late int _id;
   @HiveField(1)
   late String _title;
   @HiveField(2)
@@ -15,7 +15,7 @@ class Todo {
   @HiveField(4)
   late DateTime _date;
 
-  String get id => _id;
+  int get id => _id;
   String get title => _title;
   String get description => _description;
   bool get completed => _completed;
@@ -23,8 +23,8 @@ class Todo {
 
   set completed(bool completed) => _completed = completed;
 
-  Todo(String id, String title, String description, bool completed,
-      DateTime date) {
+  Todo(
+      int id, String title, String description, bool completed, DateTime date) {
     _id = id;
     _title = title;
     _description = description;
