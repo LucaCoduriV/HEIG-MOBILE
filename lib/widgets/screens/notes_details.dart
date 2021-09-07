@@ -5,7 +5,6 @@ import 'package:heig_front/models/bulletin.dart';
 import 'package:heig_front/models/notes.dart';
 import 'package:heig_front/widgets/chart.dart';
 import 'package:vrouter/vrouter.dart';
-import 'package:fl_chart/fl_chart.dart';
 
 class NotesDetails extends StatelessWidget {
   const NotesDetails({Key? key}) : super(key: key);

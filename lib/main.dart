@@ -26,9 +26,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vrouter/vrouter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 
 Future<void> setup() async {
   await initializeDateFormatting("fr_FR");
@@ -53,8 +52,25 @@ Future<void> setup() async {
   GetIt.I.registerSingleton<GlobalKey<RefreshIndicatorState>>(
       GlobalKey<RefreshIndicatorState>());
 
-  tz.initializeTimeZones();
-  tz.setLocalLocation(tz.getLocation("Europe/Paris"));
+  await AwesomeNotifications().initialize(
+    null,
+    [
+      NotificationChannel(
+          channelKey: 'todos_channel',
+          channelName: 'Todo',
+          channelDescription: 'Notification channel for todos',
+          defaultColor: Color(0xFF9D50DD),
+          ledColor: Colors.white)
+    ],
+  );
+  await AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+    debugPrint(isAllowed.toString());
+    if (!isAllowed) {
+      // Insert here your friendly dialog box before call the request method
+      // This is very important to not harm the user experience
+      AwesomeNotifications().requestPermissionToSendNotifications();
+    }
+  });
 }
 
 void main() async {

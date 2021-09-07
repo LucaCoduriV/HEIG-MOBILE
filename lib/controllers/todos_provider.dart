@@ -1,7 +1,7 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:heig_front/models/todo.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:uuid/uuid.dart';
 
 class TodosProvider extends ChangeNotifier {
@@ -9,18 +9,7 @@ class TodosProvider extends ChangeNotifier {
   var box = Hive.box('heig');
 
   TodosProvider() {
-    FlutterLocalNotificationsPlugin().cancelAll();
     _todos = Map.from(box.get('todos', defaultValue: Map<String, Todo>()));
-
-    setNotificationForAll();
-  }
-
-  void setNotificationForAll() {
-    // for (int i = 0; i < _todos.length; i++) {
-    //   Todo todo = _todos[i];
-
-    //   scheduleNotifaction('0', todo.date, todo.title, todo.description);
-    // }
   }
 
   void saveTodos() {
@@ -33,13 +22,25 @@ class TodosProvider extends ChangeNotifier {
     var uuid = Uuid();
     String id = uuid.v4();
     _todos[id] = Todo(id, title, description, completed, date);
+
+    AwesomeNotifications().createNotification(
+      schedule: DateTime.now().isAfter(date.subtract(Duration(days: 1)))
+          ? null
+          : NotificationCalendar.fromDate(
+              date: date.subtract(Duration(days: 1))),
+      content: NotificationContent(
+        id: 10,
+        channelKey: 'todos_channel',
+        title: 'Tâche: $title',
+        body: description,
+      ),
+    );
+
     saveTodos();
-    scheduleNotifaction(id, date, title, description);
   }
 
   void removeTodo(String id) {
     _todos.remove(id);
-    //FlutterLocalNotificationsPlugin().cancel(id);
 
     saveTodos();
   }
@@ -47,8 +48,6 @@ class TodosProvider extends ChangeNotifier {
   void updateTodo(String id, String title, String description, bool completed,
       DateTime date) {
     _todos[id] = Todo(id, title, description, completed, date);
-    //FlutterLocalNotificationsPlugin().cancel(id);
-    //scheduleNotifaction(id, date, title, description);
 
     saveTodos();
   }
@@ -87,33 +86,12 @@ class TodosProvider extends ChangeNotifier {
 
   void clearTodos() {
     _todos.clear();
-    FlutterLocalNotificationsPlugin().cancelAll();
     saveTodos();
   }
 
   void setTodos(Map<String, Todo> todos) {
     _todos = todos;
-    FlutterLocalNotificationsPlugin().cancelAll();
 
     saveTodos();
-  }
-
-  void scheduleNotifaction(
-      String id, DateTime date, String title, String description) {
-    // if (date.isAfter(DateTime.now())) {
-    //   var notifPlugin = FlutterLocalNotificationsPlugin();
-    //   notifPlugin.zonedSchedule(
-    //     0,
-    //     "HEIG",
-    //     "$title - $description",
-    //     tz.TZDateTime.from(date.add(Duration(seconds: 30)), tz.local),
-    //     const NotificationDetails(
-    //         android: AndroidNotificationDetails(
-    //             'HEIG', 'todos', 'Notifications for todos')),
-    //     uiLocalNotificationDateInterpretation:
-    //         UILocalNotificationDateInterpretation.absoluteTime,
-    //     androidAllowWhileIdle: false,
-    //   );
-    // }
   }
 }
