@@ -32,6 +32,7 @@ class TodosProvider extends ChangeNotifier {
           channelKey: 'todos_channel',
           title: 'Tâche: $title',
           body: description,
+          payload: {"test": "coucou"},
         ),
         actionButtons: [
           NotificationActionButton(

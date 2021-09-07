@@ -71,6 +71,11 @@ Future<void> setup() async {
       AwesomeNotifications().requestPermissionToSendNotifications();
     }
   });
+
+  AwesomeNotifications().actionStream.listen((receivedNotification) {
+    debugPrint("coucou");
+    debugPrint(receivedNotification.payload.toString());
+  });
 }
 
 void main() async {
