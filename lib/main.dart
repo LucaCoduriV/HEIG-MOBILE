@@ -6,6 +6,7 @@ import 'package:heig_front/controllers/bulletin_provider.dart';
 import 'package:heig_front/controllers/drawer_provider.dart';
 import 'package:heig_front/controllers/horaires_provider.dart';
 import 'package:heig_front/controllers/navigator_controller.dart';
+import 'package:heig_front/controllers/notifications_manager.dart';
 import 'package:heig_front/controllers/todos_provider.dart';
 import 'package:heig_front/controllers/user_provider.dart';
 import 'package:heig_front/models/branche.dart';
@@ -27,7 +28,6 @@ import 'package:vrouter/vrouter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
 
 Future<void> setup() async {
   await initializeDateFormatting("fr_FR");
@@ -49,33 +49,11 @@ Future<void> setup() async {
   GetIt.I.registerSingleton<TodosProvider>(TodosProvider());
   GetIt.I.registerSingleton<UserProvider>(UserProvider());
   GetIt.I.registerSingleton<HorairesProvider>(HorairesProvider());
+  GetIt.I.registerSingleton<NotificationsManager>(NotificationsManager());
   GetIt.I.registerSingleton<GlobalKey<RefreshIndicatorState>>(
       GlobalKey<RefreshIndicatorState>());
 
-  await AwesomeNotifications().initialize(
-    null,
-    [
-      NotificationChannel(
-          channelKey: 'todos_channel',
-          channelName: 'Todo',
-          channelDescription: 'Notification channel for todos',
-          defaultColor: Color(0xFF9D50DD),
-          ledColor: Colors.white)
-    ],
-  );
-  await AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
-    debugPrint(isAllowed.toString());
-    if (!isAllowed) {
-      // Insert here your friendly dialog box before call the request method
-      // This is very important to not harm the user experience
-      AwesomeNotifications().requestPermissionToSendNotifications();
-    }
-  });
-
-  AwesomeNotifications().actionStream.listen((receivedNotification) {
-    debugPrint("coucou");
-    debugPrint(receivedNotification.payload.toString());
-  });
+  GetIt.I.get<NotificationsManager>().initialize();
 }
 
 void main() async {

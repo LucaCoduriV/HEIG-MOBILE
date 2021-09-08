@@ -1,5 +1,6 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get_it/get_it.dart';
+import 'package:heig_front/controllers/notifications_manager.dart';
 import 'package:heig_front/models/todo.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -19,29 +20,13 @@ class TodosProvider extends ChangeNotifier {
   }
 
   void addTodo(
-      String title, String description, bool completed, DateTime date) {
+      String title, String description, bool completed, DateTime date) async {
+    int notifId = await GetIt.I
+        .get<NotificationsManager>()
+        .registerNotificationTodo(title, description, date, _id);
     _todos[_id] = Todo(_id, title, description, completed, date);
-
-    AwesomeNotifications().createNotification(
-        schedule: DateTime.now().isAfter(date.subtract(Duration(days: 1)))
-            ? null
-            : NotificationCalendar.fromDate(
-                date: date.subtract(Duration(days: 1))),
-        content: NotificationContent(
-          id: _id++,
-          channelKey: 'todos_channel',
-          title: 'Tâche: $title',
-          body: description,
-          payload: {"test": "coucou"},
-        ),
-        actionButtons: [
-          NotificationActionButton(
-            label: "Accomplie",
-            buttonType: ActionButtonType.Default,
-            enabled: true,
-            key: 'accomplie',
-          ),
-        ]);
+    _todos[_id]!.notificationId = notifId;
+    _id++;
     box.put('todos_id', _id);
     saveTodos();
   }

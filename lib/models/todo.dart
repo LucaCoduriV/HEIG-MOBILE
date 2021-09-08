@@ -14,6 +14,8 @@ class Todo {
   late bool _completed;
   @HiveField(4)
   late DateTime _date;
+  @HiveField(5)
+  late int notificationId;
 
   int get id => _id;
   String get title => _title;

@@ -1,6 +1,7 @@
 import 'dart:developer';
-
-import 'package:flutter/material.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:get_it/get_it.dart';
+import 'package:heig_front/controllers/notifications_manager.dart';
 import 'package:heig_front/models/heure_de_cours.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:rrule/rrule.dart';
@@ -19,6 +20,10 @@ class Horaires {
   String rrule = "";
   @HiveField(4)
   late List<HeureDeCours> horairesRRule;
+  @HiveField(5)
+  List<int> notificationIds = [];
+
+  var box = Hive.box('heig');
 
   Horaires(this.semestre, this.annee, this.horaires, this.rrule) {
     horairesRRule = getRRuleDates();
@@ -26,10 +31,8 @@ class Horaires {
 
   List<HeureDeCours> getRRuleDates() {
     final List<HeureDeCours> data = [];
-    int test = 0;
     try {
       horaires.forEach((element) {
-        test++;
         if (element.rrule != null && element.rrule != "") {
           final RecurrenceRule parsedRRule =
               RecurrenceRule.fromString("RRULE:" + element.rrule!);
@@ -54,7 +57,16 @@ class Horaires {
     } catch (e) {
       log(e.toString());
     }
-    debugPrint(test.toString());
+    notificationIds.forEach((element) {
+      AwesomeNotifications().cancel(element);
+    });
+    data.forEach((element) {
+      GetIt.I.get<NotificationsManager>().registerNotificationHoraire(
+            element.nom,
+            element.salle,
+            element.debut.subtract(Duration(hours: 1)),
+          );
+    });
     return data;
   }
 

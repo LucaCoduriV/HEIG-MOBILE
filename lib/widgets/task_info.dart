@@ -16,6 +16,7 @@ class _TaskInfoState extends State<TaskInfo> {
   Widget build(BuildContext context) {
     Todo todo = widget.todo;
     return Dismissible(
+      key: Key(todo.id.toString()),
       onDismissed: (direction) {
         GetIt.I<TodosProvider>().removeTodo(todo.id);
       },
@@ -26,7 +27,7 @@ class _TaskInfoState extends State<TaskInfo> {
           duration: duration,
           content: const Text('Tâche supprimé'),
           action: SnackBarAction(
-            label: 'Annulé',
+            label: 'Annuler',
             onPressed: () {
               result = false;
             },
@@ -38,7 +39,6 @@ class _TaskInfoState extends State<TaskInfo> {
 
         return result;
       },
-      key: Key(todo.id.toString()),
       direction: DismissDirection.endToStart,
       background: Container(
         decoration: BoxDecoration(
