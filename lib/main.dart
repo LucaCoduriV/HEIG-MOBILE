@@ -21,6 +21,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vrouter/vrouter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter/foundation.dart' as Foundation;
 
 Future<void> setup() async {
   await initializeDateFormatting("fr_FR");
@@ -85,7 +86,9 @@ class MyApp extends StatelessWidget {
         child: child,
       ),
       mode: VRouterMode.history, // Remove the '#' from the url
-      logs: VLogs.info, // Defines which logs to show, info is the default
+      logs: Foundation.kReleaseMode
+          ? VLogs.none
+          : VLogs.info, // Defines which logs to show, info is the default
       initialUrl: '/${NavigatorController.home}',
       routes: MainRouter().buildRoutes(),
     );

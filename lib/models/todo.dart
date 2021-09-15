@@ -11,7 +11,7 @@ class Todo {
   @HiveField(2)
   late String _description;
   @HiveField(3)
-  late bool _completed;
+  late bool completed;
   @HiveField(4)
   late DateTime _date;
   @HiveField(5)
@@ -20,17 +20,14 @@ class Todo {
   int get id => _id;
   String get title => _title;
   String get description => _description;
-  bool get completed => _completed;
   DateTime get date => _date;
-
-  set completed(bool completed) => _completed = completed;
 
   Todo(
       int id, String title, String description, bool completed, DateTime date) {
     _id = id;
     _title = title;
     _description = description;
-    _completed = completed;
+    completed = completed;
     _date = date;
   }
 
@@ -46,6 +43,6 @@ class Todo {
 
   @override
   String toString() {
-    return "$_id $_title $_description $_completed $_date";
+    return "$_id $_title $_description $completed $_date";
   }
 }

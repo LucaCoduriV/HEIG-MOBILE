@@ -31,7 +31,6 @@ class NotificationsManager {
       ],
     );
     await AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
-      debugPrint(isAllowed.toString());
       if (!isAllowed) {
         // Insert here your friendly dialog box before call the request method
         // This is very important to not harm the user experience

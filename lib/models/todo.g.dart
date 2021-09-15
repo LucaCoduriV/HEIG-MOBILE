@@ -36,7 +36,7 @@ class TodoAdapter extends TypeAdapter<Todo> {
       ..writeByte(2)
       ..write(obj._description)
       ..writeByte(3)
-      ..write(obj._completed)
+      ..write(obj.completed)
       ..writeByte(4)
       ..write(obj._date)
       ..writeByte(5)

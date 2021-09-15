@@ -32,7 +32,6 @@ class NotesDetails extends StatelessWidget {
     );
   }
 
-  // TODO refactor this fucntion
   List<Widget> getChildren(
       context, List<Note> notesCours, List<Note> notesLabo) {
     return [
