@@ -6,29 +6,28 @@ class NavigatorController {
   static String horaires = "horaires";
   static String home = "home";
   static String todos = "todos";
-  static String quickInfos = "quickinfos";
 
   static void toLogin(context) {
-    VRouter.of(context).to("/$home/$login");
+    VRouter.of(context).to("/$login");
   }
 
-  static void toQuickInfos(context) {
-    VRouter.of(context).to("/$home/$quickInfos");
+  static void toHome(context) {
+    VRouter.of(context).to("/$home");
   }
 
   static void toNotes(context) {
-    VRouter.of(context).to("/$home/$notes");
+    VRouter.of(context).to("/$notes");
   }
 
   static void toHoraires(context) {
-    VRouter.of(context).to("/$home/$horaires");
+    VRouter.of(context).to("/$horaires");
   }
 
   static void toTodos(context) {
-    VRouter.of(context).to("/$home/$todos");
+    VRouter.of(context).to("/$todos");
   }
 
   static void toNoteDetails(context, int noteId) {
-    VRouter.of(context).to("/$home/$notes/$noteId");
+    VRouter.of(context).to("/$notes/$noteId");
   }
 }

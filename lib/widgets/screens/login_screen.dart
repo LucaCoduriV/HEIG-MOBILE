@@ -109,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         GetIt.I<AuthController>().password = password.text;
 
                         if (await GetIt.I<AuthController>().login()) {
-                          NavigatorController.toQuickInfos(context);
+                          NavigatorController.toHome(context);
                           GetIt.I.get<UserProvider>().fetchUser();
                           GetIt.I.get<HorairesProvider>().fetchHoraires();
                           GetIt.I.get<BulletinProvider>().fetchBulletin();

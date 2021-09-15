@@ -93,20 +93,11 @@ class MyApp extends StatelessWidget {
       ),
       mode: VRouterMode.history, // Remove the '#' from the url
       logs: VLogs.info, // Defines which logs to show, info is the default
+      initialUrl: '/${NavigatorController.home}',
       routes: [
-        VGuard(
-          beforeEnter: (vRedirector) async {
-            if (GetIt.I<AuthController>().isConnected) {
-              vRedirector.to(
-                  ("/${NavigatorController.home}/${NavigatorController.quickInfos}"));
-            }
-          },
-          stackedRoutes: [
-            VWidget(
-              path: "/${NavigatorController.login}",
-              widget: const LoginScreen(),
-            ),
-          ],
+        VWidget(
+          path: "/${NavigatorController.login}",
+          widget: const LoginScreen(),
         ),
         VGuard(
           beforeEnter: (vRedirector) async {
@@ -117,118 +108,68 @@ class MyApp extends StatelessWidget {
           stackedRoutes: [
             VNester(
               path: "/${NavigatorController.home}",
-              widgetBuilder: (child) => ChangeNotifierProvider.value(
-                value: GetIt.I<DrawerProvider>(),
-                child: MyDrawer(child: child),
-              ),
+              widgetBuilder: (child) => MyDrawer(child: child),
               nestedRoutes: [
-                //quickInfos
-                VNester(
-                  path: NavigatorController.quickInfos,
-                  widgetBuilder: (child) => MultiProvider(
-                    providers: [
-                      ChangeNotifierProvider.value(
-                        value: GetIt.I<BulletinProvider>(),
-                      ),
-                      ChangeNotifierProvider.value(
-                        value: GetIt.I<UserProvider>(),
-                      ),
-                      ChangeNotifierProvider.value(
-                        value: GetIt.I<TodosProvider>(),
-                      ),
-                      ChangeNotifierProvider.value(
-                        value: GetIt.I<HorairesProvider>(),
-                      ),
-                    ],
-                    child: child,
-                  ),
-                  nestedRoutes: [
-                    VGuard(
-                      beforeEnter: (stackedRoutes) async {
-                        GetIt.I<DrawerProvider>().title = '';
-                        GetIt.I<DrawerProvider>().action =
-                            ActionType.QUICKINFOS;
-                      },
-                      stackedRoutes: [
-                        VWidget(
-                          path: null,
-                          widget: const HomeScreen(),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-                // /notes
-                VNester(
-                  path: NavigatorController.notes,
-                  widgetBuilder: (child) => ChangeNotifierProvider.value(
-                    value: GetIt.I<BulletinProvider>(),
-                    child: child,
-                  ),
-                  nestedRoutes: [
-                    VGuard(
-                      beforeEnter: (stackedRoutes) async {
-                        GetIt.I<DrawerProvider>().title = 'Notes';
-                        GetIt.I<DrawerProvider>().action = ActionType.Notes;
-                        GetIt.I<BulletinProvider>().fetchBulletin();
-                      },
-                      stackedRoutes: [
-                        VWidget(
-                          path: null,
-                          widget: BulletinScreen(),
-                          stackedRoutes: [
-                            VWidget(
-                              path: ":id",
-                              widget: const NotesDetails(),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-                // /horaires
+                // Route: /home
                 VGuard(
                   beforeEnter: (stackedRoutes) async {
-                    GetIt.I.get<HorairesProvider>().fetchHoraires();
-                    GetIt.I<DrawerProvider>().title = 'Horaires';
-                    GetIt.I<DrawerProvider>().action = ActionType.NONE;
+                    GetIt.I<DrawerProvider>().title = '';
+                    GetIt.I<DrawerProvider>().action = ActionType.QUICKINFOS;
                   },
                   stackedRoutes: [
-                    VNester(
-                        path: NavigatorController.horaires,
-                        widgetBuilder: (child) => ChangeNotifierProvider.value(
-                              value: GetIt.I<HorairesProvider>(),
-                              child: child,
-                            ),
-                        nestedRoutes: [
-                          VWidget(
-                            path: null,
-                            widget: const HorairesScreen(),
-                          )
-                        ])
-                  ],
-                ),
-                // /todos
-                VNester(
-                  path: NavigatorController.todos,
-                  widgetBuilder: (child) => ChangeNotifierProvider.value(
-                    value: GetIt.I<TodosProvider>(),
-                    child: child,
-                  ),
-                  nestedRoutes: [
-                    VGuard(
-                      beforeEnter: (stackedRoutes) async {
-                        GetIt.I<DrawerProvider>().title = 'Agenda';
-                        GetIt.I<DrawerProvider>().action = ActionType.TODOS;
-                      },
+                    VWidget(
+                      path: null,
+                      widget: const HomeScreen(),
                       stackedRoutes: [
-                        VWidget(
-                          path: null,
-                          widget: const AgendaScreen(), //TodosScreen(),
-                        )
+                        // Route: /notes
+                        VGuard(
+                          beforeEnter: (stackedRoutes) async {
+                            GetIt.I<DrawerProvider>().title = 'Notes';
+                            GetIt.I<DrawerProvider>().action = ActionType.Notes;
+                            GetIt.I<BulletinProvider>().fetchBulletin();
+                          },
+                          stackedRoutes: [
+                            VWidget(
+                              path: '/${NavigatorController.notes}',
+                              widget: BulletinScreen(),
+                              stackedRoutes: [
+                                VWidget(
+                                  path: ":id",
+                                  widget: const NotesDetails(),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                        // Route: /horaires
+                        VGuard(
+                          beforeEnter: (stackedRoutes) async {
+                            GetIt.I.get<HorairesProvider>().fetchHoraires();
+                            GetIt.I<DrawerProvider>().title = 'Horaires';
+                            GetIt.I<DrawerProvider>().action = ActionType.NONE;
+                          },
+                          stackedRoutes: [
+                            VWidget(
+                              path: '/${NavigatorController.horaires}',
+                              widget: const HorairesScreen(),
+                            ),
+                          ],
+                        ),
+                        // Route: /todos
+                        VGuard(
+                          beforeEnter: (stackedRoutes) async {
+                            GetIt.I<DrawerProvider>().title = 'Agenda';
+                            GetIt.I<DrawerProvider>().action = ActionType.TODOS;
+                          },
+                          stackedRoutes: [
+                            VWidget(
+                              path: '/${NavigatorController.todos}',
+                              widget: const AgendaScreen(), //TodosScreen(),
+                            )
+                          ],
+                        ),
                       ],
-                    ),
+                    )
                   ],
                 ),
               ],
@@ -236,7 +177,7 @@ class MyApp extends StatelessWidget {
           ],
         ),
         VRouteRedirector(
-          redirectTo: "/${NavigatorController.login}",
+          redirectTo: "/${NavigatorController.home}",
           path: r':_(.*)', // .* is a regexp which matching every paths
         ),
       ],
