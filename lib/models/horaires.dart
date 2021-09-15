@@ -19,13 +19,12 @@ class Horaires {
   @HiveField(3)
   String rrule = "";
   @HiveField(4)
-  late List<HeureDeCours> horairesRRule;
-  @HiveField(5)
   List<int> notificationIds = [];
 
-  var box = Hive.box('heig');
+  late List<HeureDeCours> horairesRRule;
 
-  Horaires(this.semestre, this.annee, this.horaires, this.rrule) {
+  Horaires(this.semestre, this.annee, this.horaires, this.rrule,
+      {this.notificationIds = const []}) {
     horairesRRule = getRRuleDates();
   }
 
