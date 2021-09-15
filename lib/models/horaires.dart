@@ -61,11 +61,13 @@ class Horaires {
       AwesomeNotifications().cancel(element);
     });
     data.forEach((element) {
-      GetIt.I.get<NotificationsManager>().registerNotificationHoraire(
-            element.nom,
-            element.salle,
-            element.debut.subtract(Duration(hours: 1)),
-          );
+      if (element.debut.isAfter(DateTime.now())) {
+        GetIt.I.get<NotificationsManager>().registerNotificationHoraire(
+              element.nom,
+              element.salle,
+              element.debut.subtract(Duration(hours: 1)),
+            );
+      }
     });
     return data;
   }
