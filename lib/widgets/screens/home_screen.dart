@@ -58,9 +58,14 @@ class HomeScreen extends StatelessWidget {
                         ),
                         child: CircleAvatar(
                           backgroundColor: Colors.grey,
-                          foregroundImage: NetworkImage(
-                            Provider.of<UserProvider>(context).getAvatarUrl,
-                          ),
+                          foregroundImage:
+                              Provider.of<UserProvider>(context).getAvatarUrl !=
+                                      ""
+                                  ? NetworkImage(
+                                      Provider.of<UserProvider>(context)
+                                          .getAvatarUrl,
+                                    )
+                                  : null,
                           radius: 50,
                         ),
                       ),
