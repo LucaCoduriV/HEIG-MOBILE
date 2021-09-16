@@ -35,6 +35,7 @@ class _TaskInfoState extends State<TaskInfo> {
         );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
+        // ignore: inference_failure_on_instance_creation
         await Future.delayed(duration);
 
         return result;

@@ -38,7 +38,7 @@ class MainRouter {
       ),
       VRouteRedirector(
         redirectTo: '/${NavigatorController.home}',
-        path: r':_(.*)', // .* is a regexp which matching every paths
+        path: ':_(.*)', // .* is a regexp which matching every paths
       ),
     ];
   }

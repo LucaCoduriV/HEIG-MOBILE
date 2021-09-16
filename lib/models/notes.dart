@@ -13,12 +13,7 @@ class Note {
   @HiveField(3)
   double coef = 0;
 
-  Note(String nom, double note, double moyenneClasse, double coef) {
-    this.nom = nom;
-    this.note = note;
-    this.moyenneClasse = moyenneClasse;
-    this.coef = coef;
-  }
+  Note(this.nom, this.note, this.moyenneClasse, this.coef);
 
   factory Note.fromJson(Map<String, dynamic> json) {
     return Note(json['nom'], json['note'], json['moyenneClasse'], json['coef']);

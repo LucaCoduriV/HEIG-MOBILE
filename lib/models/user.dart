@@ -19,16 +19,8 @@ class User {
   @HiveField(6)
   late String avatarUrl;
 
-  User(String firstname, String lastname, String email, String phone,
-      String address, String city, String avatarUrl) {
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.email = email;
-    this.phone = phone;
-    this.address = address;
-    this.city = city;
-    this.avatarUrl = avatarUrl;
-  }
+  User(this.firstname, this.lastname, this.email, this.phone, this.address,
+      this.city, this.avatarUrl);
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
