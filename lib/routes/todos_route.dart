@@ -2,7 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:vrouter/vrouter.dart';
 
 import '../controllers/drawer_provider.dart';
-import '../controllers/navigator_controller.dart';
+import '../controllers/navigator_controller.dart' as navigator_controller;
 import '../widgets/screens/agenda_screen.dart';
 
 class TodosRoute extends VRouteElementBuilder {
@@ -16,7 +16,7 @@ class TodosRoute extends VRouteElementBuilder {
         },
         stackedRoutes: [
           VWidget(
-            path: '/${NavigatorController.todos}',
+            path: '/${navigator_controller.todos}',
             widget: const AgendaScreen(), //TodosScreen(),
           )
         ],

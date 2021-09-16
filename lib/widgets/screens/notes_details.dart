@@ -7,6 +7,7 @@ import '../../models/bulletin.dart';
 import '../../models/notes.dart';
 import '../chart.dart';
 
+/// Page contenant les notes d'une branche.
 class NotesDetails extends StatelessWidget {
   const NotesDetails({Key? key}) : super(key: key);
 

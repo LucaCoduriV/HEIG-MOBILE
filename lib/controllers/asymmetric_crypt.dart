@@ -1,5 +1,6 @@
 import 'package:crypton/crypton.dart';
 
+// Permet de gérer le chiffrement.
 class AsymmetricCrypt {
   final String _key;
   RSAPublicKey? _publicKey;

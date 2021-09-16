@@ -7,6 +7,7 @@ import '../models/horaires.dart';
 import 'api_controller.dart';
 import 'auth_controller.dart';
 
+/// Cette classe permet de distribuer et mettre à jours les données concernant les horaires.
 class HorairesProvider extends ChangeNotifier {
   late Horaires _horaires;
   var box = Hive.box('heig');

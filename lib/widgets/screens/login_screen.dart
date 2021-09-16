@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
+
 import '../../controllers/auth_controller.dart';
 import '../../controllers/bulletin_provider.dart';
 import '../../controllers/horaires_provider.dart';
-import '../../controllers/navigator_controller.dart';
+import '../../controllers/navigator_controller.dart' as navigator_controller;
 import '../../controllers/user_provider.dart';
 
+/// Page contenant le formulaire de connexion
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -105,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         GetIt.I<AuthController>().password = password.text;
 
                         if (await GetIt.I<AuthController>().login()) {
-                          NavigatorController.toHome(context);
+                          navigator_controller.toHome(context);
                           GetIt.I.get<UserProvider>().fetchUser();
                           GetIt.I.get<HorairesProvider>().fetchHoraires();
                           GetIt.I.get<BulletinProvider>().fetchBulletin();

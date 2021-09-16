@@ -4,14 +4,15 @@ import 'package:provider/provider.dart';
 
 import '../../controllers/bulletin_provider.dart';
 import '../../controllers/horaires_provider.dart';
-import '../../controllers/navigator_controller.dart';
+import '../../controllers/navigator_controller.dart' as navigator_controller;
 import '../../controllers/todos_provider.dart';
 import '../../controllers/user_provider.dart';
 import '../../models/heure_de_cours.dart';
 import '../../models/todo.dart';
 import '../heure_de_cours_widget.dart';
-import '../tache_widget.dart';
+import '../todo_quick_info.dart';
 
+/// Page contenant des informations rapides.
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -130,7 +131,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                NavigatorController.toHoraires(context);
+                                navigator_controller.toHoraires(context);
                               },
                               child: const Text('Tous'),
                             ),
@@ -186,7 +187,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                NavigatorController.toTodos(context);
+                                navigator_controller.toTodos(context);
                               },
                               child: const Text('Tous'),
                             ),
@@ -206,7 +207,7 @@ class HomeScreen extends StatelessWidget {
                                   return const SizedBox(width: 10);
                                 },
                                 itemBuilder: (context, index) {
-                                  return TacheWidget(
+                                  return TodoQuickInfo(
                                     t[index].title,
                                     t[index].date,
                                     t[index].description,

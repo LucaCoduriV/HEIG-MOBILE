@@ -3,15 +3,16 @@ import 'package:get_it/get_it.dart';
 import '../controllers/todos_provider.dart';
 import '../models/todo.dart';
 
-class TaskInfo extends StatefulWidget {
+/// Affiche les informations d'une tâche.
+class TodoInfo extends StatefulWidget {
   final Todo todo;
-  const TaskInfo({Key? key, required this.todo}) : super(key: key);
+  const TodoInfo({Key? key, required this.todo}) : super(key: key);
 
   @override
-  _TaskInfoState createState() => _TaskInfoState();
+  _TodoInfoState createState() => _TodoInfoState();
 }
 
-class _TaskInfoState extends State<TaskInfo> {
+class _TodoInfoState extends State<TodoInfo> {
   @override
   Widget build(BuildContext context) {
     final Todo todo = widget.todo;
@@ -82,7 +83,8 @@ class _TaskInfoState extends State<TaskInfo> {
                           borderRadius: BorderRadius.circular(10)),
                       value: todo.completed,
                       onChanged: (change) {
-                        GetIt.I<TodosProvider>().completeTodo(todo.id, change!);
+                        GetIt.I<TodosProvider>()
+                            .completeTodo(todo.id, completed: change!);
                       },
                     ),
                   ),

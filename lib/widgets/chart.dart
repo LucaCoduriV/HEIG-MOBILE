@@ -1,17 +1,19 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
+/// Graphique permetant de comparer les [notes] avec les [moyennes] de classe.
 class Chart extends StatelessWidget {
-  final List<double> data;
-  final List<double> data2;
-  const Chart(this.data, this.data2, {Key? key}) : super(key: key);
+  final List<double> notes;
+  final List<double> moyennes;
+  const Chart(this.notes, this.moyennes, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     double index = 0;
-    final List<FlSpot> spots = data.map((e) => FlSpot(index++, e)).toList();
+    final List<FlSpot> spots = notes.map((e) => FlSpot(index++, e)).toList();
     index = 0;
-    final List<FlSpot> spots2 = data2.map((e) => FlSpot(index++, e)).toList();
+    final List<FlSpot> spots2 =
+        moyennes.map((e) => FlSpot(index++, e)).toList();
 
     final List<Color> gradientColors = [
       const Color(0xff23b6e6),

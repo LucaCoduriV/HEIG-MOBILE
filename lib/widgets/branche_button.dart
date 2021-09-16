@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// Bouton qui permet d'accéder à la page des notes d'une branche.
+///
+/// La [moyenne] et le [title] sont affichés sur le bouton.
 class BrancheButton extends StatelessWidget {
   final String title;
   final double moyenne;

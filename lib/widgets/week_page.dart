@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../models/todo.dart';
 import '../utils/date.dart';
-import 'task_info.dart';
+import 'todo_info.dart';
 
 class WeekPage extends StatelessWidget {
   final List<Todo> weekTasks;
@@ -72,6 +72,6 @@ class WeekPage extends StatelessWidget {
     if (dailyTasks.isEmpty) {
       return [const Text('Aucune tâche')];
     }
-    return dailyTasks.map((e) => TaskInfo(todo: e)).toList();
+    return dailyTasks.map((e) => TodoInfo(todo: e)).toList();
   }
 }

@@ -7,6 +7,7 @@ import '../../controllers/horaires_provider.dart';
 import '../../models/heure_de_cours.dart';
 import '../heure_de_cours_widget.dart';
 
+/// Page contenant la liste des horaires de cours.
 class HorairesScreen extends StatefulWidget {
   const HorairesScreen({Key? key}) : super(key: key);
 

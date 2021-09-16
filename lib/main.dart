@@ -11,7 +11,7 @@ import 'controllers/auth_controller.dart';
 import 'controllers/bulletin_provider.dart';
 import 'controllers/drawer_provider.dart';
 import 'controllers/horaires_provider.dart';
-import 'controllers/navigator_controller.dart';
+import 'controllers/navigator_controller.dart' as navigator_controller;
 import 'controllers/notifications_manager.dart';
 import 'controllers/todos_provider.dart';
 import 'controllers/user_provider.dart';
@@ -24,6 +24,7 @@ import 'models/todo.dart';
 import 'models/user.dart';
 import 'routes/main_router.dart';
 
+/// Prparation de la base de données et des singletons.
 Future<void> setup() async {
   await initializeDateFormatting('fr_FR');
   await dotenv.load();
@@ -61,6 +62,7 @@ Future<void> main() async {
   }
 }
 
+/// Point d'entrée de l'application.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -91,7 +93,7 @@ class MyApp extends StatelessWidget {
       logs: foundation.kReleaseMode
           ? VLogs.none
           : VLogs.info, // Defines which logs to show, info is the default
-      initialUrl: '/${NavigatorController.home}',
+      initialUrl: '/${navigator_controller.home}',
       routes: MainRouter().buildRoutes(),
     );
   }

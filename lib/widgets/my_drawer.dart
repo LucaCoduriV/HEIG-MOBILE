@@ -4,10 +4,11 @@ import 'package:provider/provider.dart';
 
 import '../controllers/auth_controller.dart';
 import '../controllers/drawer_provider.dart';
-import '../controllers/navigator_controller.dart';
+import '../controllers/navigator_controller.dart' as navigator_controller;
 import '../utils/date.dart';
 import 'todos_dialog.dart';
 
+/// Custom drawer contenant le logo de la HEIG ainsi que le menu.
 class MyDrawer extends StatefulWidget {
   final Widget child;
 
@@ -112,7 +113,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         title: const Text('Home'),
                         onTap: () {
                           _scaffoldKey.currentState?.openEndDrawer();
-                          NavigatorController.toHome(context);
+                          navigator_controller.toHome(context);
                         },
                       ),
                       ListTile(
@@ -120,7 +121,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         title: const Text('Notes'),
                         onTap: () {
                           _scaffoldKey.currentState?.openEndDrawer();
-                          NavigatorController.toNotes(context);
+                          navigator_controller.toNotes(context);
                         },
                       ),
                       ListTile(
@@ -128,7 +129,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         title: const Text('Horaires'),
                         onTap: () {
                           _scaffoldKey.currentState?.openEndDrawer();
-                          NavigatorController.toHoraires(context);
+                          navigator_controller.toHoraires(context);
                         },
                       ),
                       ListTile(
@@ -137,7 +138,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         title: const Text('Agenda'),
                         onTap: () {
                           _scaffoldKey.currentState?.openEndDrawer();
-                          NavigatorController.toTodos(context);
+                          navigator_controller.toTodos(context);
                         },
                       ),
                     ],
@@ -157,7 +158,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         ListTile(
                             onTap: () {
                               GetIt.I<AuthController>().logout();
-                              NavigatorController.toLogin(context);
+                              navigator_controller.toLogin(context);
                             },
                             leading: const Icon(Icons.logout),
                             title: const Text('Se déconnecter'))

@@ -22,8 +22,8 @@ class Todo {
   String get description => _description;
   DateTime get date => _date;
 
-  Todo(
-      int id, String title, String description, bool completed, DateTime date) {
+  Todo(int id, String title, String description, DateTime date,
+      {required bool completed}) {
     _id = id;
     _title = title;
     _description = description;
@@ -36,8 +36,8 @@ class Todo {
       json['id'],
       json['title'],
       json['description'],
-      json['completed'],
       DateTime.parse(json['date']),
+      completed: json['completed'],
     );
   }
 

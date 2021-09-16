@@ -25,11 +25,14 @@ const List<String> NOM_MOIS = [
   'Decembre',
 ];
 
+/// Extension de la classe [DateTime]
 extension DateCalc on DateTime {
+  /// Retourne le lundi de la semaine
   DateTime firstDayOfWeek() {
     return findFirstDateOfTheWeek(this);
   }
 
+  /// Retourne le dimanche de la semaine
   DateTime lastDayOfWeek() {
     return findLastDateOfTheWeek(this);
   }

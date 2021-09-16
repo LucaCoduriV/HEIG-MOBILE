@@ -4,11 +4,12 @@ import 'package:provider/provider.dart';
 
 import '../../controllers/bulletin_provider.dart';
 import '../../controllers/drawer_provider.dart';
-import '../../controllers/navigator_controller.dart';
+import '../../controllers/navigator_controller.dart' as navigator_controller;
 import '../../models/branche.dart';
 import '../../models/bulletin.dart';
 import '../branche_button.dart';
 
+/// Page contenant le bulletin de notes.
 class BulletinScreen extends StatelessWidget {
   const BulletinScreen({Key? key}) : super(key: key);
 
@@ -110,7 +111,7 @@ class BulletinScreen extends StatelessWidget {
           title: branches[index].nom,
           moyenne: branches[index].moyenne,
           onPress: () {
-            NavigatorController.toNoteDetails(context, index);
+            navigator_controller.toNoteDetails(context, index);
             GetIt.I<DrawerProvider>().title = bulletin.branches[index].nom;
           },
         );

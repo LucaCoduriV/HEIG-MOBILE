@@ -6,6 +6,7 @@ import '../models/user.dart';
 import 'api_controller.dart';
 import 'auth_controller.dart';
 
+/// Cette classe permet de distribuer et mettre à jours les données concernant l'utilisateur.
 class UserProvider extends ChangeNotifier {
   late User _user;
   var box = Hive.box('heig');

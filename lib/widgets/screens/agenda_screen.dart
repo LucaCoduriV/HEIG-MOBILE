@@ -5,8 +5,9 @@ import 'package:table_calendar/table_calendar.dart';
 
 import '../../controllers/todos_provider.dart';
 import '../../models/todo.dart';
-import '../task_info.dart';
+import '../todo_info.dart';
 
+/// Page contenant la liste des tâches.
 class AgendaScreen extends StatefulWidget {
   const AgendaScreen({Key? key}) : super(key: key);
 
@@ -141,7 +142,7 @@ class _AgendaScreenState extends State<AgendaScreen> {
                                   physics: const BouncingScrollPhysics(),
                                   itemCount: dailyTasks.length,
                                   itemBuilder: (context, index) {
-                                    return TaskInfo(todo: dailyTasks[index]);
+                                    return TodoInfo(todo: dailyTasks[index]);
                                   },
                                 )
                               : const Text('Aucune tâche'),

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+/// Récupère les données dans le fichier .env selon le mode de build.
 class EnvController {
   static String getApiIp() {
     if (foundation.kReleaseMode) {

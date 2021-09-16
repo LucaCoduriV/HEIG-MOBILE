@@ -20,8 +20,8 @@ class TodoAdapter extends TypeAdapter<Todo> {
       fields[0] as int,
       fields[1] as String,
       fields[2] as String,
-      fields[3] as bool,
       fields[4] as DateTime,
+      completed: fields[3] as bool,
     )..notificationId = fields[5] as int;
   }
 

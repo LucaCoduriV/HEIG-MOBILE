@@ -3,7 +3,7 @@ import 'package:vrouter/vrouter.dart';
 
 import '../controllers/bulletin_provider.dart';
 import '../controllers/drawer_provider.dart';
-import '../controllers/navigator_controller.dart';
+import '../controllers/navigator_controller.dart' as navigator_controller;
 import '../widgets/screens/bulletin_screen.dart';
 import '../widgets/screens/notes_details.dart';
 
@@ -19,7 +19,7 @@ class BulletinRoute extends VRouteElementBuilder {
         },
         stackedRoutes: [
           VWidget(
-            path: '/${NavigatorController.notes}',
+            path: '/${navigator_controller.notes}',
             widget: const BulletinScreen(),
             stackedRoutes: [
               VWidget(

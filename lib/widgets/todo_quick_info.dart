@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-class TacheWidget extends StatelessWidget {
+/// Affiche les informations d'une tâche pour la page d'acceuil.
+class TodoQuickInfo extends StatelessWidget {
   final String title;
   final DateTime start;
   final String description;
 
-  const TacheWidget(this.title, this.start, this.description, {Key? key})
+  const TodoQuickInfo(this.title, this.start, this.description, {Key? key})
       : super(key: key);
 
   @override
