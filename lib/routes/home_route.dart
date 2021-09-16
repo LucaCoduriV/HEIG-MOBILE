@@ -1,12 +1,13 @@
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/controllers/drawer_provider.dart';
-import 'package:heig_front/widgets/screens/home_screen.dart';
 import 'package:vrouter/vrouter.dart';
 
-class HomeRoute extends VRouteElementBuilder {
-  final stackedRoutes;
+import '../controllers/drawer_provider.dart';
+import '../widgets/screens/home_screen.dart';
 
-  HomeRoute({this.stackedRoutes});
+class HomeRoute extends VRouteElementBuilder {
+  final List<VRouteElement> stackedRoutes;
+
+  HomeRoute({required this.stackedRoutes});
 
   @override
   List<VRouteElement> buildRoutes() {

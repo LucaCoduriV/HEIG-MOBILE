@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/controllers/notifications_manager.dart';
-import 'package:heig_front/models/todo.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
+import '../models/todo.dart';
+import 'notifications_manager.dart';
 
 class TodosProvider extends ChangeNotifier {
   late Map<int, Todo> _todos;
@@ -11,7 +12,7 @@ class TodosProvider extends ChangeNotifier {
 
   TodosProvider() {
     _id = box.get('todos_id', defaultValue: 0);
-    _todos = Map.from(box.get('todos', defaultValue: Map<int, Todo>()));
+    _todos = Map.from(box.get('todos', defaultValue: <int, Todo>{}));
   }
 
   void saveTodos() {
@@ -19,9 +20,9 @@ class TodosProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addTodo(
+  Future<void> addTodo(
       String title, String description, bool completed, DateTime date) async {
-    int notifId = await GetIt.I
+    final int notifId = await GetIt.I
         .get<NotificationsManager>()
         .registerNotificationTodo(title, description, date, _id);
     _todos[_id] = Todo(_id, title, description, completed, date);

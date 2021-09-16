@@ -17,22 +17,21 @@ class HeureDeCoursWidget extends StatelessWidget {
     return Container(
       height: 100,
       decoration: BoxDecoration(
-        color: Color(0xFFF9F9FB),
+        color: const Color(0xFFF9F9FB),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
         children: [
           Expanded(
-            flex: 1,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                     "${start.hour}:${start.minute}${start.minute == 0 ? '0' : ''}",
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                Text("-"),
+                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                const Text('-'),
                 Text("${end.hour}:${end.minute}${end.minute == 0 ? '0' : ''}",
-                    style: TextStyle(fontWeight: FontWeight.bold)),
+                    style: const TextStyle(fontWeight: FontWeight.bold)),
               ],
             ),
           ),
@@ -47,13 +46,12 @@ class HeureDeCoursWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(title),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Text(teacher),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Icon(Icons.location_on_outlined),
+                      const Icon(Icons.location_on_outlined),
                       Text(salle),
                     ],
                   ),

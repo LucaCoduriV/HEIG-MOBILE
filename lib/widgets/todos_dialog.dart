@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/controllers/todos_provider.dart';
+import '../controllers/todos_provider.dart';
 
 class TodosDialog extends StatefulWidget {
   const TodosDialog({Key? key}) : super(key: key);
@@ -10,38 +10,38 @@ class TodosDialog extends StatefulWidget {
 }
 
 class _TodosDialogState extends State<TodosDialog> {
-  TextEditingController title = new TextEditingController();
-  TextEditingController description = new TextEditingController();
-  DateTime date = new DateTime.now();
+  TextEditingController title = TextEditingController();
+  TextEditingController description = TextEditingController();
+  DateTime date = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      titlePadding: EdgeInsets.fromLTRB(20, 30, 20, 0),
-      contentPadding: EdgeInsets.all(20),
+      titlePadding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
+      contentPadding: const EdgeInsets.all(20),
       backgroundColor: Colors.white,
-      title: Text('Ajouter une tache'),
+      title: const Text('Ajouter une tache'),
       children: [
         Form(
           child: Column(
             children: [
               TextFormField(
-                decoration: InputDecoration(hintText: "Titre"),
+                decoration: const InputDecoration(hintText: 'Titre'),
                 controller: title,
               ),
               TextFormField(
-                decoration: InputDecoration(hintText: "Description"),
+                decoration: const InputDecoration(hintText: 'Description'),
                 controller: description,
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                      "${date.day.toString()}/${date.month.toString()}/${date.year.toString()}"),
+                      '${date.day.toString()}/${date.month.toString()}/${date.year.toString()}'),
                   OutlinedButton(
                       onPressed: () async {
-                        DateTime? _date = await showDatePicker(
+                        final DateTime? _date = await showDatePicker(
                             context: context,
                             initialDate: DateTime.now(),
                             firstDate: DateTime.now(),
@@ -50,10 +50,10 @@ class _TodosDialogState extends State<TodosDialog> {
                           date = _date ?? DateTime.now();
                         });
                       },
-                      child: Text("Choisir une date")),
+                      child: const Text('Choisir une date')),
                 ],
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -63,12 +63,12 @@ class _TodosDialogState extends State<TodosDialog> {
                             .addTodo(title.text, description.text, false, date);
                         Navigator.of(context).pop();
                       },
-                      child: Text("Valider")),
+                      child: const Text('Valider')),
                   OutlinedButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: Text("Annuler")),
+                      child: const Text('Annuler')),
                 ],
               )
             ],

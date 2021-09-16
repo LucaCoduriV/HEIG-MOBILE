@@ -7,7 +7,7 @@ class AsymmetricCrypt {
   AsymmetricCrypt(this._key);
 
   String encrypt(String plain) {
-    _publicKey ??= RSAPublicKey.fromPEM(this._key);
+    _publicKey ??= RSAPublicKey.fromPEM(_key);
     return _publicKey!.encrypt(plain);
   }
 }

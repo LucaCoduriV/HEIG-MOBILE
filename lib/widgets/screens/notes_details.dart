@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/controllers/bulletin_provider.dart';
-import 'package:heig_front/models/bulletin.dart';
-import 'package:heig_front/models/notes.dart';
-import 'package:heig_front/widgets/chart.dart';
 import 'package:vrouter/vrouter.dart';
+
+import '../../controllers/bulletin_provider.dart';
+import '../../models/bulletin.dart';
+import '../../models/notes.dart';
+import '../chart.dart';
 
 class NotesDetails extends StatelessWidget {
   const NotesDetails({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    int id = int.parse(VRouter.of(context).pathParameters['id'].toString());
-    Bulletin bulletin = GetIt.I<BulletinProvider>().bulletin;
-    List<Note> notesCours = bulletin.branches[id].cours;
-    List<Note> notesLabo = bulletin.branches[id].laboratoire;
+    final int id =
+        int.parse(VRouter.of(context).pathParameters['id'].toString());
+    final Bulletin bulletin = GetIt.I<BulletinProvider>().bulletin;
+    final List<Note> notesCours = bulletin.branches[id].cours;
+    final List<Note> notesLabo = bulletin.branches[id].laboratoire;
 
     return Column(
       children: [
@@ -23,7 +25,7 @@ class NotesDetails extends StatelessWidget {
             color: Colors.white,
             padding: const EdgeInsets.all(20),
             child: ListView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               children: getChildren(context, notesCours, notesLabo),
             ),
           ),
@@ -36,14 +38,14 @@ class NotesDetails extends StatelessWidget {
       context, List<Note> notesCours, List<Note> notesLabo) {
     return [
       if (notesCours.isNotEmpty)
-        Text(
-          "Cours",
+        const Text(
+          'Cours',
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
         ),
-      if (notesCours.isNotEmpty) SizedBox(height: 10),
+      if (notesCours.isNotEmpty) const SizedBox(height: 10),
       if (notesCours.isNotEmpty)
         Container(
-          padding: EdgeInsets.only(right: 20),
+          padding: const EdgeInsets.only(right: 20),
           height: 200,
           width: double.infinity,
           child: Chart(notesCours.map((e) => e.note).toList(),
@@ -55,16 +57,16 @@ class NotesDetails extends StatelessWidget {
           columns: getColumn(),
           rows: getDatas(notesCours),
         ),
-      if (notesCours.isNotEmpty) SizedBox(height: 40),
+      if (notesCours.isNotEmpty) const SizedBox(height: 40),
       if (notesLabo.isNotEmpty)
-        Text(
-          "Laboratoires",
+        const Text(
+          'Laboratoires',
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
         ),
-      if (notesLabo.isNotEmpty) SizedBox(height: 10),
+      if (notesLabo.isNotEmpty) const SizedBox(height: 10),
       if (notesLabo.isNotEmpty)
         Container(
-          padding: EdgeInsets.only(right: 20),
+          padding: const EdgeInsets.only(right: 20),
           height: 200,
           width: double.infinity,
           child: Chart(notesLabo.map((e) => e.note).toList(),
@@ -81,7 +83,7 @@ class NotesDetails extends StatelessWidget {
 
   List<DataColumn> getColumn() {
     return <DataColumn>[
-      DataColumn(
+      const DataColumn(
         label: Text(
           'Titre',
         ),
@@ -90,14 +92,14 @@ class NotesDetails extends StatelessWidget {
         numeric: true,
         label: Row(
           children: [
-            Text(
+            const Text(
               'Moy.',
             ),
             Container(color: Colors.red, height: 10, width: 5)
           ],
         ),
       ),
-      DataColumn(
+      const DataColumn(
         label: Text(
           'coef.',
           style: TextStyle(fontStyle: FontStyle.italic),
@@ -107,10 +109,10 @@ class NotesDetails extends StatelessWidget {
         numeric: true,
         label: Row(
           children: [
-            Text(
+            const Text(
               'Notes',
             ),
-            SizedBox(
+            const SizedBox(
               width: 2,
             ),
             Container(color: Colors.cyan, height: 10, width: 5)
@@ -128,7 +130,7 @@ class NotesDetails extends StatelessWidget {
             Container(
               width: 100,
               child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 child: Text(
                   e.nom,
@@ -138,7 +140,7 @@ class NotesDetails extends StatelessWidget {
             ),
           ),
           DataCell(Text(e.moyenneClasse.toString())),
-          DataCell(Text("${e.coef.toString()}%")),
+          DataCell(Text('${e.coef.toString()}%')),
           DataCell(Text(e.note.toString())),
         ],
       );

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/controllers/auth_controller.dart';
-import 'package:heig_front/controllers/bulletin_provider.dart';
-import 'package:heig_front/controllers/horaires_provider.dart';
-import 'package:heig_front/controllers/navigator_controller.dart';
-import 'package:heig_front/controllers/user_provider.dart';
+import '../../controllers/auth_controller.dart';
+import '../../controllers/bulletin_provider.dart';
+import '../../controllers/horaires_provider.dart';
+import '../../controllers/navigator_controller.dart';
+import '../../controllers/user_provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -16,9 +16,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController username =
-      new TextEditingController(text: GetIt.I<AuthController>().username);
-  TextEditingController password = new TextEditingController();
-  var _formKey = GlobalKey<FormState>();
+      TextEditingController(text: GetIt.I<AuthController>().username);
+  TextEditingController password = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
 
   @override
@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
       'assets/images/logo.svg',
       semanticsLabel: 'HEIG Logo',
       width: 100,
-      color: Color(0xffda291c), //Theme.of(context).primaryColor,
+      color: const Color(0xffda291c), //Theme.of(context).primaryColor,
     );
 
     return Scaffold(
@@ -36,22 +36,20 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             svg,
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Form(
               key: _formKey,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Row(
                     mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
                         width: 200,
                         child: TextFormField(
                           validator: validator,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: 'Enter your name',
                           ),
                           controller: username,
@@ -61,13 +59,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
                         width: 200,
                         child: TextFormField(
                           validator: validator,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: 'Enter your password',
                           ),
                           obscureText: true,
@@ -76,16 +73,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      minimumSize: Size(100, 40),
+                      minimumSize: const Size(100, 40),
                       primary: Colors.teal,
-                      side: BorderSide(
+                      side: const BorderSide(
                         color: Color(0xffda291c),
-                        width: 1,
                       ),
                     ),
                     onPressed: () async {
@@ -94,11 +90,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           context: context,
                           barrierDismissible: false,
                           builder: (BuildContext context) {
-                            return Dialog(
+                            return const Dialog(
                               backgroundColor: Colors.transparent,
                               elevation: 0,
-                              child: new Center(
-                                child: new CircularProgressIndicator(
+                              child: Center(
+                                child: CircularProgressIndicator(
                                   color: Color(0xffda291c),
                                 ), //Theme.of(context).primaryColor),
                               ),
@@ -118,8 +114,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.pop(context);
                       }
                     },
-                    child: Text(
-                      "Login",
+                    child: const Text(
+                      'Login',
                       style: TextStyle(color: Color(0xffda291c)),
                     ),
                   ),

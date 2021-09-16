@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/controllers/auth_controller.dart';
-import 'package:heig_front/controllers/drawer_provider.dart';
-import 'package:heig_front/controllers/navigator_controller.dart';
-import 'package:heig_front/utils/date.dart';
-import 'package:heig_front/widgets/todos_dialog.dart';
 import 'package:provider/provider.dart';
+
+import '../controllers/auth_controller.dart';
+import '../controllers/drawer_provider.dart';
+import '../controllers/navigator_controller.dart';
+import '../utils/date.dart';
+import 'todos_dialog.dart';
 
 class MyDrawer extends StatefulWidget {
   final Widget child;
 
-  MyDrawer({Key? key, required this.child}) : super(key: key);
+  const MyDrawer({Key? key, required this.child}) : super(key: key);
 
   @override
   State<MyDrawer> createState() => _MyDrawerState();
 }
 
 class _MyDrawerState extends State<MyDrawer> {
-  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final image =
-      Image(image: AssetImage('assets/images/logo-bar.png'), height: 70);
+      const Image(image: AssetImage('assets/images/logo-bar.png'), height: 70);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class _MyDrawerState extends State<MyDrawer> {
           key: _scaffoldKey,
           appBar: AppBar(
             elevation: 0,
-            backgroundColor: Color(0xFFF9F9FB),
+            backgroundColor: const Color(0xFFF9F9FB),
             title:
                 Text(Provider.of<DrawerProvider>(context, listen: true).title),
             toolbarHeight: 100,
@@ -44,7 +45,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return TodosDialog();
+                        return const TodosDialog();
                       },
                     );
                   },
@@ -56,14 +57,13 @@ class _MyDrawerState extends State<MyDrawer> {
                     child: Text.rich(
                       TextSpan(
                         text: NOM_JOURS_SEMAINE[DateTime.now().weekday],
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                         children: [
                           TextSpan(
-                              style: TextStyle(fontWeight: FontWeight.normal),
-                              text: " " +
-                                  DateTime.now().day.toString() +
-                                  " " +
-                                  NOM_MOIS[DateTime.now().month])
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal),
+                              text:
+                                  ' ${DateTime.now().day} ${NOM_MOIS[DateTime.now().month]}')
                         ],
                       ),
                     ),
@@ -81,7 +81,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     children: <Widget>[
                       DrawerHeader(
                         padding: EdgeInsets.zero,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.white,
                         ),
                         child: Row(
@@ -91,16 +91,16 @@ class _MyDrawerState extends State<MyDrawer> {
                               color: Colors.blue,
                               child: image,
                             ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text("HAUTE ÉCOLE",
+                              children: const [
+                                Text('HAUTE ÉCOLE',
                                     style: TextStyle(fontSize: 15)),
-                                const Text("D'INGÉNIERIE ET DE GESTION",
+                                Text("D'INGÉNIERIE ET DE GESTION",
                                     style: TextStyle(fontSize: 15)),
-                                const Text("DU CANTON DE VAUD",
+                                Text('DU CANTON DE VAUD',
                                     style: TextStyle(fontSize: 15)),
                               ],
                             )
@@ -144,28 +144,25 @@ class _MyDrawerState extends State<MyDrawer> {
                   ),
                 ),
                 // This container holds the align
-                Container(
-                    // This align moves the children to the bottom
-                    child: Align(
-                        alignment: FractionalOffset.bottomCenter,
-                        // This container holds all the children that will be aligned
-                        // on the bottom and should not scroll with the above ListView
-                        child: Container(
-                            child: Column(
-                          children: <Widget>[
-                            Divider(),
-                            ListTile(
-                                leading: Icon(Icons.settings),
-                                title: Text('Options')),
-                            ListTile(
-                                onTap: () {
-                                  GetIt.I<AuthController>().logout();
-                                  NavigatorController.toLogin(context);
-                                },
-                                leading: Icon(Icons.logout),
-                                title: Text('Se déconnecter'))
-                          ],
-                        ))))
+                Align(
+                    alignment: FractionalOffset.bottomCenter,
+                    // This container holds all the children that will be aligned
+                    // on the bottom and should not scroll with the above ListView
+                    child: Column(
+                      children: <Widget>[
+                        const Divider(),
+                        const ListTile(
+                            leading: Icon(Icons.settings),
+                            title: Text('Options')),
+                        ListTile(
+                            onTap: () {
+                              GetIt.I<AuthController>().logout();
+                              NavigatorController.toLogin(context);
+                            },
+                            leading: const Icon(Icons.logout),
+                            title: const Text('Se déconnecter'))
+                      ],
+                    ))
               ],
             ),
           ),

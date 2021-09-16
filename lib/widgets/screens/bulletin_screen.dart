@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/controllers/bulletin_provider.dart';
-import 'package:heig_front/controllers/drawer_provider.dart';
-import 'package:heig_front/controllers/navigator_controller.dart';
-import 'package:heig_front/models/branche.dart';
-import 'package:heig_front/models/bulletin.dart';
-import 'package:heig_front/widgets/branche_button.dart';
 import 'package:provider/provider.dart';
+
+import '../../controllers/bulletin_provider.dart';
+import '../../controllers/drawer_provider.dart';
+import '../../controllers/navigator_controller.dart';
+import '../../models/branche.dart';
+import '../../models/bulletin.dart';
+import '../branche_button.dart';
 
 class BulletinScreen extends StatelessWidget {
   const BulletinScreen({Key? key}) : super(key: key);
@@ -16,8 +17,8 @@ class BulletinScreen extends StatelessWidget {
     return ChangeNotifierProvider.value(
       value: GetIt.I<BulletinProvider>(),
       builder: (context, _) {
-        Bulletin bulletin = context.watch<BulletinProvider>().bulletin;
-        bool loading = context.watch<BulletinProvider>().loading;
+        final Bulletin bulletin = context.watch<BulletinProvider>().bulletin;
+        final bool loading = context.watch<BulletinProvider>().loading;
         final thisYear = DateTime.now().year;
         return Container(
           color: Colors.white,
@@ -25,19 +26,18 @@ class BulletinScreen extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  SizedBox(width: 20),
-                  Text("Année",
+                  const SizedBox(width: 20),
+                  const Text('Année',
                       style:
                           TextStyle(fontWeight: FontWeight.w500, fontSize: 17)),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   DropdownButton<int>(
-                    style: TextStyle(
+                    style: const TextStyle(
                         backgroundColor: Colors.white, color: Colors.black),
                     value: Provider.of<BulletinProvider>(context).year,
                     icon: const Icon(Icons.arrow_downward),
-                    iconSize: 24,
                     onChanged: (int? newValue) {
-                      GetIt.I<BulletinProvider>().year = newValue;
+                      GetIt.I<BulletinProvider>().year = newValue!;
                       GetIt.I<BulletinProvider>().fetchBulletin();
                     },
                     items: <int>[
@@ -48,8 +48,7 @@ class BulletinScreen extends StatelessWidget {
                     ].map<DropdownMenuItem<int>>((int value) {
                       return DropdownMenuItem<int>(
                         value: value,
-                        child: Text(
-                            value.toString() + "-" + (value + 1).toString()),
+                        child: Text('$value-${value + 1}'),
                       );
                     }).toList(),
                   ),
@@ -59,7 +58,7 @@ class BulletinScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     if (loading)
-                      Center(
+                      const Center(
                         child: LinearProgressIndicator(
                           color: Colors.red,
                           backgroundColor: Colors.grey,
@@ -87,24 +86,25 @@ class BulletinScreen extends StatelessWidget {
   }
 
   Widget buildButtons(context, Bulletin bulletin, BoxConstraints constraints) {
-    if (bulletin.branches.length == 0)
+    if (bulletin.branches.isEmpty) {
       return SingleChildScrollView(
-        physics: AlwaysScrollableScrollPhysics(),
+        physics: const AlwaysScrollableScrollPhysics(),
         child: ConstrainedBox(
           constraints: BoxConstraints(
               minHeight: constraints.maxHeight, minWidth: constraints.maxWidth),
-          child: Center(
-            child: Text("Veuillez tirer vers le bas pour rafraichir."),
+          child: const Center(
+            child: Text('Veuillez tirer vers le bas pour rafraichir.'),
           ),
         ),
       );
+    }
 
     return ListView.builder(
-      physics: BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
       itemCount: bulletin.branches.length,
       itemBuilder: (context, index) {
-        List<Branche> branches = bulletin.branches;
+        final List<Branche> branches = bulletin.branches;
 
         return BrancheButton(
           title: branches[index].nom,

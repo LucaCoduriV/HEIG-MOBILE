@@ -9,15 +9,15 @@ class Chart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double index = 0;
-    List<FlSpot> spots = data.map((e) => FlSpot(index++, e)).toList();
+    final List<FlSpot> spots = data.map((e) => FlSpot(index++, e)).toList();
     index = 0;
-    List<FlSpot> spots2 = data2.map((e) => FlSpot(index++, e)).toList();
+    final List<FlSpot> spots2 = data2.map((e) => FlSpot(index++, e)).toList();
 
-    List<Color> gradientColors = [
+    final List<Color> gradientColors = [
       const Color(0xff23b6e6),
       const Color(0xff02d39a),
     ];
-    List<Color> gradientColors2 = [
+    final List<Color> gradientColors2 = [
       const Color(0xffff0000),
     ];
     return LineChart(
@@ -44,7 +44,7 @@ class Chart extends StatelessWidget {
         ),
         borderData: FlBorderData(
           show: true,
-          border: Border.all(color: const Color(0xff37434d), width: 1),
+          border: Border.all(color: const Color(0xff37434d)),
         ),
         minX: 0,
         minY: 0,
@@ -78,9 +78,7 @@ class Chart extends StatelessWidget {
             ),
           ),
         ],
-      ),
-      swapAnimationDuration: Duration(milliseconds: 150), // Optional
-      swapAnimationCurve: Curves.linear, // Optional
+      ), // Optional
     );
   }
 }

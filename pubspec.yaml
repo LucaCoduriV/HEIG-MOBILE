@@ -32,7 +32,7 @@ dependencies:
     dio: ^4.0.0 # gestion des requêtes http
     flutter_dotenv: ^5.0.0 # .env
     get_it: ^7.1.3 # gestion des singletons
-    provider: ^5.0.0 # state manager
+    provider: ^6.0.0 # state manager
     flutter_svg: ^0.22.0 # permet d'afficher des svg
     crypton: ^2.0.2 # permet de chiffrer et déchiffrer
     awesome_notifications: ^0.0.6+10 # Gestion des notifications

@@ -12,11 +12,11 @@ class DrawerProvider extends ChangeNotifier {
   late ActionType _action;
 
   DrawerProvider() {
-    this._title = "";
+    _title = '';
     _action = ActionType.NONE;
   }
 
-  set title(title) {
+  set title(String title) {
     _title = title;
     notifyListeners();
   }

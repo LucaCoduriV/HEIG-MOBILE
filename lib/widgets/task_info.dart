@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/controllers/todos_provider.dart';
-import 'package:heig_front/models/todo.dart';
+import '../controllers/todos_provider.dart';
+import '../models/todo.dart';
 
 class TaskInfo extends StatefulWidget {
   final Todo todo;
@@ -14,7 +14,7 @@ class TaskInfo extends StatefulWidget {
 class _TaskInfoState extends State<TaskInfo> {
   @override
   Widget build(BuildContext context) {
-    Todo todo = widget.todo;
+    final Todo todo = widget.todo;
     return Dismissible(
       key: Key(todo.id.toString()),
       onDismissed: (direction) {
@@ -47,11 +47,13 @@ class _TaskInfoState extends State<TaskInfo> {
         ),
       ),
       child: ConstrainedBox(
-        constraints: BoxConstraints(minHeight: 80),
+        constraints: const BoxConstraints(minHeight: 80),
         child: Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: !todo.completed ? Color(0xFFFEF5F6) : Color(0xFFF4FEF8),
+            color: !todo.completed
+                ? const Color(0xFFFEF5F6)
+                : const Color(0xFFF4FEF8),
             borderRadius: BorderRadius.circular(20),
           ),
           child: Column(
@@ -72,7 +74,7 @@ class _TaskInfoState extends State<TaskInfo> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
                     height: 30,
                     child: Checkbox(
                       shape: RoundedRectangleBorder(

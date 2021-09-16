@@ -1,10 +1,11 @@
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/controllers/bulletin_provider.dart';
-import 'package:heig_front/controllers/drawer_provider.dart';
-import 'package:heig_front/controllers/navigator_controller.dart';
-import 'package:heig_front/widgets/screens/bulletin_screen.dart';
-import 'package:heig_front/widgets/screens/notes_details.dart';
 import 'package:vrouter/vrouter.dart';
+
+import '../controllers/bulletin_provider.dart';
+import '../controllers/drawer_provider.dart';
+import '../controllers/navigator_controller.dart';
+import '../widgets/screens/bulletin_screen.dart';
+import '../widgets/screens/notes_details.dart';
 
 class BulletinRoute extends VRouteElementBuilder {
   @override
@@ -19,10 +20,10 @@ class BulletinRoute extends VRouteElementBuilder {
         stackedRoutes: [
           VWidget(
             path: '/${NavigatorController.notes}',
-            widget: BulletinScreen(),
+            widget: const BulletinScreen(),
             stackedRoutes: [
               VWidget(
-                path: ":id",
+                path: ':id',
                 widget: const NotesDetails(),
               )
             ],

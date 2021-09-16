@@ -20,21 +20,20 @@ class BrancheButton extends StatelessWidget {
     return InkWell(
       onTap: onPress,
       child: Container(
-        child: buildButtonContent(),
         height: 70,
-        margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
-        padding: EdgeInsets.all(15),
+        margin: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+        padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
           color: Colors.grey.shade200,
           borderRadius: BorderRadius.circular(10),
         ),
+        child: buildButtonContent(),
       ),
     );
   }
 
   Widget buildButtonContent() {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
@@ -42,7 +41,8 @@ class BrancheButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(title,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
             Row(children: [
               Container(
                 height: 10,
@@ -53,14 +53,14 @@ class BrancheButton extends StatelessWidget {
                       moyenne < 4 ? Colors.red.shade100 : Colors.green.shade200,
                 ),
               ),
-              SizedBox(width: 5),
-              Text("Moyenne: $moyenne",
-                  style: TextStyle(fontWeight: FontWeight.w300))
+              const SizedBox(width: 5),
+              Text('Moyenne: $moyenne',
+                  style: const TextStyle(fontWeight: FontWeight.w300))
             ]),
           ],
         ),
         Row(
-          children: [
+          children: const [
             SizedBox(width: 10),
             Icon(Icons.arrow_forward_ios_rounded),
           ],

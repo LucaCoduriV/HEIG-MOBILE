@@ -17,7 +17,7 @@ class Horaires {
   @HiveField(2)
   late List<HeureDeCours> horaires;
   @HiveField(3)
-  String rrule = "";
+  String rrule = '';
   @HiveField(4)
   List<int> notificationIds = [];
 
@@ -32,13 +32,13 @@ class Horaires {
     final List<HeureDeCours> data = [];
     try {
       horaires.forEach((element) {
-        if (element.rrule != null && element.rrule != "") {
+        if (element.rrule != null && element.rrule != '') {
           final RecurrenceRule parsedRRule =
-              RecurrenceRule.fromString("RRULE:" + element.rrule!);
-          List<DateTime> startArray =
+              RecurrenceRule.fromString('RRULE:${element.rrule!}');
+          final List<DateTime> startArray =
               parsedRRule.getAllInstances(start: element.debut.toUtc());
 
-          List<DateTime> endArray =
+          final List<DateTime> endArray =
               parsedRRule.getAllInstances(start: element.fin.toUtc());
 
           for (int i = 0; i < startArray.length; i++) {
@@ -46,7 +46,7 @@ class Horaires {
               data.add(HeureDeCours(element.nom, startArray[i], endArray[i],
                   element.prof, element.salle, element.uid, element.rrule));
             } catch (e) {
-              log("error!");
+              log('error!');
             }
           }
         } else {
@@ -64,7 +64,7 @@ class Horaires {
         GetIt.I.get<NotificationsManager>().registerNotificationHoraire(
               element.nom,
               element.salle,
-              element.debut.subtract(Duration(hours: 1)),
+              element.debut.subtract(const Duration(hours: 1)),
             );
       }
     });
@@ -73,6 +73,6 @@ class Horaires {
 
   @override
   String toString() {
-    return "$semestre, $annee, nombre de cours: ${horaires.length}, ${horaires.toString()}";
+    return '$semestre, $annee, nombre de cours: ${horaires.length}, ${horaires.toString()}';
   }
 }

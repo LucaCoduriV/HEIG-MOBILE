@@ -11,13 +11,12 @@ class Bulletin {
   @HiveField(1)
   late int year;
 
-  Bulletin(List<Branche>? branches, {int year = 2020}) {
+  Bulletin(List<Branche>? branches, {this.year = 2020}) {
     this.branches = branches ?? [];
-    this.year = year;
   }
 
   @override
   String toString() {
-    return "nombre de branches: ${branches.length}, ${branches.toString()}";
+    return 'nombre de branches: ${branches.length}, ${branches.toString()}';
   }
 }

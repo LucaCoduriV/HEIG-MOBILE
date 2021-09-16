@@ -1,24 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/controllers/api_controller.dart';
-import 'package:heig_front/controllers/auth_controller.dart';
-import 'package:heig_front/models/heure_de_cours.dart';
-import 'package:heig_front/models/horaires.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
+import '../models/heure_de_cours.dart';
+import '../models/horaires.dart';
+import 'api_controller.dart';
+import 'auth_controller.dart';
 
 class HorairesProvider extends ChangeNotifier {
   late Horaires _horaires;
   var box = Hive.box('heig');
-  Horaires get horaires => _horaires;
 
   HorairesProvider() {
-    Horaires hiveHoraires = box.get('horaires',
-        defaultValue: Horaires(0, 2021, <HeureDeCours>[], ""));
+    final Horaires hiveHoraires = box.get('horaires',
+        defaultValue: Horaires(0, 2021, <HeureDeCours>[], ''));
     _horaires = hiveHoraires;
   }
 
+  Horaires get horaires => _horaires;
+
   Future<bool> fetchHoraires() async {
-    AuthController auth = GetIt.I.get<AuthController>();
+    final AuthController auth = GetIt.I.get<AuthController>();
     try {
       final password = await GetIt.I<AuthController>().encryptedPassword;
 
@@ -37,7 +39,7 @@ class HorairesProvider extends ChangeNotifier {
   }
 
   List<HeureDeCours> getDailyClasses(DateTime day) {
-    List<HeureDeCours> h = _horaires.horairesRRule
+    final List<HeureDeCours> h = _horaires.horairesRRule
         .where((h) =>
             h.debut.day == day.day &&
             h.debut.month == day.month &&

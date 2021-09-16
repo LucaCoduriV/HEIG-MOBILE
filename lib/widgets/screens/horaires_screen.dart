@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/controllers/horaires_provider.dart';
-import 'package:heig_front/models/heure_de_cours.dart';
-import 'package:heig_front/widgets/heure_de_cours_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+import '../../controllers/horaires_provider.dart';
+import '../../models/heure_de_cours.dart';
+import '../heure_de_cours_widget.dart';
 
 class HorairesScreen extends StatefulWidget {
   const HorairesScreen({Key? key}) : super(key: key);
@@ -28,13 +29,13 @@ class _HorairesScreenState extends State<HorairesScreen> {
     return ChangeNotifierProvider.value(
       value: GetIt.I<HorairesProvider>(),
       builder: (context, child) {
-        HorairesProvider h = Provider.of<HorairesProvider>(context);
-        List<HeureDeCours> coursJour = h.getDailyClasses(_selectedDay);
+        final HorairesProvider h = Provider.of<HorairesProvider>(context);
+        final List<HeureDeCours> coursJour = h.getDailyClasses(_selectedDay);
         return Container(
-          color: Color(0xFFF9F9FB),
+          color: const Color(0xFFF9F9FB),
           child: Container(
-            padding: EdgeInsets.only(top: 25),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.only(top: 25),
+            decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
             ),
@@ -44,24 +45,24 @@ class _HorairesScreenState extends State<HorairesScreen> {
                   headerVisible: false,
                   calendarBuilders: CalendarBuilders(
                     selectedBuilder: (context, date, events) => Container(
-                        margin: const EdgeInsets.all(4.0),
+                        margin: const EdgeInsets.all(4),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                             color: Colors.red,
-                            borderRadius: BorderRadius.circular(50.0)),
+                            borderRadius: BorderRadius.circular(50)),
                         child: Text(
                           date.day.toString(),
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         )),
                     todayBuilder: (context, date, events) => Container(
-                        margin: const EdgeInsets.all(4.0),
+                        margin: const EdgeInsets.all(4),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                             color: Colors.red.shade200,
-                            borderRadius: BorderRadius.circular(50.0)),
+                            borderRadius: BorderRadius.circular(50)),
                         child: Text(
                           date.day.toString(),
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         )),
                   ),
                   locale: 'fr_FR',
@@ -92,26 +93,26 @@ class _HorairesScreenState extends State<HorairesScreen> {
                 Expanded(
                   child: Container(
                     alignment: Alignment.center,
-                    margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                    padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                     child: Column(
                       children: [
                         Row(
-                          children: [
+                          children: const [
                             Text(
-                              "Vos Cours",
+                              'Vos Cours',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 20),
                             ),
                           ],
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Expanded(
-                          child: coursJour.length != 0
+                          child: coursJour.isNotEmpty
                               ? ListView.separated(
                                   separatorBuilder: (context, index) =>
-                                      SizedBox(height: 20),
-                                  physics: AlwaysScrollableScrollPhysics(
+                                      const SizedBox(height: 20),
+                                  physics: const AlwaysScrollableScrollPhysics(
                                       parent: BouncingScrollPhysics()),
                                   itemCount: coursJour.length,
                                   itemBuilder: (context, index) {
@@ -124,7 +125,7 @@ class _HorairesScreenState extends State<HorairesScreen> {
                                     );
                                   },
                                 )
-                              : Text("Aucune tâche"),
+                              : const Text('Aucune tâche'),
                         ),
                       ],
                     ),

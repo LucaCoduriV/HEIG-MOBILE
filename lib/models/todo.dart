@@ -33,16 +33,16 @@ class Todo {
 
   factory Todo.fromJson(Map<String, dynamic> json) {
     return Todo(
-      json["id"],
-      json["title"],
-      json["description"],
-      json["completed"],
-      DateTime.parse(json["date"]),
+      json['id'],
+      json['title'],
+      json['description'],
+      json['completed'],
+      DateTime.parse(json['date']),
     );
   }
 
   @override
   String toString() {
-    return "$_id $_title $_description $completed $_date";
+    return '$_id $_title $_description $completed $_date';
   }
 }

@@ -13,23 +13,20 @@ class Branche {
   @HiveField(2)
   List<Note> laboratoire = [];
   @HiveField(3)
-  double moyenne = 1.0;
+  double moyenne = 1;
 
-  Branche(nom, {cours, laboratoire, double moyenne = 0.0}) : nom = nom {
-    this.cours = cours;
-    this.laboratoire = laboratoire;
-    this.moyenne = moyenne;
-  }
+  Branche(this.nom,
+      {required this.cours, required this.laboratoire, this.moyenne = 0});
 
   factory Branche.fromJson(Map<String, dynamic> json) {
     return Branche(
       json['nom'],
       cours: (json['cours'] as List<dynamic>)
-          .map((cours) => new Note(cours['titre'], cours['note'].toDouble(),
+          .map((cours) => Note(cours['titre'], cours['note'].toDouble(),
               cours['moyenneClasse'].toDouble(), cours['coef'].toDouble()))
           .toList(),
       laboratoire: (json['laboratoire'] as List<dynamic>)
-          .map((laboratoire) => new Note(
+          .map((laboratoire) => Note(
               laboratoire['titre'],
               laboratoire['note'].toDouble(),
               laboratoire['moyenneClasse'].toDouble(),
@@ -41,6 +38,6 @@ class Branche {
 
   @override
   String toString() {
-    return "Branche($nom, ${cours.toString()}, ${laboratoire.toString()}, ${moyenne.toString()})";
+    return 'Branche($nom, ${cours.toString()}, ${laboratoire.toString()}, ${moyenne.toString()})';
   }
 }

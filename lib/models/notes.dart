@@ -5,13 +5,13 @@ part 'notes.g.dart';
 @HiveType(typeId: 5)
 class Note {
   @HiveField(0)
-  String nom = "";
+  String nom = '';
   @HiveField(1)
   double note = 1;
   @HiveField(2)
   double moyenneClasse = 0;
   @HiveField(3)
-  double coef = 0.0;
+  double coef = 0;
 
   Note(String nom, double note, double moyenneClasse, double coef) {
     this.nom = nom;
@@ -26,6 +26,6 @@ class Note {
 
   @override
   String toString() {
-    return "${note.toString()}";
+    return note.toString();
   }
 }

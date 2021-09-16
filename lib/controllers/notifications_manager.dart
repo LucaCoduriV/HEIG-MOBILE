@@ -58,10 +58,10 @@ class NotificationsManager {
     AwesomeNotifications().actionStream.listen((receivedNotification) {
       switch (receivedNotification.payload?['page']) {
         case 'todo':
-          debugPrint("GO TO TODO");
+          debugPrint('GO TO TODO');
           break;
         default:
-          debugPrint("DEFAULT");
+          debugPrint('DEFAULT');
           break;
       }
     });
@@ -70,24 +70,23 @@ class NotificationsManager {
   Future<int> registerNotificationTodo(
       String title, String body, DateTime date, int id) async {
     AwesomeNotifications().createNotification(
-        schedule: DateTime.now().isAfter(date.subtract(Duration(days: 1)))
+        schedule: DateTime.now().isAfter(date.subtract(const Duration(days: 1)))
             ? null
             : NotificationCalendar.fromDate(
-                date: date.subtract(Duration(days: 1))),
+                date: date.subtract(const Duration(days: 1))),
         content: NotificationContent(
           id: _notificationsId,
           channelKey: 'todos_channel',
           title: 'Tâche: $title',
           body: body,
           payload: {
-            "page": "todo",
-            "id": "$id",
+            'page': 'todo',
+            'id': '$id',
           },
         ),
         actionButtons: [
           NotificationActionButton(
-            label: "Accomplie",
-            buttonType: ActionButtonType.Default,
+            label: 'Accomplie',
             enabled: true,
             key: 'accomplie',
           ),

@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/controllers/api_controller.dart';
-import 'package:heig_front/controllers/auth_controller.dart';
-import 'package:heig_front/models/bulletin.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
+import '../models/bulletin.dart';
+import 'api_controller.dart';
+import 'auth_controller.dart';
 
 /// Cette classe permet de distribuer et mettre à jours les données concernant le bulletin
 class BulletinProvider extends ChangeNotifier {
@@ -14,8 +15,9 @@ class BulletinProvider extends ChangeNotifier {
 
   BulletinProvider() {
     // Les données sont récupérée dans le localstorage
-    Bulletin hiveBulletin = box.get('bulletin', defaultValue: Bulletin([]));
-    int year = box.get('year', defaultValue: DateTime.now().year);
+    final Bulletin hiveBulletin =
+        box.get('bulletin', defaultValue: Bulletin([]));
+    final int year = box.get('year', defaultValue: DateTime.now().year);
     _bulletin = hiveBulletin;
     _year = year;
   }
@@ -28,7 +30,7 @@ class BulletinProvider extends ChangeNotifier {
     return _year;
   }
 
-  set year(value) {
+  set year(int value) {
     _year = value;
     box.put('year', year);
     notifyListeners();
@@ -38,7 +40,7 @@ class BulletinProvider extends ChangeNotifier {
   Future<void> fetchBulletin() async {
     loading = true;
     notifyListeners();
-    AuthController auth = GetIt.I.get<AuthController>();
+    final AuthController auth = GetIt.I.get<AuthController>();
     try {
       final password = await auth.encryptedPassword;
 
@@ -54,7 +56,7 @@ class BulletinProvider extends ChangeNotifier {
   }
 
   void emptyBulletin() {
-    _bulletin = new Bulletin([]);
+    _bulletin = Bulletin([]);
     notifyListeners();
   }
 }

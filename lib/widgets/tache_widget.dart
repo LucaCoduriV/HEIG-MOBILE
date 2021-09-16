@@ -10,12 +10,12 @@ class TacheWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Duration leftDays = start.difference(DateTime.now());
+    final Duration leftDays = start.difference(DateTime.now());
     String remainingTime;
     if (start.day == DateTime.now().day &&
         start.month == DateTime.now().month &&
         start.year == DateTime.now().year) {
-      remainingTime = 'Aujourd\'hui';
+      remainingTime = "Aujourd'hui";
     } else if (leftDays.inDays >= 0) {
       remainingTime = leftDays.inDays < 1
           ? 'Dans ${leftDays.inHours} heures'
@@ -35,9 +35,9 @@ class TacheWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Deadline",
-              style: const TextStyle(
-                  fontWeight: FontWeight.w400, color: Colors.white)),
+          const Text('Deadline',
+              style:
+                  TextStyle(fontWeight: FontWeight.w400, color: Colors.white)),
           const SizedBox(height: 10),
           Row(
             children: [
@@ -49,7 +49,7 @@ class TacheWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              SizedBox(width: 6),
+              const SizedBox(width: 6),
               Text(remainingTime),
             ],
           ),

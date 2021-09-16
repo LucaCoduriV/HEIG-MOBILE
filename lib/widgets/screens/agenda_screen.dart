@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/controllers/todos_provider.dart';
-import 'package:heig_front/models/todo.dart';
-import 'package:heig_front/widgets/task_info.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+import '../../controllers/todos_provider.dart';
+import '../../models/todo.dart';
+import '../task_info.dart';
 
 class AgendaScreen extends StatefulWidget {
   const AgendaScreen({Key? key}) : super(key: key);
@@ -28,13 +29,13 @@ class _AgendaScreenState extends State<AgendaScreen> {
     return ChangeNotifierProvider.value(
       value: GetIt.I<TodosProvider>(),
       builder: (context, child) {
-        List<Todo> dailyTasks =
+        final List<Todo> dailyTasks =
             Provider.of<TodosProvider>(context).getDailyTodos(_selectedDay);
         dailyTasks.sort((a, b) => a.date.compareTo(b.date));
         return Container(
-          color: Color(0xFFF9F9FB),
+          color: const Color(0xFFF9F9FB),
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
             ),
@@ -45,24 +46,24 @@ class _AgendaScreenState extends State<AgendaScreen> {
                     TableCalendar<Todo>(
                       calendarBuilders: CalendarBuilders(
                         selectedBuilder: (context, date, events) => Container(
-                            margin: const EdgeInsets.all(4.0),
+                            margin: const EdgeInsets.all(4),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                                 color: Colors.redAccent,
-                                borderRadius: BorderRadius.circular(50.0)),
+                                borderRadius: BorderRadius.circular(50)),
                             child: Text(
                               date.day.toString(),
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                             )),
                         todayBuilder: (context, date, events) => Container(
-                            margin: const EdgeInsets.all(4.0),
+                            margin: const EdgeInsets.all(4),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                                 color: Colors.redAccent.shade100,
-                                borderRadius: BorderRadius.circular(50.0)),
+                                borderRadius: BorderRadius.circular(50)),
                             child: Text(
                               date.day.toString(),
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                             )),
                       ),
                       locale: 'fr_FR',
@@ -100,17 +101,15 @@ class _AgendaScreenState extends State<AgendaScreen> {
                         Container(
                           height: 60,
                           width: 50,
-                          padding: EdgeInsets.symmetric(vertical: 16),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
                           child: InkWell(
-                            child: Container(
-                              child: Icon(Icons.today),
-                            ),
                             onTap: () {
                               setState(() {
                                 _selectedDay = DateTime.now();
                                 _focusedDay = DateTime.now();
                               });
                             },
+                            child: const Icon(Icons.today),
                           ),
                         )
                       ],
@@ -120,32 +119,32 @@ class _AgendaScreenState extends State<AgendaScreen> {
                 Expanded(
                   child: Container(
                     alignment: Alignment.center,
-                    margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                    padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                     child: Column(
                       children: [
                         Row(
-                          children: [
+                          children: const [
                             Text(
-                              "Vos tâches",
+                              'Vos tâches',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 20),
                             ),
                           ],
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Expanded(
-                          child: dailyTasks.length != 0
+                          child: dailyTasks.isNotEmpty
                               ? ListView.separated(
                                   separatorBuilder: (context, index) =>
-                                      SizedBox(height: 20),
-                                  physics: BouncingScrollPhysics(),
+                                      const SizedBox(height: 20),
+                                  physics: const BouncingScrollPhysics(),
                                   itemCount: dailyTasks.length,
                                   itemBuilder: (context, index) {
                                     return TaskInfo(todo: dailyTasks[index]);
                                   },
                                 )
-                              : Text("Aucune tâche"),
+                              : const Text('Aucune tâche'),
                         ),
                       ],
                     ),

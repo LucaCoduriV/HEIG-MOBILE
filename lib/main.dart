@@ -1,30 +1,31 @@
+import 'package:flutter/foundation.dart' as foundation;
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/controllers/api_controller.dart';
-import 'package:heig_front/controllers/auth_controller.dart';
-import 'package:heig_front/controllers/bulletin_provider.dart';
-import 'package:heig_front/controllers/drawer_provider.dart';
-import 'package:heig_front/controllers/horaires_provider.dart';
-import 'package:heig_front/controllers/navigator_controller.dart';
-import 'package:heig_front/controllers/notifications_manager.dart';
-import 'package:heig_front/controllers/todos_provider.dart';
-import 'package:heig_front/controllers/user_provider.dart';
-import 'package:heig_front/models/branche.dart';
-import 'package:heig_front/models/bulletin.dart';
-import 'package:heig_front/models/heure_de_cours.dart';
-import 'package:heig_front/models/horaires.dart';
-import 'package:heig_front/models/notes.dart';
-import 'package:heig_front/models/todo.dart';
-import 'package:heig_front/models/user.dart';
-import 'package:heig_front/routes/main_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:vrouter/vrouter.dart';
-import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:flutter/foundation.dart' as Foundation;
+import 'package:vrouter/vrouter.dart';
+
+import 'controllers/api_controller.dart';
+import 'controllers/auth_controller.dart';
+import 'controllers/bulletin_provider.dart';
+import 'controllers/drawer_provider.dart';
+import 'controllers/horaires_provider.dart';
+import 'controllers/navigator_controller.dart';
+import 'controllers/notifications_manager.dart';
+import 'controllers/todos_provider.dart';
+import 'controllers/user_provider.dart';
+import 'models/branche.dart';
+import 'models/bulletin.dart';
+import 'models/heure_de_cours.dart';
+import 'models/horaires.dart';
+import 'models/notes.dart';
+import 'models/todo.dart';
+import 'models/user.dart';
+import 'routes/main_router.dart';
 
 Future<void> setup() async {
-  await initializeDateFormatting("fr_FR");
+  await initializeDateFormatting('fr_FR');
   await dotenv.load();
   await Hive.initFlutter();
   Hive.registerAdapter(BulletinAdapter());
@@ -47,14 +48,14 @@ Future<void> setup() async {
   GetIt.I.registerSingleton<GlobalKey<RefreshIndicatorState>>(
       GlobalKey<RefreshIndicatorState>());
 
-  GetIt.I.get<NotificationsManager>().initialize();
+  await GetIt.I.get<NotificationsManager>().initialize();
 }
 
-void main() async {
+Future<void> main() async {
   try {
     await setup();
 
-    runApp(MyApp());
+    runApp(const MyApp());
   } catch (e) {
     debugPrint(e.toString());
   }
@@ -67,26 +68,27 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return VRouter(
       theme: ThemeData(
-        textSelectionTheme: TextSelectionThemeData(cursorColor: Colors.grey),
+        textSelectionTheme:
+            const TextSelectionThemeData(cursorColor: Colors.grey),
         primaryColor: Colors.white, //Color(0xffda291c),
-        accentColor: Color(0xffdf4d52),
-        inputDecorationTheme: InputDecorationTheme(
+        accentColor: const Color(0xffdf4d52),
+        inputDecorationTheme: const InputDecorationTheme(
             focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Color(0xffda291c)),
         )),
-        buttonTheme: ButtonThemeData(
+        buttonTheme: const ButtonThemeData(
           buttonColor: Color(0xffda291c),
           textTheme: ButtonTextTheme.primary,
         ),
       ),
       debugShowCheckedModeBanner: false, // VRouter acts as a MaterialApp
       buildTransition: (animation1, _, child) => SlideTransition(
-        position: Tween(begin: Offset(1.0, 0.0), end: Offset(0.0, 0.0))
+        position: Tween(begin: const Offset(1, 0), end: const Offset(0, 0))
             .animate(animation1),
         child: child,
       ),
       mode: VRouterMode.history, // Remove the '#' from the url
-      logs: Foundation.kReleaseMode
+      logs: foundation.kReleaseMode
           ? VLogs.none
           : VLogs.info, // Defines which logs to show, info is the default
       initialUrl: '/${NavigatorController.home}',

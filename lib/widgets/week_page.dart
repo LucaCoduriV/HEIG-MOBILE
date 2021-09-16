@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:heig_front/models/todo.dart';
-import 'package:heig_front/utils/date.dart';
-import 'package:heig_front/widgets/task_info.dart';
+
+import '../models/todo.dart';
+import '../utils/date.dart';
+import 'task_info.dart';
 
 class WeekPage extends StatelessWidget {
   final List<Todo> weekTasks;
@@ -12,37 +13,36 @@ class WeekPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lastDayOfWeek = firstDayOfWeek.add(Duration(days: 6));
+    final lastDayOfWeek = firstDayOfWeek.add(const Duration(days: 6));
     return Column(
-      mainAxisSize: MainAxisSize.max,
       children: [
         if (DateTime.now().firstDayOfWeek().day == firstDayOfWeek.day)
-          Text(
-            "Cette semaine",
+          const Text(
+            'Cette semaine',
             style: TextStyle(fontSize: 30),
           ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Text(
-            "Semaine du ${firstDayOfWeek.day} ${NOM_MOIS[firstDayOfWeek.month]} au ${lastDayOfWeek.day} ${NOM_MOIS[lastDayOfWeek.month]} ${lastDayOfWeek.year}"),
+            'Semaine du ${firstDayOfWeek.day} ${NOM_MOIS[firstDayOfWeek.month]} au ${lastDayOfWeek.day} ${NOM_MOIS[lastDayOfWeek.month]} ${lastDayOfWeek.year}'),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(15),
             child: ListView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               children: [
-                buildTitle(context, "Lundi"),
+                buildTitle(context, 'Lundi'),
                 ...buildTask(DateTime.monday),
-                buildTitle(context, "Mardi"),
+                buildTitle(context, 'Mardi'),
                 ...buildTask(DateTime.tuesday),
-                buildTitle(context, "Mercredi"),
+                buildTitle(context, 'Mercredi'),
                 ...buildTask(DateTime.wednesday),
-                buildTitle(context, "Jeudi"),
+                buildTitle(context, 'Jeudi'),
                 ...buildTask(DateTime.thursday),
-                buildTitle(context, "Vendredi"),
+                buildTitle(context, 'Vendredi'),
                 ...buildTask(DateTime.friday),
-                buildTitle(context, "Samedi"),
+                buildTitle(context, 'Samedi'),
                 ...buildTask(DateTime.saturday),
-                buildTitle(context, "Dimanche"),
+                buildTitle(context, 'Dimanche'),
                 ...buildTask(DateTime.sunday),
               ],
             ),
@@ -52,7 +52,7 @@ class WeekPage extends StatelessWidget {
     );
   }
 
-  Widget buildTitle(context, String text) {
+  Widget buildTitle(BuildContext context, String text) {
     return Container(
       margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
       decoration: BoxDecoration(
@@ -61,7 +61,7 @@ class WeekPage extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: TextStyle(fontSize: 25),
+        style: const TextStyle(fontSize: 25),
       ),
     );
   }
@@ -69,7 +69,9 @@ class WeekPage extends StatelessWidget {
   List<Widget> buildTask(int weekDay) {
     final dailyTasks =
         weekTasks.where((element) => element.date.weekday == weekDay);
-    if (dailyTasks.isEmpty) return [Text("Aucune tâche")];
+    if (dailyTasks.isEmpty) {
+      return [const Text('Aucune tâche')];
+    }
     return dailyTasks.map((e) => TaskInfo(todo: e)).toList();
   }
 }
