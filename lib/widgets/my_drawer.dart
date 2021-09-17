@@ -40,7 +40,15 @@ class _MyDrawerState extends State<MyDrawer> {
                   : Colors.white,
             ),
             elevation: 0,
-            title: Text(Provider.of<DrawerProvider>(context).title),
+            title: Text(
+              Provider.of<DrawerProvider>(context).title,
+              style: TextStyle(
+                color: Provider.of<theme.ThemeProvider>(context).mode ==
+                        ThemeMode.light
+                    ? Colors.black
+                    : Colors.white,
+              ),
+            ),
             toolbarHeight: 100,
             actions: [
               if (GetIt.I<DrawerProvider>().action == ActionType.TODOS)

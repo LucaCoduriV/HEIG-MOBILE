@@ -24,8 +24,8 @@ ThemeData themeLight = ThemeData.light().copyWith(
   iconTheme: const IconThemeData(color: Color(0xFF000000)),
   textSelectionTheme:
       const TextSelectionThemeData(cursorColor: Color(0xFF9E9E9E)),
-  primaryColor: const Color(0xFFFFFFFF),
-  backgroundColor: const Color(0xFFF9F9FB),
+  primaryColor: const Color(0xFFF9F9FB),
+  backgroundColor: const Color(0xFFFFFFFF),
   accentColor: const Color(0xffdf4d52),
   inputDecorationTheme: const InputDecorationTheme(
       focusedBorder: UnderlineInputBorder(
