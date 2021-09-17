@@ -48,8 +48,8 @@ ThemeData themeDark = ThemeData.dark().copyWith(
   iconTheme: const IconThemeData(color: Color(0xFF000000)),
   textSelectionTheme:
       const TextSelectionThemeData(cursorColor: Color(0xFF9E9E9E)),
-  primaryColor: const Color(0xffda291c),
-  backgroundColor: const Color(0xFF121212),
+  primaryColor: const Color(0xFF121212),
+  backgroundColor: const Color(0xFF1E1E1E),
   accentColor: const Color(0xffdf4d52),
   inputDecorationTheme: const InputDecorationTheme(
       focusedBorder: UnderlineInputBorder(
@@ -60,6 +60,17 @@ ThemeData themeDark = ThemeData.dark().copyWith(
     textTheme: ButtonTextTheme.primary,
   ),
 );
+
+class ThemeProvider extends ChangeNotifier {
+  ThemeMode _mode = ThemeMode.light;
+
+  set mode(ThemeMode mode) {
+    _mode = mode;
+    notifyListeners();
+  }
+
+  ThemeMode get mode => _mode;
+}
 
 // Map<ThemeRef, Object> darkTheme = {
 //   COLOR_PRIMARY: const Color(0xffda291c),

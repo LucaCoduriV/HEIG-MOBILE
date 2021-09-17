@@ -24,7 +24,7 @@ class NotesDetails extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).primaryColor,
             padding: const EdgeInsets.all(20),
             child: ListView(
               physics: const BouncingScrollPhysics(),

@@ -33,9 +33,14 @@ class _MyDrawerState extends State<MyDrawer> {
         return Scaffold(
           key: _scaffoldKey,
           appBar: AppBar(
+            iconTheme: IconThemeData(
+              color: Provider.of<theme.ThemeProvider>(context).mode ==
+                      ThemeMode.light
+                  ? Colors.black
+                  : Colors.white,
+            ),
             elevation: 0,
-            title:
-                Text(Provider.of<DrawerProvider>(context, listen: true).title),
+            title: Text(Provider.of<DrawerProvider>(context).title),
             toolbarHeight: 100,
             actions: [
               if (GetIt.I<DrawerProvider>().action == ActionType.TODOS)
@@ -58,11 +63,24 @@ class _MyDrawerState extends State<MyDrawer> {
                     child: Text.rich(
                       TextSpan(
                         text: NOM_JOURS_SEMAINE[DateTime.now().weekday],
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color:
+                              Provider.of<theme.ThemeProvider>(context).mode ==
+                                      ThemeMode.light
+                                  ? Colors.black
+                                  : Colors.white,
+                        ),
                         children: [
                           TextSpan(
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.normal),
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                color: Provider.of<theme.ThemeProvider>(context)
+                                            .mode ==
+                                        ThemeMode.light
+                                    ? Colors.black
+                                    : Colors.white,
+                              ),
                               text:
                                   ' ${DateTime.now().day} ${NOM_MOIS[DateTime.now().month]}')
                         ],
@@ -112,7 +130,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         ListTile(
                           leading: Icon(
                             Icons.home,
-                            color: Theme.of(context).primaryColor,
+                            color: Theme.of(context).accentColor,
                           ),
                           title: const Text('Home'),
                           onTap: () {
@@ -123,7 +141,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         ListTile(
                           leading: Icon(
                             Icons.list,
-                            color: Theme.of(context).primaryColor,
+                            color: Theme.of(context).accentColor,
                           ),
                           title: const Text('Notes'),
                           onTap: () {
@@ -134,7 +152,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         ListTile(
                           leading: Icon(
                             Icons.timer,
-                            color: Theme.of(context).primaryColor,
+                            color: Theme.of(context).accentColor,
                           ),
                           title: const Text('Horaires'),
                           onTap: () {
@@ -145,7 +163,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         ListTile(
                           leading: Icon(
                             Icons.calendar_today,
-                            color: Theme.of(context).primaryColor,
+                            color: Theme.of(context).accentColor,
                           ),
                           title: const Text('Agenda'),
                           onTap: () {

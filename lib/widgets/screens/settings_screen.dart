@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 import 'package:themed/themed.dart';
 import '../../controllers/theme_data.dart' as theme;
 
@@ -18,8 +22,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
         children: [
           SwitchListTile(
               title: const Text('Dark mode'),
-              value: true,
-              onChanged: (value) {})
+              value: GetIt.I.get<theme.ThemeProvider>().mode == ThemeMode.dark,
+              onChanged: (value) {
+                if (GetIt.I.get<theme.ThemeProvider>().mode == ThemeMode.dark) {
+                  GetIt.I.get<theme.ThemeProvider>().mode = ThemeMode.light;
+                } else {
+                  GetIt.I.get<theme.ThemeProvider>().mode = ThemeMode.dark;
+                }
+              })
         ],
       ),
     );

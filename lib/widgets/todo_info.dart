@@ -46,7 +46,7 @@ class _TodoInfoState extends State<TodoInfo> {
       direction: DismissDirection.endToStart,
       background: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
+          color: Colors.red,
           borderRadius: BorderRadius.circular(20),
         ),
       ),

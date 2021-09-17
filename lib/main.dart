@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:provider/provider.dart';
 import 'package:themed/themed.dart';
 import 'package:vrouter/vrouter.dart';
 
@@ -48,6 +49,7 @@ Future<void> setup() async {
   GetIt.I.registerSingleton<UserProvider>(UserProvider());
   GetIt.I.registerSingleton<HorairesProvider>(HorairesProvider());
   GetIt.I.registerSingleton<NotificationsManager>(NotificationsManager());
+  GetIt.I.registerSingleton<theme.ThemeProvider>(theme.ThemeProvider());
   GetIt.I.registerSingleton<GlobalKey<RefreshIndicatorState>>(
       GlobalKey<RefreshIndicatorState>());
 
@@ -65,23 +67,35 @@ Future<void> main() async {
 }
 
 /// Point d'entrée de l'application.
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  ThemeMode mode = ThemeMode.light;
+
+  @override
   Widget build(BuildContext context) {
-    return VRouter(
-      theme: theme.themeLight,
-      darkTheme: theme.themeDark,
-      themeMode: ThemeMode.dark,
-      debugShowCheckedModeBanner: false,
-      buildTransition: buildTransition,
-      mode: VRouterMode.history, // Remove the '#' from the url
-      logs: foundation.kReleaseMode
-          ? VLogs.none
-          : VLogs.info, // Defines which logs to show, info is the default
-      initialUrl: '/${navigator_controller.home}',
-      routes: MainRouter().buildRoutes(),
+    return ChangeNotifierProvider.value(
+      value: GetIt.I.get<theme.ThemeProvider>(),
+      builder: (context, _) {
+        return VRouter(
+          theme: theme.themeLight,
+          darkTheme: theme.themeDark,
+          themeMode: Provider.of<theme.ThemeProvider>(context).mode,
+          debugShowCheckedModeBanner: false,
+          buildTransition: buildTransition,
+          mode: VRouterMode.history, // Remove the '#' from the url
+          logs: foundation.kReleaseMode
+              ? VLogs.none
+              : VLogs.info, // Defines which logs to show, info is the default
+          initialUrl: '/${navigator_controller.home}',
+          routes: MainRouter().buildRoutes(),
+        );
+      },
     );
   }
 }
