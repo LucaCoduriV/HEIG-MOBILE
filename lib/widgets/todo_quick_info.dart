@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../controllers/theme.dart' as theme;
+import '../controllers/theme_data.dart' as theme;
 
 /// Affiche les informations d'une tâche pour la page d'acceuil.
 class TodoQuickInfo extends StatelessWidget {
@@ -38,9 +38,10 @@ class TodoQuickInfo extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Deadline',
+          Text('Deadline',
               style: TextStyle(
-                  fontWeight: FontWeight.w400, color: theme.COLOR_SECONDARY)),
+                  fontWeight: FontWeight.w400,
+                  color: Theme.of(context).backgroundColor)),
           const SizedBox(height: 10),
           Row(
             children: [
@@ -49,7 +50,7 @@ class TodoQuickInfo extends StatelessWidget {
                 width: 8,
                 decoration: BoxDecoration(
                   color: leftDays.inDays < 2
-                      ? theme.COLOR_PRIMARY
+                      ? Theme.of(context).primaryColor
                       : theme.COLOR_GREEN,
                   borderRadius: BorderRadius.circular(8),
                 ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:themed/themed.dart';
-import '../../controllers/theme.dart' as theme;
+import '../../controllers/theme_data.dart' as theme;
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -10,36 +10,16 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  Color bg = theme.COLOR_BACKGROUND;
-  Color text = theme.COLOR_TEXT_PRIMARY;
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: bg,
+      color: Theme.of(context).backgroundColor,
       child: ListView(
         children: [
           SwitchListTile(
-              title: Text(
-                'Dark mode',
-                style: TextStyle(color: text),
-              ),
-              value: Themed.ifCurrentThemeIs(theme.darkTheme),
-              onChanged: (value) {
-                if (!value) {
-                  Themed.currentTheme = null;
-                  setState(() {
-                    bg = const Color(0xFFF9F9FB);
-                    text = Colors.black;
-                  });
-                } else {
-                  Themed.currentTheme = theme.darkTheme;
-                  setState(() {
-                    bg = const Color(0xFF121212);
-                    text = Colors.white;
-                  });
-                }
-              })
+              title: const Text('Dark mode'),
+              value: true,
+              onChanged: (value) {})
         ],
       ),
     );

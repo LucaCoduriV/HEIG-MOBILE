@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-import '../controllers/theme.dart' as theme;
+import '../controllers/theme_data.dart' as theme;
 import '../controllers/todos_provider.dart';
 import '../models/todo.dart';
 
@@ -46,7 +46,7 @@ class _TodoInfoState extends State<TodoInfo> {
       direction: DismissDirection.endToStart,
       background: Container(
         decoration: BoxDecoration(
-          color: theme.COLOR_PRIMARY,
+          color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(20),
         ),
       ),

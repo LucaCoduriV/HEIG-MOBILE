@@ -14,7 +14,7 @@ import 'controllers/drawer_provider.dart';
 import 'controllers/horaires_provider.dart';
 import 'controllers/navigator_controller.dart' as navigator_controller;
 import 'controllers/notifications_manager.dart';
-import 'controllers/theme.dart' as theme;
+import 'controllers/theme_data.dart' as theme;
 import 'controllers/todos_provider.dart';
 import 'controllers/user_provider.dart';
 import 'models/branche.dart';
@@ -71,42 +71,27 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return VRouter(
-      theme: ThemeData(
-        textTheme: const TextTheme(
-          bodyText1: TextStyle(),
-          bodyText2: TextStyle(),
-        ).apply(
-          bodyColor: theme.COLOR_TEXT_PRIMARY,
-          displayColor: theme.COLOR_TEXT_PRIMARY,
-        ),
-        textSelectionTheme:
-            const TextSelectionThemeData(cursorColor: theme.COLOR_GREY),
-        primaryColor: theme.COLOR_SECONDARY,
-        accentColor: theme.COLOR_PRIMARY_ACCENT,
-        inputDecorationTheme: const InputDecorationTheme(
-            focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: theme.COLOR_PRIMARY),
-        )),
-        buttonTheme: const ButtonThemeData(
-          buttonColor: theme.COLOR_PRIMARY,
-          textTheme: ButtonTextTheme.primary,
-        ),
-      ),
+      theme: theme.themeLight,
+      darkTheme: theme.themeDark,
+      themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
-      buildTransition: (animation1, _, child) => SlideTransition(
-        position: Tween(begin: const Offset(1, 0), end: const Offset(0, 0))
-            .animate(animation1),
-        child: child,
-      ),
+      buildTransition: buildTransition,
       mode: VRouterMode.history, // Remove the '#' from the url
       logs: foundation.kReleaseMode
           ? VLogs.none
           : VLogs.info, // Defines which logs to show, info is the default
       initialUrl: '/${navigator_controller.home}',
       routes: MainRouter().buildRoutes(),
-      builder: (context, widget) {
-        return Themed(child: widget);
-      },
     );
   }
+}
+
+/// Transition entre les différentes routes.
+Widget buildTransition(
+    Animation<double> animation1, Animation<double> _, Widget child) {
+  return SlideTransition(
+    position: Tween(begin: const Offset(1, 0), end: const Offset(0, 0))
+        .animate(animation1),
+    child: child,
+  );
 }

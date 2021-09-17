@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../controllers/auth_controller.dart';
 import '../controllers/drawer_provider.dart';
 import '../controllers/navigator_controller.dart' as navigator_controller;
-import '../controllers/theme.dart' as theme;
+import '../controllers/theme_data.dart' as theme;
 import '../utils/date.dart';
 import 'todos_dialog.dart';
 
@@ -34,7 +34,6 @@ class _MyDrawerState extends State<MyDrawer> {
           key: _scaffoldKey,
           appBar: AppBar(
             elevation: 0,
-            backgroundColor: theme.COLOR_BACKGROUND,
             title:
                 Text(Provider.of<DrawerProvider>(context, listen: true).title),
             toolbarHeight: 100,
@@ -76,7 +75,7 @@ class _MyDrawerState extends State<MyDrawer> {
           body: widget.child,
           drawer: Drawer(
             child: Container(
-              color: theme.COLOR_BACKGROUND,
+              color: Theme.of(context).backgroundColor,
               child: Column(
                 children: <Widget>[
                   Expanded(
@@ -85,8 +84,8 @@ class _MyDrawerState extends State<MyDrawer> {
                       children: <Widget>[
                         DrawerHeader(
                           padding: EdgeInsets.zero,
-                          decoration: const BoxDecoration(
-                            color: theme.COLOR_SECONDARY,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
                           ),
                           child: Row(
                             children: [
@@ -111,8 +110,10 @@ class _MyDrawerState extends State<MyDrawer> {
                           ),
                         ),
                         ListTile(
-                          leading: const Icon(Icons.home,
-                              color: theme.COLOR_PRIMARY),
+                          leading: Icon(
+                            Icons.home,
+                            color: Theme.of(context).primaryColor,
+                          ),
                           title: const Text('Home'),
                           onTap: () {
                             _scaffoldKey.currentState?.openEndDrawer();
@@ -120,8 +121,10 @@ class _MyDrawerState extends State<MyDrawer> {
                           },
                         ),
                         ListTile(
-                          leading: const Icon(Icons.list,
-                              color: theme.COLOR_PRIMARY),
+                          leading: Icon(
+                            Icons.list,
+                            color: Theme.of(context).primaryColor,
+                          ),
                           title: const Text('Notes'),
                           onTap: () {
                             _scaffoldKey.currentState?.openEndDrawer();
@@ -129,8 +132,10 @@ class _MyDrawerState extends State<MyDrawer> {
                           },
                         ),
                         ListTile(
-                          leading: const Icon(Icons.timer,
-                              color: theme.COLOR_PRIMARY),
+                          leading: Icon(
+                            Icons.timer,
+                            color: Theme.of(context).primaryColor,
+                          ),
                           title: const Text('Horaires'),
                           onTap: () {
                             _scaffoldKey.currentState?.openEndDrawer();
@@ -138,8 +143,10 @@ class _MyDrawerState extends State<MyDrawer> {
                           },
                         ),
                         ListTile(
-                          leading: const Icon(Icons.calendar_today,
-                              color: theme.COLOR_PRIMARY),
+                          leading: Icon(
+                            Icons.calendar_today,
+                            color: Theme.of(context).primaryColor,
+                          ),
                           title: const Text('Agenda'),
                           onTap: () {
                             _scaffoldKey.currentState?.openEndDrawer();
@@ -158,10 +165,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         children: <Widget>[
                           const Divider(),
                           ListTile(
-                            leading: const Icon(
-                              Icons.settings,
-                              color: theme.COLOR_TEXT_PRIMARY,
-                            ),
+                            leading: const Icon(Icons.settings),
                             title: const Text('Options'),
                             onTap: () {
                               _scaffoldKey.currentState?.openEndDrawer();
@@ -173,10 +177,7 @@ class _MyDrawerState extends State<MyDrawer> {
                                 GetIt.I<AuthController>().logout();
                                 navigator_controller.toLogin(context);
                               },
-                              leading: const Icon(
-                                Icons.logout,
-                                color: theme.COLOR_TEXT_PRIMARY,
-                              ),
+                              leading: const Icon(Icons.logout),
                               title: const Text('Se déconnecter'))
                         ],
                       ))
