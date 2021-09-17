@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../controllers/bulletin_provider.dart';
 import '../../controllers/horaires_provider.dart';
 import '../../controllers/navigator_controller.dart' as navigator_controller;
+import '../../controllers/theme.dart' as theme;
 import '../../controllers/todos_provider.dart';
 import '../../controllers/user_provider.dart';
 import '../../models/heure_de_cours.dart';
@@ -42,7 +43,7 @@ class HomeScreen extends StatelessWidget {
         t = t.where((todo) => !todo.completed).toList();
 
         return Container(
-          color: const Color(0xFFF9F9FB),
+          color: theme.COLOR_BACKGROUND,
           child: Column(
             children: [
               Row(
@@ -54,9 +55,9 @@ class HomeScreen extends StatelessWidget {
                       margin: const EdgeInsets.only(left: 20),
                       child: Container(
                         padding: const EdgeInsets.all(3),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.red.shade200,
+                          color: theme.COLOR_PRIMARY_ACCENT,
                         ),
                         child: CircleAvatar(
                           backgroundColor: Colors.grey,
@@ -103,9 +104,10 @@ class HomeScreen extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.only(top: 25),
                   width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
+                  decoration: const BoxDecoration(
+                    color: theme.COLOR_SECONDARY,
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(20)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

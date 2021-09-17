@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:themed/themed.dart';
 import 'package:vrouter/vrouter.dart';
 
 import 'controllers/api_controller.dart';
@@ -13,6 +14,7 @@ import 'controllers/drawer_provider.dart';
 import 'controllers/horaires_provider.dart';
 import 'controllers/navigator_controller.dart' as navigator_controller;
 import 'controllers/notifications_manager.dart';
+import 'controllers/theme.dart' as theme;
 import 'controllers/todos_provider.dart';
 import 'controllers/user_provider.dart';
 import 'models/branche.dart';
@@ -70,20 +72,27 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return VRouter(
       theme: ThemeData(
+        textTheme: const TextTheme(
+          bodyText1: TextStyle(),
+          bodyText2: TextStyle(),
+        ).apply(
+          bodyColor: theme.COLOR_TEXT_PRIMARY,
+          displayColor: theme.COLOR_TEXT_PRIMARY,
+        ),
         textSelectionTheme:
-            const TextSelectionThemeData(cursorColor: Colors.grey),
-        primaryColor: Colors.white, //Color(0xffda291c),
-        accentColor: const Color(0xffdf4d52),
+            const TextSelectionThemeData(cursorColor: theme.COLOR_GREY),
+        primaryColor: theme.COLOR_SECONDARY,
+        accentColor: theme.COLOR_PRIMARY_ACCENT,
         inputDecorationTheme: const InputDecorationTheme(
             focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Color(0xffda291c)),
+          borderSide: BorderSide(color: theme.COLOR_PRIMARY),
         )),
         buttonTheme: const ButtonThemeData(
-          buttonColor: Color(0xffda291c),
+          buttonColor: theme.COLOR_PRIMARY,
           textTheme: ButtonTextTheme.primary,
         ),
       ),
-      debugShowCheckedModeBanner: false, // VRouter acts as a MaterialApp
+      debugShowCheckedModeBanner: false,
       buildTransition: (animation1, _, child) => SlideTransition(
         position: Tween(begin: const Offset(1, 0), end: const Offset(0, 0))
             .animate(animation1),
@@ -95,6 +104,9 @@ class MyApp extends StatelessWidget {
           : VLogs.info, // Defines which logs to show, info is the default
       initialUrl: '/${navigator_controller.home}',
       routes: MainRouter().buildRoutes(),
+      builder: (context, widget) {
+        return Themed(child: widget);
+      },
     );
   }
 }

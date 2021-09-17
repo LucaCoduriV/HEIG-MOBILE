@@ -7,7 +7,7 @@ import '../widgets/screens/home_screen.dart';
 class HomeRoute extends VRouteElementBuilder {
   final List<VRouteElement> stackedRoutes;
 
-  HomeRoute({required this.stackedRoutes});
+  HomeRoute({this.stackedRoutes = const []});
 
   @override
   List<VRouteElement> buildRoutes() {

@@ -8,6 +8,7 @@ const String notes = 'notes';
 const String horaires = 'horaires';
 const String home = 'home';
 const String todos = 'todos';
+const String settings = 'settings';
 
 void toLogin(BuildContext context) {
   VRouter.of(context).to('/$login');
@@ -31,4 +32,8 @@ void toTodos(BuildContext context) {
 
 void toNoteDetails(BuildContext context, int noteId) {
   VRouter.of(context).to('/$notes/$noteId');
+}
+
+void toSettings(BuildContext context) {
+  VRouter.of(context).to('/$settings');
 }

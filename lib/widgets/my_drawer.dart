@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../controllers/auth_controller.dart';
 import '../controllers/drawer_provider.dart';
 import '../controllers/navigator_controller.dart' as navigator_controller;
+import '../controllers/theme.dart' as theme;
 import '../utils/date.dart';
 import 'todos_dialog.dart';
 
@@ -33,7 +34,7 @@ class _MyDrawerState extends State<MyDrawer> {
           key: _scaffoldKey,
           appBar: AppBar(
             elevation: 0,
-            backgroundColor: const Color(0xFFF9F9FB),
+            backgroundColor: theme.COLOR_BACKGROUND,
             title:
                 Text(Provider.of<DrawerProvider>(context, listen: true).title),
             toolbarHeight: 100,
@@ -74,97 +75,113 @@ class _MyDrawerState extends State<MyDrawer> {
           ),
           body: widget.child,
           drawer: Drawer(
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  // ListView contains a group of widgets that scroll inside the drawer
-                  child: ListView(
-                    children: <Widget>[
-                      DrawerHeader(
-                        padding: EdgeInsets.zero,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                        ),
-                        child: Row(
-                          children: [
-                            Container(
-                              height: double.infinity,
-                              color: Colors.blue,
-                              child: image,
-                            ),
-                            const SizedBox(width: 10),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Text('HAUTE ÉCOLE',
-                                    style: TextStyle(fontSize: 15)),
-                                Text("D'INGÉNIERIE ET DE GESTION",
-                                    style: TextStyle(fontSize: 15)),
-                                Text('DU CANTON DE VAUD',
-                                    style: TextStyle(fontSize: 15)),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.home, color: Colors.red.shade500),
-                        title: const Text('Home'),
-                        onTap: () {
-                          _scaffoldKey.currentState?.openEndDrawer();
-                          navigator_controller.toHome(context);
-                        },
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.list, color: Colors.red.shade500),
-                        title: const Text('Notes'),
-                        onTap: () {
-                          _scaffoldKey.currentState?.openEndDrawer();
-                          navigator_controller.toNotes(context);
-                        },
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.timer, color: Colors.red.shade500),
-                        title: const Text('Horaires'),
-                        onTap: () {
-                          _scaffoldKey.currentState?.openEndDrawer();
-                          navigator_controller.toHoraires(context);
-                        },
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.calendar_today,
-                            color: Colors.red.shade500),
-                        title: const Text('Agenda'),
-                        onTap: () {
-                          _scaffoldKey.currentState?.openEndDrawer();
-                          navigator_controller.toTodos(context);
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                // This container holds the align
-                Align(
-                    alignment: FractionalOffset.bottomCenter,
-                    // This container holds all the children that will be aligned
-                    // on the bottom and should not scroll with the above ListView
-                    child: Column(
+            child: Container(
+              color: theme.COLOR_BACKGROUND,
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    // ListView contains a group of widgets that scroll inside the drawer
+                    child: ListView(
                       children: <Widget>[
-                        const Divider(),
-                        const ListTile(
-                            leading: Icon(Icons.settings),
-                            title: Text('Options')),
+                        DrawerHeader(
+                          padding: EdgeInsets.zero,
+                          decoration: const BoxDecoration(
+                            color: theme.COLOR_SECONDARY,
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                height: double.infinity,
+                                child: image,
+                              ),
+                              const SizedBox(width: 10),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Text('HAUTE ÉCOLE',
+                                      style: TextStyle(fontSize: 15)),
+                                  Text("D'INGÉNIERIE ET DE GESTION",
+                                      style: TextStyle(fontSize: 15)),
+                                  Text('DU CANTON DE VAUD',
+                                      style: TextStyle(fontSize: 15)),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
                         ListTile(
-                            onTap: () {
-                              GetIt.I<AuthController>().logout();
-                              navigator_controller.toLogin(context);
-                            },
-                            leading: const Icon(Icons.logout),
-                            title: const Text('Se déconnecter'))
+                          leading: const Icon(Icons.home,
+                              color: theme.COLOR_PRIMARY),
+                          title: const Text('Home'),
+                          onTap: () {
+                            _scaffoldKey.currentState?.openEndDrawer();
+                            navigator_controller.toHome(context);
+                          },
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.list,
+                              color: theme.COLOR_PRIMARY),
+                          title: const Text('Notes'),
+                          onTap: () {
+                            _scaffoldKey.currentState?.openEndDrawer();
+                            navigator_controller.toNotes(context);
+                          },
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.timer,
+                              color: theme.COLOR_PRIMARY),
+                          title: const Text('Horaires'),
+                          onTap: () {
+                            _scaffoldKey.currentState?.openEndDrawer();
+                            navigator_controller.toHoraires(context);
+                          },
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.calendar_today,
+                              color: theme.COLOR_PRIMARY),
+                          title: const Text('Agenda'),
+                          onTap: () {
+                            _scaffoldKey.currentState?.openEndDrawer();
+                            navigator_controller.toTodos(context);
+                          },
+                        ),
                       ],
-                    ))
-              ],
+                    ),
+                  ),
+                  // This container holds the align
+                  Align(
+                      alignment: FractionalOffset.bottomCenter,
+                      // This container holds all the children that will be aligned
+                      // on the bottom and should not scroll with the above ListView
+                      child: Column(
+                        children: <Widget>[
+                          const Divider(),
+                          ListTile(
+                            leading: const Icon(
+                              Icons.settings,
+                              color: theme.COLOR_TEXT_PRIMARY,
+                            ),
+                            title: const Text('Options'),
+                            onTap: () {
+                              _scaffoldKey.currentState?.openEndDrawer();
+                              navigator_controller.toSettings(context);
+                            },
+                          ),
+                          ListTile(
+                              onTap: () {
+                                GetIt.I<AuthController>().logout();
+                                navigator_controller.toLogin(context);
+                              },
+                              leading: const Icon(
+                                Icons.logout,
+                                color: theme.COLOR_TEXT_PRIMARY,
+                              ),
+                              title: const Text('Se déconnecter'))
+                        ],
+                      ))
+                ],
+              ),
             ),
           ),
         );

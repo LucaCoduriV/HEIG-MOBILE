@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import '../../controllers/bulletin_provider.dart';
 import '../../controllers/drawer_provider.dart';
 import '../../controllers/navigator_controller.dart' as navigator_controller;
+import '../../controllers/theme.dart' as theme;
+
 import '../../models/branche.dart';
 import '../../models/bulletin.dart';
 import '../branche_button.dart';
@@ -22,7 +24,7 @@ class BulletinScreen extends StatelessWidget {
         final bool loading = context.watch<BulletinProvider>().loading;
         final thisYear = DateTime.now().year;
         return Container(
-          color: Colors.white,
+          color: theme.COLOR_SECONDARY,
           child: Column(
             children: [
               Row(

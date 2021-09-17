@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../controllers/horaires_provider.dart';
+import '../../controllers/theme.dart' as theme;
 import '../../models/heure_de_cours.dart';
 import '../heure_de_cours_widget.dart';
 
@@ -33,11 +34,11 @@ class _HorairesScreenState extends State<HorairesScreen> {
         final HorairesProvider h = Provider.of<HorairesProvider>(context);
         final List<HeureDeCours> coursJour = h.getDailyClasses(_selectedDay);
         return Container(
-          color: const Color(0xFFF9F9FB),
+          color: theme.COLOR_BACKGROUND,
           child: Container(
             padding: const EdgeInsets.only(top: 25),
             decoration: const BoxDecoration(
-              color: Colors.white,
+              color: theme.COLOR_SECONDARY,
               borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
             ),
             child: Column(
@@ -49,7 +50,7 @@ class _HorairesScreenState extends State<HorairesScreen> {
                         margin: const EdgeInsets.all(4),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            color: Colors.red,
+                            color: theme.COLOR_PRIMARY,
                             borderRadius: BorderRadius.circular(50)),
                         child: Text(
                           date.day.toString(),

@@ -23,13 +23,11 @@ class Todo {
   DateTime get date => _date;
 
   Todo(int id, String title, String description, DateTime date,
-      {required bool completed}) {
-    _id = id;
-    _title = title;
-    _description = description;
-    completed = completed;
-    _date = date;
-  }
+      {required this.completed})
+      : _id = id,
+        _title = title,
+        _description = description,
+        _date = date;
 
   factory Todo.fromJson(Map<String, dynamic> json) {
     return Todo(

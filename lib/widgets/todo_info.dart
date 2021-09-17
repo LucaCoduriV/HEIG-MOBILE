@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+
+import '../controllers/theme.dart' as theme;
 import '../controllers/todos_provider.dart';
 import '../models/todo.dart';
 
@@ -44,7 +46,7 @@ class _TodoInfoState extends State<TodoInfo> {
       direction: DismissDirection.endToStart,
       background: Container(
         decoration: BoxDecoration(
-          color: Colors.red,
+          color: theme.COLOR_PRIMARY,
           borderRadius: BorderRadius.circular(20),
         ),
       ),
@@ -54,8 +56,8 @@ class _TodoInfoState extends State<TodoInfo> {
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: !todo.completed
-                ? const Color(0xFFFEF5F6)
-                : const Color(0xFFF4FEF8),
+                ? theme.COLOR_PRIMARY_LIGHT_LIGHT
+                : theme.COLOR_GREEN_LIGHT_LIGHT,
             borderRadius: BorderRadius.circular(20),
           ),
           child: Column(
@@ -67,7 +69,7 @@ class _TodoInfoState extends State<TodoInfo> {
                   Text(
                     todo.title,
                     style: TextStyle(
-                      color: !todo.completed ? Colors.black : Colors.grey,
+                      color: !todo.completed ? Colors.black : theme.COLOR_GREY,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       decoration: todo.completed
@@ -96,7 +98,7 @@ class _TodoInfoState extends State<TodoInfo> {
                   Text(
                     todo.description,
                     style: TextStyle(
-                      color: !todo.completed ? Colors.black : Colors.grey,
+                      color: !todo.completed ? Colors.black : theme.COLOR_GREY,
                     ),
                   ),
                 ],

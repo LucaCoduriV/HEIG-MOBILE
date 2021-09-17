@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../controllers/theme.dart' as theme;
 import '../../controllers/todos_provider.dart';
 import '../../models/todo.dart';
 import '../todo_info.dart';
@@ -34,10 +35,10 @@ class _AgendaScreenState extends State<AgendaScreen> {
             Provider.of<TodosProvider>(context).getDailyTodos(_selectedDay);
         dailyTasks.sort((a, b) => a.date.compareTo(b.date));
         return Container(
-          color: const Color(0xFFF9F9FB),
+          color: theme.COLOR_BACKGROUND,
           child: Container(
             decoration: const BoxDecoration(
-              color: Colors.white,
+              color: theme.COLOR_SECONDARY,
               borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
             ),
             child: Column(
@@ -50,11 +51,12 @@ class _AgendaScreenState extends State<AgendaScreen> {
                             margin: const EdgeInsets.all(4),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                                color: Colors.redAccent,
+                                color: theme.COLOR_PRIMARY_ACCENT,
                                 borderRadius: BorderRadius.circular(50)),
                             child: Text(
                               date.day.toString(),
-                              style: const TextStyle(color: Colors.white),
+                              style:
+                                  const TextStyle(color: theme.COLOR_SECONDARY),
                             )),
                         todayBuilder: (context, date, events) => Container(
                             margin: const EdgeInsets.all(4),

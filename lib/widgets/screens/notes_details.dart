@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:vrouter/vrouter.dart';
 
 import '../../controllers/bulletin_provider.dart';
+import '../../controllers/theme.dart' as theme;
 import '../../models/bulletin.dart';
 import '../../models/notes.dart';
 import '../chart.dart';
@@ -23,7 +24,7 @@ class NotesDetails extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
-            color: Colors.white,
+            color: theme.COLOR_BACKGROUND,
             padding: const EdgeInsets.all(20),
             child: ListView(
               physics: const BouncingScrollPhysics(),
@@ -87,6 +88,7 @@ class NotesDetails extends StatelessWidget {
       const DataColumn(
         label: Text(
           'Titre',
+          style: TextStyle(color: theme.COLOR_TEXT_PRIMARY),
         ),
       ),
       DataColumn(
@@ -95,6 +97,7 @@ class NotesDetails extends StatelessWidget {
           children: [
             const Text(
               'Moy.',
+              style: TextStyle(color: theme.COLOR_TEXT_PRIMARY),
             ),
             Container(color: Colors.red, height: 10, width: 5)
           ],
@@ -103,7 +106,8 @@ class NotesDetails extends StatelessWidget {
       const DataColumn(
         label: Text(
           'coef.',
-          style: TextStyle(fontStyle: FontStyle.italic),
+          style: TextStyle(
+              fontStyle: FontStyle.italic, color: theme.COLOR_TEXT_PRIMARY),
         ),
       ),
       DataColumn(
@@ -112,6 +116,7 @@ class NotesDetails extends StatelessWidget {
           children: [
             const Text(
               'Notes',
+              style: TextStyle(color: theme.COLOR_TEXT_PRIMARY),
             ),
             const SizedBox(
               width: 2,

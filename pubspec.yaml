@@ -41,6 +41,7 @@ dependencies:
     intl: ^0.17.0
     rrule: ^0.2.3 #Ical rrule
     fl_chart: ^0.40.0
+    themed: ^2.0.4
     flutter:
         sdk: flutter
 

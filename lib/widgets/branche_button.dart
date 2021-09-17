@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../controllers/theme.dart' as theme;
 
 /// Bouton qui permet d'accéder à la page des notes d'une branche.
 ///
@@ -27,7 +28,7 @@ class BrancheButton extends StatelessWidget {
         margin: const EdgeInsets.fromLTRB(20, 10, 20, 0),
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
-          color: Colors.grey.shade200,
+          color: theme.COLOR_BACKGROUND,
           borderRadius: BorderRadius.circular(10),
         ),
         child: buildButtonContent(),
