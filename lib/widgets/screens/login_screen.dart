@@ -33,6 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -51,6 +52,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: 200,
                         child: TextFormField(
                           validator: validator,
+                          style: TextStyle(
+                            color: Theme.of(context).textTheme.bodyText1!.color,
+                          ),
                           decoration: const InputDecoration(
                             hintText: 'Enter your name',
                           ),
@@ -65,6 +69,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       Container(
                         width: 200,
                         child: TextFormField(
+                          style: TextStyle(
+                            color: Theme.of(context).textTheme.bodyText1!.color,
+                          ),
                           validator: validator,
                           decoration: const InputDecoration(
                             hintText: 'Enter your password',
