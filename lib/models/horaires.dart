@@ -56,18 +56,18 @@ class Horaires {
     } catch (e) {
       log(e.toString());
     }
-    notificationIds.forEach((element) {
-      AwesomeNotifications().cancel(element);
-    });
-    data.forEach((element) {
-      if (element.debut.isAfter(DateTime.now())) {
-        GetIt.I.get<NotificationsManager>().registerNotificationHoraire(
-              element.nom,
-              element.salle,
-              element.debut.subtract(const Duration(hours: 1)),
-            );
-      }
-    });
+    // notificationIds.forEach((element) {
+    //   AwesomeNotifications().cancel(element);
+    // });
+    // data.forEach((element) {
+    //   if (element.debut.isAfter(DateTime.now())) {
+    //     GetIt.I.get<NotificationsManager>().registerNotificationHoraire(
+    //           element.nom,
+    //           element.salle,
+    //           element.debut.subtract(const Duration(hours: 1)),
+    //         );
+    //   }
+    // });
     return data;
   }
 
