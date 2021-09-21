@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../controllers/theme.dart' as theme;
+import 'package:provider/provider.dart';
+import '../controllers/theme_data.dart' as theme;
 
 /// Element d'une liste permettant d'afficher le début et la fin d'un cours.
 class HeureDeCoursWidget extends StatelessWidget {
@@ -19,7 +20,7 @@ class HeureDeCoursWidget extends StatelessWidget {
     return Container(
       height: 100,
       decoration: BoxDecoration(
-        color: theme.COLOR_BACKGROUND,
+        color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -53,9 +54,12 @@ class HeureDeCoursWidget extends StatelessWidget {
                   const SizedBox(height: 5),
                   Row(
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.location_on_outlined,
-                        color: theme.COLOR_TEXT_PRIMARY,
+                        color: Provider.of<theme.ThemeProvider>(context).mode ==
+                                ThemeMode.light
+                            ? Colors.black
+                            : Colors.white,
                       ),
                       Text(salle),
                     ],

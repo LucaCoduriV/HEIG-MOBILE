@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:themed/themed.dart';
-import '../../controllers/theme.dart' as theme;
+import 'package:get_it/get_it.dart';
+import '../../controllers/theme_data.dart' as theme;
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -10,34 +10,24 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  Color bg = theme.COLOR_BACKGROUND;
-  Color text = theme.COLOR_TEXT_PRIMARY;
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: bg,
+      color: Theme.of(context).primaryColor,
       child: ListView(
         children: [
           SwitchListTile(
               title: Text(
                 'Dark mode',
-                style: TextStyle(color: text),
+                style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyText1!.color),
               ),
-              value: Themed.ifCurrentThemeIs(theme.darkTheme),
+              value: GetIt.I.get<theme.ThemeProvider>().mode == ThemeMode.dark,
               onChanged: (value) {
-                if (!value) {
-                  Themed.currentTheme = null;
-                  setState(() {
-                    bg = const Color(0xFFF9F9FB);
-                    text = Colors.black;
-                  });
+                if (GetIt.I.get<theme.ThemeProvider>().mode == ThemeMode.dark) {
+                  GetIt.I.get<theme.ThemeProvider>().mode = ThemeMode.light;
                 } else {
-                  Themed.currentTheme = theme.darkTheme;
-                  setState(() {
-                    bg = const Color(0xFF121212);
-                    text = Colors.white;
-                  });
+                  GetIt.I.get<theme.ThemeProvider>().mode = ThemeMode.dark;
                 }
               })
         ],

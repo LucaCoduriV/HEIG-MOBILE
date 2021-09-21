@@ -19,8 +19,11 @@ class _TodosDialogState extends State<TodosDialog> {
     return SimpleDialog(
       titlePadding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
       contentPadding: const EdgeInsets.all(20),
-      backgroundColor: Colors.white,
-      title: const Text('Ajouter une tache'),
+      backgroundColor: Theme.of(context).primaryColor,
+      title: Text(
+        'Ajouter une tache',
+        style: TextStyle(color: Theme.of(context).textTheme.bodyText1!.color),
+      ),
       children: [
         Form(
           child: Column(

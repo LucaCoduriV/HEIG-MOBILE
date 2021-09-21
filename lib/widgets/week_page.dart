@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../controllers/theme.dart' as theme;
 import '../models/todo.dart';
 import '../utils/date.dart';
 import 'todo_info.dart';
@@ -56,8 +55,9 @@ class WeekPage extends StatelessWidget {
   Widget buildTitle(BuildContext context, String text) {
     return Container(
       margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-      decoration: const BoxDecoration(
-        border: Border(bottom: BorderSide(color: theme.COLOR_PRIMARY)),
+      decoration: BoxDecoration(
+        border:
+            Border(bottom: BorderSide(color: Theme.of(context).primaryColor)),
       ),
       child: Text(
         text,

@@ -1,7 +1,4 @@
 import 'dart:developer';
-import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:get_it/get_it.dart';
-import 'package:heig_front/controllers/notifications_manager.dart';
 import 'package:heig_front/models/heure_de_cours.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:rrule/rrule.dart';
@@ -18,13 +15,10 @@ class Horaires {
   late List<HeureDeCours> horaires;
   @HiveField(3)
   String rrule = '';
-  @HiveField(4)
-  List<int> notificationIds = [];
 
   late List<HeureDeCours> horairesRRule;
 
-  Horaires(this.semestre, this.annee, this.horaires, this.rrule,
-      {this.notificationIds = const []}) {
+  Horaires(this.semestre, this.annee, this.horaires, this.rrule) {
     horairesRRule = getRRuleDates();
   }
 
@@ -35,18 +29,18 @@ class Horaires {
         if (element.rrule != null && element.rrule != '') {
           final RecurrenceRule parsedRRule =
               RecurrenceRule.fromString('RRULE:${element.rrule!}');
-          final List<DateTime> startArray =
-              parsedRRule.getAllInstances(start: element.debut.toUtc());
+          final List<DateTime> startArray = parsedRRule.getAllInstances(
+              start: element.debut.add(const Duration(hours: 2)).toUtc());
 
-          final List<DateTime> endArray =
-              parsedRRule.getAllInstances(start: element.fin.toUtc());
+          final List<DateTime> endArray = parsedRRule.getAllInstances(
+              start: element.fin.add(const Duration(hours: 2)).toUtc());
 
           for (int i = 0; i < startArray.length; i++) {
             try {
               data.add(HeureDeCours(element.nom, startArray[i], endArray[i],
                   element.prof, element.salle, element.uid, element.rrule));
             } catch (e) {
-              log('error!');
+              log('error!: $e');
             }
           }
         } else {
@@ -56,18 +50,6 @@ class Horaires {
     } catch (e) {
       log(e.toString());
     }
-    notificationIds.forEach((element) {
-      AwesomeNotifications().cancel(element);
-    });
-    data.forEach((element) {
-      if (element.debut.isAfter(DateTime.now())) {
-        GetIt.I.get<NotificationsManager>().registerNotificationHoraire(
-              element.nom,
-              element.salle,
-              element.debut.subtract(const Duration(hours: 1)),
-            );
-      }
-    });
     return data;
   }
 

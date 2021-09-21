@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../controllers/theme.dart' as theme;
+import 'package:provider/provider.dart';
+import '../controllers/theme_data.dart' as theme;
 
 /// Bouton qui permet d'accéder à la page des notes d'une branche.
 ///
@@ -17,10 +18,10 @@ class BrancheButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return buildButton();
+    return buildButton(context);
   }
 
-  Widget buildButton() {
+  Widget buildButton(BuildContext context) {
     return InkWell(
       onTap: onPress,
       child: Container(
@@ -28,15 +29,15 @@ class BrancheButton extends StatelessWidget {
         margin: const EdgeInsets.fromLTRB(20, 10, 20, 0),
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
-          color: theme.COLOR_BACKGROUND,
+          color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(10),
         ),
-        child: buildButtonContent(),
+        child: buildButtonContent(context),
       ),
     );
   }
 
-  Widget buildButtonContent() {
+  Widget buildButtonContent(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -64,9 +65,15 @@ class BrancheButton extends StatelessWidget {
           ],
         ),
         Row(
-          children: const [
-            SizedBox(width: 10),
-            Icon(Icons.arrow_forward_ios_rounded),
+          children: [
+            const SizedBox(width: 10),
+            Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Provider.of<theme.ThemeProvider>(context).mode ==
+                      ThemeMode.light
+                  ? Colors.black
+                  : Colors.white,
+            ),
           ],
         )
       ],

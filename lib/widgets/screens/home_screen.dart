@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '../../controllers/bulletin_provider.dart';
 import '../../controllers/horaires_provider.dart';
 import '../../controllers/navigator_controller.dart' as navigator_controller;
-import '../../controllers/theme.dart' as theme;
 import '../../controllers/todos_provider.dart';
 import '../../controllers/user_provider.dart';
 import '../../models/heure_de_cours.dart';
@@ -43,7 +42,7 @@ class HomeScreen extends StatelessWidget {
         t = t.where((todo) => !todo.completed).toList();
 
         return Container(
-          color: theme.COLOR_BACKGROUND,
+          color: Theme.of(context).primaryColor,
           child: Column(
             children: [
               Row(
@@ -55,9 +54,9 @@ class HomeScreen extends StatelessWidget {
                       margin: const EdgeInsets.only(left: 20),
                       child: Container(
                         padding: const EdgeInsets.all(3),
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: theme.COLOR_PRIMARY_ACCENT,
+                          color: Theme.of(context).accentColor,
                         ),
                         child: CircleAvatar(
                           backgroundColor: Colors.grey,
@@ -104,10 +103,10 @@ class HomeScreen extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.only(top: 25),
                   width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: theme.COLOR_SECONDARY,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).backgroundColor,
                     borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(20)),
+                        const BorderRadius.vertical(top: Radius.circular(20)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
