@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '../../controllers/bulletin_provider.dart';
 import '../../controllers/horaires_provider.dart';
 import '../../controllers/navigator_controller.dart' as navigator_controller;
-import '../../controllers/theme_data.dart' as theme;
 import '../../controllers/todos_provider.dart';
 import '../../controllers/user_provider.dart';
 import '../../models/heure_de_cours.dart';

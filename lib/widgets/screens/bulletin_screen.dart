@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '../../controllers/bulletin_provider.dart';
 import '../../controllers/drawer_provider.dart';
 import '../../controllers/navigator_controller.dart' as navigator_controller;
-import '../../controllers/theme_data.dart' as theme;
 
 import '../../models/branche.dart';
 import '../../models/bulletin.dart';

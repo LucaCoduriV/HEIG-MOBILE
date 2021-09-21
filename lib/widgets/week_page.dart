@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../controllers/theme_data.dart' as theme;
 import '../models/todo.dart';
 import '../utils/date.dart';
 import 'todo_info.dart';

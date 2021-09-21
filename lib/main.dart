@@ -5,7 +5,6 @@ import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
-import 'package:themed/themed.dart';
 import 'package:vrouter/vrouter.dart';
 
 import 'controllers/api_controller.dart';

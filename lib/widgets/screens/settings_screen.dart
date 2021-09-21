@@ -1,9 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:provider/provider.dart';
-import 'package:themed/themed.dart';
 import '../../controllers/theme_data.dart' as theme;
 
 class SettingsScreen extends StatefulWidget {
@@ -17,11 +13,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).backgroundColor,
+      color: Theme.of(context).primaryColor,
       child: ListView(
         children: [
           SwitchListTile(
-              title: const Text('Dark mode'),
+              title: Text(
+                'Dark mode',
+                style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyText1!.color),
+              ),
               value: GetIt.I.get<theme.ThemeProvider>().mode == ThemeMode.dark,
               onChanged: (value) {
                 if (GetIt.I.get<theme.ThemeProvider>().mode == ThemeMode.dark) {

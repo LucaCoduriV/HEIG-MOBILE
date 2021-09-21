@@ -191,7 +191,8 @@ class _MyDrawerState extends State<MyDrawer> {
                         children: <Widget>[
                           const Divider(),
                           ListTile(
-                            leading: const Icon(Icons.settings),
+                            leading: Icon(Icons.settings,
+                                color: Theme.of(context).iconTheme.color),
                             title: const Text('Options'),
                             onTap: () {
                               _scaffoldKey.currentState?.openEndDrawer();
@@ -203,7 +204,8 @@ class _MyDrawerState extends State<MyDrawer> {
                                 GetIt.I<AuthController>().logout();
                                 navigator_controller.toLogin(context);
                               },
-                              leading: const Icon(Icons.logout),
+                              leading: Icon(Icons.logout,
+                                  color: Theme.of(context).iconTheme.color),
                               title: const Text('Se déconnecter'))
                         ],
                       ))

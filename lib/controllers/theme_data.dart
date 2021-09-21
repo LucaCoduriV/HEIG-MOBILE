@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:themed/themed.dart';
 
 // const COLOR_PRIMARY = ColorRef(Color(0xffda291c));
 const COLOR_PRIMARY_LIGHT = Color(0xFFFF8A80);
@@ -46,7 +45,7 @@ ThemeData themeDark = ThemeData.dark().copyWith(
     bodyColor: const Color(0xFFFFFFFF),
     displayColor: const Color(0xFFFFFFFF),
   ),
-  iconTheme: const IconThemeData(color: Color(0xFF000000)),
+  iconTheme: const IconThemeData(color: Color(0xFFFFFFFF)),
   textSelectionTheme:
       const TextSelectionThemeData(cursorColor: Color(0xFF9E9E9E)),
   primaryColor: const Color(0xFF121212),
@@ -67,7 +66,7 @@ class ThemeProvider extends ChangeNotifier {
   var box = Hive.box('heig');
 
   ThemeProvider() {
-    final themeModeId = box.get('theme', defaultValue: 0);
+    final themeModeId = box.get('theme', defaultValue: 1);
     _mode = ThemeMode.values[themeModeId];
   }
 

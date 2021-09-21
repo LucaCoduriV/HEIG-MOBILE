@@ -3,7 +3,6 @@ import 'package:get_it/get_it.dart';
 import 'package:vrouter/vrouter.dart';
 
 import '../../controllers/bulletin_provider.dart';
-import '../../controllers/theme_data.dart' as theme;
 import '../../models/bulletin.dart';
 import '../../models/notes.dart';
 import '../chart.dart';
@@ -37,7 +36,7 @@ class NotesDetails extends StatelessWidget {
   }
 
   List<Widget> getChildren(
-      context, List<Note> notesCours, List<Note> notesLabo) {
+      BuildContext context, List<Note> notesCours, List<Note> notesLabo) {
     return [
       if (notesCours.isNotEmpty)
         const Text(

@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../controllers/horaires_provider.dart';
-import '../../controllers/theme_data.dart' as theme;
 import '../../models/heure_de_cours.dart';
 import '../heure_de_cours_widget.dart';
 
@@ -51,7 +50,7 @@ class _HorairesScreenState extends State<HorairesScreen> {
                         margin: const EdgeInsets.all(4),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
+                            color: Colors.red.shade200,
                             borderRadius: BorderRadius.circular(50)),
                         child: Text(
                           date.day.toString(),
@@ -61,12 +60,18 @@ class _HorairesScreenState extends State<HorairesScreen> {
                         margin: const EdgeInsets.all(4),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            color: Colors.red.shade200,
+                            color: Theme.of(context).accentColor,
                             borderRadius: BorderRadius.circular(50)),
                         child: Text(
                           date.day.toString(),
                           style: const TextStyle(color: Colors.white),
                         )),
+                  ),
+                  calendarStyle: CalendarStyle(
+                    markerDecoration: BoxDecoration(
+                      color: Theme.of(context).textTheme.bodyText1!.color,
+                      borderRadius: BorderRadius.circular(50),
+                    ),
                   ),
                   locale: 'fr_FR',
                   startingDayOfWeek: StartingDayOfWeek.monday,
