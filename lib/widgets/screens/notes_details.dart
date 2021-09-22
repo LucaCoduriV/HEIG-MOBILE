@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:heig_front/controllers/settings_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:vrouter/vrouter.dart';
 
 import '../../controllers/bulletin_provider.dart';
@@ -19,19 +21,22 @@ class NotesDetails extends StatelessWidget {
     final List<Note> notesCours = bulletin.branches[id].cours;
     final List<Note> notesLabo = bulletin.branches[id].laboratoire;
 
-    return Column(
-      children: [
-        Expanded(
-          child: Container(
-            color: Theme.of(context).primaryColor,
-            padding: const EdgeInsets.all(20),
-            child: ListView(
-              physics: const BouncingScrollPhysics(),
-              children: getChildren(context, notesCours, notesLabo),
+    return ChangeNotifierProvider.value(
+      value: GetIt.I.get<SettingsProvider>(),
+      builder: (context, _) => Column(
+        children: [
+          Expanded(
+            child: Container(
+              color: Theme.of(context).primaryColor,
+              padding: const EdgeInsets.all(20),
+              child: ListView(
+                physics: const BouncingScrollPhysics(),
+                children: getChildren(context, notesCours, notesLabo),
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -49,8 +54,11 @@ class NotesDetails extends StatelessWidget {
           padding: const EdgeInsets.only(right: 20),
           height: 200,
           width: double.infinity,
-          child: Chart(notesCours.map((e) => e.note).toList(),
-              notesCours.map((e) => e.moyenneClasse).toList()),
+          child: Chart(
+            notesCours.map((e) => e.note).toList(),
+            notesCours.map((e) => e.moyenneClasse).toList(),
+            showMoyenne: Provider.of<SettingsProvider>(context).showMoyenne,
+          ),
         ),
       if (notesCours.isNotEmpty)
         DataTable(
@@ -70,8 +78,11 @@ class NotesDetails extends StatelessWidget {
           padding: const EdgeInsets.only(right: 20),
           height: 200,
           width: double.infinity,
-          child: Chart(notesLabo.map((e) => e.note).toList(),
-              notesLabo.map((e) => e.moyenneClasse).toList()),
+          child: Chart(
+            notesLabo.map((e) => e.note).toList(),
+            notesLabo.map((e) => e.moyenneClasse).toList(),
+            showMoyenne: Provider.of<SettingsProvider>(context).showMoyenne,
+          ),
         ),
       if (notesLabo.isNotEmpty)
         DataTable(

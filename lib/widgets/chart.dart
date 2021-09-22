@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 class Chart extends StatelessWidget {
   final List<double> notes;
   final List<double> moyennes;
-  const Chart(this.notes, this.moyennes, {Key? key}) : super(key: key);
+  final bool showMoyenne;
+  const Chart(this.notes, this.moyennes, {Key? key, this.showMoyenne = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -69,16 +71,17 @@ class Chart extends StatelessWidget {
                   .toList(),
             ),
           ),
-          LineChartBarData(
-            spots: spots2,
-            isCurved: true,
-            colors: gradientColors2,
-            barWidth: 3,
-            isStrokeCapRound: true,
-            dotData: FlDotData(
-              show: false,
+          if (showMoyenne)
+            LineChartBarData(
+              spots: spots2,
+              isCurved: true,
+              colors: gradientColors2,
+              barWidth: 3,
+              isStrokeCapRound: true,
+              dotData: FlDotData(
+                show: false,
+              ),
             ),
-          ),
         ],
       ), // Optional
     );

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:heig_front/controllers/settings_provider.dart';
+import 'package:provider/provider.dart';
 import '../../controllers/theme_data.dart' as theme;
 
 class SettingsScreen extends StatefulWidget {
@@ -12,11 +14,13 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).primaryColor,
-      child: ListView(
-        children: [
-          SwitchListTile(
+    return ChangeNotifierProvider.value(
+      value: GetIt.I.get<SettingsProvider>(),
+      builder: (context, _) => Container(
+        color: Theme.of(context).primaryColor,
+        child: ListView(
+          children: [
+            SwitchListTile(
               title: Text(
                 'Dark mode',
                 style: TextStyle(
@@ -29,8 +33,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 } else {
                   GetIt.I.get<theme.ThemeProvider>().mode = ThemeMode.dark;
                 }
-              })
-        ],
+              },
+            ),
+            SwitchListTile(
+              title: Text(
+                'Afficher la moyenne',
+                style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyText1!.color),
+              ),
+              value: Provider.of<SettingsProvider>(context).showMoyenne,
+              onChanged: (value) {
+                GetIt.I.get<SettingsProvider>().showMoyenne =
+                    !GetIt.I.get<SettingsProvider>().showMoyenne;
+              },
+            )
+          ],
+        ),
       ),
     );
   }

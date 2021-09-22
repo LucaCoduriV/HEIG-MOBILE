@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:heig_front/controllers/settings_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../controllers/bulletin_provider.dart';
@@ -16,8 +17,11 @@ class BulletinScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: GetIt.I<BulletinProvider>(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: GetIt.I<BulletinProvider>()),
+        ChangeNotifierProvider.value(value: GetIt.I<SettingsProvider>())
+      ],
       builder: (context, _) {
         final Bulletin bulletin = context.watch<BulletinProvider>().bulletin;
         final bool loading = context.watch<BulletinProvider>().loading;
@@ -34,8 +38,8 @@ class BulletinScreen extends StatelessWidget {
                           TextStyle(fontWeight: FontWeight.w500, fontSize: 17)),
                   const SizedBox(width: 10),
                   DropdownButton<int>(
-                    style: const TextStyle(
-                        backgroundColor: Colors.white, color: Colors.black),
+                    style: TextStyle(
+                        color: Theme.of(context).textTheme.bodyText1!.color),
                     value: Provider.of<BulletinProvider>(context).year,
                     icon: const Icon(Icons.arrow_downward),
                     onChanged: (int? newValue) {
@@ -68,7 +72,7 @@ class BulletinScreen extends StatelessWidget {
                       ),
                     Expanded(
                       child: LayoutBuilder(
-                        builder: (context, constraints) => RefreshIndicator(
+                        builder: (_context, constraints) => RefreshIndicator(
                           color: Colors.red,
                           key: GetIt.I<GlobalKey<RefreshIndicatorState>>(),
                           onRefresh: () =>
@@ -87,7 +91,8 @@ class BulletinScreen extends StatelessWidget {
     );
   }
 
-  Widget buildButtons(context, Bulletin bulletin, BoxConstraints constraints) {
+  Widget buildButtons(
+      BuildContext context, Bulletin bulletin, BoxConstraints constraints) {
     if (bulletin.branches.isEmpty) {
       return SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
@@ -95,7 +100,7 @@ class BulletinScreen extends StatelessWidget {
           constraints: BoxConstraints(
               minHeight: constraints.maxHeight, minWidth: constraints.maxWidth),
           child: const Center(
-            child: Text('Veuillez tirer vers le bas pour rafraichir.'),
+            child: Text('tirez vers le bas pour rafraichir.'),
           ),
         ),
       );
@@ -105,7 +110,7 @@ class BulletinScreen extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
       itemCount: bulletin.branches.length,
-      itemBuilder: (context, index) {
+      itemBuilder: (_context, index) {
         final List<Branche> branches = bulletin.branches;
 
         return BrancheButton(

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
+import 'package:heig_front/controllers/settings_provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
@@ -39,6 +40,7 @@ Future<void> setup() async {
   Hive.registerAdapter(TodoAdapter());
   Hive.registerAdapter(UserAdapter());
   await Hive.openBox('heig');
+  await Hive.openBox('heig-settings');
 
   GetIt.I.registerSingleton<BulletinProvider>(BulletinProvider());
   GetIt.I.registerSingleton<ApiController>(ApiController());
@@ -48,6 +50,7 @@ Future<void> setup() async {
   GetIt.I.registerSingleton<UserProvider>(UserProvider());
   GetIt.I.registerSingleton<HorairesProvider>(HorairesProvider());
   GetIt.I.registerSingleton<NotificationsManager>(NotificationsManager());
+  GetIt.I.registerSingleton<SettingsProvider>(SettingsProvider());
   GetIt.I.registerSingleton<theme.ThemeProvider>(theme.ThemeProvider());
   GetIt.I.registerSingleton<GlobalKey<RefreshIndicatorState>>(
       GlobalKey<RefreshIndicatorState>());
