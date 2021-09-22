@@ -26,7 +26,7 @@ import 'models/todo.dart';
 import 'models/user.dart';
 import 'routes/main_router.dart';
 
-/// Prparation de la base de données et des singletons.
+/// Prparation de la base de données local et des singletons.
 Future<void> setup() async {
   await initializeDateFormatting('fr_FR');
   await dotenv.load();

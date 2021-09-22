@@ -29,10 +29,16 @@ class _TodosDialogState extends State<TodosDialog> {
           child: Column(
             children: [
               TextFormField(
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.bodyText1!.color,
+                ),
                 decoration: const InputDecoration(hintText: 'Titre'),
                 controller: title,
               ),
               TextFormField(
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.bodyText1!.color,
+                ),
                 decoration: const InputDecoration(hintText: 'Description'),
                 controller: description,
               ),
