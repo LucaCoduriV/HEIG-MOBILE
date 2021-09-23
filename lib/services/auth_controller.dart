@@ -4,8 +4,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'api_controller.dart';
 import 'asymmetric_crypt.dart';
-import 'bulletin_provider.dart';
-import 'user_provider.dart';
+import 'providers/bulletin_provider.dart';
+import 'providers/user_provider.dart';
 
 /// Cette classe permet de gérer le nom et le mot de passe de l'utilisateur
 class AuthController extends ChangeNotifier {

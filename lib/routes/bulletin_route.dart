@@ -1,9 +1,9 @@
 import 'package:get_it/get_it.dart';
 import 'package:vrouter/vrouter.dart';
 
-import '../controllers/bulletin_provider.dart';
-import '../controllers/drawer_provider.dart';
-import '../controllers/navigator_controller.dart' as navigator_controller;
+import '../services/providers/bulletin_provider.dart';
+import '../services/providers/drawer_provider.dart';
+import '../services/navigator_controller.dart' as navigator_controller;
 import '../widgets/screens/bulletin_screen.dart';
 import '../widgets/screens/notes_details.dart';
 

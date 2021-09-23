@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/controllers/settings_provider.dart';
+import 'package:heig_front/services/providers/settings_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:vrouter/vrouter.dart';
 
-import '../../controllers/bulletin_provider.dart';
 import '../../models/bulletin.dart';
 import '../../models/notes.dart';
+import '../../services/providers/bulletin_provider.dart';
 import '../chart.dart';
 
 /// Page contenant les notes d'une branche.

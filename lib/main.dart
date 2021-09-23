@@ -2,22 +2,12 @@ import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/controllers/settings_provider.dart';
+import 'package:heig_front/services/providers/settings_provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'package:vrouter/vrouter.dart';
 
-import 'controllers/api_controller.dart';
-import 'controllers/auth_controller.dart';
-import 'controllers/bulletin_provider.dart';
-import 'controllers/drawer_provider.dart';
-import 'controllers/horaires_provider.dart';
-import 'controllers/navigator_controller.dart' as navigator_controller;
-import 'controllers/notifications_manager.dart';
-import 'controllers/theme_data.dart' as theme;
-import 'controllers/todos_provider.dart';
-import 'controllers/user_provider.dart';
 import 'models/branche.dart';
 import 'models/bulletin.dart';
 import 'models/heure_de_cours.dart';
@@ -26,6 +16,16 @@ import 'models/notes.dart';
 import 'models/todo.dart';
 import 'models/user.dart';
 import 'routes/main_router.dart';
+import 'services/api_controller.dart';
+import 'services/auth_controller.dart';
+import 'services/navigator_controller.dart' as navigator_controller;
+import 'services/notifications_manager.dart';
+import 'services/providers/bulletin_provider.dart';
+import 'services/providers/drawer_provider.dart';
+import 'services/providers/horaires_provider.dart';
+import 'services/providers/todos_provider.dart';
+import 'services/providers/user_provider.dart';
+import 'services/theme_data.dart' as theme;
 
 /// Prparation de la base de données local et des singletons.
 Future<void> setup() async {

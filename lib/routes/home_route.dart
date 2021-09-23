@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:vrouter/vrouter.dart';
 
-import '../controllers/drawer_provider.dart';
+import '../services/providers/drawer_provider.dart';
 import '../widgets/screens/home_screen.dart';
 
 class HomeRoute extends VRouteElementBuilder {

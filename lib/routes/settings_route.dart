@@ -1,9 +1,9 @@
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/controllers/drawer_provider.dart';
-import 'package:heig_front/widgets/screens/settings_screen.dart';
 import 'package:vrouter/vrouter.dart';
 
-import '../controllers/navigator_controller.dart' as navigator_controller;
+import '../services/navigator_controller.dart' as navigator_controller;
+import '../services/providers/drawer_provider.dart';
+import '../widgets/screens/settings_screen.dart';
 
 class SettingsRoute extends VRouteElementBuilder {
   @override

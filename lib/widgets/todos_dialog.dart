@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import '../controllers/todos_provider.dart';
+import '../services/providers/todos_provider.dart';
 
 class TodosDialog extends StatefulWidget {
   const TodosDialog({Key? key}) : super(key: key);

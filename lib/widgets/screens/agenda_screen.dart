@@ -3,8 +3,8 @@ import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../../controllers/todos_provider.dart';
 import '../../models/todo.dart';
+import '../../services/providers/todos_provider.dart';
 import '../todo_info.dart';
 
 /// Page contenant la liste des tâches.
