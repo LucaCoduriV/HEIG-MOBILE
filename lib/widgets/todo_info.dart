@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 import '../models/todo.dart';
-import '../services/theme_data.dart' as theme;
 import '../services/providers/todos_provider.dart';
+import '../services/theme_data.dart' as theme;
 
 /// Affiche les informations d'une tâche.
 class TodoInfo extends StatefulWidget {

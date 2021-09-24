@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 
 import '../../models/heure_de_cours.dart';
 import '../../models/todo.dart';
+import '../../services/navigator_controller.dart' as navigator_controller;
 import '../../services/providers/bulletin_provider.dart';
 import '../../services/providers/horaires_provider.dart';
-import '../../services/navigator_controller.dart' as navigator_controller;
 import '../../services/providers/todos_provider.dart';
 import '../../services/providers/user_provider.dart';
 import '../heure_de_cours_widget.dart';
