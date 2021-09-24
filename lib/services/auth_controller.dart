@@ -46,23 +46,15 @@ class AuthController extends ChangeNotifier {
   }
 
   Future<bool> login() async {
-    try {
-      final String password = await encryptedPassword;
-      //ajouter la connection + le localstorage
-      _gapsId = await GetIt.I<ApiController>()
-          .login(_username, password, decrypt: true);
+    final String password = await encryptedPassword;
+    //ajouter la connection + le localstorage
+    _gapsId = await GetIt.I<ApiController>()
+        .login(_username, password, decrypt: true);
 
-      box.put('gapsId', gapsId);
+    box.put('gapsId', gapsId);
 
-      notifyListeners();
-      return isConnected;
-    } catch (e) {
-      _gapsId = -1;
-      box.put('gapsId', -1);
-
-      notifyListeners();
-      return isConnected;
-    }
+    notifyListeners();
+    return isConnected;
   }
 
   Future<void> logout() async {
