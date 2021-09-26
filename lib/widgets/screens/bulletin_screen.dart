@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/controllers/settings_provider.dart';
+import 'package:heig_front/services/providers/settings_provider.dart';
 import 'package:provider/provider.dart';
-
-import '../../controllers/bulletin_provider.dart';
-import '../../controllers/drawer_provider.dart';
-import '../../controllers/navigator_controller.dart' as navigator_controller;
 
 import '../../models/branche.dart';
 import '../../models/bulletin.dart';
+import '../../services/navigator_controller.dart' as navigator_controller;
+import '../../services/providers/bulletin_provider.dart';
+import '../../services/providers/drawer_provider.dart';
 import '../branche_button.dart';
 
 /// Page contenant le bulletin de notes.

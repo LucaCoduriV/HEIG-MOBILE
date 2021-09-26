@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../models/todo.dart';
-import 'notifications_manager.dart';
+import '../../models/todo.dart';
+import '../notifications_manager.dart';
 
 /// Cette classe permet de distribuer et mettre à jours les données concernant les tâches.
 class TodosProvider extends ChangeNotifier {

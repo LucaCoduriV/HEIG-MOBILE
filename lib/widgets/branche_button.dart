@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../controllers/theme_data.dart' as theme;
+import '../services/theme_data.dart' as theme;
 
 /// Bouton qui permet d'accéder à la page des notes d'une branche.
 ///

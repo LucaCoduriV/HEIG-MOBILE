@@ -2,8 +2,8 @@ import 'package:get_it/get_it.dart';
 import 'package:heig_front/routes/settings_route.dart';
 import 'package:vrouter/vrouter.dart';
 
-import '../controllers/auth_controller.dart';
-import '../controllers/navigator_controller.dart' as navigator_controller;
+import '../services/auth_controller.dart';
+import '../services/navigator_controller.dart' as navigator_controller;
 import '../widgets/my_drawer.dart';
 import 'bulletin_route.dart';
 import 'home_route.dart';

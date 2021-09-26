@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
-import '../../controllers/bulletin_provider.dart';
-import '../../controllers/horaires_provider.dart';
-import '../../controllers/navigator_controller.dart' as navigator_controller;
-import '../../controllers/todos_provider.dart';
-import '../../controllers/user_provider.dart';
 import '../../models/heure_de_cours.dart';
 import '../../models/todo.dart';
+import '../../services/navigator_controller.dart' as navigator_controller;
+import '../../services/providers/bulletin_provider.dart';
+import '../../services/providers/horaires_provider.dart';
+import '../../services/providers/todos_provider.dart';
+import '../../services/providers/user_provider.dart';
 import '../heure_de_cours_widget.dart';
 import '../todo_quick_info.dart';
 

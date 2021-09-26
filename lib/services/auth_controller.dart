@@ -4,8 +4,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'api_controller.dart';
 import 'asymmetric_crypt.dart';
-import 'bulletin_provider.dart';
-import 'user_provider.dart';
+import 'providers/bulletin_provider.dart';
+import 'providers/user_provider.dart';
 
 /// Cette classe permet de gérer le nom et le mot de passe de l'utilisateur
 class AuthController extends ChangeNotifier {
@@ -46,23 +46,15 @@ class AuthController extends ChangeNotifier {
   }
 
   Future<bool> login() async {
-    try {
-      final String password = await encryptedPassword;
-      //ajouter la connection + le localstorage
-      _gapsId = await GetIt.I<ApiController>()
-          .login(_username, password, decrypt: true);
+    final String password = await encryptedPassword;
+    //ajouter la connection + le localstorage
+    _gapsId = await GetIt.I<ApiController>()
+        .login(_username, password, decrypt: true);
 
-      box.put('gapsId', gapsId);
+    box.put('gapsId', gapsId);
 
-      notifyListeners();
-      return isConnected;
-    } catch (e) {
-      _gapsId = -1;
-      box.put('gapsId', -1);
-
-      notifyListeners();
-      return isConnected;
-    }
+    notifyListeners();
+    return isConnected;
   }
 
   Future<void> logout() async {

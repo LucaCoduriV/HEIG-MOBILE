@@ -42,6 +42,7 @@ dependencies:
     rrule: ^0.2.3 #Ical rrule
     fl_chart: ^0.40.0
     themed: ^2.0.4
+    bs_flutter: any # Alerts bootstrap style
     flutter:
         sdk: flutter
 

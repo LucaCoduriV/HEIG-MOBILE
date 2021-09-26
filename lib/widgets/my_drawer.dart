@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
-import '../controllers/auth_controller.dart';
-import '../controllers/drawer_provider.dart';
-import '../controllers/navigator_controller.dart' as navigator_controller;
-import '../controllers/theme_data.dart' as theme;
+import '../services/auth_controller.dart';
+import '../services/navigator_controller.dart' as navigator_controller;
+import '../services/providers/drawer_provider.dart';
+import '../services/theme_data.dart' as theme;
 import '../utils/date.dart';
 import 'todos_dialog.dart';
 

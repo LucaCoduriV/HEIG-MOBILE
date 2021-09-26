@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../controllers/theme_data.dart' as theme;
+import '../services/theme_data.dart' as theme;
 
 /// Affiche les informations d'une tâche pour la page d'acceuil.
 class TodoQuickInfo extends StatelessWidget {

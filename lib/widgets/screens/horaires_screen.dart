@@ -3,8 +3,8 @@ import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../../controllers/horaires_provider.dart';
 import '../../models/heure_de_cours.dart';
+import '../../services/providers/horaires_provider.dart';
 import '../heure_de_cours_widget.dart';
 
 /// Page contenant la liste des horaires de cours.

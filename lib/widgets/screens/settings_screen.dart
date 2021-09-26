@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/controllers/settings_provider.dart';
+import 'package:heig_front/services/providers/settings_provider.dart';
 import 'package:provider/provider.dart';
-import '../../controllers/theme_data.dart' as theme;
+import '../../services/theme_data.dart' as theme;
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
