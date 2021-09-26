@@ -1,6 +1,5 @@
-import 'dart:io' show Platform;
-
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -9,13 +8,13 @@ class NotificationsManager {
   var box = Hive.box('heig');
 
   NotificationsManager() {
-    if (Platform.isAndroid || Platform.isIOS) {
+    if (!kIsWeb) {
       _notificationsId = box.get('notification_id', defaultValue: 0);
     }
   }
 
   Future<void> initialize() async {
-    if (Platform.isAndroid || Platform.isIOS) {
+    if (!kIsWeb) {
       await AwesomeNotifications().initialize(
         null,
         [
@@ -47,7 +46,7 @@ class NotificationsManager {
 
   Future<int> registerNotificationHoraire(
       String title, String body, DateTime date) async {
-    if (Platform.isAndroid || Platform.isIOS) {
+    if (!kIsWeb) {
       AwesomeNotifications().createNotification(
           schedule: NotificationCalendar.fromDate(date: date),
           content: NotificationContent(
@@ -63,7 +62,7 @@ class NotificationsManager {
   }
 
   Future<void> listenNotification() async {
-    if (Platform.isAndroid || Platform.isIOS) {
+    if (!kIsWeb) {
       AwesomeNotifications().actionStream.listen((receivedNotification) {
         switch (receivedNotification.payload?['page']) {
           case 'todo':
@@ -79,7 +78,7 @@ class NotificationsManager {
 
   Future<int> registerNotificationTodo(
       String title, String body, DateTime date, int id) async {
-    if (Platform.isAndroid || Platform.isIOS) {
+    if (!kIsWeb) {
       AwesomeNotifications().createNotification(
           schedule:
               DateTime.now().isAfter(date.subtract(const Duration(days: 1)))
