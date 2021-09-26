@@ -1,4 +1,3 @@
-import 'package:bs_flutter_alert/bs_flutter_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
@@ -119,11 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           GetIt.I.get<UserProvider>().fetchUser();
                           GetIt.I.get<HorairesProvider>().fetchHoraires();
                           GetIt.I.get<BulletinProvider>().fetchBulletin();
-                        } else {
-                          const BsAlert(
-                            child: Text('coucou'),
-                          );
-                        }
+                        } else {}
 
                         Navigator.pop(context);
                       }

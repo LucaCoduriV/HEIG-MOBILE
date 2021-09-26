@@ -58,7 +58,7 @@ class NotificationsManager {
       box.put('notification_id', _notificationsId);
     }
 
-    return _notificationsId;
+    return _notificationsId++;
   }
 
   Future<void> listenNotification() async {
@@ -106,5 +106,13 @@ class NotificationsManager {
     }
 
     return _notificationsId++;
+  }
+
+  void cancelAllNotifications() {
+    if (!kIsWeb) {
+      AwesomeNotifications().cancelAllSchedules();
+      _notificationsId = 0;
+      box.put('notification_id', _notificationsId);
+    }
   }
 }
