@@ -42,6 +42,7 @@ Future<void> setup() async {
   await Hive.openBox('heig');
   await Hive.openBox('heig-settings');
 
+  GetIt.I.registerSingleton<NotificationsManager>(NotificationsManager());
   GetIt.I.registerSingleton<BulletinProvider>(BulletinProvider());
   GetIt.I.registerSingleton<ApiController>(ApiController());
   GetIt.I.registerSingleton<AuthController>(AuthController());
@@ -49,13 +50,30 @@ Future<void> setup() async {
   GetIt.I.registerSingleton<TodosProvider>(TodosProvider());
   GetIt.I.registerSingleton<UserProvider>(UserProvider());
   GetIt.I.registerSingleton<HorairesProvider>(HorairesProvider());
-  GetIt.I.registerSingleton<NotificationsManager>(NotificationsManager());
   GetIt.I.registerSingleton<SettingsProvider>(SettingsProvider());
   GetIt.I.registerSingleton<theme.ThemeProvider>(theme.ThemeProvider());
   GetIt.I.registerSingleton<GlobalKey<RefreshIndicatorState>>(
       GlobalKey<RefreshIndicatorState>());
 
-  await GetIt.I.get<NotificationsManager>().initialize();
+  final nM = GetIt.I.get<NotificationsManager>();
+  await nM.initialize();
+  nM.onNotification.asBroadcastStream().listen((event) {
+    debugPrint(event.payload.toString());
+    switch (event.payload?['page']) {
+      case 'todo':
+        debugPrint('TODO');
+        if (event.buttonKeyInput == 'valider') {
+          GetIt.I
+              .get<TodosProvider>()
+              .completeTodo(event.payload!['id']!, completed: true);
+        }
+
+        break;
+      default:
+        debugPrint('DEFAULT');
+        break;
+    }
+  });
 }
 
 Future<void> main() async {

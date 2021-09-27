@@ -7,17 +7,15 @@ import '../notifications_manager.dart';
 
 /// Cette classe permet de distribuer et mettre à jours les données concernant les tâches.
 class TodosProvider extends ChangeNotifier {
-  late Map<int, Todo> _todos;
-  int _id = 0;
+  late Map<String, Todo> _todos;
   var box = Hive.box('heig');
   late final _notificationsManager = GetIt.I.get<NotificationsManager>();
 
   TodosProvider() {
-    _id = box.get('todos_id', defaultValue: 0);
     _setTodos(Map.from(box.get('todos', defaultValue: <int, Todo>{})));
   }
 
-  void _setTodos(Map<int, Todo> todos) {
+  void _setTodos(Map<String, Todo> todos) {
     _todos = todos;
     _notificationsManager.cancelAllNotifications();
 
@@ -33,12 +31,12 @@ class TodosProvider extends ChangeNotifier {
     DateTime date, {
     required bool completed,
   }) async {
+    final todo = Todo(title, description, date, completed: completed);
+    _todos[todo.id] = todo;
     final int notifId = await _notificationsManager.registerNotificationTodo(
-        title, description, date, _id);
-    _todos[_id] = Todo(_id, title, description, date, completed: completed);
-    _todos[_id]!.notificationId = notifId;
-    _id++;
-    box.put('todos_id', _id);
+        title, description, date, todo.id);
+    _todos[todo.id]!.notificationId = notifId;
+
     _saveTodos();
   }
 
@@ -47,7 +45,7 @@ class TodosProvider extends ChangeNotifier {
     _saveTodos();
   }
 
-  void completeTodo(int id, {required bool completed}) {
+  void completeTodo(String id, {required bool completed}) {
     _todos[id]?.completed = completed;
     notifyListeners();
     _saveTodos();
@@ -66,9 +64,7 @@ class TodosProvider extends ChangeNotifier {
     return _todos[id];
   }
 
-  Map<int, Todo> getTodos() {
-    return _todos;
-  }
+  Map<String, Todo> get todos => _todos;
 
   /// Permet d'avoir toutes les taches pour une semaine
   List<Todo> getTodosByWeek(DateTime firstDayOfWeek) {
@@ -79,21 +75,22 @@ class TodosProvider extends ChangeNotifier {
         .toList();
   }
 
-  void removeTodo(int id) {
+  void removeTodo(String id) {
     _todos.remove(id);
 
     _saveTodos();
   }
 
-  void setTodos(Map<int, Todo> todos) {
+  void setTodos(Map<String, Todo> todos) {
     _todos = todos;
 
     _saveTodos();
   }
 
-  void updateTodo(int id, String title, String description, DateTime date,
+  void updateTodo(String id, String title, String description, DateTime date,
       {required bool completed}) {
-    _todos[id] = Todo(id, title, description, date, completed: completed);
+    final todo = Todo(title, description, date, completed: completed);
+    _todos[id] = todo;
 
     _saveTodos();
   }

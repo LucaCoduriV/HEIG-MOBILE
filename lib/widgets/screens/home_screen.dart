@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
         final List<HeureDeCours> h = Provider.of<HorairesProvider>(context)
             .getDailyClasses(DateTime.now());
         List<Todo> t =
-            Provider.of<TodosProvider>(context).getTodos().values.toList();
+            Provider.of<TodosProvider>(context).todos.values.toList();
         t.sort((a, b) => a.date.compareTo(b.date));
         t = t.where((todo) => !todo.completed).toList();
 

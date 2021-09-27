@@ -61,23 +61,11 @@ class NotificationsManager {
     return _notificationsId++;
   }
 
-  Future<void> listenNotification() async {
-    if (!kIsWeb) {
-      AwesomeNotifications().actionStream.listen((receivedNotification) {
-        switch (receivedNotification.payload?['page']) {
-          case 'todo':
-            debugPrint('GO TO TODO');
-            break;
-          default:
-            debugPrint('DEFAULT');
-            break;
-        }
-      });
-    }
-  }
+  Stream<ReceivedAction> get onNotification =>
+      AwesomeNotifications().actionStream;
 
   Future<int> registerNotificationTodo(
-      String title, String body, DateTime date, int id) async {
+      String title, String body, DateTime date, String id) async {
     if (!kIsWeb) {
       AwesomeNotifications().createNotification(
           schedule:
@@ -92,14 +80,14 @@ class NotificationsManager {
             body: body,
             payload: {
               'page': 'todo',
-              'id': '$id',
+              'id': id,
             },
           ),
           actionButtons: [
             NotificationActionButton(
-              label: 'Accomplie',
+              label: 'Valider',
               enabled: true,
-              key: 'accomplie',
+              key: 'valider',
             ),
           ]);
       box.put('notification_id', _notificationsId);
