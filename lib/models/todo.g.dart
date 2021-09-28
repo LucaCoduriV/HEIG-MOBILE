@@ -40,7 +40,7 @@ class TodoAdapter extends TypeAdapter<Todo> {
       ..write(obj.completed)
       ..writeByte(4)
       ..write(obj._date)
-      ..writeByte(5)
+      ..write(5)
       ..write(obj.notificationId);
   }
 

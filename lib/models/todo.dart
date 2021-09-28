@@ -1,10 +1,11 @@
+import 'package:heig_front/models/notifiable.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:uuid/uuid.dart';
 
 part 'todo.g.dart';
 
 @HiveType(typeId: 7)
-class Todo {
+class Todo extends Notifiable {
   @HiveField(0)
   late String _id;
   @HiveField(1)
@@ -15,8 +16,6 @@ class Todo {
   late bool completed;
   @HiveField(4)
   late DateTime _date;
-  @HiveField(5)
-  late int notificationId;
 
   var uuid = const Uuid();
 
@@ -43,6 +42,11 @@ class Todo {
     return Todo(
         json['title'], json['description'], DateTime.parse(json['date']),
         completed: json['completed'], id: json['id']);
+  }
+
+  @override
+  void scheduleNotification() {
+    // TODO: implement scheduleNotification
   }
 
   @override
