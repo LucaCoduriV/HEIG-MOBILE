@@ -68,28 +68,21 @@ class NotificationsManager {
       String title, String body, DateTime date, String id) async {
     if (!kIsWeb) {
       AwesomeNotifications().createNotification(
-          schedule:
-              DateTime.now().isAfter(date.subtract(const Duration(days: 1)))
-                  ? null
-                  : NotificationCalendar.fromDate(
-                      date: date.subtract(const Duration(days: 1))),
-          content: NotificationContent(
-            id: _notificationsId,
-            channelKey: 'todos_channel',
-            title: 'Tâche: $title',
-            body: body,
-            payload: {
-              'page': 'todo',
-              'id': id,
-            },
-          ),
-          actionButtons: [
-            NotificationActionButton(
-              label: 'Valider',
-              enabled: true,
-              key: 'valider',
-            ),
-          ]);
+        schedule: DateTime.now().isAfter(date.subtract(const Duration(days: 1)))
+            ? null
+            : NotificationCalendar.fromDate(
+                date: date.subtract(const Duration(days: 1))),
+        content: NotificationContent(
+          id: _notificationsId,
+          channelKey: 'todos_channel',
+          title: 'Tâche: $title',
+          body: body,
+          payload: {
+            'page': 'todo',
+            'id': id,
+          },
+        ),
+      );
       box.put('notification_id', _notificationsId);
     }
 
