@@ -6,7 +6,7 @@ import '../../models/todo.dart';
 /// Cette classe permet de distribuer et mettre à jours les données concernant les tâches.
 class TodosProvider extends ChangeNotifier {
   late Map<String, Todo> _todos;
-  var box = Hive.box('heig');
+  final box = Hive.box('heig');
 
   TodosProvider() {
     _todos = Map.from(box.get('todos', defaultValue: <int, Todo>{}));

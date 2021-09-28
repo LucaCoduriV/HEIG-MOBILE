@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/providers/settings_provider.dart';
+import 'package:heig_front/utils/id_generator.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
@@ -39,6 +40,7 @@ Future<void> setup() async {
   Hive.registerAdapter(NoteAdapter());
   Hive.registerAdapter(TodoAdapter());
   Hive.registerAdapter(UserAdapter());
+  await IdGenerator.initialize();
   await Hive.openBox('heig');
   await Hive.openBox('heig-settings');
 

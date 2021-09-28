@@ -22,7 +22,9 @@ class HeureDeCours extends Notifiable {
   String? rrule;
 
   HeureDeCours(this.nom, this.debut, this.fin, this.prof, this.salle, this.uid,
-      this.rrule);
+      this.rrule) {
+    scheduleNotification();
+  }
 
   factory HeureDeCours.fromJson(Map<String, dynamic> json) {
     final String startString = json['DTSTART;TZID=Europe/Zurich'] as String;
@@ -61,13 +63,19 @@ class HeureDeCours extends Notifiable {
 
   @override
   void scheduleNotification() {
-    AwesomeNotifications().createNotification(
-        schedule: NotificationCalendar.fromDate(date: debut),
-        content: NotificationContent(
-          id: notificationId,
-          channelKey: 'horaires_channel',
-          title: 'Cours: $nom',
-          body: debut.toString(),
-        ));
+    final String dateSlug =
+        "${debut.year.toString()}-${debut.month.toString().padLeft(2, '0')}-${debut.day.toString().padLeft(2, '0')}";
+
+    if (DateTime.now().isBefore(debut)) {
+      AwesomeNotifications().createNotification(
+          schedule: NotificationCalendar.fromDate(
+              date: debut.subtract(const Duration(hours: 1))),
+          content: NotificationContent(
+            id: notificationId,
+            channelKey: 'horaires_channel',
+            title: 'Cours: $nom',
+            body: dateSlug,
+          ));
+    }
   }
 }

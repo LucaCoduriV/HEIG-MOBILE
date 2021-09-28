@@ -38,6 +38,8 @@ class Todo extends Notifiable {
     if (id == '') {
       _id = uuid.v4();
     }
+
+    scheduleNotification();
   }
 
   factory Todo.fromJson(Map<String, dynamic> json) {

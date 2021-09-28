@@ -10,7 +10,7 @@ import '../auth_controller.dart';
 /// Cette classe permet de distribuer et mettre à jours les données concernant les horaires.
 class HorairesProvider extends ChangeNotifier {
   late Horaires _horaires;
-  var box = Hive.box('heig');
+  final box = Hive.box('heig');
 
   HorairesProvider() {
     final Horaires hiveHoraires = box.get('horaires',
@@ -24,6 +24,11 @@ class HorairesProvider extends ChangeNotifier {
     final AuthController auth = GetIt.I.get<AuthController>();
     try {
       final password = await GetIt.I<AuthController>().encryptedPassword;
+
+      // Annuler toutes les notifications avant de récupérer les horaires
+      for (final heureCours in _horaires.horairesRRule) {
+        heureCours.cancelNotification();
+      }
 
       _horaires = await GetIt.I
           .get<ApiController>()

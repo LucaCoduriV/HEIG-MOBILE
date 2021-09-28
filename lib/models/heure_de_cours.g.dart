@@ -24,13 +24,13 @@ class HeureDeCoursAdapter extends TypeAdapter<HeureDeCours> {
       fields[4] as String,
       fields[5] as String,
       fields[6] as String?,
-    );
+    )..notificationId = fields[7] as int;
   }
 
   @override
   void write(BinaryWriter writer, HeureDeCours obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.nom)
       ..writeByte(1)
@@ -44,7 +44,9 @@ class HeureDeCoursAdapter extends TypeAdapter<HeureDeCours> {
       ..writeByte(5)
       ..write(obj.uid)
       ..writeByte(6)
-      ..write(obj.rrule);
+      ..write(obj.rrule)
+      ..writeByte(7)
+      ..write(obj.notificationId);
   }
 
   @override
