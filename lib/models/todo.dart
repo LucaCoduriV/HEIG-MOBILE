@@ -1,3 +1,5 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:flutter/foundation.dart';
 import 'package:heig_front/models/notifiable.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:uuid/uuid.dart';
@@ -46,7 +48,26 @@ class Todo extends Notifiable {
 
   @override
   void scheduleNotification() {
-    // TODO: implement scheduleNotification
+    if (kIsWeb) {
+      return;
+    }
+
+    AwesomeNotifications().createNotification(
+      schedule: DateTime.now().isAfter(date.subtract(const Duration(days: 1)))
+          ? null
+          : NotificationCalendar.fromDate(
+              date: date.subtract(const Duration(days: 1))),
+      content: NotificationContent(
+        id: notificationId,
+        channelKey: 'todos_channel',
+        title: 'Tâche: $title',
+        body: description,
+        payload: {
+          'page': 'todo',
+          'id': id,
+        },
+      ),
+    );
   }
 
   @override

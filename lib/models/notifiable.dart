@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:heig_front/utils/id_generator.dart';
 
 abstract class Notifiable {
@@ -10,4 +11,8 @@ abstract class Notifiable {
   }
 
   void scheduleNotification();
+
+  void cancelNotification() {
+    AwesomeNotifications().cancel(notificationId);
+  }
 }
