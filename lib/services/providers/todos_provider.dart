@@ -1,28 +1,15 @@
 import 'package:flutter/cupertino.dart';
-import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../models/todo.dart';
-import '../notifications_manager.dart';
 
 /// Cette classe permet de distribuer et mettre à jours les données concernant les tâches.
 class TodosProvider extends ChangeNotifier {
   late Map<String, Todo> _todos;
-  var box = Hive.box('heig');
-  late final _notificationsManager = GetIt.I.get<NotificationsManager>();
+  final box = Hive.box('heig');
 
   TodosProvider() {
-    _setTodos(Map.from(box.get('todos', defaultValue: <int, Todo>{})));
-  }
-
-  void _setTodos(Map<String, Todo> todos) {
-    _todos = todos;
-    _notificationsManager.cancelAllNotifications();
-
-    for (final todo in _todos.values) {
-      _notificationsManager.registerNotificationTodo(
-          todo.title, todo.description, todo.date, todo.id);
-    }
+    _todos = Map.from(box.get('todos', defaultValue: <int, Todo>{}));
   }
 
   Future<void> addTodo(
@@ -33,9 +20,6 @@ class TodosProvider extends ChangeNotifier {
   }) async {
     final todo = Todo(title, description, date, completed: completed);
     _todos[todo.id] = todo;
-    final int notifId = await _notificationsManager.registerNotificationTodo(
-        title, description, date, todo.id);
-    _todos[todo.id]!.notificationId = notifId;
 
     _saveTodos();
   }

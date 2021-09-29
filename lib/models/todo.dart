@@ -1,10 +1,13 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:flutter/foundation.dart';
+import 'package:heig_front/models/notifiable.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:uuid/uuid.dart';
 
 part 'todo.g.dart';
 
 @HiveType(typeId: 7)
-class Todo {
+class Todo extends Notifiable {
   @HiveField(0)
   late String _id;
   @HiveField(1)
@@ -15,8 +18,6 @@ class Todo {
   late bool completed;
   @HiveField(4)
   late DateTime _date;
-  @HiveField(5)
-  late int notificationId;
 
   var uuid = const Uuid();
 
@@ -37,12 +38,38 @@ class Todo {
     if (id == '') {
       _id = uuid.v4();
     }
+
+    scheduleNotification();
   }
 
   factory Todo.fromJson(Map<String, dynamic> json) {
     return Todo(
         json['title'], json['description'], DateTime.parse(json['date']),
         completed: json['completed'], id: json['id']);
+  }
+
+  @override
+  void scheduleNotification() {
+    if (kIsWeb) {
+      return;
+    }
+
+    AwesomeNotifications().createNotification(
+      schedule: DateTime.now().isAfter(date.subtract(const Duration(days: 1)))
+          ? null
+          : NotificationCalendar.fromDate(
+              date: date.subtract(const Duration(days: 1))),
+      content: NotificationContent(
+        id: notificationId,
+        channelKey: 'todos_channel',
+        title: 'Tâche: $title',
+        body: description,
+        payload: {
+          'page': 'todo',
+          'id': id,
+        },
+      ),
+    );
   }
 
   @override

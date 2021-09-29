@@ -33,6 +33,7 @@ class _MyDrawerState extends State<MyDrawer> {
         return Scaffold(
           key: _scaffoldKey,
           appBar: AppBar(
+            backgroundColor: Theme.of(context).primaryColor,
             iconTheme: IconThemeData(
               color: Provider.of<theme.ThemeProvider>(context).mode ==
                       ThemeMode.light
@@ -56,7 +57,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   icon: const Icon(Icons.add),
                   tooltip: 'Add a task',
                   onPressed: () {
-                    showDialog(
+                    showDialog<void>(
                       context: context,
                       builder: (BuildContext context) {
                         return const TodosDialog();

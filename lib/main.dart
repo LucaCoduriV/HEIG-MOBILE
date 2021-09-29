@@ -1,8 +1,10 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/providers/settings_provider.dart';
+import 'package:heig_front/utils/id_generator.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +21,6 @@ import 'routes/main_router.dart';
 import 'services/api_controller.dart';
 import 'services/auth_controller.dart';
 import 'services/navigator_controller.dart' as navigator_controller;
-import 'services/notifications_manager.dart';
 import 'services/providers/bulletin_provider.dart';
 import 'services/providers/drawer_provider.dart';
 import 'services/providers/horaires_provider.dart';
@@ -39,10 +40,10 @@ Future<void> setup() async {
   Hive.registerAdapter(NoteAdapter());
   Hive.registerAdapter(TodoAdapter());
   Hive.registerAdapter(UserAdapter());
+  await IdGenerator.initialize();
   await Hive.openBox('heig');
   await Hive.openBox('heig-settings');
 
-  GetIt.I.registerSingleton<NotificationsManager>(NotificationsManager());
   GetIt.I.registerSingleton<BulletinProvider>(BulletinProvider());
   GetIt.I.registerSingleton<ApiController>(ApiController());
   GetIt.I.registerSingleton<AuthController>(AuthController());
@@ -55,23 +56,30 @@ Future<void> setup() async {
   GetIt.I.registerSingleton<GlobalKey<RefreshIndicatorState>>(
       GlobalKey<RefreshIndicatorState>());
 
-  final nM = GetIt.I.get<NotificationsManager>();
-  await nM.initialize();
-  nM.onNotification.asBroadcastStream().listen((event) {
-    debugPrint(event.payload.toString());
-    switch (event.payload?['page']) {
-      case 'todo':
-        debugPrint('TODO');
-        if (event.buttonKeyInput == 'valider') {
-          GetIt.I
-              .get<TodosProvider>()
-              .completeTodo(event.payload!['id']!, completed: true);
-        }
-
-        break;
-      default:
-        debugPrint('DEFAULT');
-        break;
+  await AwesomeNotifications().initialize(
+    null,
+    [
+      NotificationChannel(
+        channelKey: 'todos_channel',
+        channelName: 'Todo',
+        channelDescription: 'Notification channel for todos',
+        defaultColor: Colors.red,
+        ledColor: Colors.white,
+      ),
+      NotificationChannel(
+        channelKey: 'horaires_channel',
+        channelName: 'Horaire',
+        channelDescription: 'Notification channel for schedules',
+        defaultColor: Colors.red,
+        ledColor: Colors.white,
+      ),
+    ],
+  );
+  await AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+    if (!isAllowed) {
+      // Insert here your friendly dialog box before call the request method
+      // This is very important to not harm the user experience
+      AwesomeNotifications().requestPermissionToSendNotifications();
     }
   });
 }
