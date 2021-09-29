@@ -12,7 +12,7 @@ abstract class Notifiable {
 
   void scheduleNotification();
 
-  void cancelNotification() {
-    AwesomeNotifications().cancel(notificationId);
+  Future<void> cancelNotification() async {
+    await AwesomeNotifications().cancelSchedule(notificationId);
   }
 }

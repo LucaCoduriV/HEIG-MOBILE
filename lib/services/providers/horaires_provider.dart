@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -27,7 +30,7 @@ class HorairesProvider extends ChangeNotifier {
 
       // Annuler toutes les notifications avant de récupérer les horaires
       for (final heureCours in _horaires.horairesRRule) {
-        heureCours.cancelNotification();
+        await heureCours.cancelNotification();
       }
 
       _horaires = await GetIt.I

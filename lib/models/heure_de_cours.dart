@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:heig_front/models/notifiable.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -22,9 +24,7 @@ class HeureDeCours extends Notifiable {
   String? rrule;
 
   HeureDeCours(this.nom, this.debut, this.fin, this.prof, this.salle, this.uid,
-      this.rrule) {
-    scheduleNotification();
-  }
+      this.rrule);
 
   factory HeureDeCours.fromJson(Map<String, dynamic> json) {
     final String startString = json['DTSTART;TZID=Europe/Zurich'] as String;
@@ -63,19 +63,24 @@ class HeureDeCours extends Notifiable {
 
   @override
   void scheduleNotification() {
+    final now = DateTime.now();
+
+    if (now.isAfter(debut) ||
+        now.add(const Duration(days: 6)).isBefore(debut)) {
+      return;
+    }
+
     final String dateSlug =
         "${debut.year.toString()}-${debut.month.toString().padLeft(2, '0')}-${debut.day.toString().padLeft(2, '0')}";
 
-    if (DateTime.now().isBefore(debut)) {
-      AwesomeNotifications().createNotification(
-          schedule: NotificationCalendar.fromDate(
-              date: debut.subtract(const Duration(hours: 1))),
-          content: NotificationContent(
-            id: notificationId,
-            channelKey: 'horaires_channel',
-            title: 'Cours: $nom',
-            body: dateSlug,
-          ));
-    }
+    AwesomeNotifications().createNotification(
+        schedule: NotificationCalendar.fromDate(
+            date: debut.subtract(const Duration(hours: 1))),
+        content: NotificationContent(
+          id: notificationId,
+          channelKey: 'horaires_channel',
+          title: 'Cours: $nom, $salle',
+          body: dateSlug,
+        ));
   }
 }
