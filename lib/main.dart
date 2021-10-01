@@ -103,8 +103,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ThemeMode mode = ThemeMode.light;
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(

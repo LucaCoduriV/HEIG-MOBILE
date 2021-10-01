@@ -8,7 +8,7 @@ import '../models/bulletin.dart';
 import '../models/heure_de_cours.dart';
 import '../models/horaires.dart';
 import '../models/user.dart';
-import 'env_controller.dart';
+import '../settings/env_settings.dart';
 
 /// Cette classe permet de récupérer les données traitées depuis l'API
 class ApiController {
