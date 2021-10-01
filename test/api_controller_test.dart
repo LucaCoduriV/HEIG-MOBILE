@@ -1,9 +1,9 @@
+import 'package:dotenv/dotenv.dart' show load, env;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:heig_front/services/api_controller.dart';
 import 'package:heig_front/models/bulletin.dart';
 import 'package:heig_front/models/horaires.dart';
-import 'package:dotenv/dotenv.dart' show load, env;
+import 'package:heig_front/services/api_controller.dart';
 
 Future<void> main() async {
   load();

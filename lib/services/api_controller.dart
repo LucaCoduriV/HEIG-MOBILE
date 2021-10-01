@@ -32,14 +32,13 @@ class ApiController {
   }
 
   factory ApiController._internal() {
-    return ApiController.withIp(
-        EnvController.getApiIp(), EnvController.getApiPort());
+    return ApiController.withIp(getApiIp(), getApiPort());
   }
 
   Future<Horaires> fetchHoraires(String username, String password, int gapsId,
       {bool decrypt = false}) async {
     try {
-      final res = await dio.post('/horaires?decrypt=$decrypt',
+      final res = await dio.post<dynamic>('/horaires?decrypt=$decrypt',
           data: jsonEncode({
             'username': username,
             'password': password,
@@ -72,7 +71,7 @@ class ApiController {
   Future<Bulletin> fetchNotes(String username, String password, int gapsId,
       {int year = 2020, bool decrypt = false}) async {
     try {
-      final res = await dio.post('/notes?decrypt=$decrypt',
+      final res = await dio.post<dynamic>('/notes?decrypt=$decrypt',
           data: jsonEncode({
             'username': username,
             'password': password,
@@ -90,7 +89,8 @@ class ApiController {
 
   Future<String> fetchPublicKey() async {
     try {
-      return (await dio.get('/public_key')).data['publicKey'] as String;
+      return (await dio.get<dynamic>('/public_key')).data['publicKey']
+          as String;
     } catch (e) {
       debugPrint(e.toString());
       throw Exception('Erreur lors de la récupération de la clé public');
@@ -100,7 +100,7 @@ class ApiController {
   Future<User> fetchUser(String username, String password, int gapsId,
       {bool decrypt = false}) async {
     try {
-      final response = await dio.post(
+      final response = await dio.post<dynamic>(
         '/user?decrypt=$decrypt',
         data: jsonEncode({
           'username': username,
@@ -121,7 +121,7 @@ class ApiController {
   Future<int> login(String username, String password,
       {bool decrypt = false}) async {
     try {
-      return (await dio.post(
+      return (await dio.post<dynamic>(
         '/login?decrypt=$decrypt',
         data: jsonEncode({
           'username': username,

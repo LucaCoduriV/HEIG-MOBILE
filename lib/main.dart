@@ -41,8 +41,8 @@ Future<void> setup() async {
   Hive.registerAdapter(TodoAdapter());
   Hive.registerAdapter(UserAdapter());
   await IdGenerator.initialize();
-  await Hive.openBox('heig');
-  await Hive.openBox('heig-settings');
+  await Hive.openBox<dynamic>('heig');
+  await Hive.openBox<dynamic>('heig-settings');
 
   GetIt.I.registerSingleton<BulletinProvider>(BulletinProvider());
   GetIt.I.registerSingleton<ApiController>(ApiController());

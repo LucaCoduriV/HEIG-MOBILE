@@ -23,14 +23,14 @@ class AuthController extends ChangeNotifier {
   bool get isConnected => gapsId != -1;
 
   set username(String username) {
-    final box = Hive.box('heig');
+    final box = Hive.box<dynamic>('heig');
     _username = username;
     box.put('username', username);
   }
 
   set password(String password) {
     _password = password;
-    final box = Hive.box('heig');
+    final box = Hive.box<dynamic>('heig');
     box.put('password', password);
   }
 

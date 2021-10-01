@@ -1,7 +1,7 @@
+import 'package:dotenv/dotenv.dart' show load, env;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/api_controller.dart';
-import 'package:dotenv/dotenv.dart' show load, env;
 import 'package:heig_front/services/auth_controller.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -12,7 +12,7 @@ Future<void> main() async {
   final String ip = env['SERVER_IP_DEV'].toString();
   final String port = env['PORT_DEV'].toString();
   await Hive.initFlutter();
-  await Hive.openBox('heig');
+  await Hive.openBox<dynamic>('heig');
   GetIt.I.registerSingleton<ApiController>(ApiController.withIp(ip, port));
   GetIt.I.registerSingleton<AuthController>(AuthController());
   group('Login', () {

@@ -5,7 +5,7 @@ class IdGenerator {
   final _box = Hive.box(BOX_NAME);
 
   static Future<void> initialize() async {
-    await Hive.openBox(BOX_NAME);
+    await Hive.openBox<dynamic>(BOX_NAME);
   }
 
   late int _lastId;
