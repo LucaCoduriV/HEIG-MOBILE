@@ -18,15 +18,15 @@ import 'models/notes.dart';
 import 'models/todo.dart';
 import 'models/user.dart';
 import 'routes/main_router.dart';
-import 'services/api_controller.dart';
-import 'services/auth_controller.dart';
+import 'services/api.dart';
+import 'services/auth.dart';
 import 'services/navigator_controller.dart' as navigator_controller;
 import 'services/providers/bulletin_provider.dart';
 import 'services/providers/drawer_provider.dart';
 import 'services/providers/horaires_provider.dart';
 import 'services/providers/todos_provider.dart';
 import 'services/providers/user_provider.dart';
-import 'services/theme_data.dart' as theme;
+import 'settings/theme.dart' as theme;
 
 /// Prparation de la base de données local et des singletons.
 Future<void> setup() async {

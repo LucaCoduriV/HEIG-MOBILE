@@ -4,8 +4,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../models/heure_de_cours.dart';
 import '../../models/horaires.dart';
-import '../api_controller.dart';
-import '../auth_controller.dart';
+import '../api.dart';
+import '../auth.dart';
 
 /// Cette classe permet de distribuer et mettre à jours les données concernant les horaires.
 class HorairesProvider extends ChangeNotifier {

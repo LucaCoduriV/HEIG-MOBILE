@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../services/theme_data.dart' as theme;
+import '../settings/theme.dart' as theme;
 
 /// Element d'une liste permettant d'afficher le début et la fin d'un cours.
 class HeureDeCoursWidget extends StatelessWidget {

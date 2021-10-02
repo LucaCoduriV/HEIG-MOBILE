@@ -3,8 +3,8 @@ import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../models/bulletin.dart';
-import '../api_controller.dart';
-import '../auth_controller.dart';
+import '../api.dart';
+import '../auth.dart';
 
 /// Cette classe permet de distribuer et mettre à jours les données concernant le bulletin
 class BulletinProvider extends ChangeNotifier {

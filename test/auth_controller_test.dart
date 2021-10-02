@@ -1,8 +1,8 @@
 import 'package:dotenv/dotenv.dart' show load, env;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/services/api_controller.dart';
-import 'package:heig_front/services/auth_controller.dart';
+import 'package:heig_front/services/api.dart';
+import 'package:heig_front/services/auth.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 Future<void> main() async {

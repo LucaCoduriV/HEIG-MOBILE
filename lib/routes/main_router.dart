@@ -2,7 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:heig_front/routes/settings_route.dart';
 import 'package:vrouter/vrouter.dart';
 
-import '../services/auth_controller.dart';
+import '../services/auth.dart';
 import '../services/navigator_controller.dart' as navigator_controller;
 import '../widgets/my_drawer.dart';
 import 'bulletin_route.dart';

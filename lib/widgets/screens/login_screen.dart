@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../services/auth_controller.dart';
+import '../../services/auth.dart';
 import '../../services/navigator_controller.dart' as navigator_controller;
 import '../../services/providers/bulletin_provider.dart';
 import '../../services/providers/horaires_provider.dart';
