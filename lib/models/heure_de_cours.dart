@@ -23,8 +23,16 @@ class HeureDeCours extends Notifiable {
   @HiveField(6)
   String? rrule;
 
-  HeureDeCours(this.nom, this.debut, this.fin, this.prof, this.salle, this.uid,
-      this.rrule);
+  HeureDeCours(
+    this.nom,
+    this.debut,
+    this.fin,
+    this.prof,
+    this.salle,
+    this.uid,
+    this.rrule, {
+    int? notificationId,
+  }) : super(notificationId: notificationId);
 
   factory HeureDeCours.fromJson(Map<String, dynamic> json) {
     final String startString = json['DTSTART;TZID=Europe/Zurich'] as String;

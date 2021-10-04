@@ -24,7 +24,8 @@ class HeureDeCoursAdapter extends TypeAdapter<HeureDeCours> {
       fields[4] as String,
       fields[5] as String,
       fields[6] as String?,
-    )..notificationId = fields[7] as int;
+      notificationId: fields[7] as int,
+    );
   }
 
   @override

@@ -6,8 +6,12 @@ abstract class Notifiable {
 
   int notificationId = -1;
 
-  Notifiable() {
-    notificationId = idGen.nextId();
+  Notifiable({int? notificationId}) {
+    if (notificationId == null) {
+      notificationId = idGen.nextId();
+    } else {
+      this.notificationId = notificationId;
+    }
   }
 
   void scheduleNotification();

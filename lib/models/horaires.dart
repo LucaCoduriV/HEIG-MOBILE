@@ -20,10 +20,6 @@ class Horaires {
 
   Horaires(this.semestre, this.annee, this.horaires, this.rrule) {
     horairesRRule = getRRuleDates();
-
-    for (final heureCours in horairesRRule) {
-      heureCours.scheduleNotification();
-    }
   }
 
   List<HeureDeCours> getRRuleDates() {
