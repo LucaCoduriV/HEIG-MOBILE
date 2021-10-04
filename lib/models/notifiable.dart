@@ -4,11 +4,11 @@ import 'package:heig_front/utils/id_generator.dart';
 abstract class Notifiable {
   static final idGen = IdGenerator('notification');
 
-  int notificationId = -1;
+  late int notificationId;
 
   Notifiable({int? notificationId}) {
-    if (notificationId == null) {
-      notificationId = idGen.nextId();
+    if (notificationId == null || notificationId == -1) {
+      this.notificationId = idGen.nextId();
     } else {
       this.notificationId = notificationId;
     }
