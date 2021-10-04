@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:heig_front/services/providers/horaires_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../services/auth.dart';
@@ -203,6 +204,9 @@ class _MyDrawerState extends State<MyDrawer> {
                           ListTile(
                               onTap: () {
                                 GetIt.I<AuthController>().logout();
+                                GetIt.I
+                                    .get<HorairesProvider>()
+                                    .cancelNotifications();
                                 navigator_controller.toLogin(context);
                               },
                               leading: Icon(Icons.logout,

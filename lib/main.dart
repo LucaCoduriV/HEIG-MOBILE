@@ -2,6 +2,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_dropdown_alert/dropdown_alert.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/providers/settings_provider.dart';
 import 'package:heig_front/utils/id_generator.dart';
@@ -120,6 +121,14 @@ class _MyAppState extends State<MyApp> {
               : VLogs.info, // Defines which logs to show, info is the default
           initialUrl: '/${navigator_controller.home}',
           routes: MainRouter().buildRoutes(),
+          builder: (BuildContext context, Widget child) {
+            return Stack(
+              children: [
+                child,
+                const DropdownAlert(),
+              ],
+            );
+          },
         );
       },
     );

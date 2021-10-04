@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dropdown_alert/alert_controller.dart';
+import 'package:flutter_dropdown_alert/model/data_alert.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 
@@ -95,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        showDialog(
+                        showDialog<dynamic>(
                           context: context,
                           barrierDismissible: false,
                           builder: (BuildContext context) {
@@ -116,9 +118,17 @@ class _LoginScreenState extends State<LoginScreen> {
                         if (await GetIt.I<AuthController>().login()) {
                           navigator_controller.toHome(context);
                           GetIt.I.get<UserProvider>().fetchUser();
-                          GetIt.I.get<HorairesProvider>().fetchHoraires();
+                          GetIt.I.get<HorairesProvider>()
+                            ..fetchHoraires()
+                            ..registerNotifications();
                           GetIt.I.get<BulletinProvider>().fetchBulletin();
-                        } else {}
+                        } else {
+                          AlertController.show(
+                            'Error',
+                            'Wrong username or password.',
+                            TypeAlert.error,
+                          );
+                        }
 
                         Navigator.pop(context);
                       }

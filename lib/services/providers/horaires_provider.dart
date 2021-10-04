@@ -20,13 +20,13 @@ class HorairesProvider extends ChangeNotifier {
 
   Horaires get horaires => _horaires;
 
-  Future<void> _cancelNotifications() async {
+  Future<void> cancelNotifications() async {
     for (final heureCours in _horaires.horairesRRule) {
       await heureCours.cancelNotification();
     }
   }
 
-  void _registerNotifications() {
+  void registerNotifications() {
     for (final heureCours in _horaires.horairesRRule) {
       heureCours.scheduleNotification();
     }
@@ -38,13 +38,13 @@ class HorairesProvider extends ChangeNotifier {
       final password = await GetIt.I<AuthController>().encryptedPassword;
 
       // Annuler toutes les notifications avant de récupérer les horaires
-      await _cancelNotifications();
+      await cancelNotifications();
 
       _horaires = await GetIt.I
           .get<ApiController>()
           .fetchHoraires(auth.username, password, auth.gapsId, decrypt: true);
 
-      _registerNotifications();
+      registerNotifications();
 
       box.put('horaires', _horaires);
 
