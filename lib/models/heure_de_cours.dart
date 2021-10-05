@@ -71,18 +71,8 @@ class HeureDeCours extends Notifiable {
 
   @override
   void scheduleNotification() {
-    final now = DateTime.now();
-
-    if (now.isAfter(debut) ||
-        now.add(const Duration(days: 6)).isBefore(debut)) {
-      return;
-    }
-
     final String dateSlug =
         "${debut.hour.toString().padLeft(2, '0')}:${debut.minute.toString().padLeft(2, '0')}";
-    if (debut.day == 4 && debut.month == 10) {
-      log(debut.toString());
-    }
 
     AwesomeNotifications().createNotification(
         schedule: NotificationCalendar.fromDate(

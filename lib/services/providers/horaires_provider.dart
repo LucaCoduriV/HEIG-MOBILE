@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -22,12 +24,19 @@ class HorairesProvider extends ChangeNotifier {
 
   Future<void> cancelNotifications() async {
     for (final heureCours in _horaires.horairesRRule) {
+      log('Supression ${heureCours.notificationId}');
       await heureCours.cancelNotification();
     }
   }
 
   void registerNotifications() {
+    final now = DateTime.now();
     for (final heureCours in _horaires.horairesRRule) {
+      if (now.isAfter(heureCours.debut) ||
+          now.add(const Duration(days: 2)).isBefore(heureCours.debut)) {
+        continue;
+      }
+      log('Enregistrement ${heureCours.notificationId} ${heureCours.debut}');
       heureCours.scheduleNotification();
     }
   }
