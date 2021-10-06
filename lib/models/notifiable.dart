@@ -13,7 +13,6 @@ abstract class Notifiable {
       this.notificationId = idGen.nextId();
     } else {
       this.notificationId = notificationId;
-      log('getting Id: $notificationId');
     }
   }
 

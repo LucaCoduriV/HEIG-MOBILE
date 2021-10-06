@@ -63,9 +63,7 @@ class ApiController {
           .toList()
           .cast<HeureDeCours>();
       final returnValue = Horaires(0, 2021);
-      log('TAILLE1: ${horaires.length}');
       returnValue.horaires = horaires;
-      log('TAILLE2: ${returnValue.horaires.length}');
       return returnValue;
     } catch (e) {
       debugPrint(e.toString());

@@ -9,6 +9,7 @@ import 'bulletin_route.dart';
 import 'home_route.dart';
 import 'horaires_route.dart';
 import 'login_route.dart';
+import 'menu_route.dart';
 import 'todos_route.dart';
 
 class MainRouter {
@@ -29,6 +30,7 @@ class MainRouter {
               HomeRoute(),
               BulletinRoute(),
               HorairesRoute(),
+              MenuRoute(),
               TodosRoute(),
               SettingsRoute(),
             ],
