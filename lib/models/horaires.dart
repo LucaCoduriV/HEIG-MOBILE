@@ -12,17 +12,22 @@ class Horaires {
   @HiveField(1)
   int annee;
   @HiveField(2)
-  late List<HeureDeCours> horaires;
-  @HiveField(3)
-  String rrule = '';
+  late List<HeureDeCours> _horaires;
 
-  late List<HeureDeCours> horairesRRule;
+  //late List<HeureDeCours> horairesRRule;
 
-  Horaires(this.semestre, this.annee, this.horaires, this.rrule) {
-    horairesRRule = getRRuleDates();
+  List<HeureDeCours> get horaires => _horaires;
+
+  set horaires(List<HeureDeCours> horaires) {
+    _horaires = getRRuleDates(horaires);
   }
 
-  List<HeureDeCours> getRRuleDates() {
+  Horaires(this.semestre, this.annee,
+      {List<HeureDeCours> horaires = const []}) {
+    _horaires = horaires;
+  }
+
+  List<HeureDeCours> getRRuleDates(List<HeureDeCours> horaires) {
     final List<HeureDeCours> data = [];
     try {
       horaires.forEach((element) {
@@ -56,6 +61,7 @@ class Horaires {
     } catch (e) {
       log('error2: $e');
     }
+
     return data;
   }
 

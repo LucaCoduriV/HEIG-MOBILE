@@ -16,14 +16,18 @@ class HorairesProvider extends ChangeNotifier {
 
   HorairesProvider() {
     final Horaires hiveHoraires = box.get('horaires',
-        defaultValue: Horaires(0, 2021, <HeureDeCours>[], ''));
+        defaultValue: Horaires(
+          0,
+          2021,
+          horaires: <HeureDeCours>[],
+        ));
     _horaires = hiveHoraires;
   }
 
   Horaires get horaires => _horaires;
 
   Future<void> cancelNotifications() async {
-    for (final heureCours in _horaires.horairesRRule) {
+    for (final heureCours in _horaires.horaires) {
       log('Supression ${heureCours.notificationId}');
       await heureCours.cancelNotification();
     }
@@ -31,9 +35,9 @@ class HorairesProvider extends ChangeNotifier {
 
   void registerNotifications() {
     final now = DateTime.now();
-    for (final heureCours in _horaires.horairesRRule) {
+    for (final heureCours in _horaires.horaires) {
       if (now.isAfter(heureCours.debut) ||
-          now.add(const Duration(days: 2)).isBefore(heureCours.debut)) {
+          now.add(const Duration(days: 30)).isBefore(heureCours.debut)) {
         continue;
       }
       log('Enregistrement ${heureCours.notificationId} ${heureCours.debut}');
@@ -67,7 +71,8 @@ class HorairesProvider extends ChangeNotifier {
   }
 
   List<HeureDeCours> getDailyClasses(DateTime day) {
-    final List<HeureDeCours> h = _horaires.horairesRRule
+    log(_horaires.horaires.length.toString());
+    final List<HeureDeCours> h = _horaires.horaires
         .where((h) =>
             h.debut.day == day.day &&
             h.debut.month == day.month &&

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
@@ -47,21 +48,25 @@ class ApiController {
 
       final Map<String, dynamic> json = res.data;
       final List<dynamic> horairesJson = json['VEVENT'];
-      final List<dynamic> calendarJson = json['VCALENDAR'];
+      // final List<dynamic> calendarJson = json['VCALENDAR'];
 
-      final Map<String, dynamic> rrule0 =
-          Map<String, dynamic>.from(calendarJson[0]);
-      final List<dynamic> rrule1 = rrule0['VTIMEZONE'];
-      final Map<String, dynamic> rrule2 = Map<String, dynamic>.from(rrule1[0]);
-      final List<dynamic> rrule3 = rrule2['STANDARD'];
-      final Map<String, dynamic> rrule4 = Map<String, dynamic>.from(rrule3[0]);
-      final String rrule = rrule4['RRULE'];
+      // final Map<String, dynamic> rrule0 =
+      //    Map<String, dynamic>.from(calendarJson[0]);
+      // final List<dynamic> rrule1 = rrule0['VTIMEZONE'];
+      // final Map<String, dynamic> rrule2 = Map<String, dynamic>.from(rrule1[0]);
+      // final List<dynamic> rrule3 = rrule2['STANDARD'];
+      // final Map<String, dynamic> rrule4 = Map<String, dynamic>.from(rrule3[0]);
+      // final String rrule = rrule4['RRULE'];
 
       final List<HeureDeCours> horaires = horairesJson
           .map((e) => HeureDeCours.fromJson(e))
           .toList()
           .cast<HeureDeCours>();
-      return Horaires(0, 2021, horaires, 'RRULE:$rrule');
+      final returnValue = Horaires(0, 2021);
+      log('TAILLE1: ${horaires.length}');
+      returnValue.horaires = horaires;
+      log('TAILLE2: ${returnValue.horaires.length}');
+      return returnValue;
     } catch (e) {
       debugPrint(e.toString());
       throw Exception('Erreur lors de la récupération des horaires');

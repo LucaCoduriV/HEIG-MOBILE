@@ -19,23 +19,20 @@ class HorairesAdapter extends TypeAdapter<Horaires> {
     return Horaires(
       fields[0] as int,
       fields[1] as int,
-      (fields[2] as List).cast<HeureDeCours>(),
-      fields[3] as String,
+      horaires: (fields[2] as List).cast<HeureDeCours>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Horaires obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.semestre)
       ..writeByte(1)
       ..write(obj.annee)
       ..writeByte(2)
-      ..write(obj.horaires)
-      ..writeByte(3)
-      ..write(obj.rrule);
+      ..write(obj.horaires);
   }
 
   @override

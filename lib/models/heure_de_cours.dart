@@ -80,7 +80,7 @@ class HeureDeCours extends Notifiable {
         content: NotificationContent(
           id: notificationId,
           channelKey: 'horaires_channel',
-          title: 'Cours: $nom, $salle',
+          title: 'Cours: $nom Classe: $salle',
           body: dateSlug,
         ));
   }
