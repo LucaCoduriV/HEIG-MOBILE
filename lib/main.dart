@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_dropdown_alert/dropdown_alert.dart';
 import 'package:get_it/get_it.dart';
+import 'package:heig_front/services/providers/menus_provider.dart';
 import 'package:heig_front/services/providers/settings_provider.dart';
 import 'package:heig_front/utils/id_generator.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -54,6 +55,7 @@ Future<void> setup() async {
   GetIt.I.registerSingleton<HorairesProvider>(HorairesProvider());
   GetIt.I.registerSingleton<SettingsProvider>(SettingsProvider());
   GetIt.I.registerSingleton<theme.ThemeProvider>(theme.ThemeProvider());
+  GetIt.I.registerSingleton<MenusProvider>(MenusProvider());
   GetIt.I.registerSingleton<GlobalKey<RefreshIndicatorState>>(
       GlobalKey<RefreshIndicatorState>());
 

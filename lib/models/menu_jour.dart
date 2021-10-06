@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 class MenuJour {
   final String _day;
   final List<String> _tradition;
@@ -9,11 +11,11 @@ class MenuJour {
   List<String> get tradition => _tradition;
   List<String> get vegetarien => _vegetarien;
 
-  factory MenuJour.fromJson(Map<String, dynamic> json) {
+  factory MenuJour.fromJson(MapEntry<String, dynamic> json) {
     return MenuJour(
-      json.entries.first as String,
-      json['tradition'],
-      json['vegetarien'],
+      json.key,
+      json.value['tradition'].cast<String>(),
+      json.value['vegetarien'].cast<String>(),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:heig_front/models/menu_jour.dart';
 
 import '../models/branche.dart';
 import '../models/bulletin.dart';
@@ -87,6 +88,19 @@ class ApiController {
     } catch (e) {
       debugPrint(e.toString());
       throw Exception('Erreur lors de la récupération des notes');
+    }
+  }
+
+  Future<List<MenuJour>> fetchMenuSemaine() async {
+    try {
+      final res = await dio.get<dynamic>('/menus');
+      final Map<String, dynamic> json = res.data;
+      final List<MenuJour> menuSemaine =
+          json.entries.map((e) => MenuJour.fromJson(e)).toList();
+      return menuSemaine;
+    } catch (e) {
+      debugPrint(e.toString());
+      throw Exception('Erreur lors de la récupération des menus');
     }
   }
 
