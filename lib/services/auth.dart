@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'api.dart';
+import 'api/api.dart';
 import 'asymmetric_crypt.dart';
 import 'providers/bulletin_provider.dart';
 import 'providers/user_provider.dart';

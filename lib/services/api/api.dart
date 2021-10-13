@@ -5,12 +5,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:heig_front/models/menu_jour.dart';
 
-import '../models/branche.dart';
-import '../models/bulletin.dart';
-import '../models/heure_de_cours.dart';
-import '../models/horaires.dart';
-import '../models/user.dart';
-import '../settings/env_settings.dart';
+import 'response_types/branche.dart';
+import 'response_types/bulletin.dart';
+import 'response_types/heure_de_cours.dart';
+import 'response_types/user.dart';
+import '../../services/api/response_types/horaires.dart';
+import '../../settings/env_settings.dart';
 
 /// Cette classe permet de récupérer les données traitées depuis l'API
 class ApiController {

@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../../models/user.dart';
-import '../api.dart';
+import '../api/response_types/user.dart';
+import '../api/api.dart';
 import '../auth.dart';
 
 /// Cette classe permet de distribuer et mettre à jours les données concernant l'utilisateur.

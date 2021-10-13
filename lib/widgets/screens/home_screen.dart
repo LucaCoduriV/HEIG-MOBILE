@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/heure_de_cours.dart';
+import '../../services/api/response_types/heure_de_cours.dart';
 import '../../models/todo.dart';
 import '../../services/navigator_controller.dart' as navigator_controller;
 import '../../services/providers/bulletin_provider.dart';

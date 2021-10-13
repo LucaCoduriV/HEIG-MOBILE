@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../../models/heure_de_cours.dart';
-import '../../models/horaires.dart';
-import '../api.dart';
+import '../api/response_types/heure_de_cours.dart';
+import '../../services/api/response_types/horaires.dart';
+import '../api/api.dart';
 import '../auth.dart';
 
 /// Cette classe permet de distribuer et mettre à jours les données concernant les horaires.
