@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'package:heig_front/models/heure_de_cours.dart';
+import 'package:heig_front/services/api/response_types/heure_de_cours.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:rrule/rrule.dart';
 

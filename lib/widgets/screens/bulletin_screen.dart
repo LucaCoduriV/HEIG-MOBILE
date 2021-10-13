@@ -3,8 +3,8 @@ import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/providers/settings_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/branche.dart';
-import '../../models/bulletin.dart';
+import '../../services/api/response_types/branche.dart';
+import '../../services/api/response_types/bulletin.dart';
 import '../../services/navigator_controller.dart' as navigator_controller;
 import '../../services/providers/bulletin_provider.dart';
 import '../../services/providers/drawer_provider.dart';
