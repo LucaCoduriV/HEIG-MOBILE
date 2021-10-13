@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/models/menu_jour.dart';
-import 'package:heig_front/services/api.dart';
+import 'package:heig_front/services/api/api.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class MenusProvider extends ChangeNotifier {

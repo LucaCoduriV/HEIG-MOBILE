@@ -9,7 +9,7 @@ import 'response_types/branche.dart';
 import 'response_types/bulletin.dart';
 import 'response_types/heure_de_cours.dart';
 import 'response_types/user.dart';
-import '../../services/api/response_types/horaires.dart';
+import 'response_types/horaires.dart';
 import '../../settings/env_settings.dart';
 
 /// Cette classe permet de récupérer les données traitées depuis l'API

@@ -5,7 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../api/response_types/heure_de_cours.dart';
-import '../../services/api/response_types/horaires.dart';
+import '../api/response_types/horaires.dart';
 import '../api/api.dart';
 import '../auth.dart';
 
