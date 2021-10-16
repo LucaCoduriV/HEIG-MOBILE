@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
+import 'package:heig_front/services/providers/interfaces/iauth_controller.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../api/response_types/bulletin.dart';
@@ -40,7 +41,7 @@ class BulletinProvider extends ChangeNotifier {
   Future<void> fetchBulletin() async {
     loading = true;
     notifyListeners();
-    final AuthController auth = GetIt.I.get<AuthController>();
+    final IAuthController auth = GetIt.I.get<IAuthController>();
     try {
       final password = await auth.encryptedPassword;
 

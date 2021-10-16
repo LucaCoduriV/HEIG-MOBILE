@@ -26,6 +26,7 @@ import 'services/navigator_controller.dart' as navigator_controller;
 import 'services/providers/bulletin_provider.dart';
 import 'services/providers/drawer_provider.dart';
 import 'services/providers/horaires_provider.dart';
+import 'services/providers/interfaces/iauth_controller.dart';
 import 'services/providers/todos_provider.dart';
 import 'services/providers/user_provider.dart';
 import 'settings/theme.dart' as theme;
@@ -48,7 +49,7 @@ Future<void> setup() async {
 
   GetIt.I.registerSingleton<BulletinProvider>(BulletinProvider());
   GetIt.I.registerSingleton<ApiController>(ApiController());
-  GetIt.I.registerSingleton<AuthController>(AuthController());
+  GetIt.I.registerSingleton<IAuthController>(AuthController());
   GetIt.I.registerSingleton<DrawerProvider>(DrawerProvider());
   GetIt.I.registerSingleton<TodosProvider>(TodosProvider());
   GetIt.I.registerSingleton<UserProvider>(UserProvider());
