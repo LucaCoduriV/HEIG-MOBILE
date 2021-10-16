@@ -3,7 +3,7 @@ import 'package:heig_front/routes/settings_route.dart';
 import 'package:heig_front/services/providers/interfaces/iauth_controller.dart';
 import 'package:vrouter/vrouter.dart';
 
-import '../services/navigator_controller.dart' as navigator_controller;
+import '../services/navigation.dart' as navigator_controller;
 import '../widgets/my_drawer.dart';
 import 'bulletin_route.dart';
 import 'home_route.dart';

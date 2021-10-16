@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../services/auth.dart';
-import '../../services/navigator_controller.dart' as navigator_controller;
+import '../../services/navigation.dart' as navigator_controller;
 import '../../services/providers/bulletin_provider.dart';
 import '../../services/providers/horaires_provider.dart';
 import '../../services/providers/user_provider.dart';
