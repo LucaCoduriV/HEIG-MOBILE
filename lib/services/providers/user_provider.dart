@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
+import 'package:heig_front/services/providers/interfaces/iapi.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../api/response_types/user.dart';
-import '../api/api.dart';
 import '../auth.dart';
 import 'interfaces/iauth_controller.dart';
 
@@ -11,7 +11,8 @@ import 'interfaces/iauth_controller.dart';
 class UserProvider extends ChangeNotifier {
   late User _user;
   var box = Hive.box('heig');
-  final IAuthController auth = GetIt.I.get<IAuthController>();
+  final IAuth auth = GetIt.I.get<IAuth>();
+  final IAPI api = GetIt.I.get<IAPI>();
 
   UserProvider() {
     _user = box.get('user', defaultValue: User('', '', '', '', '', '', ''));
@@ -33,8 +34,8 @@ class UserProvider extends ChangeNotifier {
     try {
       final password = await auth.encryptedPassword;
 
-      _user = await ApiController()
-          .fetchUser(auth.username, password, auth.gapsId, decrypt: true);
+      _user = await api.fetchUser(auth.username, password, auth.gapsId,
+          decrypt: true);
       box.put('user', _user);
       notifyListeners();
       return true;

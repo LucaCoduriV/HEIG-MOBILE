@@ -1,4 +1,4 @@
-abstract class IAuthController {
+abstract class IAuth {
   Future<String> get encryptedPassword;
   int get gapsId;
   bool get isConnected;

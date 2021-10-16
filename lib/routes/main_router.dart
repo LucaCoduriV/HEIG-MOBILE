@@ -18,7 +18,7 @@ class MainRouter {
       LoginRoute(),
       VGuard(
         beforeEnter: (vRedirector) async {
-          if (!GetIt.I<IAuthController>().isConnected) {
+          if (!GetIt.I<IAuth>().isConnected) {
             vRedirector.to('/${navigator_controller.login}');
           }
         },
