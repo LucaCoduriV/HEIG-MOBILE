@@ -3,12 +3,13 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:heig_front/models/menu_jour.dart';
 
 import 'response_types/branche.dart';
 import 'response_types/bulletin.dart';
 import 'response_types/heure_de_cours.dart';
 import 'response_types/user.dart';
-import '../../services/api/response_types/horaires.dart';
+import 'response_types/horaires.dart';
 import '../../settings/env_settings.dart';
 
 /// Cette classe permet de récupérer les données traitées depuis l'API
@@ -63,9 +64,7 @@ class ApiController {
           .toList()
           .cast<HeureDeCours>();
       final returnValue = Horaires(0, 2021);
-      log('TAILLE1: ${horaires.length}');
       returnValue.horaires = horaires;
-      log('TAILLE2: ${returnValue.horaires.length}');
       return returnValue;
     } catch (e) {
       debugPrint(e.toString());
@@ -89,6 +88,19 @@ class ApiController {
     } catch (e) {
       debugPrint(e.toString());
       throw Exception('Erreur lors de la récupération des notes');
+    }
+  }
+
+  Future<List<MenuJour>> fetchMenuSemaine() async {
+    try {
+      final res = await dio.get<dynamic>('/menus');
+      final Map<String, dynamic> json = res.data;
+      final List<MenuJour> menuSemaine =
+          json.entries.map((e) => MenuJour.fromJson(e)).toList();
+      return menuSemaine;
+    } catch (e) {
+      debugPrint(e.toString());
+      throw Exception('Erreur lors de la récupération des menus');
     }
   }
 

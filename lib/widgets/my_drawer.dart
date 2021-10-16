@@ -181,6 +181,17 @@ class _MyDrawerState extends State<MyDrawer> {
                             navigator_controller.toTodos(context);
                           },
                         ),
+                        ListTile(
+                          leading: Icon(
+                            Icons.food_bank,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          title: const Text('Menu'),
+                          onTap: () {
+                            _scaffoldKey.currentState?.openEndDrawer();
+                            navigator_controller.toMenu(context);
+                          },
+                        ),
                       ],
                     ),
                   ),

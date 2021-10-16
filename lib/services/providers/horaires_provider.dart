@@ -5,7 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../api/response_types/heure_de_cours.dart';
-import '../../services/api/response_types/horaires.dart';
+import '../api/response_types/horaires.dart';
 import '../api/api.dart';
 import '../auth.dart';
 
@@ -28,7 +28,6 @@ class HorairesProvider extends ChangeNotifier {
 
   Future<void> cancelNotifications() async {
     for (final heureCours in _horaires.horaires) {
-      log('Supression ${heureCours.notificationId}');
       await heureCours.cancelNotification();
     }
   }
@@ -40,7 +39,6 @@ class HorairesProvider extends ChangeNotifier {
           now.add(const Duration(days: 30)).isBefore(heureCours.debut)) {
         continue;
       }
-      log('Enregistrement ${heureCours.notificationId} ${heureCours.debut}');
       heureCours.scheduleNotification();
     }
   }
@@ -71,7 +69,6 @@ class HorairesProvider extends ChangeNotifier {
   }
 
   List<HeureDeCours> getDailyClasses(DateTime day) {
-    log(_horaires.horaires.length.toString());
     final List<HeureDeCours> h = _horaires.horaires
         .where((h) =>
             h.debut.day == day.day &&

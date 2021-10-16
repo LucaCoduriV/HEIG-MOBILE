@@ -1,9 +1,10 @@
-import 'dart:developer';
-import 'package:heig_front/services/api/response_types/heure_de_cours.dart';
+import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:rrule/rrule.dart';
 
-part 'horaires.g.dart';
+import './heure_de_cours.dart';
+
+part './horaires.g.dart';
 
 @HiveType(typeId: 4)
 class Horaires {
@@ -51,7 +52,7 @@ class Horaires {
                   element.uid,
                   element.rrule));
             } catch (e) {
-              log('error: $e');
+              debugPrint('error: $e');
             }
           }
         } else {
@@ -59,7 +60,7 @@ class Horaires {
         }
       });
     } catch (e) {
-      log('error2: $e');
+      debugPrint('error2: $e');
     }
 
     return data;
