@@ -16,7 +16,7 @@ class MenuRoute extends VRouteElementBuilder {
         },
         stackedRoutes: [
           VWidget(
-            path: '/${navigator_controller.menu}',
+            path: '/${navigator_controller.MENU}',
             widget: const MenuScreen(),
           ),
         ],

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:heig_front/models/menu_jour.dart';
-import 'package:heig_front/services/providers/interfaces/iapi.dart';
+import 'package:heig_front/services/api/iapi.dart';
 
 import '../../settings/env_settings.dart';
 import 'response_types/branche.dart';

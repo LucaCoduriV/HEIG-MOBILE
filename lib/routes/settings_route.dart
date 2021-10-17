@@ -16,7 +16,7 @@ class SettingsRoute extends VRouteElementBuilder {
         },
         stackedRoutes: [
           VWidget(
-            path: '/${navigator_controller.settings}',
+            path: '/${navigator_controller.SETTINGS}',
             widget: const SettingsScreen(),
           ),
         ],

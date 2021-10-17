@@ -3,42 +3,42 @@
 import 'package:flutter/material.dart';
 import 'package:vrouter/vrouter.dart';
 
-const String login = 'login';
-const String notes = 'notes';
-const String horaires = 'horaires';
-const String home = 'home';
-const String todos = 'todos';
-const String settings = 'settings';
-const String menu = 'menu';
+const String LOGIN = 'login';
+const String NOTES = 'notes';
+const String HORAIRES = 'horaires';
+const String HOME = 'home';
+const String TODOS = 'todos';
+const String SETTINGS = 'settings';
+const String MENU = 'menu';
 
 void toLogin(BuildContext context) {
-  VRouter.of(context).to('/$login');
+  VRouter.of(context).to('/$LOGIN');
 }
 
 void toHome(BuildContext context) {
-  VRouter.of(context).to('/$home');
+  VRouter.of(context).to('/$HOME');
 }
 
 void toNotes(BuildContext context) {
-  VRouter.of(context).to('/$notes');
+  VRouter.of(context).to('/$NOTES');
 }
 
 void toHoraires(BuildContext context) {
-  VRouter.of(context).to('/$horaires');
+  VRouter.of(context).to('/$HORAIRES');
 }
 
 void toTodos(BuildContext context) {
-  VRouter.of(context).to('/$todos');
+  VRouter.of(context).to('/$TODOS');
 }
 
 void toNoteDetails(BuildContext context, int noteId) {
-  VRouter.of(context).to('/$notes/$noteId');
+  VRouter.of(context).to('/$NOTES/$noteId');
 }
 
 void toSettings(BuildContext context) {
-  VRouter.of(context).to('/$settings');
+  VRouter.of(context).to('/$SETTINGS');
 }
 
 void toMenu(BuildContext context) {
-  VRouter.of(context).to('/$menu');
+  VRouter.of(context).to('/$MENU');
 }

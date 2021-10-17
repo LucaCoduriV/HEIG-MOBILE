@@ -16,7 +16,7 @@ class TodosRoute extends VRouteElementBuilder {
         },
         stackedRoutes: [
           VWidget(
-            path: '/${navigator_controller.todos}',
+            path: '/${navigator_controller.TODOS}',
             widget: const AgendaScreen(), //TodosScreen(),
           )
         ],

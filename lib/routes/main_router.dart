@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/routes/settings_route.dart';
-import 'package:heig_front/services/providers/interfaces/iauth_controller.dart';
+import 'package:heig_front/services/auth/iauth.dart';
 import 'package:vrouter/vrouter.dart';
 
 import '../services/navigation.dart' as navigator_controller;
@@ -19,12 +19,12 @@ class MainRouter {
       VGuard(
         beforeEnter: (vRedirector) async {
           if (!GetIt.I<IAuth>().isConnected) {
-            vRedirector.to('/${navigator_controller.login}');
+            vRedirector.to('/${navigator_controller.LOGIN}');
           }
         },
         stackedRoutes: [
           VNester(
-            path: '/${navigator_controller.home}',
+            path: '/${navigator_controller.HOME}',
             widgetBuilder: (child) => MyDrawer(child: child),
             nestedRoutes: [
               HomeRoute(),
@@ -38,7 +38,7 @@ class MainRouter {
         ],
       ),
       VRouteRedirector(
-        redirectTo: '/${navigator_controller.home}',
+        redirectTo: '/${navigator_controller.HOME}',
         path: ':_(.*)', // .* is a regexp which matching every paths
       ),
     ];

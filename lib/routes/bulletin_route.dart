@@ -19,7 +19,7 @@ class BulletinRoute extends VRouteElementBuilder {
         },
         stackedRoutes: [
           VWidget(
-            path: '/${navigator_controller.notes}',
+            path: '/${navigator_controller.NOTES}',
             widget: const BulletinScreen(),
             stackedRoutes: [
               VWidget(

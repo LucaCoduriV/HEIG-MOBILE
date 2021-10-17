@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/services/providers/interfaces/iauth_controller.dart';
+import 'package:heig_front/services/auth/iauth.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../api/iapi.dart';
 import '../api/response_types/bulletin.dart';
-import 'interfaces/iapi.dart';
 
 /// Cette classe permet de distribuer et mettre à jours les données concernant le bulletin
 class BulletinProvider extends ChangeNotifier {

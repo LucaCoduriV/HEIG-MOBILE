@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_dropdown_alert/dropdown_alert.dart';
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/services/providers/interfaces/iapi.dart';
+import 'package:heig_front/services/api/iapi.dart';
 import 'package:heig_front/services/providers/menus_provider.dart';
 import 'package:heig_front/services/providers/settings_provider.dart';
 import 'package:heig_front/utils/id_generator.dart';
@@ -22,12 +22,12 @@ import 'services/api/response_types/heure_de_cours.dart';
 import 'services/api/response_types/horaires.dart';
 import 'services/api/response_types/notes.dart';
 import 'services/api/response_types/user.dart';
-import 'services/auth.dart';
+import 'services/auth/auth.dart';
+import 'services/auth/iauth.dart';
 import 'services/navigation.dart' as navigator_controller;
 import 'services/providers/bulletin_provider.dart';
 import 'services/providers/drawer_provider.dart';
 import 'services/providers/horaires_provider.dart';
-import 'services/providers/interfaces/iauth_controller.dart';
 import 'services/providers/todos_provider.dart';
 import 'services/providers/user_provider.dart';
 import 'settings/theme.dart' as theme;
@@ -49,7 +49,7 @@ Future<void> setup() async {
   await Hive.openBox<dynamic>('heig-settings');
 
   GetIt.I.registerSingleton<IAPI>(ApiController());
-  GetIt.I.registerSingleton<IAuth>(AuthController());
+  GetIt.I.registerSingleton<IAuth>(Auth());
   GetIt.I.registerSingleton<BulletinProvider>(BulletinProvider());
   GetIt.I.registerSingleton<DrawerProvider>(DrawerProvider());
   GetIt.I.registerSingleton<TodosProvider>(TodosProvider());
@@ -123,7 +123,7 @@ class _MyAppState extends State<MyApp> {
           logs: foundation.kReleaseMode
               ? VLogs.none
               : VLogs.info, // Defines which logs to show, info is the default
-          initialUrl: '/${navigator_controller.home}',
+          initialUrl: '/${navigator_controller.HOME}',
           routes: MainRouter().buildRoutes(),
           builder: (BuildContext context, Widget child) {
             return Stack(

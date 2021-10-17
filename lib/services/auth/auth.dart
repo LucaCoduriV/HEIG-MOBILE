@@ -2,15 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'api/api.dart';
-import 'asymmetric_crypt.dart';
-import 'providers/bulletin_provider.dart';
-import 'providers/interfaces/iapi.dart';
-import 'providers/interfaces/iauth_controller.dart';
-import 'providers/user_provider.dart';
+import '../api/iapi.dart';
+import '../asymmetric_crypt.dart';
+import '../providers/bulletin_provider.dart';
+import '../providers/user_provider.dart';
+import 'iauth.dart';
 
 /// Cette classe permet de gérer le nom et le mot de passe de l'utilisateur
-class AuthController extends ChangeNotifier implements IAuth {
+class Auth extends ChangeNotifier implements IAuth {
   late String _username;
   late String _password;
   late int _gapsId;
@@ -49,7 +48,7 @@ class AuthController extends ChangeNotifier implements IAuth {
   @override
   int get gapsId => _gapsId;
 
-  AuthController() {
+  Auth() {
     // Récupérer le nom et le mot de passe de l'utilisateur
     _username = box.get('username', defaultValue: '');
     _password = box.get('password', defaultValue: '');

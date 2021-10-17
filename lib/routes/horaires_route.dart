@@ -18,7 +18,7 @@ class HorairesRoute extends VRouteElementBuilder {
         },
         stackedRoutes: [
           VWidget(
-            path: '/${navigator_controller.horaires}',
+            path: '/${navigator_controller.HORAIRES}',
             widget: const HorairesScreen(),
           ),
         ],

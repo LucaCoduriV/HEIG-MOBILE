@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
-import 'package:heig_front/services/providers/interfaces/iapi.dart';
+import 'package:heig_front/services/api/iapi.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../api/response_types/user.dart';
-import '../auth.dart';
-import 'interfaces/iauth_controller.dart';
+import '../auth/auth.dart';
+import '../auth/iauth.dart';
 
 /// Cette classe permet de distribuer et mettre à jours les données concernant l'utilisateur.
 class UserProvider extends ChangeNotifier {
@@ -30,7 +30,7 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<bool> fetchUser() async {
-    final auth = GetIt.I.get<AuthController>();
+    final auth = GetIt.I.get<Auth>();
     try {
       final password = await auth.encryptedPassword;
 

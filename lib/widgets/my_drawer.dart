@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/providers/horaires_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../services/auth.dart';
+import '../services/auth/auth.dart';
 import '../services/navigation.dart' as navigator_controller;
 import '../services/providers/drawer_provider.dart';
 import '../settings/theme.dart' as theme;
@@ -214,7 +214,7 @@ class _MyDrawerState extends State<MyDrawer> {
                           ),
                           ListTile(
                               onTap: () {
-                                GetIt.I<AuthController>().logout();
+                                GetIt.I<Auth>().logout();
                                 GetIt.I
                                     .get<HorairesProvider>()
                                     .cancelNotifications();

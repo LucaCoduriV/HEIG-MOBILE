@@ -8,7 +8,7 @@ class LoginRoute extends VRouteElementBuilder {
   List<VRouteElement> buildRoutes() {
     return [
       VWidget(
-        path: '/${navigator_controller.login}',
+        path: '/${navigator_controller.LOGIN}',
         widget: const LoginScreen(),
       ),
     ];
