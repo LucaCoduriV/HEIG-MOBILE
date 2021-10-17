@@ -1,19 +1,19 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:heig_front/models/menu_jour.dart';
+import 'package:heig_front/services/api/iapi.dart';
 
+import '../../settings/env_settings.dart';
 import 'response_types/branche.dart';
 import 'response_types/bulletin.dart';
 import 'response_types/heure_de_cours.dart';
-import 'response_types/user.dart';
 import 'response_types/horaires.dart';
-import '../../settings/env_settings.dart';
+import 'response_types/user.dart';
 
 /// Cette classe permet de récupérer les données traitées depuis l'API
-class ApiController {
+class ApiController implements IAPI {
   late Dio dio;
   late String serverIp;
 
@@ -37,6 +37,7 @@ class ApiController {
     return ApiController.withIp(getApiIp(), getApiPort());
   }
 
+  @override
   Future<Horaires> fetchHoraires(String username, String password, int gapsId,
       {bool decrypt = false}) async {
     try {
@@ -72,6 +73,7 @@ class ApiController {
     }
   }
 
+  @override
   Future<Bulletin> fetchNotes(String username, String password, int gapsId,
       {int year = 2020, bool decrypt = false}) async {
     try {
@@ -91,6 +93,7 @@ class ApiController {
     }
   }
 
+  @override
   Future<List<MenuJour>> fetchMenuSemaine() async {
     try {
       final res = await dio.get<dynamic>('/menus');
@@ -104,6 +107,7 @@ class ApiController {
     }
   }
 
+  @override
   Future<String> fetchPublicKey() async {
     try {
       return (await dio.get<dynamic>('/public_key')).data['publicKey']
@@ -114,6 +118,7 @@ class ApiController {
     }
   }
 
+  @override
   Future<User> fetchUser(String username, String password, int gapsId,
       {bool decrypt = false}) async {
     try {
@@ -135,6 +140,7 @@ class ApiController {
     }
   }
 
+  @override
   Future<int> login(String username, String password,
       {bool decrypt = false}) async {
     try {

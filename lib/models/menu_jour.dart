@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 class MenuJour {
   final String _day;
   final List<String> _tradition;

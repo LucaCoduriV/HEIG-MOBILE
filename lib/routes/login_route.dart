@@ -1,6 +1,6 @@
 import 'package:vrouter/vrouter.dart';
 
-import '../services/navigator_controller.dart' as navigator_controller;
+import '../services/navigation.dart' as navigator_controller;
 import '../widgets/screens/login_screen.dart';
 
 class LoginRoute extends VRouteElementBuilder {
@@ -8,7 +8,7 @@ class LoginRoute extends VRouteElementBuilder {
   List<VRouteElement> buildRoutes() {
     return [
       VWidget(
-        path: '/${navigator_controller.login}',
+        path: '/${navigator_controller.LOGIN}',
         widget: const LoginScreen(),
       ),
     ];

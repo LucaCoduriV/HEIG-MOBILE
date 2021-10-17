@@ -2,7 +2,7 @@ import 'package:dotenv/dotenv.dart' show load, env;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/api/api.dart';
-import 'package:heig_front/services/auth.dart';
+import 'package:heig_front/services/auth/auth.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 Future<void> main() async {
@@ -14,22 +14,22 @@ Future<void> main() async {
   await Hive.initFlutter();
   await Hive.openBox<dynamic>('heig');
   GetIt.I.registerSingleton<ApiController>(ApiController.withIp(ip, port));
-  GetIt.I.registerSingleton<AuthController>(AuthController());
+  GetIt.I.registerSingleton<Auth>(Auth());
   group('Login', () {
     test('should return true', () async {
-      GetIt.I<AuthController>().username = username;
-      GetIt.I<AuthController>().password = password;
+      GetIt.I<Auth>().username = username;
+      GetIt.I<Auth>().password = password;
 
-      final bool login = await GetIt.I<AuthController>().login();
+      final bool login = await GetIt.I<Auth>().login();
 
       expect(login, true);
     });
 
     test('should return false', () async {
-      GetIt.I<AuthController>().username = 'wrong';
-      GetIt.I<AuthController>().password = 'wrong';
+      GetIt.I<Auth>().username = 'wrong';
+      GetIt.I<Auth>().password = 'wrong';
 
-      final bool login = await GetIt.I<AuthController>().login();
+      final bool login = await GetIt.I<Auth>().login();
 
       expect(login, false);
     });

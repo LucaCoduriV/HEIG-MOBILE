@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:heig_front/models/notifiable.dart';
 import 'package:hive_flutter/adapters.dart';

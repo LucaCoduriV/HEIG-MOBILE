@@ -1,17 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
+import 'package:heig_front/services/auth/iauth.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../api/iapi.dart';
 import '../api/response_types/bulletin.dart';
-import '../api/api.dart';
-import '../auth.dart';
 
 /// Cette classe permet de distribuer et mettre à jours les données concernant le bulletin
 class BulletinProvider extends ChangeNotifier {
   late Bulletin _bulletin;
   late int _year;
   bool loading = false;
-  var box = Hive.box('heig');
+  final box = Hive.box('heig');
+  final api = GetIt.I.get<IAPI>();
+  final auth = GetIt.I.get<IAuth>();
 
   BulletinProvider() {
     // Les données sont récupérée dans le localstorage
@@ -40,12 +42,10 @@ class BulletinProvider extends ChangeNotifier {
   Future<void> fetchBulletin() async {
     loading = true;
     notifyListeners();
-    final AuthController auth = GetIt.I.get<AuthController>();
     try {
       final password = await auth.encryptedPassword;
 
-      _bulletin = await GetIt.I<ApiController>().fetchNotes(
-          auth.username, password, auth.gapsId,
+      _bulletin = await api.fetchNotes(auth.username, password, auth.gapsId,
           year: _year, decrypt: true);
       box.put('bulletin', _bulletin);
     } catch (e) {

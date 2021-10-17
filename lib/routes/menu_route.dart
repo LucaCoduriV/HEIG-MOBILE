@@ -2,7 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:heig_front/widgets/screens/menu_screen.dart';
 import 'package:vrouter/vrouter.dart';
 
-import '../services/navigator_controller.dart' as navigator_controller;
+import '../services/navigation.dart' as navigator_controller;
 import '../services/providers/drawer_provider.dart';
 
 class MenuRoute extends VRouteElementBuilder {
@@ -16,7 +16,7 @@ class MenuRoute extends VRouteElementBuilder {
         },
         stackedRoutes: [
           VWidget(
-            path: '/${navigator_controller.menu}',
+            path: '/${navigator_controller.MENU}',
             widget: const MenuScreen(),
           ),
         ],

@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../services/api/response_types/branche.dart';
 import '../../services/api/response_types/bulletin.dart';
-import '../../services/navigator_controller.dart' as navigator_controller;
+import '../../services/navigation.dart' as navigator_controller;
 import '../../services/providers/bulletin_provider.dart';
 import '../../services/providers/drawer_provider.dart';
 import '../branche_button.dart';

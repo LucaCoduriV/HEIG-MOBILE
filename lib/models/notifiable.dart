@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:heig_front/utils/id_generator.dart';
 import 'package:hive_flutter/hive_flutter.dart';

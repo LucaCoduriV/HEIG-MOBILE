@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_dropdown_alert/dropdown_alert.dart';
 import 'package:get_it/get_it.dart';
+import 'package:heig_front/services/api/iapi.dart';
 import 'package:heig_front/services/providers/menus_provider.dart';
 import 'package:heig_front/services/providers/settings_provider.dart';
 import 'package:heig_front/utils/id_generator.dart';
@@ -12,17 +13,18 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'package:vrouter/vrouter.dart';
 
+import 'models/todo.dart';
+import 'routes/main_router.dart';
+import 'services/api/api.dart';
 import 'services/api/response_types/branche.dart';
 import 'services/api/response_types/bulletin.dart';
 import 'services/api/response_types/heure_de_cours.dart';
-import 'services/api/response_types/notes.dart';
-import 'models/todo.dart';
-import 'services/api/response_types/user.dart';
-import 'routes/main_router.dart';
-import 'services/api/api.dart';
 import 'services/api/response_types/horaires.dart';
-import 'services/auth.dart';
-import 'services/navigator_controller.dart' as navigator_controller;
+import 'services/api/response_types/notes.dart';
+import 'services/api/response_types/user.dart';
+import 'services/auth/auth.dart';
+import 'services/auth/iauth.dart';
+import 'services/navigation.dart' as navigator_controller;
 import 'services/providers/bulletin_provider.dart';
 import 'services/providers/drawer_provider.dart';
 import 'services/providers/horaires_provider.dart';
@@ -46,9 +48,9 @@ Future<void> setup() async {
   await Hive.openBox<dynamic>('heig');
   await Hive.openBox<dynamic>('heig-settings');
 
+  GetIt.I.registerSingleton<IAPI>(ApiController());
+  GetIt.I.registerSingleton<IAuth>(Auth());
   GetIt.I.registerSingleton<BulletinProvider>(BulletinProvider());
-  GetIt.I.registerSingleton<ApiController>(ApiController());
-  GetIt.I.registerSingleton<AuthController>(AuthController());
   GetIt.I.registerSingleton<DrawerProvider>(DrawerProvider());
   GetIt.I.registerSingleton<TodosProvider>(TodosProvider());
   GetIt.I.registerSingleton<UserProvider>(UserProvider());
@@ -121,7 +123,7 @@ class _MyAppState extends State<MyApp> {
           logs: foundation.kReleaseMode
               ? VLogs.none
               : VLogs.info, // Defines which logs to show, info is the default
-          initialUrl: '/${navigator_controller.home}',
+          initialUrl: '/${navigator_controller.HOME}',
           routes: MainRouter().buildRoutes(),
           builder: (BuildContext context, Widget child) {
             return Stack(
