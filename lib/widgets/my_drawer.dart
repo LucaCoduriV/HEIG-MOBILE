@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/providers/horaires_provider.dart';
 import 'package:modern_drawer/modern_drawer.dart';
@@ -15,18 +16,75 @@ class MyDrawer extends StatelessWidget {
   final Widget child;
   const MyDrawer({Key? key, required this.child}) : super(key: key);
 
+  static final Widget _svg = SvgPicture.asset(
+    'assets/images/logo.svg',
+    semanticsLabel: 'HEIG Logo',
+    width: 100,
+    color: const Color(0xffda291c), //Theme.of(context).primaryColor,
+  );
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
       value: GetIt.I<DrawerProvider>(),
       builder: (context, child) {
         return ModernDrawer(
+          backgroundColor: Theme.of(context).primaryColor,
           controller: GetIt.I<DrawerProvider>().controller,
           appBar: buildAppBar(context),
+          drawerContent: buildDrawerContent(context),
           body: child,
         );
       },
       child: child,
+    );
+  }
+
+  Widget buildListTile(BuildContext context, String title, IconData icon,
+      void Function()? onTap) {
+    return ListTile(
+      leading: Icon(
+        icon,
+        color: Theme.of(context).accentColor,
+        size: 23,
+      ),
+      title: Text(
+        title,
+        style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 14),
+      ),
+      onTap: onTap,
+    );
+  }
+
+  Widget buildDrawerContent(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 30),
+            child: _svg,
+          ),
+          const SizedBox(height: 30),
+          buildListTile(context, 'Home', Icons.home, () {
+            navigator_controller.toHome(context);
+          }),
+          buildListTile(context, 'Notes', Icons.list, () {
+            navigator_controller.toNotes(context);
+          }),
+          buildListTile(context, 'Horaires', Icons.timer, () {
+            navigator_controller.toHoraires(context);
+          }),
+          buildListTile(context, 'Agenda', Icons.calendar_today, () {
+            navigator_controller.toTodos(context);
+          }),
+          buildListTile(context, 'Menu', Icons.food_bank, () {
+            navigator_controller.toMenu(context);
+          }),
+        ],
+      ),
     );
   }
 
