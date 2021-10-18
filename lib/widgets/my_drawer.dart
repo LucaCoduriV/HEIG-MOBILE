@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/providers/horaires_provider.dart';
+import 'package:modern_drawer/modern_drawer.dart';
 import 'package:provider/provider.dart';
 
 import '../services/auth/auth.dart';
@@ -10,17 +11,111 @@ import '../settings/theme.dart' as theme;
 import '../utils/date.dart';
 import 'todos_dialog.dart';
 
-/// Custom drawer contenant le logo de la HEIG ainsi que le menu.
-class MyDrawer extends StatefulWidget {
+class MyDrawer extends StatelessWidget {
   final Widget child;
-
   const MyDrawer({Key? key, required this.child}) : super(key: key);
 
   @override
-  State<MyDrawer> createState() => _MyDrawerState();
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider.value(
+      value: GetIt.I<DrawerProvider>(),
+      builder: (context, child) {
+        return ModernDrawer(
+          controller: GetIt.I<DrawerProvider>().controller,
+          appBar: buildAppBar(context),
+          body: child,
+        );
+      },
+      child: child,
+    );
+  }
+
+  AppBar buildAppBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: Theme.of(context).primaryColor,
+      iconTheme: IconThemeData(
+        color: Provider.of<theme.ThemeProvider>(context).mode == ThemeMode.light
+            ? Colors.black
+            : Colors.white,
+      ),
+      elevation: 0,
+      title: Text(
+        Provider.of<DrawerProvider>(context).title,
+        style: TextStyle(
+          color:
+              Provider.of<theme.ThemeProvider>(context).mode == ThemeMode.light
+                  ? Colors.black
+                  : Colors.white,
+        ),
+      ),
+      toolbarHeight: 100,
+      leading: IconButton(
+        icon: const Icon(Icons.menu),
+        onPressed: () {
+          GetIt.I<DrawerProvider>().controller.openDrawer();
+        },
+      ),
+      actions: [
+        if (GetIt.I<DrawerProvider>().action == ActionType.TODOS)
+          IconButton(
+            icon: const Icon(Icons.add),
+            tooltip: 'Add a task',
+            onPressed: () {
+              showDialog<void>(
+                context: context,
+                builder: (BuildContext context) {
+                  return const TodosDialog();
+                },
+              );
+            },
+          ),
+        if (GetIt.I<DrawerProvider>().action == ActionType.QUICKINFOS)
+          Container(
+            padding: const EdgeInsets.only(right: 15),
+            child: Center(
+              child: Text.rich(
+                TextSpan(
+                  text: NOM_JOURS_SEMAINE[DateTime.now().weekday],
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Provider.of<theme.ThemeProvider>(context).mode ==
+                            ThemeMode.light
+                        ? Colors.black
+                        : Colors.white,
+                  ),
+                  children: [
+                    TextSpan(
+                        style: TextStyle(
+                          fontWeight: FontWeight.normal,
+                          color:
+                              Provider.of<theme.ThemeProvider>(context).mode ==
+                                      ThemeMode.light
+                                  ? Colors.black
+                                  : Colors.white,
+                        ),
+                        text:
+                            ' ${DateTime.now().day} ${NOM_MOIS[DateTime.now().month]}')
+                  ],
+                ),
+              ),
+            ),
+          )
+      ],
+    );
+  }
 }
 
-class _MyDrawerState extends State<MyDrawer> {
+/// Custom drawer contenant le logo de la HEIG ainsi que le menu.
+class MyDrawerOld extends StatefulWidget {
+  final Widget child;
+
+  const MyDrawerOld({Key? key, required this.child}) : super(key: key);
+
+  @override
+  State<MyDrawerOld> createState() => _MyDrawerOldState();
+}
+
+class _MyDrawerOldState extends State<MyDrawerOld> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final image =
@@ -33,73 +128,7 @@ class _MyDrawerState extends State<MyDrawer> {
       builder: (context, child) {
         return Scaffold(
           key: _scaffoldKey,
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).primaryColor,
-            iconTheme: IconThemeData(
-              color: Provider.of<theme.ThemeProvider>(context).mode ==
-                      ThemeMode.light
-                  ? Colors.black
-                  : Colors.white,
-            ),
-            elevation: 0,
-            title: Text(
-              Provider.of<DrawerProvider>(context).title,
-              style: TextStyle(
-                color: Provider.of<theme.ThemeProvider>(context).mode ==
-                        ThemeMode.light
-                    ? Colors.black
-                    : Colors.white,
-              ),
-            ),
-            toolbarHeight: 100,
-            actions: [
-              if (GetIt.I<DrawerProvider>().action == ActionType.TODOS)
-                IconButton(
-                  icon: const Icon(Icons.add),
-                  tooltip: 'Add a task',
-                  onPressed: () {
-                    showDialog<void>(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return const TodosDialog();
-                      },
-                    );
-                  },
-                ),
-              if (GetIt.I<DrawerProvider>().action == ActionType.QUICKINFOS)
-                Container(
-                  padding: const EdgeInsets.only(right: 15),
-                  child: Center(
-                    child: Text.rich(
-                      TextSpan(
-                        text: NOM_JOURS_SEMAINE[DateTime.now().weekday],
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color:
-                              Provider.of<theme.ThemeProvider>(context).mode ==
-                                      ThemeMode.light
-                                  ? Colors.black
-                                  : Colors.white,
-                        ),
-                        children: [
-                          TextSpan(
-                              style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                color: Provider.of<theme.ThemeProvider>(context)
-                                            .mode ==
-                                        ThemeMode.light
-                                    ? Colors.black
-                                    : Colors.white,
-                              ),
-                              text:
-                                  ' ${DateTime.now().day} ${NOM_MOIS[DateTime.now().month]}')
-                        ],
-                      ),
-                    ),
-                  ),
-                )
-            ],
-          ),
+          appBar: buildAppBar(context),
           body: widget.child,
           drawer: Drawer(
             child: Container(
@@ -231,6 +260,74 @@ class _MyDrawerState extends State<MyDrawer> {
           ),
         );
       },
+    );
+  }
+
+  AppBar buildAppBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: Theme.of(context).primaryColor,
+      iconTheme: IconThemeData(
+        color: Provider.of<theme.ThemeProvider>(context).mode == ThemeMode.light
+            ? Colors.black
+            : Colors.white,
+      ),
+      elevation: 0,
+      title: Text(
+        Provider.of<DrawerProvider>(context).title,
+        style: TextStyle(
+          color:
+              Provider.of<theme.ThemeProvider>(context).mode == ThemeMode.light
+                  ? Colors.black
+                  : Colors.white,
+        ),
+      ),
+      toolbarHeight: 100,
+      actions: [
+        if (GetIt.I<DrawerProvider>().action == ActionType.TODOS)
+          IconButton(
+            icon: const Icon(Icons.add),
+            tooltip: 'Add a task',
+            onPressed: () {
+              showDialog<void>(
+                context: context,
+                builder: (BuildContext context) {
+                  return const TodosDialog();
+                },
+              );
+            },
+          ),
+        if (GetIt.I<DrawerProvider>().action == ActionType.QUICKINFOS)
+          Container(
+            padding: const EdgeInsets.only(right: 15),
+            child: Center(
+              child: Text.rich(
+                TextSpan(
+                  text: NOM_JOURS_SEMAINE[DateTime.now().weekday],
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Provider.of<theme.ThemeProvider>(context).mode ==
+                            ThemeMode.light
+                        ? Colors.black
+                        : Colors.white,
+                  ),
+                  children: [
+                    TextSpan(
+                        style: TextStyle(
+                          fontWeight: FontWeight.normal,
+                          color:
+                              Provider.of<theme.ThemeProvider>(context).mode ==
+                                      ThemeMode.light
+                                  ? Colors.black
+                                  : Colors.white,
+                        ),
+                        text:
+                            ' ${DateTime.now().day} ${NOM_MOIS[DateTime.now().month]}')
+                  ],
+                ),
+              ),
+            ),
+          )
+      ],
     );
   }
 }
