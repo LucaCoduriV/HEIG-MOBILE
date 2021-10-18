@@ -29,7 +29,13 @@ class MyDrawer extends StatelessWidget {
       value: GetIt.I<DrawerProvider>(),
       builder: (context, child) {
         return ModernDrawer(
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: const Color(0xff242424),
+          bodyBoxShadows: const [
+            BoxShadow(
+              blurRadius: 10,
+              spreadRadius: 2,
+            ), //BoxShadow
+          ],
           controller: GetIt.I<DrawerProvider>().controller,
           appBar: buildAppBar(context),
           drawerContent: buildDrawerContent(context),
@@ -70,18 +76,23 @@ class MyDrawer extends StatelessWidget {
           const SizedBox(height: 30),
           buildListTile(context, 'Home', Icons.home, () {
             navigator_controller.toHome(context);
+            GetIt.I<DrawerProvider>().controller.closeDrawer();
           }),
           buildListTile(context, 'Notes', Icons.list, () {
             navigator_controller.toNotes(context);
+            GetIt.I<DrawerProvider>().controller.closeDrawer();
           }),
           buildListTile(context, 'Horaires', Icons.timer, () {
             navigator_controller.toHoraires(context);
+            GetIt.I<DrawerProvider>().controller.closeDrawer();
           }),
           buildListTile(context, 'Agenda', Icons.calendar_today, () {
             navigator_controller.toTodos(context);
+            GetIt.I<DrawerProvider>().controller.closeDrawer();
           }),
           buildListTile(context, 'Menu', Icons.food_bank, () {
             navigator_controller.toMenu(context);
+            GetIt.I<DrawerProvider>().controller.closeDrawer();
           }),
         ],
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/api/iapi.dart';
+import 'package:heig_front/services/auth/iauth.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../api/response_types/heure_de_cours.dart';
@@ -43,7 +44,7 @@ class HorairesProvider extends ChangeNotifier {
   }
 
   Future<bool> fetchHoraires() async {
-    final Auth auth = GetIt.I.get<Auth>();
+    final IAuth auth = GetIt.I.get<IAuth>();
     try {
       final password = await GetIt.I<Auth>().encryptedPassword;
 
