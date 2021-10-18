@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
+import 'package:heig_front/services/auth/iauth.dart';
 import 'package:heig_front/services/providers/horaires_provider.dart';
 import 'package:modern_drawer/modern_drawer.dart';
 import 'package:provider/provider.dart';
 
-import '../services/auth/auth.dart';
 import '../services/navigation.dart' as navigator_controller;
 import '../services/providers/drawer_provider.dart';
 import '../settings/theme.dart' as theme;
@@ -94,6 +94,24 @@ class MyDrawer extends StatelessWidget {
             navigator_controller.toMenu(context);
             GetIt.I<DrawerProvider>().controller.closeDrawer();
           }),
+          Align(
+              alignment: FractionalOffset.bottomCenter,
+              // This container holds all the children that will be aligned
+              // on the bottom and should not scroll with the above ListView
+              child: Column(
+                children: <Widget>[
+                  const Divider(),
+                  buildListTile(context, 'Options', Icons.settings, () {
+                    navigator_controller.toSettings(context);
+                    GetIt.I<DrawerProvider>().controller.closeDrawer();
+                  }),
+                  buildListTile(context, 'Se déconnecter', Icons.logout, () {
+                    GetIt.I<IAuth>().logout();
+                    GetIt.I.get<HorairesProvider>().cancelNotifications();
+                    navigator_controller.toLogin(context);
+                  }),
+                ],
+              ))
         ],
       ),
     );
@@ -312,7 +330,7 @@ class _MyDrawerOldState extends State<MyDrawerOld> {
                           ),
                           ListTile(
                               onTap: () {
-                                GetIt.I<Auth>().logout();
+                                GetIt.I<IAuth>().logout();
                                 GetIt.I
                                     .get<HorairesProvider>()
                                     .cancelNotifications();

@@ -3,8 +3,8 @@ import 'package:flutter_dropdown_alert/alert_controller.dart';
 import 'package:flutter_dropdown_alert/model/data_alert.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
+import 'package:heig_front/services/auth/iauth.dart';
 
-import '../../services/auth/auth.dart';
 import '../../services/navigation.dart' as navigator_controller;
 import '../../services/providers/bulletin_provider.dart';
 import '../../services/providers/horaires_provider.dart';
@@ -20,7 +20,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController username =
-      TextEditingController(text: GetIt.I<Auth>().username);
+      TextEditingController(text: GetIt.I<IAuth>().username);
   TextEditingController password = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
@@ -112,10 +112,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             );
                           },
                         );
-                        GetIt.I<Auth>().username = username.text;
-                        GetIt.I<Auth>().password = password.text;
+                        GetIt.I<IAuth>().username = username.text;
+                        GetIt.I<IAuth>().password = password.text;
 
-                        if (await GetIt.I<Auth>().login()) {
+                        if (await GetIt.I<IAuth>().login()) {
                           navigator_controller.toHome(context);
                           GetIt.I.get<UserProvider>().fetchUser();
                           GetIt.I.get<HorairesProvider>()

@@ -43,7 +43,7 @@ dependencies:
     fl_chart: ^0.40.0
     themed: ^2.0.4
     flutter_dropdown_alert: ^1.0.3
-    modern_drawer: 0.0.3
+    modern_drawer: 0.0.4
     flutter:
         sdk: flutter
 
