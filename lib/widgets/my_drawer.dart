@@ -69,13 +69,9 @@ class MyDrawer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 30),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 30),
-            child: _svg,
-          ),
+          _svg,
           const SizedBox(height: 30),
           buildListTile(context, 'Home', Icons.home, () {
             navigator_controller.toHome(context);
