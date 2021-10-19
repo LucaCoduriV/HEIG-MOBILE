@@ -29,11 +29,14 @@ class MyDrawer extends StatelessWidget {
       value: GetIt.I<DrawerProvider>(),
       builder: (context, child) {
         return ModernDrawer(
-          backgroundColor: const Color(0xff242424),
+          backgroundColor:
+              Provider.of<theme.ThemeProvider>(context).mode == ThemeMode.dark
+                  ? const Color(0xff242424)
+                  : const Color(0xfffafafa),
           bodyBoxShadows: const [
             BoxShadow(
-              blurRadius: 10,
-              spreadRadius: 2,
+              blurRadius: 12,
+              spreadRadius: 1,
             ), //BoxShadow
           ],
           controller: GetIt.I<DrawerProvider>().controller,
