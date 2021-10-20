@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:modern_drawer/modern_drawer.dart';
 
 enum ActionType {
   NONE,
@@ -10,6 +11,7 @@ enum ActionType {
 class DrawerProvider extends ChangeNotifier {
   late String _title;
   late ActionType _action;
+  final controller = ModernDrawerController();
 
   DrawerProvider() {
     _title = '';

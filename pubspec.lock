@@ -408,6 +408,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  modern_drawer:
+    dependency: "direct main"
+    description:
+      name: modern_drawer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.7"
   move_to_background:
     dependency: transitive
     description:

@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/api/iapi.dart';
+import 'package:heig_front/services/auth/iauth.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../api/response_types/heure_de_cours.dart';
 import '../api/response_types/horaires.dart';
-import '../auth/auth.dart';
 
 /// Cette classe permet de distribuer et mettre à jours les données concernant les horaires.
 class HorairesProvider extends ChangeNotifier {
@@ -43,9 +43,9 @@ class HorairesProvider extends ChangeNotifier {
   }
 
   Future<bool> fetchHoraires() async {
-    final Auth auth = GetIt.I.get<Auth>();
+    final IAuth auth = GetIt.I.get<IAuth>();
     try {
-      final password = await GetIt.I<Auth>().encryptedPassword;
+      final password = await GetIt.I<IAuth>().encryptedPassword;
 
       // Annuler toutes les notifications avant de récupérer les horaires
       await cancelNotifications();
