@@ -6,27 +6,44 @@ import 'package:heig_front/models/menu_jour.dart';
 import 'package:heig_front/services/providers/menus_provider.dart';
 import 'package:provider/provider.dart';
 
+/// affiche un menu complet
 class MenuContainer extends StatelessWidget {
   final List<String> menuJour;
   const MenuContainer(this.menuJour, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    const String bullet = '\u2022 ';
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: menuJour
-          .map((e) => Text(
-                bullet + e,
-                style: const TextStyle(fontSize: 20),
+          .map((e) => SizedBox(
+                height: 30,
+                child: Text(
+                  e,
+                  style: const TextStyle(
+                      fontSize: 20, fontStyle: FontStyle.italic),
+                ),
               ))
           .toList(),
     );
   }
 }
 
-class MenuScreen extends StatelessWidget {
+class MenuScreen extends StatefulWidget {
   const MenuScreen({Key? key}) : super(key: key);
+
+  @override
+  _MenuScreenState createState() => _MenuScreenState();
+}
+
+class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
+  late final TabController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TabController(length: 5, vsync: this);
+    GetIt.I.get<MenusProvider>().fetchMenus();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,77 +52,63 @@ class MenuScreen extends StatelessWidget {
       child: Builder(builder: (context) {
         return Container(
           color: Theme.of(context).backgroundColor,
-          child: const CustomScaffold(),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: TabBar(
+                  indicator: const UnderlineTabIndicator(
+                    borderSide: BorderSide(width: 2, color: Colors.red),
+                    insets: EdgeInsets.symmetric(horizontal: 16),
+                  ),
+                  indicatorColor: Colors.red,
+                  controller: _controller,
+                  tabs: [
+                    _buildTab('L'),
+                    _buildTab('M'),
+                    _buildTab('M'),
+                    _buildTab('J'),
+                    _buildTab('V'),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Builder(
+                  builder: (context) {
+                    final List<MenuJour> menus =
+                        Provider.of<MenusProvider>(context).menus;
+                    final List<_Daily> list = _buildDailyMenu(menus);
+
+                    return TabBarView(
+                      controller: _controller,
+                      children: list.isNotEmpty
+                          ? list
+                          : [
+                              const Text('Aucun'),
+                              const Text('Aucun'),
+                              const Text('Aucun'),
+                              const Text('Aucun'),
+                              const Text('Aucun'),
+                            ],
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         );
       }),
     );
   }
-}
 
-class CustomScaffold extends StatefulWidget {
-  const CustomScaffold({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  _CustomScaffoldState createState() => _CustomScaffoldState();
-}
-
-class _CustomScaffoldState extends State<CustomScaffold> {
-  int _selectedTab = DateTime.now().weekday - 1;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedTab = index;
-    });
+  List<_Daily> _buildDailyMenu(List<MenuJour> menus) {
+    return menus.map((menu) => _Daily(menu)).toList();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final List<MenuJour> menus = Provider.of<MenusProvider>(context).menus;
-
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedTab,
-        onTap: _onItemTapped,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Lundi',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Mardi',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Mercredi',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Jeudi',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'Vendredi',
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          ElevatedButton(
-            onPressed: () async {
-              GetIt.I.get<MenusProvider>().fetchMenus();
-            },
-            child: const Text('get Menu'),
-          ),
-          Expanded(
-            child: menus.isNotEmpty
-                ? _Daily(menus.elementAt(_selectedTab))
-                : Container(),
-          ),
-        ],
-      ),
+  Widget _buildTab(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, bottom: 15),
+      child: Text(text, style: const TextStyle(fontSize: 17)),
     );
   }
 }
@@ -115,27 +118,48 @@ class _Daily extends StatelessWidget {
 
   const _Daily(this.menuJour, {Key? key}) : super(key: key);
 
+  String getDayInFrench(String englishDay) {
+    switch (englishDay) {
+      case 'monday':
+        return 'Lundi';
+      case 'tuesday':
+        return 'Mardi';
+      case 'wednesday':
+        return 'Mercredi';
+      case 'thursday':
+        return 'Jeudi';
+      case 'friday':
+        return 'Vendredi';
+      default:
+        return 'Jour Inconnu';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Center(
-          child: Text(
-            menuJour.day,
-            style: const TextStyle(fontSize: 40),
-          ),
-        ),
-        const SizedBox(height: 20),
-        const SizedBox(width: 20),
-        const Text('Tradition', style: TextStyle(fontSize: 30)),
+        const SizedBox(height: 40),
+        const Text('Menu tradition', style: TextStyle(fontSize: 30)),
+        _buildLine(),
         const SizedBox(height: 20),
         MenuContainer(menuJour.tradition),
         const SizedBox(height: 20),
         const SizedBox(width: 20),
-        const Text('Vegetarien', style: TextStyle(fontSize: 30)),
+        const Text('Menu vegetarien', style: TextStyle(fontSize: 30)),
+        _buildLine(),
         const SizedBox(height: 20),
         MenuContainer(menuJour.vegetarien)
       ],
+    );
+  }
+
+  Widget _buildLine() {
+    return Container(
+      color: Colors.red,
+      height: 2,
+      width: 80,
+      margin: const EdgeInsets.only(top: 10),
     );
   }
 }
