@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/models/menu_jour.dart';
@@ -146,7 +144,7 @@ class _Daily extends StatelessWidget {
         MenuContainer(menuJour.tradition),
         const SizedBox(height: 20),
         const SizedBox(width: 20),
-        const Text('Menu vegetarien', style: TextStyle(fontSize: 30)),
+        const Text('Menu végétarien', style: TextStyle(fontSize: 30)),
         _buildLine(),
         const SizedBox(height: 20),
         MenuContainer(menuJour.vegetarien)
