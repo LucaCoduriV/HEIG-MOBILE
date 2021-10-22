@@ -44,6 +44,7 @@ dependencies:
     themed: ^2.0.4
     flutter_dropdown_alert: ^1.0.3
     modern_drawer: ^0.0.7
+    google_fonts: ^2.1.0
     flutter:
         sdk: flutter
 
