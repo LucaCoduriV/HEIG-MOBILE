@@ -1,9 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:rrule/rrule.dart';
-import 'package:timezone/timezone.dart' as tz;
 
 import './heure_de_cours.dart';
 

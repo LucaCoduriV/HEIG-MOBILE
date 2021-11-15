@@ -13,7 +13,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'package:vrouter/vrouter.dart';
-import 'package:timezone/data/latest.dart' as tz;
 
 import 'models/todo.dart';
 import 'routes/main_router.dart';
@@ -36,7 +35,6 @@ import 'settings/theme.dart' as theme;
 
 /// Prparation de la base de données local et des singletons.
 Future<void> setup() async {
-  tz.initializeTimeZones();
   await initializeDateFormatting('fr_FR');
   await dotenv.load();
   await Hive.initFlutter();

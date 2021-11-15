@@ -4,6 +4,8 @@ import 'package:heig_front/models/menu_jour.dart';
 import 'package:heig_front/services/providers/menus_provider.dart';
 import 'package:provider/provider.dart';
 
+const TAB_NUMBER = 5;
+
 /// affiche un menu complet
 class MenuContainer extends StatelessWidget {
   final List<String> menuJour;
@@ -39,7 +41,7 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _controller = TabController(length: 5, vsync: this);
+    _controller = TabController(length: TAB_NUMBER, vsync: this);
     GetIt.I.get<MenusProvider>().fetchMenus();
   }
 
@@ -62,11 +64,11 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
                   indicatorColor: Colors.red,
                   controller: _controller,
                   tabs: [
-                    _buildTab('L'),
-                    _buildTab('M'),
-                    _buildTab('M'),
-                    _buildTab('J'),
-                    _buildTab('V'),
+                    _buildTab('L', context),
+                    _buildTab('M', context),
+                    _buildTab('M', context),
+                    _buildTab('J', context),
+                    _buildTab('V', context),
                   ],
                 ),
               ),
@@ -76,18 +78,13 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
                     final List<MenuJour> menus =
                         Provider.of<MenusProvider>(context).menus;
                     final List<_Daily> list = _buildDailyMenu(menus);
-
+                    const noMenu = Center(
+                        child: Text("Le menu n'est pas encore disponible."));
                     return TabBarView(
                       controller: _controller,
                       children: list.isNotEmpty
                           ? list
-                          : [
-                              const Text('Aucun'),
-                              const Text('Aucun'),
-                              const Text('Aucun'),
-                              const Text('Aucun'),
-                              const Text('Aucun'),
-                            ],
+                          : [for (int i = 0; i < TAB_NUMBER; i++) noMenu],
                     );
                   },
                 ),
@@ -103,10 +100,13 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
     return menus.map((menu) => _Daily(menu)).toList();
   }
 
-  Widget _buildTab(String text) {
+  Widget _buildTab(String text, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 15),
-      child: Text(text, style: const TextStyle(fontSize: 17)),
+      child: Text(text,
+          style: TextStyle(
+              fontSize: 17,
+              color: Theme.of(context).textTheme.bodyText1!.color!)),
     );
   }
 }
