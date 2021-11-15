@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_dropdown_alert/dropdown_alert.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:heig_front/services/api/iapi.dart';
 import 'package:heig_front/services/providers/menus_provider.dart';
 import 'package:heig_front/services/providers/settings_provider.dart';
@@ -114,8 +115,16 @@ class _MyAppState extends State<MyApp> {
       value: GetIt.I.get<theme.ThemeProvider>(),
       builder: (context, _) {
         return VRouter(
-          theme: theme.themeLight,
-          darkTheme: theme.themeDark,
+          theme: theme.themeLight.copyWith(
+            textTheme: GoogleFonts.montserratTextTheme(
+              theme.themeLight.textTheme,
+            ),
+          ),
+          darkTheme: theme.themeDark.copyWith(
+            textTheme: GoogleFonts.montserratTextTheme(
+              theme.themeDark.textTheme,
+            ),
+          ),
           themeMode: Provider.of<theme.ThemeProvider>(context).mode,
           debugShowCheckedModeBanner: false,
           buildTransition: buildTransition,
