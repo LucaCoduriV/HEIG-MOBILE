@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:rrule/rrule.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 import './heure_de_cours.dart';
 
@@ -35,22 +38,29 @@ class Horaires {
         if (element.rrule != null && element.rrule != '') {
           final RecurrenceRule parsedRRule =
               RecurrenceRule.fromString('RRULE:${element.rrule!}');
-          final List<DateTime> startArray =
-              parsedRRule.getAllInstances(start: element.debut.toUtc());
 
-          final List<DateTime> endArray =
-              parsedRRule.getAllInstances(start: element.fin.toUtc());
+          final List<DateTime> startArray = parsedRRule.getAllInstances(
+              start: DateTime.utc(
+                  element.debut.year,
+                  element.debut.month,
+                  element.debut.day,
+                  element.debut.hour,
+                  element.debut.minute,
+                  element.debut.second));
+
+          final List<DateTime> endArray = parsedRRule.getAllInstances(
+              start: DateTime.utc(
+                  element.fin.year,
+                  element.fin.month,
+                  element.fin.day,
+                  element.fin.hour,
+                  element.fin.minute,
+                  element.fin.second));
 
           for (int i = 0; i < startArray.length - 1; i++) {
             try {
-              data.add(HeureDeCours(
-                  element.nom,
-                  startArray[i].toLocal(),
-                  endArray[i].toLocal(),
-                  element.prof,
-                  element.salle,
-                  element.uid,
-                  element.rrule));
+              data.add(HeureDeCours(element.nom, startArray[i], endArray[i],
+                  element.prof, element.salle, element.uid, ''));
             } catch (e) {
               debugPrint('error: $e');
             }
