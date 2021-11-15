@@ -56,10 +56,7 @@ class HeureDeCoursWidget extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.location_on_outlined,
-                        color: Provider.of<theme.ThemeProvider>(context).mode ==
-                                ThemeMode.light
-                            ? Colors.black
-                            : Colors.white,
+                        color: Theme.of(context).textTheme.bodyText1!.color,
                       ),
                       Text(salle),
                     ],

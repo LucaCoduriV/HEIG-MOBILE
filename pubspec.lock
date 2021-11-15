@@ -428,7 +428,7 @@ packages:
       name: modern_drawer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.7"
+    version: "0.0.8"
   move_to_background:
     dependency: transitive
     description:

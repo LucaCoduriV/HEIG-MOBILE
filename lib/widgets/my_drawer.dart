@@ -29,16 +29,11 @@ class MyDrawer extends StatelessWidget {
       value: GetIt.I<DrawerProvider>(),
       builder: (context, child) {
         return ModernDrawer(
+          elevation: 10,
           backgroundColor:
               Provider.of<theme.ThemeProvider>(context).mode == ThemeMode.dark
-                  ? const Color(0xff242424)
+                  ? const Color(0xff121212)
                   : const Color(0xfffafafa),
-          bodyBoxShadows: const [
-            BoxShadow(
-              blurRadius: 12,
-              spreadRadius: 1,
-            ), //BoxShadow
-          ],
           controller: GetIt.I<DrawerProvider>().controller,
           appBar: buildAppBar(context),
           drawerContent: buildDrawerContent(context),
@@ -52,6 +47,7 @@ class MyDrawer extends StatelessWidget {
   Widget buildListTile(BuildContext context, String title, IconData icon,
       void Function()? onTap) {
     return ListTile(
+      minLeadingWidth: 0,
       leading: Icon(
         icon,
         color: Theme.of(context).accentColor,
@@ -99,7 +95,6 @@ class MyDrawer extends StatelessWidget {
               // on the bottom and should not scroll with the above ListView
               child: Column(
                 children: <Widget>[
-                  const Divider(),
                   buildListTile(context, 'Options', Icons.settings, () {
                     navigator_controller.toSettings(context);
                     GetIt.I<DrawerProvider>().controller.closeDrawer();
@@ -119,20 +114,12 @@ class MyDrawer extends StatelessWidget {
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       backgroundColor: Theme.of(context).primaryColor,
-      iconTheme: IconThemeData(
-        color: Provider.of<theme.ThemeProvider>(context).mode == ThemeMode.light
-            ? Colors.black
-            : Colors.white,
-      ),
+      iconTheme:
+          IconThemeData(color: Theme.of(context).textTheme.bodyText1!.color),
       elevation: 0,
       title: Text(
         Provider.of<DrawerProvider>(context).title,
-        style: TextStyle(
-          color:
-              Provider.of<theme.ThemeProvider>(context).mode == ThemeMode.light
-                  ? Colors.black
-                  : Colors.white,
-        ),
+        style: TextStyle(color: Theme.of(context).textTheme.bodyText1!.color),
       ),
       toolbarHeight: 100,
       leading: IconButton(
@@ -164,20 +151,13 @@ class MyDrawer extends StatelessWidget {
                   text: NOM_JOURS_SEMAINE[DateTime.now().weekday],
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Provider.of<theme.ThemeProvider>(context).mode ==
-                            ThemeMode.light
-                        ? Colors.black
-                        : Colors.white,
+                    color: Theme.of(context).textTheme.bodyText1!.color,
                   ),
                   children: [
                     TextSpan(
                         style: TextStyle(
                           fontWeight: FontWeight.normal,
-                          color:
-                              Provider.of<theme.ThemeProvider>(context).mode ==
-                                      ThemeMode.light
-                                  ? Colors.black
-                                  : Colors.white,
+                          color: Theme.of(context).textTheme.bodyText1!.color,
                         ),
                         text:
                             ' ${DateTime.now().day} ${NOM_MOIS[DateTime.now().month]}')

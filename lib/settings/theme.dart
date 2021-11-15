@@ -42,14 +42,14 @@ ThemeData themeDark = ThemeData.dark().copyWith(
     bodyText1: TextStyle(),
     bodyText2: TextStyle(),
   ).apply(
-    bodyColor: const Color(0xFFFFFFFF),
-    displayColor: const Color(0xFFFFFFFF),
+    bodyColor: const Color(0x99FFFFFF),
+    displayColor: const Color(0x99FFFFFF),
   ),
   iconTheme: const IconThemeData(color: Color(0xFFFFFFFF)),
   textSelectionTheme:
       const TextSelectionThemeData(cursorColor: Color(0xFF9E9E9E)),
   primaryColor: const Color(0xFF121212),
-  backgroundColor: const Color(0xFF1E1E1E),
+  backgroundColor: const Color(0xFF232323),
   accentColor: const Color(0xffdf4d52),
   inputDecorationTheme: const InputDecorationTheme(
       focusedBorder: UnderlineInputBorder(
