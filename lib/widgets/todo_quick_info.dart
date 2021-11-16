@@ -50,7 +50,7 @@ class TodoQuickInfo extends StatelessWidget {
                 width: 8,
                 decoration: BoxDecoration(
                   color: leftDays.inDays < 2
-                      ? Theme.of(context).accentColor
+                      ? Theme.of(context).colorScheme.secondary
                       : theme.COLOR_GREEN,
                   borderRadius: BorderRadius.circular(8),
                 ),

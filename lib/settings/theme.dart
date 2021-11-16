@@ -26,7 +26,9 @@ ThemeData themeLight = ThemeData.light().copyWith(
       const TextSelectionThemeData(cursorColor: Color(0xFF9E9E9E)),
   primaryColor: const Color(0xFFF9F9FB),
   backgroundColor: const Color(0xFFFFFFFF),
-  accentColor: const Color(0xffdf4d52),
+  colorScheme: const ColorScheme.light(
+    secondary: Color(0xffdf4d52),
+  ),
   inputDecorationTheme: const InputDecorationTheme(
       focusedBorder: UnderlineInputBorder(
     borderSide: BorderSide(color: Color(0xffda291c)),
@@ -50,7 +52,9 @@ ThemeData themeDark = ThemeData.dark().copyWith(
       const TextSelectionThemeData(cursorColor: Color(0xFF9E9E9E)),
   primaryColor: const Color(0xFF121212),
   backgroundColor: const Color(0xFF232323),
-  accentColor: const Color(0xffdf4d52),
+  colorScheme: const ColorScheme.dark(
+    secondary: Color(0xffdf4d52),
+  ),
   inputDecorationTheme: const InputDecorationTheme(
       focusedBorder: UnderlineInputBorder(
     borderSide: BorderSide(color: Color(0xffda291c)),

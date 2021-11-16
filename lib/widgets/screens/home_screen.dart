@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
-import '../../services/api/response_types/heure_de_cours.dart';
 import '../../models/todo.dart';
+import '../../services/api/response_types/heure_de_cours.dart';
 import '../../services/navigation.dart' as navigator_controller;
 import '../../services/providers/bulletin_provider.dart';
 import '../../services/providers/horaires_provider.dart';
@@ -56,7 +56,7 @@ class HomeScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(3),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Theme.of(context).accentColor,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                         child: CircleAvatar(
                           backgroundColor: Colors.grey,

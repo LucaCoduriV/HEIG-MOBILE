@@ -50,7 +50,7 @@ class MyDrawer extends StatelessWidget {
       minLeadingWidth: 0,
       leading: Icon(
         icon,
-        color: Theme.of(context).accentColor,
+        color: Theme.of(context).colorScheme.secondary,
         size: 23,
       ),
       title: Text(

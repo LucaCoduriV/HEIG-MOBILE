@@ -60,7 +60,7 @@ class _HorairesScreenState extends State<HorairesScreen> {
                         margin: const EdgeInsets.all(4),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            color: Theme.of(context).accentColor,
+                            color: Theme.of(context).colorScheme.secondary,
                             borderRadius: BorderRadius.circular(50)),
                         child: Text(
                           date.day.toString(),
