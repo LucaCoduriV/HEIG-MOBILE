@@ -44,8 +44,8 @@ ThemeData themeDark = ThemeData.dark().copyWith(
     bodyText1: TextStyle(),
     bodyText2: TextStyle(),
   ).apply(
-    bodyColor: const Color(0x99FFFFFF),
-    displayColor: const Color(0x99FFFFFF),
+    bodyColor: const Color(0xCCFFFFFF),
+    displayColor: const Color(0xCCFFFFFF),
   ),
   iconTheme: const IconThemeData(color: Color(0xFFFFFFFF)),
   textSelectionTheme:
