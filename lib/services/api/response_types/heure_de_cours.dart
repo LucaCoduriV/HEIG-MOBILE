@@ -77,14 +77,14 @@ class HeureDeCours extends Notifiable {
     final dateMinus20 = debut.subtract(const Duration(minutes: 20));
 
     AwesomeNotifications().createNotification(
-        schedule: NotificationCalendar.fromDate(
-          date: DateTime.utc(
-            dateMinus20.year,
-            dateMinus20.month,
-            dateMinus20.day,
-            dateMinus20.hour,
-            dateMinus20.minute,
-          ),
+        schedule: NotificationCalendar(
+          day: dateMinus20.day,
+          year: dateMinus20.year,
+          month: dateMinus20.month,
+          hour: dateMinus20.hour,
+          minute: dateMinus20.minute,
+          second: dateMinus20.second,
+          allowWhileIdle: true,
         ),
         content: NotificationContent(
           id: notificationId,
