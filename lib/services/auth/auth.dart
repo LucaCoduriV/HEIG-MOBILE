@@ -77,7 +77,7 @@ class Auth extends ChangeNotifier implements IAuth {
     box.put('gapsId', -1);
     _gapsId = -1;
     _password = '';
-    GetIt.I<BulletinProvider>().emptyBulletin();
+    GetIt.I<BulletinProvider>().emptyBulletins();
     GetIt.I<UserProvider>().clearUser();
     notifyListeners();
     return;

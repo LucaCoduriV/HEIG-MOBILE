@@ -23,7 +23,7 @@ class BulletinScreen extends StatelessWidget {
       ],
       builder: (context, _) {
         final Bulletin bulletin = context.watch<BulletinProvider>().bulletin;
-        final bool loading = context.watch<BulletinProvider>().loading;
+        final int loading = context.watch<BulletinProvider>().loading;
         final thisYear = DateTime.now().year;
         return Container(
           color: Theme.of(context).backgroundColor,
@@ -62,7 +62,7 @@ class BulletinScreen extends StatelessWidget {
               Expanded(
                 child: Column(
                   children: [
-                    if (loading)
+                    if (loading != 0)
                       const Center(
                         child: LinearProgressIndicator(
                           color: Colors.red,

@@ -8,24 +8,28 @@ import '../api/response_types/bulletin.dart';
 
 /// Cette classe permet de distribuer et mettre à jours les données concernant le bulletin
 class BulletinProvider extends ChangeNotifier {
-  late Bulletin _bulletin;
+  late List<Bulletin> _bulletins;
   late int _year;
-  bool loading = false;
+  int loading = 0;
   final box = Hive.box('heig');
   final api = GetIt.I.get<IAPI>();
   final auth = GetIt.I.get<IAuth>();
 
   BulletinProvider() {
     // Les données sont récupérée dans le localstorage
-    final Bulletin hiveBulletin =
-        box.get('bulletin', defaultValue: Bulletin([]));
+    final List<Bulletin> hiveBulletins =
+        (box.get('bulletins', defaultValue: <Bulletin>[]) as List<dynamic>)
+            .cast<Bulletin>();
     final int year = box.get('year', defaultValue: DateTime.now().year);
-    _bulletin = hiveBulletin;
+
     _year = year;
+    _bulletins = hiveBulletins;
   }
 
+  /// Permet de récupérer le bulletin de l'année [year]
   Bulletin get bulletin {
-    return _bulletin;
+    return _bulletins.firstWhere((bulletin) => bulletin.year == _year,
+        orElse: () => Bulletin([]));
   }
 
   int get year {
@@ -40,23 +44,29 @@ class BulletinProvider extends ChangeNotifier {
 
   /// Récupère le bulletin depuis l'API et informe les views que ça a été mis à jour
   Future<void> fetchBulletin() async {
-    loading = true;
+    loading++;
     notifyListeners();
+    final year = _year;
     try {
       final password = await auth.encryptedPassword;
 
-      _bulletin = await api.fetchNotes(auth.username, password, auth.gapsId,
+      final bulletin = await api.fetchNotes(
+          auth.username, password, auth.gapsId,
           year: _year, decrypt: true);
-      box.put('bulletin', _bulletin);
+
+      _bulletins.removeWhere((element) => element.year == year);
+      _bulletins.add(bulletin);
+      box.put('bulletins', _bulletins);
     } catch (e) {
+      loading--;
       return;
     }
-    loading = false;
+    loading--;
     notifyListeners();
   }
 
-  void emptyBulletin() {
-    _bulletin = Bulletin([]);
+  void emptyBulletins() {
+    _bulletins.clear();
     notifyListeners();
   }
 }
