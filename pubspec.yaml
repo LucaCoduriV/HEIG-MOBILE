@@ -51,6 +51,8 @@ dependencies:
     # The following adds the Cupertino Icons font to your application.
     # Use with the CupertinoIcons class for iOS style icons.
     cupertino_icons: ^1.0.2
+    android_alarm_manager_plus: ^2.0.3
+    hive: ^2.0.4
 
 dev_dependencies:
     dotenv: ^3.0.0 # .env pour les units tests
