@@ -19,3 +19,11 @@ String getApiPort() {
     return dotenv.env['PORT_DEV'] as String;
   }
 }
+
+Duration backgroundTaskDuration() {
+  if (kReleaseMode) {
+    return const Duration(minutes: 10);
+  } else {
+    return const Duration(seconds: 30);
+  }
+}

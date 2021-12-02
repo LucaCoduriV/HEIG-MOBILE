@@ -63,10 +63,10 @@ Future<void> setupBackgroundTask() async {
   });
 }
 
-void startBackgroundTask({int minutes = 1}) {
+void startBackgroundTask(Duration duration) {
   if (Platform.isAndroid) {
     AndroidAlarmManager.periodic(
-      Duration(minutes: minutes),
+      duration,
       backgroundTaskId,
       backgroundMain,
       rescheduleOnReboot: true,
