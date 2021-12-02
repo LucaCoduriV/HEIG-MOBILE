@@ -14,7 +14,7 @@ import 'package:heig_front/services/api/response_types/notes.dart';
 import 'package:heig_front/services/api/response_types/user.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-Future<void> backgroundMain() async {
+Future<void> setupBackgroundTask() async {
   await dotenv.load();
   if (!Hive.isAdapterRegistered(BulletinAdapter().typeId) &&
       !Hive.isAdapterRegistered(BrancheAdapter().typeId) &&
@@ -50,6 +50,10 @@ Future<void> backgroundMain() async {
       AwesomeNotifications().requestPermissionToSendNotifications();
     }
   });
+}
+
+Future<void> backgroundMain() async {
+  await setupBackgroundTask();
 
   final box = await Hive.openBox<dynamic>('heig');
 
@@ -80,7 +84,7 @@ Future<void> backgroundMain() async {
     return;
   }
 
-  final newGrades = getDiffBulletins(oldBulletin, newBulletin);
+  final newGrades = Bulletin.getDiff(oldBulletin, newBulletin);
   // Update the old grades with the new grades.
   print(
       '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
@@ -108,25 +112,4 @@ Future<void> backgroundMain() async {
     }
   }
   // Notify the user of the change.
-}
-
-List<Note> getDiffBulletins(Bulletin oldB, Bulletin newB) {
-  final List<Note> oldGrades = [];
-  final List<Note> newGrades = [];
-  final List<Note> diffGrades = [];
-
-  for (final Branche branche in oldB.branches) {
-    [...branche.cours, ...branche.laboratoire].forEach(oldGrades.add);
-  }
-  for (final Branche branche in newB.branches) {
-    [...branche.cours, ...branche.laboratoire].forEach(newGrades.add);
-  }
-
-  for (final Note note in newGrades) {
-    if (!oldGrades.contains(note)) {
-      diffGrades.add(note);
-    }
-  }
-
-  return diffGrades;
 }
