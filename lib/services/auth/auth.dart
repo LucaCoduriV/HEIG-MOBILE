@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
+import 'package:heig_front/services/background_tasks/check_new_grades.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../api/iapi.dart';
@@ -69,6 +70,7 @@ class Auth extends ChangeNotifier implements IAuth {
 
   @override
   Future<void> logout() async {
+    stopBackgroundTask();
     // supprimer la connection + le localstorage
     box.delete('username');
     box.delete('password');
@@ -79,6 +81,7 @@ class Auth extends ChangeNotifier implements IAuth {
     _password = '';
     GetIt.I<BulletinProvider>().emptyBulletins();
     GetIt.I<UserProvider>().clearUser();
+
     notifyListeners();
     return;
   }

@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/foundation.dart' as foundation;
@@ -26,7 +28,6 @@ import 'services/api/response_types/notes.dart';
 import 'services/api/response_types/user.dart';
 import 'services/auth/auth.dart';
 import 'services/auth/iauth.dart';
-import 'services/background_tasks/check_new_grades.dart';
 import 'services/navigation.dart' as navigator_controller;
 import 'services/providers/bulletin_provider.dart';
 import 'services/providers/drawer_provider.dart';
@@ -90,16 +91,9 @@ Future<void> setup() async {
       AwesomeNotifications().requestPermissionToSendNotifications();
     }
   });
-
-  await AndroidAlarmManager.initialize();
-
-  const int helloAlarmID = 0;
-  await AndroidAlarmManager.periodic(
-      const Duration(minutes: 1), helloAlarmID, backgroundMain,
-      rescheduleOnReboot: true,
-      exact: true,
-      allowWhileIdle: true,
-      wakeup: true);
+  if (Platform.isAndroid) {
+    await AndroidAlarmManager.initialize();
+  }
 }
 
 Future<void> main() async {
