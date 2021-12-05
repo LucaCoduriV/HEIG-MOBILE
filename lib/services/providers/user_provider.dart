@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_dropdown_alert/alert_controller.dart';
+import 'package:flutter_dropdown_alert/model/data_alert.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/api/iapi.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -39,6 +41,11 @@ class UserProvider extends ChangeNotifier {
       notifyListeners();
       return true;
     } catch (e) {
+      AlertController.show(
+        'Erreur !',
+        'Une erreur est survenue lors de la récupération de vos infos.',
+        TypeAlert.error,
+      );
       return false;
     }
   }

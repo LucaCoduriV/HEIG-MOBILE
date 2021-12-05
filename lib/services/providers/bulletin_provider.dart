@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_dropdown_alert/alert_controller.dart';
+import 'package:flutter_dropdown_alert/model/data_alert.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/auth/iauth.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -59,6 +61,11 @@ class BulletinProvider extends ChangeNotifier {
       box.put('bulletins', _bulletins);
     } catch (e) {
       loading--;
+      AlertController.show(
+        'Erreur !',
+        'Une erreur est survenue lors de la récupération des notes.',
+        TypeAlert.error,
+      );
       return;
     }
     loading--;

@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_dropdown_alert/alert_controller.dart';
+import 'package:flutter_dropdown_alert/model/data_alert.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/api/iapi.dart';
 import 'package:heig_front/services/auth/iauth.dart';
@@ -61,6 +63,11 @@ class HorairesProvider extends ChangeNotifier {
       return true;
     } catch (e) {
       debugPrint(e.toString());
+      AlertController.show(
+        'Erreur !',
+        'Une erreur est survenue lors de la récupération des horaires.',
+        TypeAlert.error,
+      );
     }
 
     return false;

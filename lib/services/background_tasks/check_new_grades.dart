@@ -84,72 +84,76 @@ void stopBackgroundTask() {
 }
 
 Future<void> backgroundMain() async {
-  await setupBackgroundTask();
-
-  final box = await Hive.openBox<dynamic>('heig');
-
-  final username = box.get('username');
-  final password = box.get('password');
-  final gapsId = box.get('gapsId');
-
-  if (username == '' || password == '' || gapsId == -1) {
-    // don't even try to fetch data !
-    return;
-  }
-
-  //fetch old grades from storages
-  final List<Bulletin> oldBulletins =
-      (box.get('bulletins', defaultValue: Bulletin([])) as List<dynamic>)
-          .cast<Bulletin>();
-  // Fetch new grades from the server.
-  final Bulletin newBulletin;
   try {
-    final key = await ApiController().fetchPublicKey();
+    await setupBackgroundTask();
 
-    final encryptedPassword = AsymmetricCrypt(key).encrypt(password);
-    newBulletin = await ApiController().fetchNotes(
-      username,
-      encryptedPassword,
-      gapsId,
-      year: 2021,
-      decrypt: true,
-    );
-  } catch (e) {
-    debugPrint(e.toString());
-    return;
-  }
-  // Compare new grades with old grades.
-  Bulletin oldBulletin;
-  try {
-    oldBulletin =
-        oldBulletins.firstWhere((element) => element.year == newBulletin.year);
-  } catch (e) {
-    oldBulletin = Bulletin([], year: 2021);
-  }
+    final box = await Hive.openBox<dynamic>('heig');
 
-  final newGrades = Bulletin.getDiff(oldBulletin, newBulletin);
-  // Update the old grades with the new grades.
-  if (newGrades.isNotEmpty) {
-    final int index =
-        oldBulletins.indexWhere((element) => element.year == newBulletin.year);
-    oldBulletins[index] = newBulletin;
-    box.put('bulletins', oldBulletins);
+    final username = box.get('username');
+    final password = box.get('password');
+    final gapsId = box.get('gapsId');
 
-    final List<String> body =
-        newGrades.map((e) => '${e.nom} : ${e.note}').toList();
+    if (username == '' || password == '' || gapsId == -1) {
+      // don't even try to fetch data !
+      return;
+    }
 
+    //fetch old grades from storages
+    final List<Bulletin> oldBulletins =
+        (box.get('bulletins', defaultValue: Bulletin([])) as List<dynamic>)
+            .cast<Bulletin>();
+    // Fetch new grades from the server.
+    final Bulletin newBulletin;
     try {
-      // Notify the user of the change.
-      AwesomeNotifications().createNotification(
-        content: NotificationContent(
-          id: 10000,
-          channelKey: 'grade_channel',
-          title: 'Nouvelle(s) note(s) disponibles !',
-          body: body.join(' - '),
-        ),
+      final key = await ApiController().fetchPublicKey();
+
+      final encryptedPassword = AsymmetricCrypt(key).encrypt(password);
+      newBulletin = await ApiController().fetchNotes(
+        username,
+        encryptedPassword,
+        gapsId,
+        year: 2021,
+        decrypt: true,
       );
     } catch (e) {
       debugPrint(e.toString());
+      return;
     }
+    // Compare new grades with old grades.
+    Bulletin oldBulletin;
+    try {
+      oldBulletin = oldBulletins
+          .firstWhere((element) => element.year == newBulletin.year);
+    } catch (e) {
+      oldBulletin = Bulletin([], year: 2021);
+    }
+
+    final newGrades = Bulletin.getDiff(oldBulletin, newBulletin);
+    // Update the old grades with the new grades.
+    if (newGrades.isNotEmpty) {
+      final int index = oldBulletins
+          .indexWhere((element) => element.year == newBulletin.year);
+      oldBulletins[index] = newBulletin;
+      box.put('bulletins', oldBulletins);
+
+      final List<String> notificationBody =
+          newGrades.map((e) => '${e.nom} : ${e.note}').toList();
+
+      try {
+        // Notify the user of the change.
+        AwesomeNotifications().createNotification(
+          content: NotificationContent(
+            id: 10000,
+            channelKey: 'grade_channel',
+            title: 'Nouvelle(s) note(s) disponibles !',
+            body: notificationBody.join(' - '),
+          ),
+        );
+      } catch (e) {
+        debugPrint(e.toString());
+      }
+    }
+  } catch (e) {
+    debugPrint(e.toString());
   }
 }
