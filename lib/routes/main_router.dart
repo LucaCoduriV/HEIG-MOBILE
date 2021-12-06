@@ -21,6 +21,7 @@ class MainRouter {
       VGuard(
         beforeEnter: (vRedirector) async {
           if (!GetIt.I<IAuth>().isConnected) {
+            stopBackgroundTask();
             vRedirector.to('/${navigator_controller.LOGIN}');
           } else {
             startBackgroundTask(backgroundTaskDuration());
