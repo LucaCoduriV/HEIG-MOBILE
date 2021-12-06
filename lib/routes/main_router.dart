@@ -5,7 +5,7 @@ import 'package:heig_front/services/background_tasks/check_new_grades.dart';
 import 'package:heig_front/settings/env_settings.dart';
 import 'package:vrouter/vrouter.dart';
 
-import '../services/navigation.dart' as navigator_controller;
+import '../services/navigation.dart';
 import '../widgets/my_drawer.dart';
 import 'bulletin_route.dart';
 import 'home_route.dart';
@@ -22,14 +22,14 @@ class MainRouter {
         beforeEnter: (vRedirector) async {
           if (!GetIt.I<IAuth>().isConnected) {
             stopBackgroundTask();
-            vRedirector.to('/${navigator_controller.LOGIN}');
+            vRedirector.to('/${RouteName.LOGIN}');
           } else {
             startBackgroundTask(backgroundTaskDuration());
           }
         },
         stackedRoutes: [
           VNester(
-            path: '/${navigator_controller.HOME}',
+            path: '/${RouteName.HOME}',
             widgetBuilder: (child) => MyDrawer(child: child),
             nestedRoutes: [
               HomeRoute(),
@@ -43,7 +43,7 @@ class MainRouter {
         ],
       ),
       VRouteRedirector(
-        redirectTo: '/${navigator_controller.HOME}',
+        redirectTo: '/${RouteName.HOME}',
         path: ':_(.*)', // .* is a regexp which matching every paths
       ),
     ];

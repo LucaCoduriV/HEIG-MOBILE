@@ -28,7 +28,7 @@ import 'services/api/response_types/notes.dart';
 import 'services/api/response_types/user.dart';
 import 'services/auth/auth.dart';
 import 'services/auth/iauth.dart';
-import 'services/navigation.dart' as navigator_controller;
+import 'services/navigation.dart' as navigation;
 import 'services/providers/bulletin_provider.dart';
 import 'services/providers/drawer_provider.dart';
 import 'services/providers/horaires_provider.dart';
@@ -140,7 +140,7 @@ class _MyAppState extends State<MyApp> {
           logs: foundation.kReleaseMode
               ? VLogs.none
               : VLogs.info, // Defines which logs to show, info is the default
-          initialUrl: '/${navigator_controller.HOME}',
+          initialUrl: '/${navigation.RouteName.HOME}',
           routes: MainRouter().buildRoutes(),
           builder: (BuildContext context, Widget child) {
             return Stack(

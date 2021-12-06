@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:vrouter/vrouter.dart';
 
-import '../services/navigation.dart' as navigator_controller;
+import '../services/navigation.dart';
 import '../services/providers/drawer_provider.dart';
 import '../services/providers/horaires_provider.dart';
 import '../widgets/screens/horaires_screen.dart';
@@ -18,7 +18,7 @@ class HorairesRoute extends VRouteElementBuilder {
         },
         stackedRoutes: [
           VWidget(
-            path: '/${navigator_controller.HORAIRES}',
+            path: '/${RouteName.HORAIRES}',
             widget: const HorairesScreen(),
           ),
         ],
