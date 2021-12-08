@@ -6,7 +6,7 @@ import 'package:heig_front/services/providers/horaires_provider.dart';
 import 'package:modern_drawer/modern_drawer.dart';
 import 'package:provider/provider.dart';
 
-import '../services/navigation.dart' as navigator_controller;
+import '../utils/navigation.dart' as navigator_controller;
 import '../services/providers/drawer_provider.dart';
 import '../settings/theme.dart' as theme;
 import '../utils/date.dart';

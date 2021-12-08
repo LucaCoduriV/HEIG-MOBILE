@@ -1,6 +1,6 @@
-import 'package:heig_front/services/api/response_types/notes.dart';
+import 'package:heig_front/models/notes.dart';
 
-/// Return the mean of the [grades]
+/// Return the mean of [grades]
 double calculateMean(List<Note> grades) {
   double sum = 0;
   double divider = 0;
@@ -11,7 +11,7 @@ double calculateMean(List<Note> grades) {
   return sum / divider;
 }
 
-/// Returns the next grade to have at least [target] grade.
+/// Returns the next grade to do to get at least [target] grade.
 double getMinToGetMean(
   double currentGrade,
   double nextGradeCoeff, {

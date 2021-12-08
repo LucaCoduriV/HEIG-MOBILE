@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:heig_front/services/api/response_types/notes.dart';
+import 'package:heig_front/models/notes.dart';
 import 'package:heig_front/utils/grades_functions.dart';
 
 Future<void> main() async {

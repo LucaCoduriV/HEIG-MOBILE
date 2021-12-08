@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:vrouter/vrouter.dart';
 
-import '../services/navigation.dart';
+import '../utils/navigation.dart';
 import '../services/providers/drawer_provider.dart';
 import '../widgets/screens/agenda_screen.dart';
 

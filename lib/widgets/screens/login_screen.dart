@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/auth/iauth.dart';
 
-import '../../services/navigation.dart' as navigator_controller;
+import '../../utils/navigation.dart' as navigator_controller;
 import '../../services/providers/bulletin_provider.dart';
 import '../../services/providers/horaires_provider.dart';
 import '../../services/providers/user_provider.dart';
@@ -117,11 +117,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         if (await GetIt.I<IAuth>().login()) {
                           navigator_controller.toHome(context);
-                          GetIt.I.get<UserProvider>().fetchUser();
+                          GetIt.I.get<UserProvider>().fetch();
                           GetIt.I.get<HorairesProvider>()
-                            ..fetchHoraires()
+                            ..fetch()
                             ..registerNotifications();
-                          GetIt.I.get<BulletinProvider>().fetchBulletin();
+                          GetIt.I.get<BulletinProvider>().fetch();
                         } else {
                           AlertController.show(
                             'Error',

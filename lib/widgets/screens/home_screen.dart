@@ -3,8 +3,8 @@ import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/todo.dart';
-import '../../services/api/response_types/heure_de_cours.dart';
-import '../../services/navigation.dart' as navigator_controller;
+import '../../models/heure_de_cours.dart';
+import '../../utils/navigation.dart' as navigator_controller;
 import '../../services/providers/bulletin_provider.dart';
 import '../../services/providers/horaires_provider.dart';
 import '../../services/providers/todos_provider.dart';

@@ -4,8 +4,8 @@ import 'package:heig_front/services/providers/settings_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:vrouter/vrouter.dart';
 
-import '../../services/api/response_types/bulletin.dart';
-import '../../services/api/response_types/notes.dart';
+import '../../models/bulletin.dart';
+import '../../models/notes.dart';
 import '../../services/providers/bulletin_provider.dart';
 import '../chart.dart';
 

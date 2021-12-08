@@ -20,15 +20,15 @@ import 'package:vrouter/vrouter.dart';
 import 'models/todo.dart';
 import 'routes/main_router.dart';
 import 'services/api/api.dart';
-import 'services/api/response_types/branche.dart';
-import 'services/api/response_types/bulletin.dart';
-import 'services/api/response_types/heure_de_cours.dart';
-import 'services/api/response_types/horaires.dart';
-import 'services/api/response_types/notes.dart';
-import 'services/api/response_types/user.dart';
+import 'models/branche.dart';
+import 'models/bulletin.dart';
+import 'models/heure_de_cours.dart';
+import 'models/horaires.dart';
+import 'models/notes.dart';
+import 'models/user.dart';
 import 'services/auth/auth.dart';
 import 'services/auth/iauth.dart';
-import 'services/navigation.dart' as navigation;
+import 'utils/navigation.dart' as navigation;
 import 'services/providers/bulletin_provider.dart';
 import 'services/providers/drawer_provider.dart';
 import 'services/providers/horaires_provider.dart';
@@ -72,6 +72,7 @@ Future<void> setup() async {
         channelKey: 'todos_channel',
         channelName: 'Todo',
         channelDescription: 'Notification channel for todos',
+        importance: NotificationImportance.High,
         defaultColor: Colors.red,
         ledColor: Colors.white,
       ),
@@ -79,6 +80,7 @@ Future<void> setup() async {
         channelKey: 'horaires_channel',
         channelName: 'Horaire',
         channelDescription: 'Notification channel for schedules',
+        importance: NotificationImportance.High,
         defaultColor: Colors.red,
         ledColor: Colors.white,
       ),

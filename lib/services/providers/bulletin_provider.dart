@@ -6,7 +6,7 @@ import 'package:heig_front/services/auth/iauth.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../api/iapi.dart';
-import '../api/response_types/bulletin.dart';
+import '../../models/bulletin.dart';
 
 /// Cette classe permet de distribuer et mettre à jours les données concernant le bulletin
 class BulletinProvider extends ChangeNotifier {
@@ -45,7 +45,7 @@ class BulletinProvider extends ChangeNotifier {
   }
 
   /// Récupère le bulletin depuis l'API et informe les views que ça a été mis à jour
-  Future<void> fetchBulletin() async {
+  Future<void> fetch() async {
     loading++;
     notifyListeners();
     final year = _year;

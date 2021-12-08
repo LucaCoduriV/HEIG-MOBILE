@@ -2,7 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:heig_front/widgets/screens/menu_screen.dart';
 import 'package:vrouter/vrouter.dart';
 
-import '../services/navigation.dart';
+import '../utils/navigation.dart';
 import '../services/providers/drawer_provider.dart';
 
 class MenuRoute extends VRouteElementBuilder {

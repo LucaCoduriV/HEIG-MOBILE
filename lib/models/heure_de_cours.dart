@@ -1,7 +1,5 @@
-import 'dart:developer';
-
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:heig_front/models/notifiable.dart';
+import 'package:heig_front/utils/notifiable.dart';
 import 'package:hive_flutter/adapters.dart';
 
 part 'heure_de_cours.g.dart';
@@ -87,6 +85,7 @@ class HeureDeCours extends Notifiable {
           allowWhileIdle: true,
         ),
         content: NotificationContent(
+          category: NotificationCategory.Alarm,
           id: notificationId,
           channelKey: 'horaires_channel',
           title: 'Cours: $nom Classe: $salle',

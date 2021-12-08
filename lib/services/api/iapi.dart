@@ -1,7 +1,7 @@
 import '../../models/menu_jour.dart';
-import 'response_types/bulletin.dart';
-import 'response_types/horaires.dart';
-import 'response_types/user.dart';
+import '../../models/bulletin.dart';
+import '../../models/horaires.dart';
+import '../../models/user.dart';
 
 abstract class IAPI {
   Future<Horaires> fetchHoraires(String username, String password, int gapsId,

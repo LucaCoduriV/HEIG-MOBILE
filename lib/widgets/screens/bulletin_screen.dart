@@ -3,9 +3,9 @@ import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/providers/settings_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../services/api/response_types/branche.dart';
-import '../../services/api/response_types/bulletin.dart';
-import '../../services/navigation.dart' as navigator_controller;
+import '../../models/branche.dart';
+import '../../models/bulletin.dart';
+import '../../utils/navigation.dart' as navigator_controller;
 import '../../services/providers/bulletin_provider.dart';
 import '../../services/providers/drawer_provider.dart';
 import '../branche_button.dart';
@@ -43,7 +43,7 @@ class BulletinScreen extends StatelessWidget {
                     icon: const Icon(Icons.arrow_downward),
                     onChanged: (int? newValue) {
                       GetIt.I<BulletinProvider>().year = newValue!;
-                      GetIt.I<BulletinProvider>().fetchBulletin();
+                      GetIt.I<BulletinProvider>().fetch();
                     },
                     items: <int>[
                       thisYear - 2,
@@ -74,8 +74,7 @@ class BulletinScreen extends StatelessWidget {
                         builder: (_context, constraints) => RefreshIndicator(
                           color: Colors.red,
                           key: GetIt.I<GlobalKey<RefreshIndicatorState>>(),
-                          onRefresh: () =>
-                              GetIt.I<BulletinProvider>().fetchBulletin(),
+                          onRefresh: () => GetIt.I<BulletinProvider>().fetch(),
                           child: buildButtons(context, bulletin, constraints),
                         ),
                       ),

@@ -5,7 +5,7 @@ import 'package:heig_front/services/background_tasks/check_new_grades.dart';
 import 'package:heig_front/settings/env_settings.dart';
 import 'package:vrouter/vrouter.dart';
 
-import '../services/navigation.dart';
+import '../utils/navigation.dart';
 import '../widgets/my_drawer.dart';
 import 'bulletin_route.dart';
 import 'home_route.dart';

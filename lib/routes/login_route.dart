@@ -1,6 +1,6 @@
 import 'package:vrouter/vrouter.dart';
 
-import '../services/navigation.dart';
+import '../utils/navigation.dart';
 import '../widgets/screens/login_screen.dart';
 
 class LoginRoute extends VRouteElementBuilder {

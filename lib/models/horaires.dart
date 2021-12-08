@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:rrule/rrule.dart';
 
-import './heure_de_cours.dart';
+import 'heure_de_cours.dart';
 
-part './horaires.g.dart';
+part 'horaires.g.dart';
 
 @HiveType(typeId: 4)
 class Horaires {

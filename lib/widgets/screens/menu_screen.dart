@@ -42,7 +42,7 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller = TabController(length: TAB_NUMBER, vsync: this);
-    GetIt.I.get<MenusProvider>().fetchMenus();
+    GetIt.I.get<MenusProvider>().fetch();
   }
 
   @override

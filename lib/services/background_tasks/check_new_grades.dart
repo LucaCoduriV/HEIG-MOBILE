@@ -7,15 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:heig_front/models/todo.dart';
 import 'package:heig_front/services/api/api.dart';
-import 'package:heig_front/services/api/response_types/branche.dart';
-import 'package:heig_front/services/api/response_types/bulletin.dart';
-import 'package:heig_front/services/api/response_types/heure_de_cours.dart';
-import 'package:heig_front/services/api/response_types/horaires.dart';
-import 'package:heig_front/services/api/response_types/notes.dart';
-import 'package:heig_front/services/api/response_types/user.dart';
+import 'package:heig_front/models/branche.dart';
+import 'package:heig_front/models/bulletin.dart';
+import 'package:heig_front/models/heure_de_cours.dart';
+import 'package:heig_front/models/horaires.dart';
+import 'package:heig_front/models/notes.dart';
+import 'package:heig_front/models/user.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../asymmetric_crypt.dart';
+import '../../utils/asymmetric_crypt.dart';
 
 const int backgroundTaskId = 0;
 

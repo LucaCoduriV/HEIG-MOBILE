@@ -14,7 +14,7 @@ class MenusProvider extends ChangeNotifier {
     menus = hiveMenu;
   }
 
-  Future<void> fetchMenus() async {
+  Future<void> fetch() async {
     menus = await api.fetchMenuSemaine();
     notifyListeners();
   }

@@ -5,7 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/api/iapi.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../api/response_types/user.dart';
+import '../../models/user.dart';
 import '../auth/iauth.dart';
 
 /// Cette classe permet de distribuer et mettre à jours les données concernant l'utilisateur.
@@ -18,7 +18,7 @@ class UserProvider extends ChangeNotifier {
   UserProvider() {
     _user = box.get('user', defaultValue: User('', '', '', '', '', '', ''));
     if (_user.avatarUrl == '' && auth.isConnected) {
-      fetchUser();
+      fetch();
     }
   }
 
@@ -30,7 +30,7 @@ class UserProvider extends ChangeNotifier {
     return '';
   }
 
-  Future<bool> fetchUser() async {
+  Future<bool> fetch() async {
     final auth = GetIt.I.get<IAuth>();
     try {
       final password = await auth.encryptedPassword;
