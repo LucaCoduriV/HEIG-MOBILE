@@ -1,28 +1,36 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'constants.dart';
+
 class IdGenerator {
-  static const BOX_NAME = 'ID_GENERATOR';
-  final _box = Hive.box(BOX_NAME);
+  static late final Box<dynamic> _box;
+  final int _min;
+  final int _max;
 
   static Future<void> initialize() async {
-    await Hive.openBox<dynamic>(BOX_NAME);
+    _box = await Hive.openBox<dynamic>(BOX_ID_GENERATOR);
   }
 
   late int _lastId;
   final String name;
 
-  IdGenerator(this.name) {
-    _lastId = _box.get(name, defaultValue: -1);
+  IdGenerator(this.name, {int min = 0, int max = 9999999})
+      : _min = min,
+        _max = max {
+    _lastId = _box.get(name, defaultValue: _min);
   }
 
   int nextId() {
     _lastId++;
+    if (_lastId > _max) {
+      _lastId = _min;
+    }
     _box.put(name, _lastId);
     return _lastId;
   }
 
   void reset() {
-    _lastId = 0;
+    _lastId = _min;
     _box.put(name, _lastId);
   }
 }
