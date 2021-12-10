@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/foundation.dart';
 import 'package:heig_front/utils/id_generator.dart';
@@ -12,7 +14,7 @@ mixin CanNotify {
 
   @HiveField(200)
   late final int notificationId;
-  late final NotificationCalendar _calendar;
+  late final NotificationCalendar? _calendar;
   late final NotificationContent _content;
   bool isInitialized = false;
 
@@ -22,15 +24,18 @@ mixin CanNotify {
     int? notificationId,
   }) {
     isInitialized = true;
-    this.notificationId = notificationId == null || notificationId == -1
+    this.notificationId = (notificationId == null || notificationId == -1)
         ? _idGen.nextId()
         : notificationId;
+
+    _calendar = calendar;
+    _content = content;
+    _content.id = this.notificationId;
   }
 
   void scheduleNotification() {
     assert(isInitialized);
     assert(!kIsWeb);
-    _content.id = notificationId;
     AwesomeNotifications().createNotification(
       schedule: _calendar,
       content: _content,

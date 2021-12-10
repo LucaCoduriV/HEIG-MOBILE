@@ -42,7 +42,8 @@ class Todo with CanNotify {
         DateTime.now().isAfter(date.subtract(const Duration(days: 1)))
             ? null
             : NotificationCalendar.fromDate(
-                date: date.subtract(const Duration(days: 1)));
+                date: date.subtract(const Duration(days: 1)),
+              );
 
     initCanNotifyMixin(
         _calendar,
