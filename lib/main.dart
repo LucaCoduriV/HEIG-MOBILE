@@ -34,6 +34,7 @@ import 'services/providers/horaires_provider.dart';
 import 'services/providers/todos_provider.dart';
 import 'services/providers/user_provider.dart';
 import 'settings/theme.dart' as theme;
+import 'utils/constants.dart';
 import 'utils/navigation.dart' as navigation;
 
 /// Prparation de la base de données local et des singletons.
@@ -49,7 +50,7 @@ Future<void> setup() async {
   Hive.registerAdapter(TodoAdapter());
   Hive.registerAdapter(UserAdapter());
   await IdGenerator.initialize();
-  await Hive.openBox<dynamic>('heig');
+  await Hive.openBox<dynamic>(BOX_HEIG);
   await Hive.openBox<dynamic>('heig-settings');
 
   GetIt.I.registerSingleton<IAPI>(ApiController());

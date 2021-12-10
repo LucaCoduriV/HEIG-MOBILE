@@ -13,11 +13,10 @@ import 'package:heig_front/models/notes.dart';
 import 'package:heig_front/models/todo.dart';
 import 'package:heig_front/models/user.dart';
 import 'package:heig_front/services/api/api.dart';
+import 'package:heig_front/utils/constants.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../utils/asymmetric_crypt.dart';
-
-const int backgroundTaskId = 0;
 
 Future<void> setupBackgroundTask() async {
   final connectivityResult = await Connectivity().checkConnectivity();
@@ -67,7 +66,7 @@ void startBackgroundTask(Duration duration) {
   if (Platform.isAndroid) {
     AndroidAlarmManager.periodic(
       duration,
-      backgroundTaskId,
+      BACKGROUND_TASK_ID,
       backgroundMain,
       rescheduleOnReboot: true,
       exact: true,
@@ -79,7 +78,7 @@ void startBackgroundTask(Duration duration) {
 
 void stopBackgroundTask() {
   if (Platform.isAndroid) {
-    AndroidAlarmManager.cancel(backgroundTaskId);
+    AndroidAlarmManager.cancel(BACKGROUND_TASK_ID);
   }
 }
 
@@ -87,7 +86,7 @@ Future<void> backgroundMain() async {
   try {
     await setupBackgroundTask();
 
-    final box = await Hive.openBox<dynamic>('heig');
+    final box = await Hive.openBox<dynamic>(BOX_HEIG);
 
     final username = box.get('username');
     final password = box.get('password');

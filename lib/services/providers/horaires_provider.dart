@@ -4,6 +4,7 @@ import 'package:flutter_dropdown_alert/model/data_alert.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/api/iapi.dart';
 import 'package:heig_front/services/auth/iauth.dart';
+import 'package:heig_front/utils/constants.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../models/heure_de_cours.dart';
@@ -12,7 +13,7 @@ import '../../models/horaires.dart';
 /// Cette classe permet de distribuer et mettre à jours les données concernant les horaires.
 class HorairesProvider extends ChangeNotifier {
   late Horaires _horaires;
-  final box = Hive.box('heig');
+  final box = Hive.box(BOX_HEIG);
   final api = GetIt.I.get<IAPI>();
 
   HorairesProvider() {

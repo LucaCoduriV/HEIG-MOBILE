@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heig_front/utils/constants.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 // const COLOR_PRIMARY = ColorRef(Color(0xffda291c));
@@ -67,7 +68,7 @@ ThemeData themeDark = ThemeData.dark().copyWith(
 
 class ThemeProvider extends ChangeNotifier {
   ThemeMode _mode = ThemeMode.light;
-  var box = Hive.box('heig');
+  final box = Hive.box(BOX_HEIG);
 
   ThemeProvider() {
     final themeModeId = box.get('theme', defaultValue: 1);

@@ -3,6 +3,7 @@ import 'package:flutter_dropdown_alert/alert_controller.dart';
 import 'package:flutter_dropdown_alert/model/data_alert.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/auth/iauth.dart';
+import 'package:heig_front/utils/constants.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../models/bulletin.dart';
@@ -13,7 +14,7 @@ class BulletinProvider extends ChangeNotifier {
   late List<Bulletin> _bulletins;
   late int _year;
   int loading = 0;
-  final box = Hive.box('heig');
+  final box = Hive.box(BOX_HEIG);
   final api = GetIt.I.get<IAPI>();
   final auth = GetIt.I.get<IAuth>();
 

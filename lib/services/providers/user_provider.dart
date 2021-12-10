@@ -3,6 +3,7 @@ import 'package:flutter_dropdown_alert/alert_controller.dart';
 import 'package:flutter_dropdown_alert/model/data_alert.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/api/iapi.dart';
+import 'package:heig_front/utils/constants.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../models/user.dart';
@@ -11,7 +12,7 @@ import '../auth/iauth.dart';
 /// Cette classe permet de distribuer et mettre à jours les données concernant l'utilisateur.
 class UserProvider extends ChangeNotifier {
   late User _user;
-  var box = Hive.box('heig');
+  final box = Hive.box(BOX_HEIG);
   final IAuth auth = GetIt.I.get<IAuth>();
   final IAPI api = GetIt.I.get<IAPI>();
 

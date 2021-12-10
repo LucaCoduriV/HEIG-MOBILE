@@ -19,7 +19,7 @@ class Todo extends Notifiable {
   @HiveField(4)
   late DateTime _date;
 
-  var uuid = const Uuid();
+  final uuid = const Uuid();
 
   String get id => _id;
   String get title => _title;

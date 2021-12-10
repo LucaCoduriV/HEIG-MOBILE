@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/background_tasks/check_new_grades.dart';
+import 'package:heig_front/utils/constants.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../utils/asymmetric_crypt.dart';
@@ -23,14 +24,14 @@ class Auth extends ChangeNotifier implements IAuth {
     return AsymmetricCrypt(publicKey).encrypt(_password);
   }
 
-  var box = Hive.box('heig');
+  final box = Hive.box(BOX_HEIG);
 
   @override
   bool get isConnected => gapsId != -1;
 
   @override
   set username(String username) {
-    final box = Hive.box<dynamic>('heig');
+    final box = Hive.box<dynamic>(BOX_HEIG);
     _username = username;
     box.put('username', username);
   }
@@ -38,7 +39,7 @@ class Auth extends ChangeNotifier implements IAuth {
   @override
   set password(String password) {
     _password = password;
-    final box = Hive.box<dynamic>('heig');
+    final box = Hive.box<dynamic>(BOX_HEIG);
     box.put('password', password);
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:heig_front/utils/constants.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../models/todo.dart';
@@ -6,7 +7,7 @@ import '../../models/todo.dart';
 /// Cette classe permet de distribuer et mettre à jours les données concernant les tâches.
 class TodosProvider extends ChangeNotifier {
   late Map<String, Todo> _todos;
-  final box = Hive.box('heig');
+  final box = Hive.box(BOX_HEIG);
 
   TodosProvider() {
     _todos = Map.from(box.get('todos', defaultValue: <int, Todo>{}));
