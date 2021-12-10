@@ -1,8 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:vrouter/vrouter.dart';
 
-import '../utils/navigation.dart';
 import '../services/providers/drawer_provider.dart';
+import '../utils/navigation.dart';
 import '../widgets/screens/settings_screen.dart';
 
 class SettingsRoute extends VRouteElementBuilder {

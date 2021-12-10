@@ -3,8 +3,8 @@ import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/background_tasks/check_new_grades.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../api/iapi.dart';
 import '../../utils/asymmetric_crypt.dart';
+import '../api/iapi.dart';
 import '../providers/bulletin_provider.dart';
 import '../providers/user_provider.dart';
 import 'iauth.dart';

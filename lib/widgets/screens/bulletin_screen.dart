@@ -5,9 +5,9 @@ import 'package:provider/provider.dart';
 
 import '../../models/branche.dart';
 import '../../models/bulletin.dart';
-import '../../utils/navigation.dart' as navigator_controller;
 import '../../services/providers/bulletin_provider.dart';
 import '../../services/providers/drawer_provider.dart';
+import '../../utils/navigation.dart' as navigator_controller;
 import '../branche_button.dart';
 
 /// Page contenant le bulletin de notes.

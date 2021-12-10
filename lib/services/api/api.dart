@@ -6,12 +6,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:heig_front/models/menu_jour.dart';
 import 'package:heig_front/services/api/iapi.dart';
 
-import '../../settings/env_settings.dart';
 import '../../models/branche.dart';
 import '../../models/bulletin.dart';
 import '../../models/heure_de_cours.dart';
 import '../../models/horaires.dart';
 import '../../models/user.dart';
+import '../../settings/env_settings.dart';
 
 /// Cette classe permet de récupérer les données traitées depuis l'API
 class ApiController implements IAPI {

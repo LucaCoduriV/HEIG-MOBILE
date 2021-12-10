@@ -5,14 +5,14 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:heig_front/models/todo.dart';
-import 'package:heig_front/services/api/api.dart';
 import 'package:heig_front/models/branche.dart';
 import 'package:heig_front/models/bulletin.dart';
 import 'package:heig_front/models/heure_de_cours.dart';
 import 'package:heig_front/models/horaires.dart';
 import 'package:heig_front/models/notes.dart';
+import 'package:heig_front/models/todo.dart';
 import 'package:heig_front/models/user.dart';
+import 'package:heig_front/services/api/api.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../utils/asymmetric_crypt.dart';

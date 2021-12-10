@@ -17,24 +17,24 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'package:vrouter/vrouter.dart';
 
-import 'models/todo.dart';
-import 'routes/main_router.dart';
-import 'services/api/api.dart';
 import 'models/branche.dart';
 import 'models/bulletin.dart';
 import 'models/heure_de_cours.dart';
 import 'models/horaires.dart';
 import 'models/notes.dart';
+import 'models/todo.dart';
 import 'models/user.dart';
+import 'routes/main_router.dart';
+import 'services/api/api.dart';
 import 'services/auth/auth.dart';
 import 'services/auth/iauth.dart';
-import 'utils/navigation.dart' as navigation;
 import 'services/providers/bulletin_provider.dart';
 import 'services/providers/drawer_provider.dart';
 import 'services/providers/horaires_provider.dart';
 import 'services/providers/todos_provider.dart';
 import 'services/providers/user_provider.dart';
 import 'settings/theme.dart' as theme;
+import 'utils/navigation.dart' as navigation;
 
 /// Prparation de la base de données local et des singletons.
 Future<void> setup() async {

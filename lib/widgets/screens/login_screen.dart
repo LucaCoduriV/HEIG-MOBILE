@@ -5,10 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/auth/iauth.dart';
 
-import '../../utils/navigation.dart' as navigator_controller;
 import '../../services/providers/bulletin_provider.dart';
 import '../../services/providers/horaires_provider.dart';
 import '../../services/providers/user_provider.dart';
+import '../../utils/navigation.dart' as navigator_controller;
 
 /// Page contenant le formulaire de connexion
 class LoginScreen extends StatefulWidget {

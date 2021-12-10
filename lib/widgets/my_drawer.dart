@@ -6,10 +6,10 @@ import 'package:heig_front/services/providers/horaires_provider.dart';
 import 'package:modern_drawer/modern_drawer.dart';
 import 'package:provider/provider.dart';
 
-import '../utils/navigation.dart' as navigator_controller;
 import '../services/providers/drawer_provider.dart';
 import '../settings/theme.dart' as theme;
 import '../utils/date.dart';
+import '../utils/navigation.dart' as navigator_controller;
 import 'todos_dialog.dart';
 
 class MyDrawer extends StatelessWidget {

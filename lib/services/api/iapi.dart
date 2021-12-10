@@ -1,6 +1,6 @@
-import '../../models/menu_jour.dart';
 import '../../models/bulletin.dart';
 import '../../models/horaires.dart';
+import '../../models/menu_jour.dart';
 import '../../models/user.dart';
 
 abstract class IAPI {
