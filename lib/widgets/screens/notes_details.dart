@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/providers/settings_provider.dart';
+import 'package:heig_front/utils/grades_functions.dart';
 import 'package:provider/provider.dart';
 import 'package:vrouter/vrouter.dart';
 
@@ -42,14 +43,20 @@ class NotesDetails extends StatelessWidget {
 
   List<Widget> getChildren(
       BuildContext context, List<Note> notesCours, List<Note> notesLabo) {
+    final laboMean = calculateMean(notesLabo);
+    final coursMean = calculateMean(notesCours);
+    final nextGradeLabo = getMinToGetMean(laboMean, 1);
+    final nextGradeCours = getMinToGetMean(coursMean, 1);
+
     return [
-      if (notesCours.isNotEmpty)
+      if (notesCours.isNotEmpty) ...[
         const Text(
           'Cours',
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
         ),
-      if (notesCours.isNotEmpty) const SizedBox(height: 10),
-      if (notesCours.isNotEmpty)
+        if (coursMean < 4)
+          Text('Prochaine note minimum avec un coeff de 100%: $nextGradeCours'),
+        const SizedBox(height: 10),
         Container(
           padding: const EdgeInsets.only(right: 20),
           height: 200,
@@ -60,20 +67,21 @@ class NotesDetails extends StatelessWidget {
             showMoyenne: Provider.of<SettingsProvider>(context).showMoyenne,
           ),
         ),
-      if (notesCours.isNotEmpty)
         DataTable(
           columnSpacing: 30,
           columns: getColumn(context),
           rows: getDatas(notesCours),
         ),
-      if (notesCours.isNotEmpty) const SizedBox(height: 40),
-      if (notesLabo.isNotEmpty)
+        const SizedBox(height: 40),
+      ],
+      if (notesLabo.isNotEmpty) ...[
         const Text(
           'Laboratoires',
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
         ),
-      if (notesLabo.isNotEmpty) const SizedBox(height: 10),
-      if (notesLabo.isNotEmpty)
+        if (laboMean < 4)
+          Text('Prochaine note minimum avec un coeff de 100%: $nextGradeLabo'),
+        const SizedBox(height: 10),
         Container(
           padding: const EdgeInsets.only(right: 20),
           height: 200,
@@ -84,12 +92,12 @@ class NotesDetails extends StatelessWidget {
             showMoyenne: Provider.of<SettingsProvider>(context).showMoyenne,
           ),
         ),
-      if (notesLabo.isNotEmpty)
         DataTable(
           columnSpacing: 30,
           columns: getColumn(context),
           rows: getDatas(notesLabo),
         ),
+      ],
     ];
   }
 
