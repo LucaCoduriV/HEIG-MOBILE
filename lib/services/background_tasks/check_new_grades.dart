@@ -152,6 +152,20 @@ Future<void> backgroundMain() async {
       } catch (e) {
         debugPrint(e.toString());
       }
+    } else {
+      try {
+        // Notify the user of the change.
+        AwesomeNotifications().createNotification(
+          content: NotificationContent(
+            id: 10001,
+            channelKey: 'grade_channel',
+            title: 'Aucune nouvelle note disponible !',
+            body: 'Pas de nouvelle note disponible.',
+          ),
+        );
+      } catch (e) {
+        debugPrint(e.toString());
+      }
     }
   } catch (e) {
     debugPrint(e.toString());

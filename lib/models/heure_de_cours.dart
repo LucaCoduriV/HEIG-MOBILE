@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:heig_front/utils/notifiable.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -73,6 +75,8 @@ class HeureDeCours extends Notifiable {
         "${debut.hour.toString().padLeft(2, '0')}:${debut.minute.toString().padLeft(2, '0')}";
 
     final dateMinus20 = debut.subtract(const Duration(minutes: 20));
+
+    log(notificationId.toString());
 
     AwesomeNotifications().createNotification(
         schedule: NotificationCalendar(
