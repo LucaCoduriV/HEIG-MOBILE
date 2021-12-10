@@ -7,21 +7,21 @@ import 'package:hive_flutter/adapters.dart';
 part 'heure_de_cours.g.dart';
 
 @HiveType(typeId: 3)
-class HeureDeCours extends Notifiable {
+class HeureDeCours with CanNotify {
   @HiveField(0)
-  String nom;
+  final String nom;
   @HiveField(1)
-  DateTime debut;
+  final DateTime debut;
   @HiveField(2)
-  DateTime fin;
+  final DateTime fin;
   @HiveField(3)
-  String prof;
+  final String prof;
   @HiveField(4)
-  String salle;
+  final String salle;
   @HiveField(5)
-  String uid;
+  final String uid;
   @HiveField(6)
-  String? rrule;
+  final String? rrule;
 
   HeureDeCours(
     this.nom,
@@ -32,7 +32,30 @@ class HeureDeCours extends Notifiable {
     this.uid,
     this.rrule, {
     int? notificationId,
-  }) : super(notificationId: notificationId);
+  }) {
+    final String dateSlug =
+        "${debut.hour.toString().padLeft(2, '0')}:${debut.minute.toString().padLeft(2, '0')}";
+
+    final dateMinus20 = debut.subtract(const Duration(minutes: 20));
+    initCanNotifyMixin(
+        NotificationCalendar(
+          day: dateMinus20.day,
+          year: dateMinus20.year,
+          month: dateMinus20.month,
+          hour: dateMinus20.hour,
+          minute: dateMinus20.minute,
+          second: dateMinus20.second,
+          allowWhileIdle: true,
+        ),
+        NotificationContent(
+          category: NotificationCategory.Alarm,
+          id: 0,
+          channelKey: 'horaires_channel',
+          title: 'Cours: $nom Classe: $salle',
+          body: dateSlug,
+        ),
+        notificationId: notificationId);
+  }
 
   factory HeureDeCours.fromJson(Map<String, dynamic> json) {
     final String startString = json['DTSTART;TZID=Europe/Zurich'] as String;
@@ -67,33 +90,5 @@ class HeureDeCours extends Notifiable {
   @override
   String toString() {
     return 'HeureDeCours($nom, $debut, $fin périodes, $prof, $salle, $uid)';
-  }
-
-  @override
-  void scheduleNotification() {
-    final String dateSlug =
-        "${debut.hour.toString().padLeft(2, '0')}:${debut.minute.toString().padLeft(2, '0')}";
-
-    final dateMinus20 = debut.subtract(const Duration(minutes: 20));
-
-    log(notificationId.toString());
-
-    AwesomeNotifications().createNotification(
-        schedule: NotificationCalendar(
-          day: dateMinus20.day,
-          year: dateMinus20.year,
-          month: dateMinus20.month,
-          hour: dateMinus20.hour,
-          minute: dateMinus20.minute,
-          second: dateMinus20.second,
-          allowWhileIdle: true,
-        ),
-        content: NotificationContent(
-          category: NotificationCategory.Alarm,
-          id: notificationId,
-          channelKey: 'horaires_channel',
-          title: 'Cours: $nom Classe: $salle',
-          body: dateSlug,
-        ));
   }
 }
