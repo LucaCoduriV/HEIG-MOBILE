@@ -1,13 +1,12 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:flutter/foundation.dart';
-import 'package:heig_front/utils/notifiable.dart';
+import 'package:heig_front/utils/can_notify_mixin.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:uuid/uuid.dart';
 
 part 'todo.g.dart';
 
 @HiveType(typeId: 7)
-class Todo extends Notifiable {
+class Todo with CanNotify {
   @HiveField(0)
   late String _id;
   @HiveField(1)
@@ -39,6 +38,26 @@ class Todo extends Notifiable {
       _id = uuid.v4();
     }
 
+    final NotificationCalendar? _calendar =
+        DateTime.now().isAfter(date.subtract(const Duration(days: 1)))
+            ? null
+            : NotificationCalendar.fromDate(
+                date: date.subtract(const Duration(days: 1)),
+              );
+
+    initCanNotifyMixin(
+        _calendar,
+        NotificationContent(
+          id: 0,
+          channelKey: 'todos_channel',
+          title: 'Tâche: $title',
+          body: description,
+          payload: {
+            'page': 'todo',
+            'id': id,
+          },
+        ));
+
     scheduleNotification();
   }
 
@@ -46,30 +65,6 @@ class Todo extends Notifiable {
     return Todo(
         json['title'], json['description'], DateTime.parse(json['date']),
         completed: json['completed'], id: json['id']);
-  }
-
-  @override
-  void scheduleNotification() {
-    if (kIsWeb) {
-      return;
-    }
-
-    AwesomeNotifications().createNotification(
-      schedule: DateTime.now().isAfter(date.subtract(const Duration(days: 1)))
-          ? null
-          : NotificationCalendar.fromDate(
-              date: date.subtract(const Duration(days: 1))),
-      content: NotificationContent(
-        id: notificationId,
-        channelKey: 'todos_channel',
-        title: 'Tâche: $title',
-        body: description,
-        payload: {
-          'page': 'todo',
-          'id': id,
-        },
-      ),
-    );
   }
 
   @override
