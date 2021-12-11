@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:heig_front/utils/can_notify_mixin.dart';
 import 'package:hive_flutter/adapters.dart';
