@@ -46,7 +46,7 @@ class HeureDeCours with CanNotify {
           allowWhileIdle: true,
         ),
         NotificationContent(
-          category: NotificationCategory.Alarm,
+          category: NotificationCategory.Reminder,
           id: 0,
           channelKey: 'horaires_channel',
           title: 'Cours: $nom Classe: $salle',

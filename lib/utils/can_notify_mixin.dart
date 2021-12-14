@@ -16,6 +16,7 @@ mixin CanNotify {
   late final NotificationContent _content;
   bool isInitialized = false;
 
+  @protected
   void initCanNotifyMixin(
     NotificationCalendar? calendar,
     NotificationContent content, {
