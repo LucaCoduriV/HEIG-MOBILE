@@ -116,12 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         GetIt.I<IAuth>().password = password.text;
 
                         if (await GetIt.I<IAuth>().login()) {
-                          navigator_controller.toHome(context);
-                          GetIt.I.get<UserProvider>().fetch();
-                          GetIt.I.get<HorairesProvider>()
-                            ..fetch()
-                            ..registerNotifications();
-                          GetIt.I.get<BulletinProvider>().fetch();
+                          onLoginOk(context);
                         } else {
                           AlertController.show(
                             'Error',
@@ -145,6 +140,16 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  /// This function called when the user logged in successfully.
+  void onLoginOk(BuildContext context) {
+    navigator_controller.toHome(context);
+    GetIt.I.get<UserProvider>().fetch();
+    GetIt.I.get<HorairesProvider>()
+      ..fetch()
+      ..registerNotifications();
+    GetIt.I.get<BulletinProvider>().fetch();
   }
 
   String? validator(String? text) {
