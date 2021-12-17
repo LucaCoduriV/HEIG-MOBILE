@@ -37,11 +37,10 @@ class HorairesProvider extends ChangeNotifier {
   void registerNotifications() {
     final now = DateTime.now();
     for (final heureCours in _horaires.horaires) {
-      if (now.isAfter(heureCours.debut) ||
-          now.add(const Duration(days: 30)).isBefore(heureCours.debut)) {
-        continue;
+      if (now.isBefore(heureCours.debut) &&
+          now.add(const Duration(days: 30)).isAfter(heureCours.debut)) {
+        heureCours.scheduleNotification();
       }
-      heureCours.scheduleNotification();
     }
   }
 
