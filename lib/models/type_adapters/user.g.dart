@@ -1,38 +1,50 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'horaires.dart';
+part of '../user.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class HorairesAdapter extends TypeAdapter<Horaires> {
+class UserAdapter extends TypeAdapter<User> {
   @override
-  final int typeId = 4;
+  final int typeId = 8;
 
   @override
-  Horaires read(BinaryReader reader) {
+  User read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Horaires(
-      fields[0] as int,
-      fields[1] as int,
-      horaires: (fields[2] as List).cast<HeureDeCours>(),
+    return User(
+      fields[0] as String,
+      fields[1] as String,
+      fields[2] as String,
+      fields[3] as String,
+      fields[4] as String,
+      fields[5] as String,
+      fields[6] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Horaires obj) {
+  void write(BinaryWriter writer, User obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(7)
       ..writeByte(0)
-      ..write(obj.semestre)
+      ..write(obj.firstname)
       ..writeByte(1)
-      ..write(obj.annee)
+      ..write(obj.lastname)
       ..writeByte(2)
-      ..write(obj.horaires);
+      ..write(obj.email)
+      ..writeByte(3)
+      ..write(obj.phone)
+      ..writeByte(4)
+      ..write(obj.address)
+      ..writeByte(5)
+      ..write(obj.city)
+      ..writeByte(6)
+      ..write(obj.avatarUrl);
   }
 
   @override
@@ -41,7 +53,7 @@ class HorairesAdapter extends TypeAdapter<Horaires> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is HorairesAdapter &&
+      other is UserAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

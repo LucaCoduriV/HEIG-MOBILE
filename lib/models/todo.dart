@@ -3,7 +3,7 @@ import 'package:heig_front/utils/notification.dart' show CanNotify;
 import 'package:hive_flutter/adapters.dart';
 import 'package:uuid/uuid.dart';
 
-part 'todo.g.dart';
+part 'type_adapters/todo.g.dart';
 
 @HiveType(typeId: 7)
 class Todo with CanNotify {

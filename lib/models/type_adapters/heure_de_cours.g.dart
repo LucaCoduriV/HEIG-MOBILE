@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'heure_de_cours.dart';
+part of '../heure_de_cours.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator

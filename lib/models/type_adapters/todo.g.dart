@@ -1,41 +1,43 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'branche.dart';
+part of '../todo.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class BrancheAdapter extends TypeAdapter<Branche> {
+class TodoAdapter extends TypeAdapter<Todo> {
   @override
-  final int typeId = 2;
+  final int typeId = 7;
 
   @override
-  Branche read(BinaryReader reader) {
+  Todo read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Branche(
-      fields[0] as String,
-      cours: (fields[1] as List).cast<Note>(),
-      laboratoire: (fields[2] as List).cast<Note>(),
-      moyenne: fields[3] as double,
-    );
+    return Todo(
+      fields[1] as String,
+      fields[2] as String,
+      fields[4] as DateTime,
+      completed: fields[3] as bool,
+    ).._id = fields[0] as String;
   }
 
   @override
-  void write(BinaryWriter writer, Branche obj) {
+  void write(BinaryWriter writer, Todo obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(6)
       ..writeByte(0)
-      ..write(obj.nom)
+      ..write(obj._id)
       ..writeByte(1)
-      ..write(obj.cours)
+      ..write(obj._title)
       ..writeByte(2)
-      ..write(obj.laboratoire)
+      ..write(obj._description)
       ..writeByte(3)
-      ..write(obj.moyenne);
+      ..write(obj.completed)
+      ..writeByte(4)
+      ..write(obj._date);
   }
 
   @override
@@ -44,7 +46,7 @@ class BrancheAdapter extends TypeAdapter<Branche> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is BrancheAdapter &&
+      other is TodoAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

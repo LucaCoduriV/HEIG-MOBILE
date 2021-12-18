@@ -2,7 +2,7 @@ import 'package:hive_flutter/adapters.dart';
 
 import 'notes.dart';
 
-part 'branche.g.dart';
+part 'type_adapters/branche.g.dart';
 
 @HiveType(typeId: 2)
 class Branche {

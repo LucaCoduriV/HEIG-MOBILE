@@ -1,43 +1,38 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'todo.dart';
+part of '../horaires.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class TodoAdapter extends TypeAdapter<Todo> {
+class HorairesAdapter extends TypeAdapter<Horaires> {
   @override
-  final int typeId = 7;
+  final int typeId = 4;
 
   @override
-  Todo read(BinaryReader reader) {
+  Horaires read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Todo(
-      fields[1] as String,
-      fields[2] as String,
-      fields[4] as DateTime,
-      completed: fields[3] as bool,
-    ).._id = fields[0] as String;
+    return Horaires(
+      fields[0] as int,
+      fields[1] as int,
+      horaires: (fields[2] as List).cast<HeureDeCours>(),
+    );
   }
 
   @override
-  void write(BinaryWriter writer, Todo obj) {
+  void write(BinaryWriter writer, Horaires obj) {
     writer
-      ..writeByte(6)
-      ..writeByte(0)
-      ..write(obj._id)
-      ..writeByte(1)
-      ..write(obj._title)
-      ..writeByte(2)
-      ..write(obj._description)
       ..writeByte(3)
-      ..write(obj.completed)
-      ..writeByte(4)
-      ..write(obj._date);
+      ..writeByte(0)
+      ..write(obj.semestre)
+      ..writeByte(1)
+      ..write(obj.annee)
+      ..writeByte(2)
+      ..write(obj.horaires);
   }
 
   @override
@@ -46,7 +41,7 @@ class TodoAdapter extends TypeAdapter<Todo> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TodoAdapter &&
+      other is HorairesAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

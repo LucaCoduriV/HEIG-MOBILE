@@ -15,23 +15,23 @@ import '../../settings/env_settings.dart';
 
 /// Cette classe permet de récupérer les données traitées depuis l'API
 class ApiController implements IAPI {
-  late Dio dio;
-  late String serverIp;
+  late final Dio _dio;
+  late final String _serverIp;
 
   factory ApiController() {
     return ApiController._internal();
   }
 
   ApiController.withIp(String ip, String port) {
-    serverIp = '$ip:$port';
+    _serverIp = '$ip:$port';
 
     final options = BaseOptions(
-      baseUrl: 'http://$serverIp',
+      baseUrl: 'http://$_serverIp',
       connectTimeout: 45000,
       receiveTimeout: 45000,
     );
 
-    dio = Dio(options);
+    _dio = Dio(options);
   }
 
   factory ApiController._internal() {
@@ -41,12 +41,9 @@ class ApiController implements IAPI {
   @override
   Future<Horaires> fetchHoraires(String username, String password, int gapsId,
       {bool decrypt = false}) async {
-    final connectivityResult = await Connectivity().checkConnectivity();
-    if (connectivityResult == ConnectivityResult.none) {
-      throw Exception('No internet connection');
-    }
+    await _hasInternetConnection();
     try {
-      final res = await dio.post<dynamic>('/horaires?decrypt=$decrypt',
+      final res = await _dio.post<dynamic>('/horaires?decrypt=$decrypt',
           data: jsonEncode({
             'username': username,
             'password': password,
@@ -81,12 +78,9 @@ class ApiController implements IAPI {
   @override
   Future<Bulletin> fetchNotes(String username, String password, int gapsId,
       {int year = 2020, bool decrypt = false}) async {
-    final connectivityResult = await Connectivity().checkConnectivity();
-    if (connectivityResult == ConnectivityResult.none) {
-      throw Exception('No internet connection');
-    }
+    await _hasInternetConnection();
     try {
-      final res = await dio.post<dynamic>('/notes?decrypt=$decrypt',
+      final res = await _dio.post<dynamic>('/notes?decrypt=$decrypt',
           data: jsonEncode({
             'username': username,
             'password': password,
@@ -104,12 +98,9 @@ class ApiController implements IAPI {
 
   @override
   Future<List<MenuJour>> fetchMenuSemaine() async {
-    final connectivityResult = await Connectivity().checkConnectivity();
-    if (connectivityResult == ConnectivityResult.none) {
-      throw Exception('No internet connection');
-    }
+    await _hasInternetConnection();
     try {
-      final res = await dio.get<dynamic>('/menus');
+      final res = await _dio.get<dynamic>('/menus');
       final Map<String, dynamic> json = res.data;
       final List<MenuJour> menuSemaine =
           json.entries.map((e) => MenuJour.fromJson(e)).toList();
@@ -122,13 +113,9 @@ class ApiController implements IAPI {
 
   @override
   Future<String> fetchPublicKey() async {
-    final connectivityResult = await Connectivity().checkConnectivity();
-    if (connectivityResult == ConnectivityResult.none) {
-      throw Exception('No internet connection');
-    }
+    await _hasInternetConnection();
     try {
-      return (await dio.get<dynamic>('/public_key')).data['publicKey']
-          as String;
+      return (await _dio.get<dynamic>('/public_key')).data['publicKey'];
     } catch (e) {
       debugPrint(e.toString());
       throw Exception('Erreur lors de la récupération de la clé public');
@@ -138,12 +125,9 @@ class ApiController implements IAPI {
   @override
   Future<User> fetchUser(String username, String password, int gapsId,
       {bool decrypt = false}) async {
-    final connectivityResult = await Connectivity().checkConnectivity();
-    if (connectivityResult == ConnectivityResult.none) {
-      throw Exception('No internet connection');
-    }
+    await _hasInternetConnection();
     try {
-      final response = await dio.post<dynamic>(
+      final response = await _dio.post<dynamic>(
         '/user?decrypt=$decrypt',
         data: jsonEncode({
           'username': username,
@@ -164,12 +148,9 @@ class ApiController implements IAPI {
   @override
   Future<int> login(String username, String password,
       {bool decrypt = false}) async {
-    final connectivityResult = await Connectivity().checkConnectivity();
-    if (connectivityResult == ConnectivityResult.none) {
-      throw Exception('No internet connection');
-    }
+    await _hasInternetConnection();
     try {
-      return (await dio.post<dynamic>(
+      return (await _dio.post<dynamic>(
         '/login?decrypt=$decrypt',
         data: jsonEncode({
           'username': username,
@@ -180,6 +161,13 @@ class ApiController implements IAPI {
     } catch (e) {
       debugPrint(e.toString());
       return -1;
+    }
+  }
+
+  Future<void> _hasInternetConnection() async {
+    final connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      throw Exception('No internet connection');
     }
   }
 }

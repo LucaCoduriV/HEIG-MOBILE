@@ -3,7 +3,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'branche.dart';
 import 'notes.dart';
 
-part 'bulletin.g.dart';
+part 'type_adapters/bulletin.g.dart';
 
 @HiveType(typeId: 1)
 class Bulletin {

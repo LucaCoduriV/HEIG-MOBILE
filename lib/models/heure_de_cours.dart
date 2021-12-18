@@ -2,7 +2,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:heig_front/utils/notification.dart' show CanNotify;
 import 'package:hive_flutter/adapters.dart';
 
-part 'heure_de_cours.g.dart';
+part 'type_adapters/heure_de_cours.g.dart';
 
 @HiveType(typeId: 3)
 class HeureDeCours with CanNotify {
