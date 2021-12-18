@@ -24,7 +24,6 @@ class HeureDeCoursAdapter extends TypeAdapter<HeureDeCours> {
       fields[4] as String,
       fields[5] as String,
       fields[6] as String?,
-      notificationId: fields[200] as int?,
     );
   }
 
@@ -45,9 +44,7 @@ class HeureDeCoursAdapter extends TypeAdapter<HeureDeCours> {
       ..writeByte(5)
       ..write(obj.uid)
       ..writeByte(6)
-      ..write(obj.rrule)
-      ..writeByte(200)
-      ..write(obj.notificationId);
+      ..write(obj.rrule);
   }
 
   @override

@@ -21,9 +21,7 @@ class TodoAdapter extends TypeAdapter<Todo> {
       fields[2] as String,
       fields[4] as DateTime,
       completed: fields[3] as bool,
-    )
-      .._id = fields[0] as String
-      ..notificationId = fields[200] as int;
+    ).._id = fields[0] as String;
   }
 
   @override
@@ -39,9 +37,7 @@ class TodoAdapter extends TypeAdapter<Todo> {
       ..writeByte(3)
       ..write(obj.completed)
       ..writeByte(4)
-      ..write(obj._date)
-      ..writeByte(200)
-      ..write(obj.notificationId);
+      ..write(obj._date);
   }
 
   @override

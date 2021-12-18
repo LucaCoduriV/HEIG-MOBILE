@@ -53,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Container(
                         width: 200,
                         child: TextFormField(
-                          validator: validator,
+                          validator: _validator,
                           style: TextStyle(
                             color: Theme.of(context).textTheme.bodyText1!.color,
                           ),
@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(
                             color: Theme.of(context).textTheme.bodyText1!.color,
                           ),
-                          validator: validator,
+                          validator: _validator,
                           decoration: const InputDecoration(
                             hintText: 'Enter your password',
                           ),
@@ -97,32 +97,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        showDialog<dynamic>(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (BuildContext context) {
-                            return const Dialog(
-                              backgroundColor: Colors.transparent,
-                              elevation: 0,
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  color: Color(0xffda291c),
-                                ), //Theme.of(context).primaryColor),
-                              ),
-                            );
-                          },
-                        );
+                        _showPorgressCircle();
+
                         GetIt.I<IAuth>().username = username.text;
                         GetIt.I<IAuth>().password = password.text;
 
                         if (await GetIt.I<IAuth>().login()) {
-                          onLoginOk(context);
+                          _onLoginOk(context);
                         } else {
-                          AlertController.show(
-                            'Error',
-                            'Wrong username or password.',
-                            TypeAlert.error,
-                          );
+                          _onLoginError();
                         }
 
                         Navigator.pop(context);
@@ -143,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   /// This function called when the user logged in successfully.
-  void onLoginOk(BuildContext context) {
+  void _onLoginOk(BuildContext context) {
     navigator_controller.toHome(context);
     GetIt.I.get<UserProvider>().fetch();
     GetIt.I.get<HorairesProvider>()
@@ -152,7 +135,33 @@ class _LoginScreenState extends State<LoginScreen> {
     GetIt.I.get<BulletinProvider>().fetch();
   }
 
-  String? validator(String? text) {
+  void _onLoginError() {
+    AlertController.show(
+      'Error',
+      'Wrong username or password.',
+      TypeAlert.error,
+    );
+  }
+
+  void _showPorgressCircle() {
+    showDialog<dynamic>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const Dialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          child: Center(
+            child: CircularProgressIndicator(
+              color: Color(0xffda291c),
+            ), //Theme.of(context).primaryColor),
+          ),
+        );
+      },
+    );
+  }
+
+  String? _validator(String? text) {
     if (text == null || text.isEmpty) {
       return 'Please enter some text';
     }
