@@ -2,7 +2,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:heig_front/utils/notification.dart' show CanNotify;
 import 'package:hive_flutter/adapters.dart';
 
-part 'type_adapters/heure_de_cours.g.dart';
+part 'heure_de_cours.g.dart';
 
 @HiveType(typeId: 3)
 class HeureDeCours with CanNotify {
@@ -46,7 +46,7 @@ class HeureDeCours with CanNotify {
         ),
         NotificationContent(
           category: NotificationCategory.Reminder,
-          id: debut.toUtc().millisecondsSinceEpoch,
+          id: 0, //debut.toUtc().millisecondsSinceEpoch,
           channelKey: 'horaires_channel',
           title: 'Cours: $nom Classe: $salle',
           body: dateSlug,

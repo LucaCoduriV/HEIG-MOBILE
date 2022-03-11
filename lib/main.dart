@@ -22,7 +22,6 @@ import 'models/bulletin.dart';
 import 'models/heure_de_cours.dart';
 import 'models/horaires.dart';
 import 'models/notes.dart';
-import 'models/todo.dart';
 import 'models/user.dart';
 import 'routes/main_router.dart';
 import 'services/api/api.dart';
@@ -31,7 +30,6 @@ import 'services/auth/iauth.dart';
 import 'services/providers/bulletin_provider.dart';
 import 'services/providers/drawer_provider.dart';
 import 'services/providers/horaires_provider.dart';
-import 'services/providers/todos_provider.dart';
 import 'services/providers/user_provider.dart';
 import 'settings/theme.dart' as theme;
 import 'utils/constants.dart';
@@ -42,29 +40,29 @@ Future<void> setup() async {
   await initializeDateFormatting('fr_FR');
   await dotenv.load();
   await Hive.initFlutter();
-  Hive.registerAdapter(BulletinAdapter());
-  Hive.registerAdapter(BrancheAdapter());
-  Hive.registerAdapter(HeureDeCoursAdapter());
-  Hive.registerAdapter(HorairesAdapter());
-  Hive.registerAdapter(NoteAdapter());
-  Hive.registerAdapter(TodoAdapter());
-  Hive.registerAdapter(UserAdapter());
+  Hive
+    ..registerAdapter(BulletinAdapter())
+    ..registerAdapter(BrancheAdapter())
+    ..registerAdapter(HeureDeCoursAdapter())
+    ..registerAdapter(HorairesAdapter())
+    ..registerAdapter(NoteAdapter())
+    ..registerAdapter(UserAdapter());
   await IdGenerator.initialize();
   await Hive.openBox<dynamic>(BOX_HEIG);
   await Hive.openBox<dynamic>('heig-settings');
 
-  GetIt.I.registerSingleton<IAPI>(ApiController());
-  GetIt.I.registerSingleton<IAuth>(Auth());
-  GetIt.I.registerSingleton<BulletinProvider>(BulletinProvider());
-  GetIt.I.registerSingleton<DrawerProvider>(DrawerProvider());
-  GetIt.I.registerSingleton<TodosProvider>(TodosProvider());
-  GetIt.I.registerSingleton<UserProvider>(UserProvider());
-  GetIt.I.registerSingleton<HorairesProvider>(HorairesProvider());
-  GetIt.I.registerSingleton<SettingsProvider>(SettingsProvider());
-  GetIt.I.registerSingleton<theme.ThemeProvider>(theme.ThemeProvider());
-  GetIt.I.registerSingleton<MenusProvider>(MenusProvider());
-  GetIt.I.registerSingleton<GlobalKey<RefreshIndicatorState>>(
-      GlobalKey<RefreshIndicatorState>());
+  GetIt.I
+    ..registerSingleton<IAPI>(ApiController())
+    ..registerSingleton<IAuth>(Auth())
+    ..registerSingleton<BulletinProvider>(BulletinProvider())
+    ..registerSingleton<DrawerProvider>(DrawerProvider())
+    ..registerSingleton<UserProvider>(UserProvider())
+    ..registerSingleton<HorairesProvider>(HorairesProvider())
+    ..registerSingleton<SettingsProvider>(SettingsProvider())
+    ..registerSingleton<theme.ThemeProvider>(theme.ThemeProvider())
+    ..registerSingleton<MenusProvider>(MenusProvider())
+    ..registerSingleton<GlobalKey<RefreshIndicatorState>>(
+        GlobalKey<RefreshIndicatorState>());
 
   await AwesomeNotifications().initialize(
     null,

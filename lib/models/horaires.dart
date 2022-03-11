@@ -4,7 +4,7 @@ import 'package:rrule/rrule.dart';
 
 import 'heure_de_cours.dart';
 
-part 'type_adapters/horaires.g.dart';
+part 'horaires.g.dart';
 
 @HiveType(typeId: 4)
 class Horaires {

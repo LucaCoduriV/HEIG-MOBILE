@@ -10,7 +10,6 @@ import '../services/providers/drawer_provider.dart';
 import '../settings/theme.dart' as theme;
 import '../utils/date.dart';
 import '../utils/navigation.dart' as navigator_controller;
-import 'todos_dialog.dart';
 
 class MyDrawer extends StatelessWidget {
   final Widget child;
@@ -81,10 +80,6 @@ class MyDrawer extends StatelessWidget {
             navigator_controller.toHoraires(context);
             GetIt.I<DrawerProvider>().controller.closeDrawer();
           }),
-          buildListTile(context, 'Agenda', Icons.calendar_today, () {
-            navigator_controller.toTodos(context);
-            GetIt.I<DrawerProvider>().controller.closeDrawer();
-          }),
           buildListTile(context, 'Menu', Icons.food_bank, () {
             navigator_controller.toMenu(context);
             GetIt.I<DrawerProvider>().controller.closeDrawer();
@@ -129,19 +124,6 @@ class MyDrawer extends StatelessWidget {
         },
       ),
       actions: [
-        if (GetIt.I<DrawerProvider>().action == ActionType.TODOS)
-          IconButton(
-            icon: const Icon(Icons.add),
-            tooltip: 'Add a task',
-            onPressed: () {
-              showDialog<void>(
-                context: context,
-                builder: (BuildContext context) {
-                  return const TodosDialog();
-                },
-              );
-            },
-          ),
         if (GetIt.I<DrawerProvider>().action == ActionType.QUICKINFOS)
           Container(
             padding: const EdgeInsets.only(right: 15),

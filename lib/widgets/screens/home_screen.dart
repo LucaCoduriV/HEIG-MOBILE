@@ -3,14 +3,11 @@ import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/heure_de_cours.dart';
-import '../../models/todo.dart';
 import '../../services/providers/bulletin_provider.dart';
 import '../../services/providers/horaires_provider.dart';
-import '../../services/providers/todos_provider.dart';
 import '../../services/providers/user_provider.dart';
 import '../../utils/navigation.dart' as navigator_controller;
 import '../heure_de_cours_widget.dart';
-import '../todo_quick_info.dart';
 
 /// Page contenant des informations rapides.
 class HomeScreen extends StatelessWidget {
@@ -27,19 +24,12 @@ class HomeScreen extends StatelessWidget {
           value: GetIt.I<UserProvider>(),
         ),
         ChangeNotifierProvider.value(
-          value: GetIt.I<TodosProvider>(),
-        ),
-        ChangeNotifierProvider.value(
           value: GetIt.I<HorairesProvider>(),
         ),
       ],
       builder: (context, child) {
         final List<HeureDeCours> h = Provider.of<HorairesProvider>(context)
             .getDailyClasses(DateTime.now());
-        List<Todo> t =
-            Provider.of<TodosProvider>(context).todos.values.toList();
-        t.sort((a, b) => a.date.compareTo(b.date));
-        t = t.where((todo) => !todo.completed).toList();
 
         return Container(
           color: Theme.of(context).primaryColor,
@@ -164,60 +154,6 @@ class HomeScreen extends StatelessWidget {
                             : Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: const [Text('Pas de cours')],
-                              ),
-                      ),
-                      const SizedBox(height: 10),
-                      Container(
-                        padding: const EdgeInsets.only(left: 10, right: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text.rich(
-                              TextSpan(
-                                text: 'Vos tâches',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                                children: [
-                                  TextSpan(
-                                    text: ' (${t.length})',
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w300),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                navigator_controller.toTodos(context);
-                              },
-                              child: const Text('Tous'),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: t.isNotEmpty
-                            ? ListView.separated(
-                                physics: const AlwaysScrollableScrollPhysics(
-                                    parent: BouncingScrollPhysics()),
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 30, horizontal: 20),
-                                itemCount: t.length,
-                                scrollDirection: Axis.horizontal,
-                                separatorBuilder: (context, index) {
-                                  return const SizedBox(width: 10);
-                                },
-                                itemBuilder: (context, index) {
-                                  return TodoQuickInfo(
-                                    t[index].title,
-                                    t[index].date,
-                                    t[index].description,
-                                  );
-                                },
-                              )
-                            : Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [Text('Pas de tâche')],
                               ),
                       ),
                     ],

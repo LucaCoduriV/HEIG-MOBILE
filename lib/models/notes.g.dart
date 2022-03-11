@@ -1,38 +1,41 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../horaires.dart';
+part of 'notes.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class HorairesAdapter extends TypeAdapter<Horaires> {
+class NoteAdapter extends TypeAdapter<Note> {
   @override
-  final int typeId = 4;
+  final int typeId = 5;
 
   @override
-  Horaires read(BinaryReader reader) {
+  Note read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Horaires(
-      fields[0] as int,
-      fields[1] as int,
-      horaires: (fields[2] as List).cast<HeureDeCours>(),
+    return Note(
+      fields[0] as String,
+      fields[1] as double,
+      fields[2] as double,
+      fields[3] as double,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Horaires obj) {
+  void write(BinaryWriter writer, Note obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
-      ..write(obj.semestre)
+      ..write(obj.nom)
       ..writeByte(1)
-      ..write(obj.annee)
+      ..write(obj.note)
       ..writeByte(2)
-      ..write(obj.horaires);
+      ..write(obj.moyenneClasse)
+      ..writeByte(3)
+      ..write(obj.coef);
   }
 
   @override
@@ -41,7 +44,7 @@ class HorairesAdapter extends TypeAdapter<Horaires> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is HorairesAdapter &&
+      other is NoteAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

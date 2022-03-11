@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hive_flutter/adapters.dart';
 
-part 'type_adapters/notes.g.dart';
+part 'notes.g.dart';
 
 @immutable
 @HiveType(typeId: 5)

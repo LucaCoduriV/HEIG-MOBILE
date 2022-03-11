@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../heure_de_cours.dart';
+part of 'heure_de_cours.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
@@ -30,7 +30,7 @@ class HeureDeCoursAdapter extends TypeAdapter<HeureDeCours> {
   @override
   void write(BinaryWriter writer, HeureDeCours obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.nom)
       ..writeByte(1)

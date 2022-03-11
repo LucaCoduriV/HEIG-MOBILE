@@ -12,7 +12,6 @@ import 'home_route.dart';
 import 'horaires_route.dart';
 import 'login_route.dart';
 import 'menu_route.dart';
-import 'todos_route.dart';
 
 class MainRouter {
   List<VRouteElement> buildRoutes() {
@@ -36,7 +35,6 @@ class MainRouter {
               BulletinRoute(),
               HorairesRoute(),
               MenuRoute(),
-              TodosRoute(),
               SettingsRoute(),
             ],
           ),

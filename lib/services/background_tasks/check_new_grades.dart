@@ -10,7 +10,6 @@ import 'package:heig_front/models/bulletin.dart';
 import 'package:heig_front/models/heure_de_cours.dart';
 import 'package:heig_front/models/horaires.dart';
 import 'package:heig_front/models/notes.dart';
-import 'package:heig_front/models/todo.dart';
 import 'package:heig_front/models/user.dart';
 import 'package:heig_front/services/api/api.dart';
 import 'package:heig_front/utils/constants.dart';
@@ -30,7 +29,6 @@ Future<void> setupBackgroundTask() async {
       !Hive.isAdapterRegistered(HeureDeCoursAdapter().typeId) &&
       !Hive.isAdapterRegistered(HorairesAdapter().typeId) &&
       !Hive.isAdapterRegistered(NoteAdapter().typeId) &&
-      !Hive.isAdapterRegistered(TodoAdapter().typeId) &&
       !Hive.isAdapterRegistered(UserAdapter().typeId)) {
     await Hive.initFlutter();
     Hive.registerAdapter(BulletinAdapter());
@@ -38,7 +36,6 @@ Future<void> setupBackgroundTask() async {
     Hive.registerAdapter(HeureDeCoursAdapter());
     Hive.registerAdapter(HorairesAdapter());
     Hive.registerAdapter(NoteAdapter());
-    Hive.registerAdapter(TodoAdapter());
     Hive.registerAdapter(UserAdapter());
   }
 
