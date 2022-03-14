@@ -17,10 +17,13 @@ class MenuContainer extends StatelessWidget {
       children: menuJour
           .map((e) => SizedBox(
                 height: 30,
-                child: Text(
-                  e,
-                  style: const TextStyle(
-                      fontSize: 20, fontStyle: FontStyle.italic),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Text(
+                    e,
+                    style: const TextStyle(
+                        fontSize: 20, fontStyle: FontStyle.italic),
+                  ),
                 ),
               ))
           .toList(),
