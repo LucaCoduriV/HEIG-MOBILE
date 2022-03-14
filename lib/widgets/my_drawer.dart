@@ -76,7 +76,7 @@ class MyDrawer extends StatelessWidget {
             navigator_controller.toNotes(context);
             GetIt.I<DrawerProvider>().controller.closeDrawer();
           }),
-          buildListTile(context, 'Horaires', Icons.timer, () {
+          buildListTile(context, 'Horaires', Icons.alarm, () {
             navigator_controller.toHoraires(context);
             GetIt.I<DrawerProvider>().controller.closeDrawer();
           }),

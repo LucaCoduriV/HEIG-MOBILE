@@ -32,7 +32,8 @@ class NotesDetails extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               child: ListView(
                 physics: const BouncingScrollPhysics(),
-                children: getChildren(context, notesCours, notesLabo),
+                children:
+                    buildCoursAndLaboratoires(context, notesCours, notesLabo),
               ),
             ),
           ),
@@ -41,7 +42,7 @@ class NotesDetails extends StatelessWidget {
     );
   }
 
-  List<Widget> getChildren(
+  List<Widget> buildCoursAndLaboratoires(
       BuildContext context, List<Note> notesCours, List<Note> notesLabo) {
     final laboMean = calculateMean(notesLabo);
     final coursMean = calculateMean(notesCours);
@@ -67,10 +68,13 @@ class NotesDetails extends StatelessWidget {
             showMoyenne: Provider.of<SettingsProvider>(context).showMoyenne,
           ),
         ),
-        DataTable(
-          columnSpacing: 30,
-          columns: getColumn(context),
-          rows: getDatas(notesCours),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: DataTable(
+            columnSpacing: 30,
+            columns: getColumn(context),
+            rows: getDatas(notesCours),
+          ),
         ),
         const SizedBox(height: 40),
       ],
@@ -92,11 +96,14 @@ class NotesDetails extends StatelessWidget {
             showMoyenne: Provider.of<SettingsProvider>(context).showMoyenne,
           ),
         ),
-        DataTable(
-          columnSpacing: 30,
-          columns: getColumn(context),
-          rows: getDatas(notesLabo),
-        ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: DataTable(
+            columnSpacing: 30,
+            columns: getColumn(context),
+            rows: getDatas(notesLabo),
+          ),
+        )
       ],
     ];
   }
