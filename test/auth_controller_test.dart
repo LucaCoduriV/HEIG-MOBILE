@@ -1,4 +1,4 @@
-import 'package:dotenv/dotenv.dart' show load, env;
+import 'package:dotenv/dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/api/api.dart';
@@ -7,7 +7,7 @@ import 'package:heig_front/utils/constants.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 Future<void> main() async {
-  load();
+  final env = DotEnv(includePlatformEnvironment: true)..load();
   final String username = env['USERNAME'].toString();
   final String password = env['PASSWORD'].toString();
   final String ip = env['SERVER_IP_DEV'].toString();
