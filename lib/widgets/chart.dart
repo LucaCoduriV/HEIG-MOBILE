@@ -27,9 +27,9 @@ class Chart extends StatelessWidget {
     return LineChart(
       LineChartData(
         titlesData: FlTitlesData(
-          rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-          topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-        ),
+            rightTitles: SideTitles(showTitles: false),
+            topTitles: SideTitles(showTitles: false),
+            bottomTitles: SideTitles(showTitles: true, interval: 1)),
         gridData: FlGridData(
           show: true,
           drawVerticalLine: true,
@@ -58,9 +58,7 @@ class Chart extends StatelessWidget {
             spots: spots,
             isCurved: true,
             curveSmoothness: 0.1,
-            gradient: LinearGradient(
-              colors: gradientColors,
-            ),
+            colors: gradientColors,
             barWidth: 5,
             isStrokeCapRound: true,
             dotData: FlDotData(
@@ -70,20 +68,16 @@ class Chart extends StatelessWidget {
               show: true,
 
               /// It's creating a gradient with the colors in `gradientColors` with an opacity of 0.3.
-              gradient: LinearGradient(
-                colors: gradientColors
-                    .map((color) => color.withOpacity(0.3))
-                    .toList(),
-              ),
+              colors: gradientColors
+                  .map((color) => color.withOpacity(0.3))
+                  .toList(),
             ),
           ),
           if (showMoyenne)
             LineChartBarData(
               spots: spots2,
               isCurved: true,
-              gradient: LinearGradient(
-                colors: gradientColors2,
-              ),
+              colors: gradientColors2,
               barWidth: 3,
               isStrokeCapRound: true,
               dotData: FlDotData(
