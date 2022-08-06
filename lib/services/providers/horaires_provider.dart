@@ -16,6 +16,7 @@ class HorairesProvider extends ChangeNotifier {
   late Horaires _horaires;
   final _box = Hive.box(BOX_HEIG);
   final _api = GetIt.I.get<IAPI>();
+  static final int NB_SCHEDULED_NOTIFICATION = 64;
 
   HorairesProvider() {
     final Horaires hiveHoraires = _box.get('horaires',
@@ -30,18 +31,20 @@ class HorairesProvider extends ChangeNotifier {
   Horaires get horaires => _horaires;
 
   Future<void> cancelNotifications() async {
-    cancelMultipleNotifications(_horaires.horaires);
+    //cancelMultipleNotifications(_horaires.horaires);
+    cancelMultipleNotificationsWithChannelKey('horaires_channel');
   }
 
   void registerNotifications() {
-    final now = DateTime.now();
-    // Selectionner uniquement les horaires qui commencent entre now et now + 30 jours.
-    final Iterable<CanNotify> notifiables = _horaires.horaires.where(
-        (heureCours) =>
-            now.isBefore(heureCours.debut) &&
-            now.add(const Duration(days: 30)).isAfter(heureCours.debut));
+    final notifiables = _horaires.horaires
+        .where((heureCours) => DateTime.now().isBefore(heureCours.debut))
+        .toList();
 
-    registerMultipleNotifications(notifiables);
+    registerMultipleNotifications(notifiables.getRange(
+        0,
+        notifiables.length > NB_SCHEDULED_NOTIFICATION
+            ? NB_SCHEDULED_NOTIFICATION
+            : notifiables.length));
   }
 
   Future<bool> fetch() async {
@@ -54,7 +57,7 @@ class HorairesProvider extends ChangeNotifier {
 
       _horaires = await _api.fetchHoraires(auth.username, password, auth.gapsId,
           decrypt: true);
-
+      _horaires.horaires.sort((a, b) => a.debut.compareTo(b.debut));
       registerNotifications();
 
       _box.put('horaires', _horaires);

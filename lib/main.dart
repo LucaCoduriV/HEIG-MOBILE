@@ -138,10 +138,11 @@ class _MyAppState extends State<MyApp> {
           debugShowCheckedModeBanner: false,
           buildTransition: buildTransition,
           mode: VRouterMode.history, // Remove the '#' from the url
+          // ignore: avoid_redundant_argument_values
           logs: foundation.kReleaseMode
               ? VLogs.none
               : VLogs.info, // Defines which logs to show, info is the default
-          initialUrl: '/${navigation.RouteName.HOME}',
+          initialUrl: '/${navigation.RouteName.SETTINGS_ALERT}',
           routes: MainRouter().buildRoutes(),
           builder: (BuildContext context, Widget child) {
             return Stack(

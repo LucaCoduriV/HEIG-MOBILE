@@ -11,6 +11,7 @@ class RouteName {
   static const String TODOS = 'todos';
   static const String SETTINGS = 'settings';
   static const String MENU = 'menu';
+  static const String SETTINGS_ALERT = 'menu';
 }
 
 void toLogin(BuildContext context) {

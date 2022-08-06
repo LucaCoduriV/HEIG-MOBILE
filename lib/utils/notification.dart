@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/foundation.dart';
+import 'package:heig_front/utils/id_generator.dart';
 
 mixin CanNotify {
+  static final IdGenerator _idGenerator = IdGenerator('notification');
   late final int _notificationId;
   late final NotificationCalendar? _calendar;
   late final NotificationContent _content;
@@ -15,7 +19,7 @@ mixin CanNotify {
     NotificationContent content,
   ) {
     _isCanNotifyInitialized = true;
-    _notificationId = content.id!;
+    _notificationId = _idGenerator.nextId();
     _calendar = calendar;
     _content = content;
   }
@@ -23,6 +27,7 @@ mixin CanNotify {
   void scheduleNotification() {
     assert(_isCanNotifyInitialized);
     assert(!kIsWeb);
+    log('Cours enregistré: ${_content.title} à ${_calendar!.hour}:${_calendar!.minute} le ${_calendar!.day}/${_calendar!.month}/${_calendar!.year}');
     AwesomeNotifications().createNotification(
       schedule: _calendar,
       content: _content,
@@ -50,4 +55,13 @@ void cancelMultipleNotifications(Iterable<CanNotify> notifications) {
       notification.cancelNotification();
     }
   }
+}
+
+void cancelMultipleNotificationsWithChannelKey(String channelKey) {
+  AwesomeNotifications().cancelSchedulesByChannelKey(channelKey);
+}
+
+Future<void> showScheduledNotifications() async {
+  final list = await AwesomeNotifications().listScheduledNotifications();
+  log(list.toString());
 }

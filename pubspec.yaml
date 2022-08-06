@@ -54,6 +54,7 @@ dependencies:
     android_alarm_manager_plus: ^2.0.5
     hive: ^2.0.6
     connectivity_plus: ^2.1.0
+    app_settings: ^4.1.8
 
 dev_dependencies:
     dotenv: ^4.0.1 # .env pour les units tests

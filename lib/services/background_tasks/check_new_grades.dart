@@ -14,8 +14,10 @@ import 'package:heig_front/models/user.dart';
 import 'package:heig_front/services/api/api.dart';
 import 'package:heig_front/utils/constants.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:get_it/get_it.dart';
 
 import '../../utils/asymmetric_crypt.dart';
+import '../../utils/id_generator.dart';
 
 Future<void> setupBackgroundTask() async {
   final connectivityResult = await Connectivity().checkConnectivity();
