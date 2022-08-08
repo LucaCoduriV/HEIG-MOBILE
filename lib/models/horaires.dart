@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:rrule/rrule.dart';
@@ -37,27 +39,19 @@ class Horaires {
               RecurrenceRule.fromString('RRULE:${element.rrule!}');
 
           final List<DateTime> startArray = parsedRRule.getAllInstances(
-              start: DateTime.utc(
-                  element.debut.year,
-                  element.debut.month,
-                  element.debut.day,
-                  element.debut.hour,
-                  element.debut.minute,
-                  element.debut.second));
+              start: element.debut.copyWith(isUtc: true));
 
-          final List<DateTime> endArray = parsedRRule.getAllInstances(
-              start: DateTime.utc(
-                  element.fin.year,
-                  element.fin.month,
-                  element.fin.day,
-                  element.fin.hour,
-                  element.fin.minute,
-                  element.fin.second));
-
-          for (int i = 0; i < startArray.length - 1; i++) {
+          final duration = element.fin.difference(element.debut);
+          for (int i = 0; i < startArray.length; i++) {
             try {
-              data.add(HeureDeCours(element.nom, startArray[i], endArray[i],
-                  element.prof, element.salle, element.uid, ''));
+              data.add(HeureDeCours(
+                  element.nom,
+                  startArray[i],
+                  startArray[i].add(duration),
+                  element.prof,
+                  element.salle,
+                  element.uid,
+                  ''));
             } catch (e) {
               debugPrint('error: $e');
             }

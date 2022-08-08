@@ -663,9 +663,11 @@ packages:
   rrule:
     dependency: "direct main"
     description:
-      name: rrule
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: main
+      resolved-ref: ccaedf57d352420da96f93ab5955ade39622061b
+      url: "https://github.com/LucaCoduriV/rrule.git"
+    source: git
     version: "0.2.10"
   shelf:
     dependency: transitive
