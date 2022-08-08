@@ -39,7 +39,10 @@ dependencies:
     uuid: ^3.0.4
     table_calendar: ^3.0.2
     intl: ^0.17.0
-    rrule: ^0.2.3 #Ical rrule
+    rrule:
+        git:
+            url: https://github.com/LucaCoduriV/rrule.git
+            ref: main # branch name
     fl_chart: ^0.46.0
     themed: ^3.0.2
     flutter_dropdown_alert: ^1.0.3
@@ -55,6 +58,7 @@ dependencies:
     hive: ^2.0.6
     connectivity_plus: ^2.1.0
     workmanager: ^0.5.0
+    app_settings: ^4.1.8
 
 dev_dependencies:
     dotenv: ^4.0.1 # .env pour les units tests

@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:heig_front/routes/settings_alert_route.dart';
 import 'package:heig_front/routes/settings_route.dart';
 import 'package:heig_front/services/auth/iauth.dart';
 import 'package:heig_front/services/background_tasks/check_new_grades.dart';
@@ -17,6 +18,7 @@ class MainRouter {
   List<VRouteElement> buildRoutes() {
     return [
       LoginRoute(),
+      SettingsAlertRoute(),
       VGuard(
         beforeEnter: (vRedirector) async {
           if (!GetIt.I<IAuth>().isConnected) {

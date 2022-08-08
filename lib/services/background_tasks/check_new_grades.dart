@@ -16,6 +16,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:workmanager/workmanager.dart';
 
 import '../../utils/asymmetric_crypt.dart';
+import '../../utils/id_generator.dart';
 
 Future<void> setupBackgroundTask() async {
   final connectivityResult = await Connectivity().checkConnectivity();

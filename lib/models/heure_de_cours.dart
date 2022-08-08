@@ -1,4 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:get_it/get_it.dart';
+import 'package:heig_front/utils/id_generator.dart';
 import 'package:heig_front/utils/notification.dart' show CanNotify;
 import 'package:hive_flutter/adapters.dart';
 
@@ -46,7 +48,7 @@ class HeureDeCours with CanNotify {
         ),
         NotificationContent(
           category: NotificationCategory.Reminder,
-          id: 0, //debut.toUtc().millisecondsSinceEpoch,
+          id: 0,
           channelKey: 'horaires_channel',
           title: 'Cours: $nom Classe: $salle',
           body: dateSlug,
