@@ -1,6 +1,5 @@
 import 'dart:io' show Platform;
 
-import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +13,7 @@ import 'package:heig_front/models/user.dart';
 import 'package:heig_front/services/api/api.dart';
 import 'package:heig_front/utils/constants.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:workmanager/workmanager.dart';
 
 import '../../utils/asymmetric_crypt.dart';
 
@@ -60,26 +60,20 @@ Future<void> setupBackgroundTask() async {
 }
 
 void startBackgroundTask(Duration duration) {
-  if (Platform.isAndroid) {
-    AndroidAlarmManager.periodic(
-      duration,
-      BACKGROUND_TASK_ID,
-      backgroundMain,
-      rescheduleOnReboot: true,
-      exact: true,
-      allowWhileIdle: true,
-      wakeup: true,
-    );
-  }
+  if (Platform.isAndroid) {}
 }
 
 void stopBackgroundTask() {
-  if (Platform.isAndroid) {
-    AndroidAlarmManager.cancel(BACKGROUND_TASK_ID);
-  }
+  Workmanager().cancelByTag('authTask');
 }
 
-Future<void> backgroundMain() async {
+void callbackDispatcher() {
+  Workmanager().executeTask((task, inputData) {
+    return backgroundMain();
+  });
+}
+
+Future<bool> backgroundMain() async {
   try {
     await setupBackgroundTask();
 
@@ -91,7 +85,7 @@ Future<void> backgroundMain() async {
 
     if (username == '' || password == '' || gapsId == -1) {
       // don't even try to fetch data !
-      return;
+      return Future.value(false);
     }
 
     //fetch old grades from storages
@@ -113,7 +107,7 @@ Future<void> backgroundMain() async {
       );
     } catch (e) {
       debugPrint(e.toString());
-      return;
+      return Future.value(false);
     }
     // Compare new grades with old grades.
     Bulletin oldBulletin;
@@ -142,28 +136,17 @@ Future<void> backgroundMain() async {
             id: 10000,
             channelKey: 'grade_channel',
             title: 'Nouvelle(s) note(s) disponibles !',
-            body: notificationBody.join(' - '),
+            body: notificationBody.join(' \n- '),
           ),
         );
       } catch (e) {
         debugPrint(e.toString());
-      }
-    } else {
-      try {
-        // Notify the user of the change.
-        AwesomeNotifications().createNotification(
-          content: NotificationContent(
-            id: 10001,
-            channelKey: 'grade_channel',
-            title: 'Aucune nouvelle note disponible !',
-            body: 'Pas de nouvelle note disponible.',
-          ),
-        );
-      } catch (e) {
-        debugPrint(e.toString());
+        return Future.value(false);
       }
     }
   } catch (e) {
     debugPrint(e.toString());
+    return Future.value(false);
   }
+  return Future.value(true);
 }

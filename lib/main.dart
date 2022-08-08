@@ -1,6 +1,3 @@
-import 'dart:io' show Platform;
-
-import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
@@ -16,6 +13,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'package:vrouter/vrouter.dart';
+import 'package:workmanager/workmanager.dart';
 
 import 'models/branche.dart';
 import 'models/bulletin.dart';
@@ -27,6 +25,7 @@ import 'routes/main_router.dart';
 import 'services/api/api.dart';
 import 'services/auth/auth.dart';
 import 'services/auth/iauth.dart';
+import 'services/background_tasks/check_new_grades.dart';
 import 'services/providers/bulletin_provider.dart';
 import 'services/providers/drawer_provider.dart';
 import 'services/providers/horaires_provider.dart';
@@ -92,9 +91,20 @@ Future<void> setup() async {
       AwesomeNotifications().requestPermissionToSendNotifications();
     }
   });
-  if (Platform.isAndroid) {
-    await AndroidAlarmManager.initialize();
-  }
+  Workmanager().initialize(
+      callbackDispatcher, // The top level function, aka callbackDispatcher
+      isInDebugMode:
+          true // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
+      );
+  Workmanager().registerPeriodicTask(
+    'newGradeChecker',
+    'Check for new grades',
+    frequency: const Duration(minutes: 15),
+    constraints: Constraints(networkType: NetworkType.connected),
+    existingWorkPolicy: ExistingWorkPolicy.replace,
+    backoffPolicy: BackoffPolicy.linear,
+    tag: 'authTask',
+  );
 }
 
 Future<void> main() async {
@@ -137,10 +147,10 @@ class _MyAppState extends State<MyApp> {
           themeMode: Provider.of<theme.ThemeProvider>(context).mode,
           debugShowCheckedModeBanner: false,
           buildTransition: buildTransition,
-          mode: VRouterMode.history, // Remove the '#' from the url
-          logs: foundation.kReleaseMode
-              ? VLogs.none
-              : VLogs.info, // Defines which logs to show, info is the default
+          mode: VRouterMode.history,
+          // Remove the '#' from the url
+          logs: foundation.kReleaseMode ? VLogs.none : VLogs.info,
+          // Defines which logs to show, info is the default
           initialUrl: '/${navigation.RouteName.HOME}',
           routes: MainRouter().buildRoutes(),
           builder: (BuildContext context, Widget child) {
