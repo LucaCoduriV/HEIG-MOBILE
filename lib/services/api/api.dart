@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
@@ -62,7 +63,11 @@ class ApiController implements IAPI {
       // final Map<String, dynamic> rrule4 = Map<String, dynamic>.from(rrule3[0]);
       // final String rrule = rrule4['RRULE'];
 
+      log(horairesJson.toString());
+
       final List<HeureDeCours> horaires = horairesJson
+          .where((element) =>
+              (element as Map<String, dynamic>)['DTSTART;VALUE=DATE'] == null)
           .map((e) => HeureDeCours.fromJson(e))
           .toList()
           .cast<HeureDeCours>();

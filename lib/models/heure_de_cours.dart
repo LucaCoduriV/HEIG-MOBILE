@@ -74,14 +74,14 @@ class HeureDeCours with CanNotify {
     final int endSecond = int.parse(endString.substring(13, 15));
 
     return HeureDeCours(
-      json['SUMMARY'],
+      json['SUMMARY'] ?? '',
       DateTime(
           startYear, startMonth, startDay, startHour, startMinute, startSecond),
       DateTime(endYear, endMonth, endDay, endHour, endMinute, endSecond),
-      'Professeur inconnu',
-      json['LOCATION'],
-      json['UID'],
-      json['RRULE'],
+      'Professeur inconnu' ?? '',
+      json['LOCATION'] ?? '',
+      json['UID'] ?? '',
+      json['RRULE'] ?? '',
     );
   }
 
