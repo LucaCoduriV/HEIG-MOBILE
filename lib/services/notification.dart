@@ -41,6 +41,8 @@ class NotificationController {
         'Grade',
         channelDescription: 'Notification channel for Grades',
         enableLights: true,
+        ledOnMs: 500,
+        ledOffMs: 500,
         ledColor: Colors.white,
         color: Colors.red,
         importance: Importance.high,

@@ -47,6 +47,8 @@ mixin CanNotify {
             'Horaire',
             channelDescription: 'Notification channel for schedules',
             enableLights: true,
+            ledOnMs: 500,
+            ledOffMs: 500,
             ledColor: Colors.white,
             color: Colors.red,
             importance: Importance.high,
