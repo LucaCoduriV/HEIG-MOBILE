@@ -44,7 +44,7 @@ dependencies:
             url: https://github.com/LucaCoduriV/rrule.git
             ref: main # branch name
     fl_chart: ^0.46.0
-    themed: ^3.0.2
+    themed: ^4.0.0
     flutter_dropdown_alert: ^1.0.3
     modern_drawer: ^0.0.8
     google_fonts: ^3.0.1

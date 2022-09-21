@@ -19,6 +19,8 @@ import '../../utils/asymmetric_crypt.dart';
 import '../../utils/id_generator.dart';
 
 Future<void> setupBackgroundTask() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   final connectivityResult = await Connectivity().checkConnectivity();
   if (connectivityResult == ConnectivityResult.none) {
     return;
@@ -32,6 +34,7 @@ Future<void> setupBackgroundTask() async {
       !Hive.isAdapterRegistered(NoteAdapter().typeId) &&
       !Hive.isAdapterRegistered(UserAdapter().typeId)) {
     await Hive.initFlutter();
+    await IdGenerator.initialize();
     Hive.registerAdapter(BulletinAdapter());
     Hive.registerAdapter(BrancheAdapter());
     Hive.registerAdapter(HeureDeCoursAdapter());

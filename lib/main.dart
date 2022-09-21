@@ -39,6 +39,7 @@ Future<void> setup() async {
   await initializeDateFormatting('fr_FR');
   await dotenv.load();
   await Hive.initFlutter();
+  await IdGenerator.initialize();
   Hive
     ..registerAdapter(BulletinAdapter())
     ..registerAdapter(BrancheAdapter())
@@ -46,7 +47,7 @@ Future<void> setup() async {
     ..registerAdapter(HorairesAdapter())
     ..registerAdapter(NoteAdapter())
     ..registerAdapter(UserAdapter());
-  await IdGenerator.initialize();
+
   await Hive.openBox<dynamic>(BOX_HEIG);
   await Hive.openBox<dynamic>('heig-settings');
 
