@@ -27,7 +27,6 @@ import 'services/api/api.dart';
 import 'services/auth/auth.dart';
 import 'services/auth/iauth.dart';
 import 'services/background_tasks/check_new_grades.dart';
-import 'services/notification.dart';
 import 'services/providers/bulletin_provider.dart';
 import 'services/providers/drawer_provider.dart';
 import 'services/providers/horaires_provider.dart';
@@ -35,6 +34,7 @@ import 'services/providers/user_provider.dart';
 import 'settings/theme.dart' as theme;
 import 'utils/constants.dart';
 import 'utils/navigation.dart' as navigation;
+import 'utils/notification.dart';
 
 /// Prparation de la base de données local et des singletons.
 Future<void> setup() async {

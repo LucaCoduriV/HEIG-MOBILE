@@ -18,7 +18,7 @@ import 'package:workmanager/workmanager.dart';
 
 import '../../utils/asymmetric_crypt.dart';
 import '../../utils/id_generator.dart';
-import '../notification.dart';
+import '../../utils/notification.dart';
 
 Future<void> setupBackgroundTask() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -4,7 +4,6 @@ import 'package:flutter_dropdown_alert/model/data_alert.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/services/api/iapi.dart';
 import 'package:heig_front/services/auth/iauth.dart';
-import 'package:heig_front/services/notification.dart';
 import 'package:heig_front/utils/constants.dart';
 import 'package:heig_front/utils/notification.dart';
 import 'package:hive_flutter/hive_flutter.dart';
