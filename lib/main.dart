@@ -1,8 +1,9 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:timezone/data/latest.dart' as tz;
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_dropdown_alert/dropdown_alert.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:heig_front/services/api/iapi.dart';
@@ -26,6 +27,7 @@ import 'services/api/api.dart';
 import 'services/auth/auth.dart';
 import 'services/auth/iauth.dart';
 import 'services/background_tasks/check_new_grades.dart';
+import 'services/notification.dart';
 import 'services/providers/bulletin_provider.dart';
 import 'services/providers/drawer_provider.dart';
 import 'services/providers/horaires_provider.dart';
@@ -37,6 +39,7 @@ import 'utils/navigation.dart' as navigation;
 /// Prparation de la base de données local et des singletons.
 Future<void> setup() async {
   await initializeDateFormatting('fr_FR');
+  tz.initializeTimeZones();
   await dotenv.load();
   await Hive.initFlutter();
   await IdGenerator.initialize();
@@ -63,35 +66,20 @@ Future<void> setup() async {
     ..registerSingleton<MenusProvider>(MenusProvider())
     ..registerSingleton<GlobalKey<RefreshIndicatorState>>(
         GlobalKey<RefreshIndicatorState>());
+  GetIt.I.registerSingleton<NotificationController>(NotificationController());
+  await GetIt.I.get<NotificationController>().initialize();
 
-  await AwesomeNotifications().initialize(
-    null,
-    [
-      NotificationChannel(
-        channelKey: 'todos_channel',
-        channelName: 'Todo',
-        channelDescription: 'Notification channel for todos',
-        importance: NotificationImportance.High,
-        defaultColor: Colors.red,
-        ledColor: Colors.white,
-      ),
-      NotificationChannel(
-        channelKey: 'horaires_channel',
-        channelName: 'Horaire',
-        channelDescription: 'Notification channel for schedules',
-        importance: NotificationImportance.High,
-        defaultColor: Colors.red,
-        ledColor: Colors.white,
-      ),
-    ],
-  );
-  await AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
-    if (!isAllowed) {
-      // Insert here your friendly dialog box before call the request method
-      // This is very important to not harm the user experience
-      AwesomeNotifications().requestPermissionToSendNotifications();
-    }
-  });
+  final bool canNotify =
+      await GetIt.I.get<NotificationController>().canNotifiy();
+
+  if (!canNotify) {
+    await GetIt.I
+        .get<FlutterLocalNotificationsPlugin>()
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestPermission();
+  }
+
   Workmanager().initialize(
       callbackDispatcher, // The top level function, aka callbackDispatcher
       isInDebugMode:

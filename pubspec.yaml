@@ -35,7 +35,6 @@ dependencies:
     provider: ^6.0.0 # state manager
     flutter_svg: ^1.1.1 # permet d'afficher des svg
     crypton: ^2.0.3 # permet de chiffrer et déchiffrer
-    awesome_notifications: ^0.6.21 # Gestion des notifications
     uuid: ^3.0.4
     table_calendar: ^3.0.2
     intl: ^0.17.0
@@ -59,6 +58,8 @@ dependencies:
     connectivity_plus: ^2.1.0
     workmanager: ^0.5.0
     app_settings: ^4.1.8
+    flutter_local_notifications: ^11.0.0
+    timezone: ^0.9.0
 
 dev_dependencies:
     dotenv: ^4.0.1 # .env pour les units tests

@@ -1,43 +1,63 @@
 import 'dart:developer';
 
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get_it/get_it.dart';
+import 'package:heig_front/services/notification.dart';
 import 'package:heig_front/utils/id_generator.dart';
+import 'package:timezone/timezone.dart';
 
 mixin CanNotify {
   static final IdGenerator _idGenerator = IdGenerator('notification');
   late final int _notificationId;
-  late final NotificationCalendar? _calendar;
-  late final NotificationContent _content;
+  late final TZDateTime _calendar;
+  late final String _title;
+  late final String _body;
   bool _isCanNotifyInitialized = false;
 
   bool get isCanNotifyInitialized => _isCanNotifyInitialized;
 
   @protected
   void initCanNotifyMixin(
-    NotificationCalendar? calendar,
-    NotificationContent content,
+    TZDateTime calendar,
+    String title,
+    String body,
   ) {
     _isCanNotifyInitialized = true;
     _notificationId = _idGenerator.nextId();
     _calendar = calendar;
-    _content = content;
+    _title = title;
+    _body = body;
   }
 
   void scheduleNotification() {
     assert(_isCanNotifyInitialized);
     assert(!kIsWeb);
-    log('Cours enregistré: ${_content.title} à ${_calendar!.hour}:${_calendar!.minute} le ${_calendar!.day}/${_calendar!.month}/${_calendar!.year}');
-    AwesomeNotifications().createNotification(
-      schedule: _calendar,
-      content: _content,
-    );
+    log('Cours enregistré: $_title à ${_calendar.hour}:${_calendar.minute} le ${_calendar.day}/${_calendar.month}/${_calendar.year}');
+
+    GetIt.I.get<NotificationController>().schedule(
+          _notificationId,
+          _title,
+          _body,
+          _calendar,
+          const NotificationDetails(
+              android: AndroidNotificationDetails(
+            'horaires_channel',
+            'Horaire',
+            channelDescription: 'Notification channel for schedules',
+            enableLights: true,
+            ledColor: Colors.white,
+            color: Colors.red,
+            importance: Importance.high,
+          )),
+        );
   }
 
   Future<void> cancelNotification() async {
     assert(_isCanNotifyInitialized);
     assert(!kIsWeb);
-    await AwesomeNotifications().cancelSchedule(_notificationId);
+    await GetIt.I.get<NotificationController>().cancelSchedule(_notificationId);
   }
 }
 
@@ -55,13 +75,4 @@ void cancelMultipleNotifications(Iterable<CanNotify> notifications) {
       notification.cancelNotification();
     }
   }
-}
-
-void cancelMultipleNotificationsWithChannelKey(String channelKey) {
-  AwesomeNotifications().cancelSchedulesByChannelKey(channelKey);
-}
-
-Future<void> showScheduledNotifications() async {
-  final list = await AwesomeNotifications().listScheduledNotifications();
-  log(list.toString());
 }

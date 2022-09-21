@@ -1,9 +1,10 @@
 import 'dart:io' show Platform;
 
-import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:timezone/data/latest.dart' as tz;
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get_it/get_it.dart';
 import 'package:heig_front/models/branche.dart';
 import 'package:heig_front/models/bulletin.dart';
 import 'package:heig_front/models/heure_de_cours.dart';
@@ -17,9 +18,12 @@ import 'package:workmanager/workmanager.dart';
 
 import '../../utils/asymmetric_crypt.dart';
 import '../../utils/id_generator.dart';
+import '../notification.dart';
 
 Future<void> setupBackgroundTask() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  tz.initializeTimeZones();
 
   final connectivityResult = await Connectivity().checkConnectivity();
   if (connectivityResult == ConnectivityResult.none) {
@@ -43,24 +47,15 @@ Future<void> setupBackgroundTask() async {
     Hive.registerAdapter(UserAdapter());
   }
 
-  await AwesomeNotifications().initialize(
-    null,
-    [
-      NotificationChannel(
-        channelKey: 'grade_channel',
-        channelName: 'Grade',
-        channelDescription: 'Notification channel for Grades',
-        defaultColor: Colors.red,
-        ledColor: Colors.white,
-        enableVibration: true,
-      ),
-    ],
-  );
-  await AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
-    if (!isAllowed) {
-      return;
-    }
-  });
+  GetIt.I.registerSingleton<NotificationController>(NotificationController());
+  await GetIt.I.get<NotificationController>().initialize();
+
+  final bool canNotify =
+      await GetIt.I.get<NotificationController>().canNotifiy();
+
+  if (!canNotify) {
+    return;
+  }
 }
 
 void startBackgroundTask(Duration duration) {
@@ -135,14 +130,9 @@ Future<bool> backgroundMain() async {
 
       try {
         // Notify the user of the change.
-        AwesomeNotifications().createNotification(
-          content: NotificationContent(
-            id: 10000,
-            channelKey: 'grade_channel',
-            title: 'Nouvelle(s) note(s) disponibles !',
-            body: notificationBody.join(' \n- '),
-          ),
-        );
+        await GetIt.I
+            .get<NotificationController>()
+            .notifyNewGrade(notificationBody);
       } catch (e) {
         debugPrint(e.toString());
         return Future.value(false);

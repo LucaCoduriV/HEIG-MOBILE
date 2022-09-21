@@ -1,8 +1,8 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heig_front/utils/id_generator.dart';
 import 'package:heig_front/utils/notification.dart' show CanNotify;
 import 'package:hive_flutter/adapters.dart';
+import 'package:timezone/timezone.dart';
 
 part 'heure_de_cours.g.dart';
 
@@ -36,23 +36,20 @@ class HeureDeCours with CanNotify {
         "${debut.hour.toString().padLeft(2, '0')}:${debut.minute.toString().padLeft(2, '0')}";
 
     final dateMinus20 = debut.subtract(const Duration(minutes: 20));
+    final zurich = getLocation('Europe/Zurich');
     initCanNotifyMixin(
-        NotificationCalendar(
-          day: dateMinus20.day,
-          year: dateMinus20.year,
-          month: dateMinus20.month,
-          hour: dateMinus20.hour,
-          minute: dateMinus20.minute,
-          second: dateMinus20.second,
-          allowWhileIdle: true,
-        ),
-        NotificationContent(
-          category: NotificationCategory.Reminder,
-          id: 0,
-          channelKey: 'horaires_channel',
-          title: 'Cours: $nom Classe: $salle',
-          body: dateSlug,
-        ));
+      TZDateTime(
+        zurich,
+        dateMinus20.year,
+        dateMinus20.month,
+        dateMinus20.day,
+        dateMinus20.hour,
+        dateMinus20.minute,
+        dateMinus20.second,
+      ),
+      'Cours: $nom Classe: $salle',
+      dateSlug,
+    );
   }
 
   factory HeureDeCours.fromJson(Map<String, dynamic> json) {
@@ -78,7 +75,7 @@ class HeureDeCours with CanNotify {
       DateTime(
           startYear, startMonth, startDay, startHour, startMinute, startSecond),
       DateTime(endYear, endMonth, endDay, endHour, endMinute, endSecond),
-      'Professeur inconnu' ?? '',
+      'Professeur inconnu',
       json['LOCATION'] ?? '',
       json['UID'] ?? '',
       json['RRULE'] ?? '',
