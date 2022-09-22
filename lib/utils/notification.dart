@@ -136,6 +136,10 @@ class NotificationController {
 
   Future<void> cancelAllScheduleFromChannel(String channelId) async {
     final activeNotifs = await _instance.getActiveNotifications();
+    log(activeNotifs.length.toString());
+    activeNotifs.forEach((element) {
+      log('${element.title}, ${element.body}');
+    });
     await Future.wait(activeNotifs
         .where((notif) => notif.channelId == channelId)
         .map((notif) => _instance.cancel(notif.id)));

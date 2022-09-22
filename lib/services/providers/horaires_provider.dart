@@ -31,9 +31,11 @@ class HorairesProvider extends ChangeNotifier {
   Horaires get horaires => _horaires;
 
   Future<void> cancelNotifications() async {
-    GetIt.I
-        .get<NotificationController>()
-        .cancelAllScheduleFromChannel('horaires_channel');
+    // GetIt.I
+    //     .get<NotificationController>()
+    //     .cancelAllScheduleFromChannel('horaires_channel'); TODO
+
+    GetIt.I.get<NotificationController>().cancelAllSchedule();
   }
 
   void registerNotifications() {
