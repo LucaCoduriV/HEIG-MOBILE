@@ -1,7 +1,9 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:vrouter/vrouter.dart';
 
+import '../../services/providers/settings_provider.dart';
 import '../../utils/navigation.dart';
 
 class SettingsAlertScreen extends StatelessWidget {
@@ -31,6 +33,7 @@ class SettingsAlertScreen extends StatelessWidget {
           OutlinedButton(
             style: btnStyle,
             onPressed: () {
+              GetIt.I<SettingsProvider>().showBatteryOptimizationAlert = false;
               context.vRouter.to('/${RouteName.HOME}');
               AppSettings.openBatteryOptimizationSettings();
             },
@@ -42,6 +45,7 @@ class SettingsAlertScreen extends StatelessWidget {
           OutlinedButton(
             style: btnStyle,
             onPressed: () {
+              GetIt.I<SettingsProvider>().showBatteryOptimizationAlert = false;
               context.vRouter.to('/${RouteName.HOME}');
             },
             child: const Text(
