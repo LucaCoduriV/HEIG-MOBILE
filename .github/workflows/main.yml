@@ -26,7 +26,7 @@ jobs:
         run: flutter pub get
 
       - name: Build APK
-        run: flutter build apk --release --dart-define=${{ secrets.SERVER_IP_PROD }} --dart-define=${{ secrets.PORT_PROD }}
+        run: flutter build apk --release --dart-define=SERVER_IP_PROD=${{ secrets.SERVER_IP_PROD }} --dart-define=PORT_PROD=${{ secrets.PORT_PROD }}
           
       - name: Create Github Release
         uses: softprops/action-gh-release@v1
