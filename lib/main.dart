@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
@@ -40,7 +42,7 @@ import 'utils/notification.dart';
 Future<void> setup() async {
   await initializeDateFormatting('fr_FR');
   tz.initializeTimeZones();
-  await dotenv.load();
+  await dotenv.load(mergeWith: Platform.environment);
   await Hive.initFlutter();
   await IdGenerator.initialize();
   Hive
