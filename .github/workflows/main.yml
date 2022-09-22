@@ -31,7 +31,7 @@ jobs:
           KEY_JKS: ${{ secrets.KEY_JKS }}
           KEY_PASSWORD: ${{ secrets.ALIAS_PASSWORD }}
           ALIAS_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-          run: echo $KEY_JKS > key.jks && echo $key_PROP > ./android/key.properties && flutter pub get && flutter build apk --release --dart-define=SERVER_IP_PROD=${{ secrets.SERVER_IP_PROD }} --dart-define=PORT_PROD=${{ secrets.PORT_PROD }}
+          run: echo $KEY_JKS > upload-keystore.jks && echo $key_PROP > ./android/key.properties && flutter pub get && flutter build apk --release --dart-define=SERVER_IP_PROD=${{ secrets.SERVER_IP_PROD }} --dart-define=PORT_PROD=${{ secrets.PORT_PROD }}
       
       - name: Create Github Release
         uses: softprops/action-gh-release@v1
