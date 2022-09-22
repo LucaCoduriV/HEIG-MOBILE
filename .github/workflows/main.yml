@@ -26,8 +26,13 @@ jobs:
         run: flutter pub get
 
       - name: Build APK
-        run: flutter build apk --release --dart-define=SERVER_IP_PROD=${{ secrets.SERVER_IP_PROD }} --dart-define=PORT_PROD=${{ secrets.PORT_PROD }}
-          
+        env:
+          KEY_PROP: ${{ secrets.KEY_PROP }}
+          KEY_JKS: ${{ secrets.KEY_JKS }}
+          KEY_PASSWORD: ${{ secrets.ALIAS_PASSWORD }}
+          ALIAS_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          run: echo $KEY_JKS > key.jks && echo $key_PROP > key.properties && flutter pub get && flutter build apk --release --dart-define=SERVER_IP_PROD=${{ secrets.SERVER_IP_PROD }} --dart-define=PORT_PROD=${{ secrets.PORT_PROD }}
+      
       - name: Create Github Release
         uses: softprops/action-gh-release@v1
         env:
