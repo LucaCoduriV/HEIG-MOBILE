@@ -30,7 +30,7 @@ jobs:
                   STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
                   KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
                   KEY_JKS: ${{ secrets.KEY_JKS }}
-              run: echo $KEY_JKS > android/upload-keystore.jks && cat android/upload-keystore.jks && flutter pub get && flutter build apk --release --dart-define=SERVER_IP_PROD=${{ secrets.SERVER_IP_PROD }} --dart-define=PORT_PROD=${{ secrets.PORT_PROD }}
+              run: base64 --decode "$KEY_JKS" > android/upload-keystore.jks && flutter pub get && flutter build apk --release --dart-define=SERVER_IP_PROD=${{ secrets.SERVER_IP_PROD }} --dart-define=PORT_PROD=${{ secrets.PORT_PROD }}
 
             - name: Create Github Release
               uses: softprops/action-gh-release@v1
