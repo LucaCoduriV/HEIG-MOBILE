@@ -1,5 +1,3 @@
-import 'package:get_it/get_it.dart';
-import 'package:heig_front/utils/id_generator.dart';
 import 'package:heig_front/utils/notification.dart' show CanNotify;
 import 'package:hive_flutter/adapters.dart';
 import 'package:timezone/timezone.dart';

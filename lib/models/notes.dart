@@ -35,6 +35,6 @@ class Note {
   }
 
   @override
-  int get hashCode => hashValues(
+  int get hashCode => Object.hash(
       nom.hashCode, note.hashCode, moyenneClasse.hashCode, coef.hashCode);
 }

@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:timezone/data/latest.dart' as tz;
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -15,6 +14,7 @@ import 'package:heig_front/utils/id_generator.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
+import 'package:timezone/data/latest.dart' as tz;
 import 'package:vrouter/vrouter.dart';
 import 'package:workmanager/workmanager.dart';
 
@@ -84,8 +84,8 @@ Future<void> setup() async {
 
   Workmanager().initialize(
       callbackDispatcher, // The top level function, aka callbackDispatcher
-      isInDebugMode:
-          true // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
+      isInDebugMode: !foundation
+          .kReleaseMode // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
       );
   Workmanager().registerPeriodicTask(
     'newGradeChecker',

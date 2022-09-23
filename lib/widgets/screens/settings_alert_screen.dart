@@ -13,7 +13,7 @@ class SettingsAlertScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final btnStyle = OutlinedButton.styleFrom(
       minimumSize: const Size(100, 40),
-      primary: Colors.teal,
+      foregroundColor: Colors.teal,
       side: const BorderSide(
         color: Color(0xffda291c),
       ),

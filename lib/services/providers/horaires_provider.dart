@@ -16,7 +16,7 @@ class HorairesProvider extends ChangeNotifier {
   late Horaires _horaires;
   final _box = Hive.box(BOX_HEIG);
   final _api = GetIt.I.get<IAPI>();
-  static final int NB_SCHEDULED_NOTIFICATION = 64;
+  static const int NB_SCHEDULED_NOTIFICATION = 64;
 
   HorairesProvider() {
     final Horaires hiveHoraires = _box.get('horaires',

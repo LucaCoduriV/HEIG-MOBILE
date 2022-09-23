@@ -1,6 +1,5 @@
 import 'dart:io' show Platform;
 
-import 'package:timezone/data/latest.dart' as tz;
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -14,6 +13,7 @@ import 'package:heig_front/models/user.dart';
 import 'package:heig_front/services/api/api.dart';
 import 'package:heig_front/utils/constants.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:timezone/data/latest.dart' as tz;
 import 'package:workmanager/workmanager.dart';
 
 import '../../utils/asymmetric_crypt.dart';

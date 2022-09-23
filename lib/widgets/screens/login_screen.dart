@@ -90,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       minimumSize: const Size(100, 40),
-                      primary: Colors.teal,
+                      foregroundColor: Colors.teal,
                       side: const BorderSide(
                         color: Color(0xffda291c),
                       ),
