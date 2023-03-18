@@ -1,16 +1,17 @@
-# heig_front
+# HEIG Application mobile non officiel
 
-A new Flutter project.
+Cette application fonctionne avec l'HEIG-API pour récuperer les informations de gaps.
 
-## Getting Started
+Elle permet de voir son horaires, d'être notifier 20 minutes avant un cours, de voir ses notes et de voir le menu de la cantine.
 
-This project is a starting point for a Flutter application.
+Voici à quoi elle ressemble:
 
-A few resources to get you started if this is your first Flutter project:
+<img src=".github/Screenshot_20230318-124228_HEIG_Companion.png" height="400">
+<img src=".github/Screenshot_20230318-124014_HEIG_Companion.png" height="400">
+<img src=".github/Screenshot_20230318-124030_HEIG_Companion.png" height="400">
+<img src=".github/Screenshot_20230318-124106_HEIG_Companion.png" height="400">
+<img src=".github/Screenshot_20230318-124210_HEIG_Companion.png" height="400">
+<img src=".github/Screenshot_20230318-124124_HEIG_Companion.png" height="400">
+<img src=".github/Screenshot_20230318-124134_HEIG_Companion.png" height="400">
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# ATTENTION LE LOGO NE M'APPARTIENT PAS !
